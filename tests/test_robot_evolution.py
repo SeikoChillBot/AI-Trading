@@ -75,10 +75,10 @@ class RobotEvolutionTests(unittest.TestCase):
         record=robot_shadow.start(candidate,100)
         self.assertEqual(record["observations"],0)
         self.assertEqual(record["candidate"]["cash"],20)
-        record=robot_shadow.process_one(record,200,100,lambda scale,held:"BUY",.009)
+        record=robot_shadow.process_one(record,200,100,lambda label,scale,held:"BUY",.009)
         self.assertEqual(record["observations"],1)
         self.assertEqual(record["candidate"]["net_return_pct"],0)
-        record=robot_shadow.process_one(record,300,101,lambda scale,held:"WAIT",.009)
+        record=robot_shadow.process_one(record,300,101,lambda label,scale,held:"WAIT",.009)
         self.assertLess(record["candidate"]["net_return_pct"],1)
         self.assertFalse(robot_shadow.summarize(NOW,candidate,record)["ready_for_real_orders"])
 
