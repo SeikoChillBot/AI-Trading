@@ -16,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
 CRYPTO_PATH = REPORTS / "realistic_metrics.json"
 MULTI_PATH = REPORTS / "multi_asset_micro_metrics.json"
+CONTEXT_PATH = REPORTS / "market_context.json"
+WHALE_PATH = REPORTS / "whale_observations.json"
 OUTPUT_JSON = REPORTS / "autonomous_research.json"
 OUTPUT_MD = REPORTS / "autonomous_research.md"
 HISTORY = REPORTS / "autonomous_research_history.jsonl"
@@ -152,7 +154,36 @@ def hypotheses(labs: dict) -> list[dict]:
     return result
 
 
-def build_report(crypto: dict | None, multi: dict | None, now: datetime) -> dict:
+def describe_context(context, whales, now):
+    """Research inputs are observational context, not causal trading signals."""
+    snapshot={"generated_at":now.isoformat(),"signals_generated":0,
+              "trade_actions":0,"sentiment":None,"chain_tvl":None,
+              "stablecoins":None,"whales":{"state":"unavailable",
+              "observed_transfer_events":0,"verified_buys":0},
+              "source_quality":{}}
+    if isinstance(context,dict) and context.get("model")=="market_context_observation_v1":
+        try:
+            age=(now-datetime.fromisoformat(context["generated_at"])).total_seconds()
+            fresh=-120<=age<=2*86400
+        except (KeyError,TypeError,ValueError):
+            fresh=False
+        for key in ("sentiment","chain_tvl","stablecoins"):
+            value=context.get("observations",{}).get(key)
+            if fresh and isinstance(value,dict):
+                snapshot[key]=value
+                snapshot["source_quality"][key]="observed_within_48_hours"
+            else:
+                snapshot["source_quality"][key]="unavailable_or_stale"
+    if isinstance(whales,dict) and whales.get("schema")==1:
+        new=whales.get("new_transfer_events",[])
+        snapshot["whales"]={"state":whales.get("state","unknown"),
+                            "wallets_configured":whales.get("wallets_configured",0),
+                            "observed_transfer_events":len(new) if isinstance(new,list) else 0,
+                            "verified_buys":0}
+    return snapshot
+
+
+def build_report(crypto: dict | None, multi: dict | None, now: datetime, context=None, whales=None) -> dict:
     labs = {"crypto": inspect_lab("crypto", crypto),
             "multi": inspect_lab("multi", multi)}
     ready = sum(x["eligible"] for x in labs.values())
@@ -177,6 +208,7 @@ def build_report(crypto: dict | None, multi: dict | None, now: datetime) -> dict
             "warning": "Une revue statistique ne prouve pas une rentabilité future.",
         },
         "labs": labs,
+        "market_intelligence": describe_context(context, whales, now),
         "hypotheses": hypotheses(labs),
         "safety_guards": blocked,
     }
@@ -253,7 +285,7 @@ def write_once_per_day(report: dict) -> None:
 
 def main() -> None:
     now = datetime.now(timezone.utc)
-    report = build_report(read_json(CRYPTO_PATH), read_json(MULTI_PATH), now)
+    report = build_report(read_json(CRYPTO_PATH), read_json(MULTI_PATH), now, read_json(CONTEXT_PATH), read_json(WHALE_PATH))
     REPORTS.mkdir(exist_ok=True, parents=True)
     OUTPUT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     OUTPUT_MD.write_text(as_markdown(report), encoding="utf-8")
