@@ -109,7 +109,7 @@ class EvidenceTests(unittest.TestCase):
         with patch.object(ai.requests, "post", fake_post):
             result = ai.run_gemini("mock_only", {}, historical)
         self.assertEqual(result["experiments"], [])
-        self.assertIn("gemini-2.5-flash-lite", captured[0][0])
+        self.assertIn("gemini-3.5-flash-lite", captured[0][0])
         self.assertEqual(captured[0][1]["json"]["generationConfig"]["responseMimeType"], "application/json")
         self.assertNotIn("tools", captured[0][1]["json"])
         self.assertEqual(captured[0][1]["headers"]["x-goog-api-key"], "mock_only")
