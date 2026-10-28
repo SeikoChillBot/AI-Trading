@@ -51,3 +51,12 @@ function detailSheet(r){
  $('sheet-coin').className='coin-icon is-market';
  set('sheet-coin',crypto?({BTC:'₿',ETH:'Ξ',SOL:'◎'}[r.asset.slice(0,3)]||'◈'):r.asset.slice(0,2));
  set('sheet-description',(r.strategy.endsWith('_hold')?'Conservation longue durée.':'Stratégie de tendance.')+(crypto?' Carnet Kraken simulé.':' Cotations publiques indicatives, coûts estimés ; dividendes non modélisés.'));
+ const mates=crypto?L.cr:L.mr;
+ const hold=mates.find(x=>x.asset===r.asset&&x.strategy.endsWith('_hold'));
+ set('sheet-benchmark',hold?L.pct(n(r.return_pct)-n(hold.return_pct)):'—');
+ set('sheet-benchmark-note','Écart indicatif avec conservation du même actif. Profils de risque différents.');
+ const initial=r.initial,series=[initial];
+ const source=(crypto?L.D.history:L.m.history)||[];
+ source.forEach(item=>{if(item.strategy===r.strategy&&Number.isFinite(Number(item.capital_usd)))series.push(Number(item.capital_usd))});
+ const max=Math.max(...series),min=Math.min(...series),peak=series.reduce((a,v)=>Math.max(a,v),initial);
+ set('sheet-drawdown',L.pct(peak?100*(min/peak-1):0));
