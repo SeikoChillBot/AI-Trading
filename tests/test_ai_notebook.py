@@ -36,7 +36,7 @@ class DeskTests(unittest.TestCase):
         bars=[{"t":seed-i*86400,"close":100} for i in range(25)]
         bars=sorted(bars,key=lambda x:x["t"])
         pulse={"generated_at":NOW.isoformat(),"assets":{"BTCUSD":{"change_7d_pct":-2}}}
-        ideas={"source":"gemini_generate_content",
+        ideas={"source":"gemini_generate_content","state":"model_reflection_completed",
             "scenario_proposals":[{"asset":"BTCUSD","trigger":"market_selloff",
                 "horizon_days":1,"rationale":"Comparer l'entrée fictive à un témoin cash."}]}
         report,state=scenario_lab.evolve(NOW,ideas,pulse,{"BTCUSD":bars},{})
@@ -51,6 +51,30 @@ class DeskTests(unittest.TestCase):
         later=NOW+timedelta(days=1)
         p2,_=scenario_lab.evolve(later,{},pulse,{"BTCUSD":future},state)
         self.assertEqual(p2["trials"][0]["status"],"in_paper_position")
+
+    def test_zero_touch_research_when_gemini_has_no_new_proposal(self):
+        seed=int(NOW.timestamp())-2*86400
+        bars=[{"t":seed-i*86400,"close":100} for i in range(40)]
+        bars=sorted(bars,key=lambda x:x["t"])
+        pulse={"generated_at":NOW.isoformat(),"assets":{
+            "BTCUSD":{"change_7d_pct":-2.5,"realized_volatility_30d_annualized_pct":25},
+            "ETHUSD":{"change_7d_pct":3,"realized_volatility_30d_annualized_pct":30},
+            "SOLUSD":{"change_7d_pct":-8,"realized_volatility_30d_annualized_pct":45}}}
+        initial, state=scenario_lab.evolve(NOW,{},pulse,
+            {"BTCUSD":bars,"ETHUSD":bars,"SOLUSD":bars},{})
+        self.assertEqual(len(initial["trials"]),2)
+        self.assertTrue(initial["no_user_approval_required"])
+        self.assertTrue(initial["model_decisions_executed_automatically"])
+        self.assertEqual(initial["active"],2)
+        self.assertTrue(all(t["actor"]=="quantitative_auto_fallback"
+                            for t in initial["trials"]))
+        self.assertTrue(all(t["status"]=="waiting_next_closed_day"
+                            for t in initial["trials"]))
+        self.assertTrue(all(t["estimated_net_pct"]==0
+                            for t in initial["trials"]))
+        repeated, _=scenario_lab.evolve(NOW,{},pulse,
+            {"BTCUSD":bars,"ETHUSD":bars,"SOLUSD":bars},state)
+        self.assertEqual(len(repeated["trials"]),2)
 
     def test_news_host_and_date_validation(self):
         xml=b'<rss><channel><item><title>Inflation update</title><link>https://www.federalreserve.gov/newsevents/x.htm</link><pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate></item></channel></rss>'
