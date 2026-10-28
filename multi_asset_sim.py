@@ -10,6 +10,7 @@ import json
 import math
 import time
 from datetime import datetime, timezone, timedelta
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from decimal import Decimal, ROUND_DOWN
 from pathlib import Path
 from urllib.parse import quote
@@ -89,7 +90,7 @@ def fetch_yahoo(symbol, now):
                 "https://"+host+"/v8/finance/chart/"+quote(symbol,safe=""),
                 params={"interval":"1d","range":"3mo","events":"div,splits"},
                 headers={"User-Agent":USER_AGENT,"Accept":"application/json"},
-                timeout=12)
+                timeout=7)
             response.raise_for_status()
             result=(response.json().get("chart") or {}).get("result") or []
             if len(result)!=1:
@@ -146,7 +147,7 @@ def fetch_ecb(now):
     response=requests.get(
         "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A",
         params={"format":"csvdata","lastNObservations":"95"},
-        headers={"Accept":"text/csv","User-Agent":USER_AGENT},timeout=14)
+        headers={"Accept":"text/csv","User-Agent":USER_AGENT},timeout=9)
     response.raise_for_status()
     reader=csv.DictReader(response.text.splitlines())
     if not reader.fieldnames or "TIME_PERIOD" not in reader.fieldnames or "OBS_VALUE" not in reader.fieldnames:
@@ -180,15 +181,22 @@ def fetch_sources(now):
     cached,old_errors,reused=cached_market_quotes(now)
     if reused:return cached,old_errors
     data={};errors={}
-    for symbol,*_ in SPECS:
-        try:
-            data[symbol]=fetch_ecb(now) if symbol=="EURUSD" else fetch_yahoo(symbol,now)
-        except (ValueError,requests.RequestException,KeyError) as exc:
-            errors[symbol]=str(exc)[:300]
-            # A historic quote may be used for a clearly stale valuation, NEVER orders.
-            if cached and symbol in cached:
-                old=dict(cached[symbol]);old["eligible"]=False
-                data[symbol]=old
+    # Prevent nine sequential HTTP timeouts from delaying crypto workflow runs.
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        pending={executor.submit(fetch_ecb if symbol=="EURUSD" else fetch_yahoo,
+                                 now if symbol=="EURUSD" else symbol,
+                                 **({} if symbol=="EURUSD" else {"now":now})):symbol
+                 for symbol,*_ in SPECS}
+        for future in as_completed(pending):
+            symbol=pending[future]
+            try:
+                data[symbol]=future.result()
+            except (ValueError,requests.RequestException,KeyError) as exc:
+                errors[symbol]=str(exc)[:300]
+                # A stale previously verified reference is never an executable order.
+                if cached and symbol in cached:
+                    old=dict(cached[symbol]);old["eligible"]=False
+                    data[symbol]=old
     CACHE.parent.mkdir(parents=True,exist_ok=True)
     CACHE.write_text(json.dumps({"checked_at":now.isoformat(),"quotes":data,"errors":errors},
                                 ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
