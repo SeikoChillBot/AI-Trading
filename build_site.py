@@ -107,6 +107,27 @@ if research_file.exists():
             "ai_status": json.loads(research_status.read_text()) if research_status.exists() else {},
             "auto_changes": False
         }
+walk_path = Path("reports/challenger_walkforward.json")
+data["challenger_optimization"] = {"ready": False}
+if walk_path.exists():
+    record = json.loads(walk_path.read_text(encoding="utf-8"))
+    if record.get("schema") == 1 and record.get("model") == "kraken_daily_walkforward_v1":
+        data["challenger_optimization"] = {
+            "ready": True, "generated_at": record.get("generated_at"),
+            "historical_only": True, "orders_real": False,
+            "instruments": [
+                {"asset": asset, "bars": info.get("bars", 0),
+                 "folds": info.get("fold_count", 0),
+                 "oos_return": info.get("average_oos_return_pct"),
+                 "oos_excess": info.get("average_oos_excess_vs_hold_points"),
+                 "stress_return": info.get("average_oos_return_double_cost_pct"),
+                 "worst_drawdown": info.get("max_oos_drawdown_pct"),
+                 "parameters": info.get("candidate_parameters", {}),
+                 "status": info.get("status", "research_only")}
+                for asset, info in record.get("instruments", {}).items()
+            ],
+            "errors": record.get("issues", {})
+        }
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
