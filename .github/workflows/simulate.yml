@@ -37,9 +37,14 @@ jobs:
         continue-on-error: true
       - name: Validate and run independent multi-market paper simulator
         run: |
-          python -m unittest discover -s tests -p 'test_multi_asset*.py' -v
-          python multi_asset_sim.py
-          python analyze_multi_asset.py
+          mkdir -p reports
+          set -e -o pipefail
+          {
+            python -m py_compile multi_asset_sim.py analyze_multi_asset.py
+            python -m unittest discover -s tests -p 'test_multi_asset*.py' -v
+            python multi_asset_sim.py
+            python analyze_multi_asset.py
+          } 2>&1 | tee reports/multi_asset_diagnostic.log
         continue-on-error: true
       - run: python dashboard.py
       - run: python build_site.py
