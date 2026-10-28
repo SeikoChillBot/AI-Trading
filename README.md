@@ -1,6 +1,6 @@
 # Seiko Trading Lab — laboratoire de trading fictif
 
-**14 robots expérimentaux**, chacun doté de 20 USD fictifs au démarrage. Aucune transaction réelle, aucune clé API privée, aucune garantie de rendement.
+**18 robots expérimentaux**, chacun doté de 20 USD fictifs au démarrage. Aucune transaction réelle, aucune clé API privée, aucune garantie de rendement.
 
 **[Ouvrir le tableau de bord](https://seikochillbot.github.io/AI-Trading/)** · [Résultats bruts](reports/latest.csv) · [Historique](reports/history.csv) · [Plan V2](V2_PLAN.md)
 
@@ -22,8 +22,12 @@ Chaque nom commence par la crypto suivie de sa stratégie : `btc_` = Bitcoin, `e
 | btc_breakout | Cassure BTC | Prix dépasse les 20 clôtures précédentes | Prix sous les 10 clôtures précédentes |
 | btc_rsi | RSI BTC | RSI 14 sous 35 (survente) | RSI 14 au-dessus de 60 |
 | eth_ema_cross | EMA ETH | EMA 9 > EMA 21 de 0,1 % | EMA 9 < EMA 21 |
-| sol_bollinger | Bollinger SOL | Prix sous moyenne 20 moins 2 écarts-types | Prix au-dessus de la moyenne |
+| sol_bollinger, btc_scalp_momentum, eth_scalp_trailing, sol_scalp_microtrend, btc_scalp_conservative | Bollinger SOL | Prix sous moyenne 20 moins 2 écarts-types | Prix au-dessus de la moyenne |
 | btc_volatility | Cassure volatile BTC | Nouveau sommet 20 bougies et amplitude récente > 1 % | Prix sous moyenne 20 |
+| btc_scalp_momentum | Scalping momentum BTC | Hausse courte > 0,4 % et tendance positive | Recul de 0,4 % depuis le sommet suivi |
+| eth_scalp_trailing | Scalping trailing ETH | Hausse courte > 0,5 % et tendance positive | Recul de 0,6 % depuis le sommet suivi |
+| sol_scalp_microtrend | Scalping microtendance SOL | Trois clôtures haussières et prix > moyenne | Recul de 0,5 % depuis sommet ou perte de tendance |
+| btc_scalp_conservative | Scalping sélectif BTC | Hausse courte > 0,8 % et tendance positive | Recul de 0,8 % depuis le sommet suivi |
 
 ### Petit lexique
 
@@ -60,7 +64,7 @@ Le champ `timeframe_min` dans `reports/latest.csv` indique la durée de chaque r
 
 GitHub Actions est programmé pour tenter une exécution toutes les 5 minutes environ (sans garantie de déclenchement ponctuel). Le bot récupère des bougies Kraken BTC/USD, ETH/USD et SOL/USD, et sauvegarde les résultats dans `state/portfolios.json` et `reports/`. Les noms internes `BTCUSDT` etc. sont hérités d'une ancienne version : les prix utilisés sont **USD**, pas USDT ni EUR.
 
-La simulation utilise le prix de clôture de la bougie déclenchant le signal pour simuler son exécution, ce qui est optimiste. Elle ne prend pas en compte le spread, le slippage, la liquidité, les tailles minimales réelles ni la fiscalité. Le classement ne doit pas servir de base à un investissement réel. Les 4 nouveaux robots commencent leur historique lors de leur première exécution ; comparer leur performance depuis le lancement initial de la V1 exige de tenir compte des dates de départ différentes.
+La simulation utilise le prix de clôture de la bougie déclenchant le signal pour simuler son exécution, ce qui est optimiste. Elle ne prend pas en compte le spread, le slippage, la liquidité, les tailles minimales réelles ni la fiscalité. Le classement ne doit pas servir de base à un investissement réel. Les nouveaux robots commencent leur historique lors de leur première exécution ; comparer leur performance depuis le lancement initial de la V1 exige de tenir compte des dates de départ différentes.
 
 ## Publication du site
 
@@ -69,3 +73,7 @@ GitHub Pages : **Deploy from a branch → main → /docs**. Le workflow copie le
 ## Prochaines améliorations
 
 Journal des transactions, suivi du risque et des pertes maximales, backtesting, simulation d'exécution sur la bougie suivante, comparaison hors échantillon et V2 indépendante. Voir [V2_PLAN.md](V2_PLAN.md).
+
+## Limites spécifiques au scalping
+
+Les quatre scalpers utilisent uniquement les clôtures de bougies de 5 minutes, pas des cotations à la seconde. Les trailing stops ne sont donc pas des ordres natifs garantis : ils sont évalués au passage du workflow et peuvent réagir en retard. Les prix de clôture des signaux sont utilisés comme prix d'exécution fictifs, ce qui est optimiste. Les 18 robots restent en simulation, sans connexion à un compte de trading.
