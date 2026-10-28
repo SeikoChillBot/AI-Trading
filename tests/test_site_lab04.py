@@ -51,6 +51,23 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("textContent",reviewer)
   self.assertTrue((ROOT/"site/lab04-research.js").exists())
 
+ def test_dedicated_gemini_desk_and_news_source_links(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  app=(ROOT/"site/app.js").read_text(encoding="utf8")
+  builder=(ROOT/"build_site.py").read_text(encoding="utf8")
+  script=(ROOT/"site/lab04-desk.js").read_text(encoding="utf8")
+  self.assertIn('data-view="desk"',html)
+  self.assertIn('id="view-desk"',html)
+  self.assertIn('id="desk-patchnotes"',html)
+  self.assertIn('id="desk-news"',html)
+  self.assertIn('id="desk-placements"',html)
+  self.assertIn('lab04-desk.js?v=4.6',html)
+  self.assertIn("'analysis','explore','desk'",app)
+  self.assertIn('data["gemini_desk"]',builder)
+  self.assertIn("textContent",script)
+  self.assertIn("federalreserve.gov",script)
+  self.assertNotIn("innerHTML",script)
+
  def test_workflow_publishes_versions(self):
   workflow=(ROOT/".github/workflows/simulate.yml").read_text(encoding="utf8")
   self.assertIn("cp site/lab04-*.js docs/",workflow)
