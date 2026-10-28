@@ -1,0 +1,37 @@
+/* Seiko Lab / 04 — unified robot directory */
+.robot-lab-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:#141f2b;border:1px solid #344757;padding:5px;border-radius:14px;margin:0 0 15px}
+.robot-lab-switch button{border:0;background:none;color:#a2b3c0;border-radius:10px;padding:11px 7px;min-height:45px;font-weight:750;font-size:12px;display:flex;align-items:center;justify-content:center;gap:6px}
+.robot-lab-switch button small{color:#b8c6ca;font-size:10px;background:#2a3a47;border-radius:6px;padding:2px 5px}
+.robot-lab-switch button.is-active{background:#345340;color:var(--lime)}
+.robot-lab-switch button.is-active small{background:#b9f47720;color:var(--lime)}
+.robot-page-intro{display:flex;gap:5px 17px;align-items:baseline;flex-wrap:wrap;margin-bottom:19px}
+.robot-page-intro p{color:var(--muted);font-size:11px;line-height:1.65;margin:0}
+.robot-page-intro strong{color:#c8d9da}
+.robot-row .lab-identifier{font-size:10px;font-weight:750;color:#97bba4;display:block;margin-top:4px}
+.robot-row .quality-tag{font-size:10px;color:#a5b6c2;display:block;margin-top:4px}
+.robot-row .coin-icon.is-market{font-size:12px;font-weight:850;color:var(--lime);background:#274032}
+.cross-analysis{background:radial-gradient(ellipse at right top,#28443540,transparent 43%),#14222d;border:1px solid #3b5544;border-radius:19px;padding:23px;margin-bottom:27px}
+.cross-analysis-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.cross-analysis-heading h2{font-size:clamp(24px,3.6vw,32px);line-height:1.12;letter-spacing:-.045em;margin:9px 0}
+.cross-analysis-heading p{font-size:12px;line-height:1.65;color:var(--muted);max-width:650px;margin:0}
+.cross-analysis-pill{white-space:nowrap;font-size:10px;font-weight:750;padding:8px 9px;border-radius:8px;border:1px solid #66583b;background:#342c22;color:#e7d2a3}
+.cross-scorecard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:20px 0 14px}
+.cross-score{min-width:0;border:1px solid #38514b;border-radius:14px;background:#1a2934;padding:17px}
+.cross-score-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cross-score-top strong{font-size:14px}
+.cross-score-top small{font-size:10px;color:#acc3c3}
+.cross-score-money{display:block;font-weight:850;font-size:clamp(21px,2.9vw,30px);letter-spacing:-.045em;overflow-wrap:anywhere;margin:12px 0 8px}
+.cross-score-meta{display:flex;justify-content:space-between;gap:9px;color:#a3b5bf;font-size:10px}
+.cross-score-meta em{font-style:normal;font-weight:800}
+.cross-chart-wrap{background:#111e29;border:1px solid #304958;border-radius:12px;padding:17px 15px;margin:12px 0}
+.cross-chart-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:7px}
+.cross-chart-head strong{font-size:12px}
+.cross-chart-head small{font-size:10px;color:var(--muted)}
+.cross-chart{height:176px;margin-top:10px}
+.cross-risk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+.cross-risk-grid>div{background:#172630;border:1px solid #354b4e;border-radius:10px;padding:12px}
+.cross-risk-grid small{font-size:10px;line-height:1.5;color:#a1b7bf;display:block}
+.cross-risk-grid strong{font-size:17px;display:block;margin-top:5px}
+.cross-method{font-size:10px;line-height:1.75;color:#aabcc2;margin:14px 0 0}
+@media(max-width:750px){.cross-analysis-heading{flex-direction:column}.cross-risk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:530px){.robot-lab-switch button{gap:4px;font-size:11px;padding:9px 4px}.robot-lab-switch button small{font-size:9px}.cross-analysis{padding:17px 12px}.cross-scorecard{gap:8px}.cross-score{padding:12px}.cross-score-top{flex-direction:column;align-items:flex-start}.cross-score-money{font-size:22px}.cross-risk-grid>div{padding:10px}}
