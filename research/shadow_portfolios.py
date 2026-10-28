@@ -84,4 +84,5 @@ def step(row,bars,now,book,limits):
                              cash_delta=trade["net"])
             events.append(event)
         row["last_closed_day"]=last
+    row['last_equity']=estimated_liquidation(row,book)
     return events
