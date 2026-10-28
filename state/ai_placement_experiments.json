@@ -1,4 +1,45 @@
 {
   "schema": 1,
-  "trials": []
+  "trials": [
+    {
+      "id": "43d60aa4af77f7e",
+      "asset": "SOLUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 3,
+      "created_at": "2026-10-28T23:19:22.738852+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1793059200,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Experience automatique de regime sur 3 jours apres mouvement 7j -4.89%, sans hypothese de profit.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
+    },
+    {
+      "id": "46df4c2daab14d1",
+      "asset": "ETHUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 3,
+      "created_at": "2026-10-28T23:19:22.738852+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1793059200,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Experience automatique de regime sur 3 jours apres mouvement 7j -4.06%, sans hypothese de profit.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
+    }
+  ]
 }
