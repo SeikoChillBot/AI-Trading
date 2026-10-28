@@ -1,28 +1,28 @@
 # Tableau de bord — AI Trading
 
-Actualisé : **28/10/2026 à 16:13 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
+Actualisé : **28/10/2026 à 16:24 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
 
 > Simulation uniquement, aucun argent réel. Les frais de marché sont simplifiés et les résultats ne sont pas des prévisions.
 
 | Robot | Capital | Gain / perte | Évolution | Opérations |
 |---|---:|---:|---|---:|
-| btc_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| eth_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| sol_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| btc_reversion | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| btc_breakout | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| eth_ema_cross | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| btc_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| eth_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| sol_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| btc_reversion | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| btc_breakout | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| eth_ema_cross | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
 | btc_volatility | 20.00 $ | +0.00 % | ▄▄▄▄▄ | 0 |
-| btc_scalp_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| eth_scalp_trailing | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| sol_scalp_microtrend | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| btc_scalp_conservative | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
-| eth_reversion | 19.93 $ | -0.36 % | █████▆▅▆▄▁▁▁▂ | 1 |
-| btc_rsi | 19.91 $ | -0.46 % | █▇▄▄▄▃▅▁▄▄▃▂▂▃▃▃ | 1 |
+| btc_scalp_momentum | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| eth_scalp_trailing | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| sol_scalp_microtrend | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| btc_scalp_conservative | 20.00 $ | +0.00 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 0 |
+| eth_reversion | 19.96 $ | -0.20 % | █████▆▅▆▄▁▁▁▂▅ | 1 |
+| btc_rsi | 19.93 $ | -0.37 % | █▇▄▄▄▃▅▁▄▄▃▂▂▃▃▃▄ | 1 |
+| sol_reversion | 19.92 $ | -0.41 % | ▇▇▇▆▇▆▅█▃▄▃▂▁▁▃▃▃▄ | 1 |
 | btc_hold | 19.90 $ | -0.49 % | ▄█▄█▂▁ | 1 |
-| sol_reversion | 19.89 $ | -0.56 % | ▇▇▇▆▇▆▅█▃▄▃▂▁▁▃▃▃ | 1 |
 | eth_hold | 19.81 $ | -0.94 % | ▅█▄█▁▁ | 1 |
-| sol_bollinger | 19.78 $ | -1.10 % | █▇▅▅▄▄▆▂▃▂▂▁▁▃▂▂ | 2 |
+| sol_bollinger | 19.78 $ | -1.10 % | █▇▅▅▄▄▆▂▃▂▂▁▁▃▂▂▂ | 2 |
 | sol_hold | 19.76 $ | -1.21 % | ▅█▄█▁▁ | 1 |
 
 ## Comprendre les résultats
