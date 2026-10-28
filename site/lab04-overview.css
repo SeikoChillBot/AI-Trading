@@ -1,0 +1,29 @@
+/* Seiko Lab / 04 — desktop and mobile portfolio overview */
+.release-tag{font-size:9px;letter-spacing:.12em;font-weight:850;color:#aec4ba;border:1px solid #435b49;background:#1b2d28;padding:6px 9px;border-radius:7px;margin-left:auto;margin-right:10px;white-space:nowrap}
+.lab-overview{border:1px solid #365645;border-radius:21px;background:radial-gradient(ellipse at 88% -24%,#2d574065,transparent 50%),linear-gradient(140deg,#1b2b2c,#101c29 73%);padding:27px;margin:0 0 15px}
+.lab-overview-top{display:flex;align-items:flex-start;justify-content:space-between;gap:13px}
+.lab-overview-top h2{font-size:clamp(27px,4.5vw,40px);line-height:1.12;letter-spacing:-.055em;margin:11px 0 0}
+.lab-overview-top h2 span{color:var(--lime)}
+.lab-overview-counter{display:flex;align-items:center;gap:10px;border:1px solid #526e54;padding:10px 13px;border-radius:12px;background:#20382a99}
+.lab-overview-counter strong{font-size:29px;color:var(--lime);line-height:1}
+.lab-overview-counter small{font-size:10px;color:#c0d8c1;line-height:1.4}
+.lab-overview>p{font-size:12px;line-height:1.6;color:#a9c0b7;max-width:670px;margin:17px 0 22px}
+.lab-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.lab-tile{display:flex;flex-direction:column;gap:12px;min-width:0;text-align:left;border:1px solid #354f52;border-radius:15px;background:#13232d;color:var(--txt);padding:18px;transition:border-color .15s,transform .15s}
+.lab-tile:hover{border-color:#719b6d;transform:translateY(-1px)}
+.lab-tile.is-selected{border-color:#a4e58b;background:linear-gradient(138deg,#244331,#172d32);box-shadow:inset 0 0 0 1px #b9f47722}
+.lab-tile-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.lab-tile-glyph{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;background:#2d4433;color:var(--lime);border-radius:10px;font-size:21px}
+.lab-tile-status{font-size:9px;letter-spacing:.04em;font-weight:750;color:#adc4ba;text-align:right}
+.lab-tile-name{font-size:20px;font-weight:800;letter-spacing:-.035em;line-height:1.2}
+.lab-tile-name small{display:block;font-size:11px;font-weight:500;color:#9db5bf;letter-spacing:0;line-height:1.45;margin-top:5px}
+.lab-tile-value{font-size:clamp(23px,3vw,32px);letter-spacing:-.055em;font-weight:850;overflow-wrap:anywhere}
+.lab-tile-bottom{display:flex;justify-content:space-between;align-items:center;gap:9px;border-top:1px solid #52685344;padding-top:10px}
+.lab-tile-bottom>span:first-child{font-size:12px;font-weight:800}
+.lab-tile-bottom>span:last-child{font-size:10px;color:#a5b8bb}
+.hero-context{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.hero-context-badge{color:#c6dfc7;border:1px solid #56715b;border-radius:100px;padding:5px 8px;font-size:10px;font-weight:750}
+.hero-card{min-height:380px;padding-top:27px}
+.hero-card .hero-money{font-size:clamp(36px,5.5vw,60px)}
+.chart-clarification{margin:12px 0 0;color:#a5b7bf;font-size:10px;line-height:1.5}
+@media(max-width:540px){.release-tag{font-size:8px;padding:5px;margin-right:7px}.lab-overview{padding:17px 13px;border-radius:17px}.lab-overview-top h2{font-size:28px}.lab-overview-counter{padding:8px}.lab-overview-counter strong{font-size:25px}.lab-overview-counter small{font-size:9px}.lab-overview>p{font-size:11px}.lab-tiles{gap:8px}.lab-tile{padding:12px 10px;gap:9px;border-radius:12px}.lab-tile-glyph{width:29px;height:29px;flex-basis:29px;font-size:18px}.lab-tile-status{font-size:8px}.lab-tile-name{font-size:16px}.lab-tile-name small{font-size:10px}.lab-tile-value{font-size:clamp(20px,5vw,25px)}.lab-tile-bottom{flex-direction:column;align-items:flex-start;gap:3px}.lab-tile-bottom>span:last-child{font-size:9px}}
