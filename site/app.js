@@ -292,6 +292,7 @@ if(DATA.model==='realistic_v2'){
 let assetFilter='all';
 document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
 function refreshCurrency(){
+ setText('initial-per-robot',money(START)+' fictifs par robot.');
  setText('portfolio-value',rows.length ? money(latest) : '—');
  setText('portfolio-profit',rows.length ? signedMoney(profit) : '—');
  const tag=document.querySelector('.hero-small-tag');
