@@ -109,4 +109,61 @@ if(aiHost){
  }
 }
 
+const pulse=DATA.market_pulse||{};
+const pulseBox=get('market-pulse-assets');
+if(pulseBox){
+ pulseBox.replaceChildren();
+ put('pulse-status',pulse.ready?
+   'Cours de clôture Kraken et contexte DeFi/sentiment : observations horodatées, pas des prévisions.':
+   'Étude de marché indisponible : aucune donnée ni signal inventé.');
+ const assets=pulse.assets||{};
+ for(const asset of ['BTCUSD','ETHUSD','SOLUSD']){
+  const info=assets[asset];if(!info)continue;
+  const card=document.createElement('article');card.className='research-idea';
+  const title=document.createElement('strong');title.textContent=asset+' · cours clôturé '+(info.last_closed_day_utc||'date inconnue');
+  const stats=document.createElement('p');
+  const fmt=n=>Number.isFinite(Number(n))?Number(n).toFixed(2)+' %':'—';
+  stats.textContent='1 jour '+fmt(info.change_1d_pct)+' · 7 jours '+fmt(info.change_7d_pct)+
+   ' · 30 jours '+fmt(info.change_30d_pct)+
+   ' · volatilité annualisée estimée '+fmt(info.realized_volatility_30d_annualized_pct);
+  card.append(title,stats);pulseBox.append(card);
+ }
+ const sample=pulse.large_transfers||{};
+ const samples=sample.sampled_records||{};
+ const sources=Object.values(samples).reduce((n,v)=>n+(Number(v)||0),0);
+ put('pulse-whales',sample.state==='observing'||sample.state==='partial'?
+  'Gros transferts publics : '+Number(sample.large_transfers_observed||0)+
+  ' transfert(s) ≥ 1 M de dollars nominaux dans '+sources+
+  ' observations USDC/USDT échantillonnées. Nouveaux depuis la première collecte : '+
+  Number(sample.new_in_sample||0)+
+  '. Un transfert n’est pas un achat prouvé.':
+  'Observation des gros transferts indisponible ; aucune activité de baleine présumée.');
+}
+const incubator=DATA.forward_challengers||{};
+const forwardBox=get('forward-incubator-list');
+if(forwardBox){
+ forwardBox.replaceChildren();
+ const data=incubator.assets||{};
+ const number=Object.keys(data).length;
+ put('forward-incubator-status',incubator.ready?
+   number+' challenger(s) distinct(s) du laboratoire principal. Départ prospectif : aucun historique rejoué.':
+   'Suivi prospectif en préparation ; les 36 robots restent indépendants.');
+ for(const asset of ['BTCUSD','ETHUSD','SOLUSD']){
+  const info=data[asset];if(!info)continue;
+  const card=document.createElement('article');card.className='research-idea';
+  const name=document.createElement('strong');name.textContent=asset+' · challenger v'+(info.version||1);
+  const performance=document.createElement('p');
+  performance.textContent='Capital fictif : '+Number(info.equity_usd||20).toFixed(2)+
+   ' USD · variation '+Number(info.net_return_pct||0).toFixed(2)+
+   ' % · témoin Hold '+Number(info.hold_equity_usd||20).toFixed(2)+' USD.';
+  const limits=document.createElement('small');
+  const params=info.parameters||{};
+  limits.textContent=Number(info.observations||0)+' séance(s) après inscription · '+
+   Number(info.closed_trades||0)+' aller-retour(s) clôturés · SMA'+(params.window||'?')+
+   ' · seuil '+(Number(params.buffer||0)*100).toFixed(2)+
+   ' %. Statut : '+(info.ready_for_review?'revue statistique possible':'observation insuffisante')+'.';
+  card.append(name,performance,limits);forwardBox.append(card);
+ }
+}
+
 })();
