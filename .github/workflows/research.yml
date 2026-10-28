@@ -89,7 +89,9 @@ jobs:
           git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json
           git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/market_pulse.json reports/challenger_incubator.json
           git add site/dashboard.html docs/index.html
-          git add -A state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl 2>/dev/null || true
+          for artifact in state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
+            if [ -f "$artifact" ]; then git add -- "$artifact"; fi
+          done
           if ! git diff --cached --quiet; then
             git commit -m "Update guarded Seiko research observations"
             for attempt in 1 2 3 4 5; do
