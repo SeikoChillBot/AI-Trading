@@ -29,7 +29,7 @@ const date=Number.isFinite(timestamp)?
  'date indisponible';
 const human=modelState==='model_reflection_completed'?'Modèle d’IA interrogé ; propositions non validées.':
  'Statistiques automatisées actives. Modèle d’IA générative non connecté.';
-put('research-updated','Dernière recherche : '+date+' · '+human+' Aucun ordre réel, aucune modification des robots.');
+put('research-updated','Dernière recherche : '+date+' · '+human+' Aucun ordre réel. Modifications de paramètres uniquement après validation prospective.');
 const intel=report.market_intelligence||{};
 const feeling=intel.sentiment||{};
 put('intel-sentiment',Number.isInteger(feeling.index)?feeling.index+'/100':'—');
