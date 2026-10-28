@@ -21,3 +21,18 @@ function card(r){
  const pct=document.createElement('small');pct.className=L.tone(n(r.return_pct));pct.textContent=L.pct(n(r.return_pct));
  right.append(cap,pct);b.append(ico,mid,right);b.addEventListener('click',()=>detailSheet(r));return b;
 }
+function render(){
+ let rows=entries.filter(r=>(scope==='all'||r.kind===scope)&&
+ (state==='all'||state==='positive'&&n(r.return_pct)>0||state==='negative'&&n(r.return_pct)<0||state==='inactive'&&n(r.trades)===0)&&
+ (scope!=='crypto'||asset==='all'||r.asset.startsWith(asset))&&
+ (!search||[r.name,r.marketName,r.asset].join(' ').toLocaleLowerCase('fr').includes(search)));
+ if(sort==='return')rows.sort((a,b)=>n(b.return_pct)-n(a.return_pct));
+ else if(sort==='activity')rows.sort((a,b)=>n(b.trades)-n(a.trades)||n(b.return_pct)-n(a.return_pct));
+ else rows.sort((a,b)=>a.name.localeCompare(b.name,'fr'));
+ const host=$('robot-list');if(!host)return;host.replaceChildren();
+ L.put('robots-count',rows.length+' / '+entries.length+' stratégies');
+ if(!rows.length){const empty=document.createElement('div');empty.className='empty-list';empty.textContent='Aucune stratégie pour ces filtres.';host.append(empty)}
+ rows.forEach(r=>host.append(card(r)));
+ const coins=$('crypto-asset-filters');if(coins)coins.hidden=scope!=='crypto';
+ document.querySelectorAll('[data-robot-lab]').forEach(b=>{let yes=b.dataset.robotLab===scope;b.classList.toggle('is-active',yes);b.setAttribute('aria-pressed',String(yes))});
+}
