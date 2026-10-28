@@ -45,3 +45,6 @@ function detailSheet(r){
  set('sheet-asset',r.asset);
  set('sheet-category',crypto?'Crypto':'Multi-actifs');
  set('sheet-trades',String(r.trades));
+ set('sheet-fees',L.money(r.fees_usd,3));
+ set('sheet-timeframe',crypto?r.timeframe_min+' min':'1 séance');
+ $('sheet-return').className=L.tone(n(r.return_pct));
