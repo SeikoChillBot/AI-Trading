@@ -24,3 +24,5 @@ L'IA ne reçoit que des métriques de recherche, ne possède aucun outil de trad
 5. Revue humaine avant remplacement d'un robot principal.
 
 La simulation actuelle ne suffit pas encore à désigner une stratégie rentable.
+
+Les challengers restent séparés des 36 robots de référence.
