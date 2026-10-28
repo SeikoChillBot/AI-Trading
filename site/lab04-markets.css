@@ -1,0 +1,19 @@
+/* Seiko Lab / 04 — details and information hierarchy */
+.market-intro h2{font-size:clamp(30px,4.3vw,40px)}
+.market-research-fold{margin-top:23px;border:1px solid #354c56;border-radius:15px;background:#121e29;padding:18px 17px}
+.market-research-fold>summary{color:var(--lime);cursor:pointer;font-size:13px;font-weight:850;list-style-position:inside;line-height:1.65}
+.market-research-fold[open]>summary{margin-bottom:19px}
+.market-research-fold .market-workflow{margin-top:0}
+.market-section-heading{margin-top:25px}
+.multi-live{margin-top:16px}
+.multi-group{transition:border-color .17s}
+.multi-group button.multi-group-link{width:100%;text-align:left;background:transparent;border:0;color:inherit;padding:0;cursor:pointer}
+.multi-group button.multi-group-link:focus-visible{outline:2px solid var(--lime);outline-offset:4px}
+.multi-group-link .multi-group-head:after{content:'›';color:var(--lime);font-size:24px;line-height:1}
+.multi-group-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;border-top:1px solid #304755}
+.multi-group-summary strong{font-size:16px}
+.multi-group-summary small{color:#a6b9c5;font-size:10px}
+.multi-group-open{font-size:10px;color:var(--lime);margin-top:8px;display:block}
+.multi-intro{margin-top:12px}
+@media(min-width:800px){.bottom-nav-inner{max-width:520px}.app-shell{padding-bottom:85px}}
+@media(max-width:430px){.topbar .brand-word small{font-size:8px}.bottom-nav-inner{max-width:calc(100% - 22px)}.nav-button{font-size:10px;min-width:0}.nav-button svg{height:19px;width:19px}}
