@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-28T21:40:03.132453+00:00",
+  "model": "market_context_observation_v1",
+  "auto_trading": false,
+  "whale_purchases_inferred": false,
+  "observations": {
+    "sentiment": {
+      "index": 51,
+      "classification": "Neutral",
+      "published_at": "2026-10-28T00:00:00+00:00",
+      "source": "https://api.alternative.me/fng/?limit=2",
+      "kind": "market_sentiment_not_forecast"
+    },
+    "chain_tvl": {
+      "tvl_usd_by_chain": {
+        "Arbitrum": 1521482517.04,
+        "Ethereum": 46358780604.23,
+        "Base": 6044223964.99,
+        "BSC": 5507440355.01,
+        "Solana": 5733971576.03
+      },
+      "source": "https://api.llama.fi/v2/chains",
+      "kind": "defi_tvl_not_capital_inflow"
+    }
+  },
+  "errors": {
+    "stablecoins": "HTTPError: 404 Client Error: Not Found for url: https://api.llama.fi/stablecoins"
+  },
+  "limitations": [
+    "TVL is not the same as inflow or investment return.",
+    "Stablecoin issuance does not prove an upcoming asset purchase.",
+    "A wallet transfer cannot by itself establish a buy or a sale.",
+    "Do not compare current readings to past values without point-in-time history."
+  ]
+}
