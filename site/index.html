@@ -3,6 +3,15 @@
 <body><div class="app-shell" id="app">
 <header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
 <div class="page-heading"><span class="eyebrow" id="page-eyebrow">PAPER TRADING · LABORATOIRE</span><h1 id="page-title">Vue d’ensemble<span class="title-period">.</span></h1><p id="page-subtitle">Les résultats de votre expérience, au même endroit.</p></div>
+<div class="display-currency" aria-label="Devise d'affichage">
+  <div class="display-currency-controls"><span class="display-currency-label">DEVISE D’AFFICHAGE</span>
+    <div class="display-currency-switch" role="group" aria-label="Passer de dollars en euros">
+      <button type="button" data-currency="USD" class="is-active" aria-pressed="true">USD <span>$</span></button>
+      <button type="button" data-currency="EUR" aria-pressed="false">EUR <span>€</span></button>
+    </div>
+  </div>
+  <p class="display-fx-note" id="fx-note">Chargement du taux de référence…</p>
+</div>
 <main>
 <section id="view-home" class="view is-visible" aria-label="Portefeuille">
 <article class="hero-card"><div class="hero-glow" aria-hidden="true"></div><div class="hero-head"><span class="overline">CAPITAL TOTAL SIMULÉ</span><span class="hero-small-tag">USD · FICTIF</span></div><div class="hero-money" id="portfolio-value">—</div><div class="hero-performance"><span id="portfolio-profit" class="profit-amount">—</span><span id="portfolio-percent" class="profit-percent">—</span><span class="hero-meta">depuis le lancement</span></div><div class="chart-toolbar"><span class="section-overline">ÉVOLUTION DU PORTEFEUILLE</span><div class="range-control" id="range-control" role="group" aria-label="Période du graphique"><button data-range="1d" class="is-active">24 H</button><button data-range="7d">7 J</button><button data-range="all">TOUT</button></div></div><div class="portfolio-chart" id="portfolio-chart" role="img" aria-label="Courbe du capital fictif"><div class="chart-empty">Lecture des relevés…</div></div><div class="chart-foot"><span id="chart-period">Historique des simulations</span><span id="chart-last">—</span></div></article>
