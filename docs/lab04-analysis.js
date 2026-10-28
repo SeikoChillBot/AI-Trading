@@ -52,7 +52,7 @@ function marketCards(){
  const groups=new Map();
  for(const r of L.mr){const list=groups.get(r.asset)||[];list.push(r);groups.set(r.asset,list)}
  for(const [asset,rows] of groups){
-  const start=rows.reduce((n,r)=>n+Number(r.initial_usd||1000),0);
+  const start=rows.reduce((n,r)=>n+Number(r.initial_usd||20),0);
   const total=rows.reduce((n,r)=>n+Number(r.capital_usd),0);
   const card=ce('article','multi-group'),button=ce('button','multi-group-link');
   button.type='button';button.setAttribute('aria-label','Voir les robots '+asset);
