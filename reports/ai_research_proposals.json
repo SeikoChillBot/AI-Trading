@@ -1,11 +1,14 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-28T22:37:44.126477+00:00",
+  "generated_at": "2026-10-28T22:38:35.430153+00:00",
   "research_date_utc": "2026-10-28",
+  "review_slot": "2026-10-28T18:00Z",
+  "model_last_called_at": "2026-10-28T22:38:35.430153+00:00",
+  "used_cache": false,
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Aucune de ces strategies n'est robuste. Pour BTCUSD, ETHUSD et SOLUSD, les historiques de trades sont insuffisants, les drawdowns sont eleves et la sensibilite aux frais ou le nombre de fenêtres OOS negatives invalide toute promesse de rentabilite future. La recherche repetee sur les memes holdouts surestime la performance.",
+  "summary": "Aucune strategie testee ne presente une robustesse suffisante face aux criteres du laboratoire Seiko. Les historiques sont trop courts pour les robots et les tests historiques montrent des echecs sur les controles de performance ou de drawdown. L'analyse des transferts de stablecoins et des horizons de marche ne permet pas d'etablir de certitude predictive. La recherche repetee sur les memes holdouts surestime la performance et necessite de nouvelles donnees non utilisees.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -95,10 +98,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de robustesse des fenêtres OOS supplementaires sur BTCUSD",
-      "hypothesis": "L'augmentation du nombre de fenêtres OOS avec des donnees entierement inedites reduira l'avantage apparent de BTCUSD.",
-      "experiment": "Recuperer de nouvelles donnees de carnet d'ordres historiques non utilisees sur BTCUSD pour verifier si les 4 sur 8 folds battant le Hold persistent.",
-      "rejection_rule": "Si la proportion de folds battant le Hold reste superieure a 50 pour cent sur les nouvelles donnees, l'hypothese d'absence de robustesse est rejetee.",
+      "title": "Validation prospective du drawdown sous contrainte de frais doubles",
+      "hypothesis": "L'augmentation des frais detruit la rentabilite nette des trades de Bitcoin en periode hors echantillon.",
+      "experiment": "Collecter une nouvelle serie temporelle de donnees de carnet d'ordres et d'execution a haute frequence pour BTCUSD sur un echantillon totalement disjoint, puis simuler un scenario de doublement des frais de transaction.",
+      "rejection_rule": "Si le rendement net moyen reste positif et superieur au benchmark de conservation avec des frais doubles sur la nouvelle serie, l'hypothese d'une vulnerabilite systemique aux frais est rejetee.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -109,10 +112,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Verification du drawdown maximum sur ETHUSD avec des donnees de ticks",
-      "hypothesis": "Le drawdown reel d'ETHUSD depasse la valeur de 25.17 pour cent observee en raison de la granularite intra-journaliere non capturee.",
-      "experiment": "Analyser de nouvelles donnees de ticks haute frequence non exploitees pour ETHUSD afin de recalculer le pire drawdown.",
-      "rejection_rule": "Si le drawdown recupere reste inferieur a 25 pour cent sur la nouvelle echelle de temps, l'hypothese de sous-estimation du risque est rejetee.",
+      "title": "Verification du drawdown maximal hors echantillon",
+      "hypothesis": "Le drawdown reel d'ETHUSD depasse systematiquement le seuil de 20 pourcent lors de fenetres de stress de liquidite non observees.",
+      "experiment": "Recuperer de nouvelles donnees de profondeur de marche et de transferts publics de stablecoins pour Ethereum sur des periodes passees non encore exploitees, et verifier l'impact sur le pire drawdown de la strategie.",
+      "rejection_rule": "Si le pire drawdown observe sur les nouvelles donnees reste strictement inferieur a 20 pourcent sur l'ensemble des fenetres, l'hypothese d'un risque excessif de drawdown est rejetee.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -122,10 +125,10 @@
     },
     {
       "asset": "SOLUSD",
-      "title": "Stress test des couts de transaction doubles sur de nouvelles periodes SOLUSD",
-      "hypothesis": "Le doublement des frais degrade systematiquement la moyenne des rendements nets sous -7 pour cent sur toute nouvelle fenetre.",
-      "experiment": "Appliquer des frais doubles sur un ensemble de donnees de prix de SOLUSD entierement separe et non utilise dans les tests precedents.",
-      "rejection_rule": "Si le rendement net moyen avec frais doubles devient positif ou superieur a -5 pour cent sur les nouvelles donnees, l'hypothese de fragilite extreme aux frais est rejetee.",
+      "title": "Robustesse du nombre de trades face a de nouvelles donnees de volume",
+      "hypothesis": "Le faible nombre de trades clotures de Solana reflete un biais d'echantillon qui disparait avec l'ajout de donnees de volumes de reseau decentralize.",
+      "experiment": "Integrer de nouvelles donnees de activite de reseau et de volume d'echantillonnage de Solana sur une periode supplementaire non encore testee pour mesurer la frequence reelle des signaux.",
+      "rejection_rule": "Si le nombre de trades clotures atteint ou depasse 20 operations avec un ratio de Sharpe ameliore sur ces nouvelles donnees, l'hypothese d'insuffisance statistique liee au faible nombre de trades est rejetee.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
