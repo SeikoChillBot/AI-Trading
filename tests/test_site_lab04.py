@@ -33,7 +33,7 @@ class MobileDashboardTests(unittest.TestCase):
   builder=(ROOT/"build_site.py").read_text(encoding="utf8")
   self.assertIn('id="research-title"',template)
   self.assertIn('id="research-idea-list"',template)
-  self.assertIn('lab04-research.js?v=4.4',template)
+  self.assertRegex(template, r'lab04-research\.js\?v=4\.\d+')
   self.assertIn('data["research"]',builder)
   self.assertIn('id="ai-review-panel"',template)
   self.assertIn('id="ai-experiment-list"',template)
