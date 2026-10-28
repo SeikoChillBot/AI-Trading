@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-28T21:55:42.850894+00:00",
+  "research_date_utc": "2026-10-28",
+  "source": "deterministic_fallback",
+  "state": "not_configured",
+  "summary": "Diagnostic statistique local ; analyse générative non activée.",
+  "historical": {
+    "status": "historical_evidence_available",
+    "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
+    "assets": [
+      {
+        "asset": "BTCUSD",
+        "folds": 8,
+        "positive_oos_folds": 2,
+        "beats_hold_folds": 4,
+        "positive_double_cost_folds": 1,
+        "closed_trades": 11,
+        "avg_net_return_pct": -2.6574,
+        "avg_excess_vs_hold_points": 1.0175,
+        "avg_net_return_double_cost_pct": -5.3229,
+        "worst_drawdown_pct": 19.5062,
+        "latest_research_parameters": {
+          "window": 40,
+          "buffer": 0.02
+        },
+        "research_checks": {
+          "six_or_more_oos_folds": true,
+          "twenty_or_more_closed_trades": false,
+          "positive_average_net_return": false,
+          "beats_hold_in_most_folds": false,
+          "positive_average_with_double_costs": false,
+          "drawdown_below_20_pct": true
+        },
+        "status": "fails_one_or_more_research_checks",
+        "automatic_promotion": false
+      },
+      {
+        "asset": "ETHUSD",
+        "folds": 8,
+        "positive_oos_folds": 3,
+        "beats_hold_folds": 4,
+        "positive_double_cost_folds": 2,
+        "closed_trades": 7,
+        "avg_net_return_pct": 7.4851,
+        "avg_excess_vs_hold_points": 4.4325,
+        "avg_net_return_double_cost_pct": 5.1718,
+        "worst_drawdown_pct": 25.1673,
+        "latest_research_parameters": {
+          "window": 40,
+          "buffer": 0.005
+        },
+        "research_checks": {
+          "six_or_more_oos_folds": true,
+          "twenty_or_more_closed_trades": false,
+          "positive_average_net_return": true,
+          "beats_hold_in_most_folds": false,
+          "positive_average_with_double_costs": true,
+          "drawdown_below_20_pct": false
+        },
+        "status": "fails_one_or_more_research_checks",
+        "automatic_promotion": false
+      },
+      {
+        "asset": "SOLUSD",
+        "folds": 8,
+        "positive_oos_folds": 2,
+        "beats_hold_folds": 3,
+        "positive_double_cost_folds": 1,
+        "closed_trades": 15,
+        "avg_net_return_pct": -4.3696,
+        "avg_excess_vs_hold_points": -1.3944,
+        "avg_net_return_double_cost_pct": -7.9882,
+        "worst_drawdown_pct": 35.0085,
+        "latest_research_parameters": {
+          "window": 10,
+          "buffer": 0.02
+        },
+        "research_checks": {
+          "six_or_more_oos_folds": true,
+          "twenty_or_more_closed_trades": false,
+          "positive_average_net_return": false,
+          "beats_hold_in_most_folds": false,
+          "positive_average_with_double_costs": false,
+          "drawdown_below_20_pct": false
+        },
+        "status": "fails_one_or_more_research_checks",
+        "automatic_promotion": false
+      }
+    ],
+    "eligible_for_automatic_promotion": false,
+    "risk_note": "Repeated research on the same holdouts can overfit. Further untouched data and prospective validation are required."
+  },
+  "experiments": [
+    {
+      "asset": "BTCUSD",
+      "title": "Contrôler la robustesse historique de BTCUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_net_return",
+        "beats_hold_in_most_folds",
+        "positive_average_with_double_costs"
+      ]
+    },
+    {
+      "asset": "ETHUSD",
+      "title": "Contrôler la robustesse historique de ETHUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "beats_hold_in_most_folds",
+        "drawdown_below_20_pct"
+      ]
+    },
+    {
+      "asset": "SOLUSD",
+      "title": "Contrôler la robustesse historique de SOLUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_net_return",
+        "beats_hold_in_most_folds",
+        "positive_average_with_double_costs",
+        "drawdown_below_20_pct"
+      ]
+    }
+  ],
+  "experiments_validated": false,
+  "live_strategy_changes_enabled": false,
+  "real_orders_enabled": false
+}
