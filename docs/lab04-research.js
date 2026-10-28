@@ -209,7 +209,8 @@ if(evolList){
      card.append(heading,state,stats,tuning);
      if(item.gemini_decision){
        const why=document.createElement('p');
-       why.textContent='Gemini : '+item.gemini_decision;
+       why.textContent=(item.decision_source==='automatic_statistical_shadow'?
+         'Moteur statistique : ':'Gemini : ')+item.gemini_decision;
        card.append(why);
      }
      if(Array.isArray(item.blocked_checks)&&item.blocked_checks.length){
