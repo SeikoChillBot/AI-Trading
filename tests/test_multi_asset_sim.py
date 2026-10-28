@@ -10,19 +10,29 @@ import multi_asset_sim as sim
 
 
 class MultiAssetTests(unittest.TestCase):
-    def test_full_share_order_rejects_if_too_small(self):
-        fill, reason=sim.fill("BUY",100,0,700,"SPY")
+    def test_fractional_scenario_works_with_20_dollars(self):
+        fill, reason = sim.fill("BUY", 20, 0, 700, "SPY")
+        self.assertIsNone(reason)
+        self.assertGreater(fill["qty"], 0)
+        self.assertLess(fill["qty"], 1)
+        self.assertLessEqual(-fill["net"], 20.000001)
+        self.assertGreater(fill["fee"], 0)
+        self.assertEqual(sim.START, 20.0)
+
+    def test_minimum_one_dollar_notional(self):
+        fill, reason = sim.fill("BUY", .99, 0, 700, "SPY")
         self.assertIsNone(fill)
-        self.assertEqual(reason,"MINIMUM_QUANTITY_OR_FUNDS")
+        self.assertEqual(reason, "MINIMUM_NOTIONAL_USD_1")
 
     def test_fee_spread_slip_and_cash(self):
-        order,reason=sim.fill("BUY",1000,0,235,"AAPL")
+        order, reason = sim.fill("BUY", 20, 0, 235, "AAPL")
         self.assertIsNone(reason)
-        self.assertEqual(order["qty"],4)
-        self.assertGreater(order["price"],235)
-        self.assertGreaterEqual(order["fee"],1)
-        self.assertLessEqual(-order["net"],1000)
-        self.assertLess(sim.liquidation(1000+order["net"],order["qty"],235,"AAPL"),1000)
+        self.assertGreater(order["qty"], 0)
+        self.assertLess(order["qty"], 1)
+        self.assertGreater(order["price"], 235)
+        self.assertGreater(order["fee"], 0)
+        self.assertLessEqual(-order["net"], 20.000001)
+        self.assertLess(sim.liquidation(20+order["net"], order["qty"], 235, "AAPL"), 20)
 
     def test_sell_has_cost_and_no_leverage(self):
         order,reason=sim.fill("SELL",0,3,100,"BND")
@@ -52,12 +62,12 @@ class MultiAssetTests(unittest.TestCase):
             portfolio={}
             for sym,*_ in sim.SPECS:
                 for variant in sim.RULES:
-                    portfolio[sym.lower()+"_"+variant]={"cash":1000.0,"units":0,
+                    portfolio[sym.lower()+"_"+variant]={"cash":20.0,"units":0,
                         "trades":0,"fees":0,"last_price":None,"last_price_at":None}
-            portfolio["aapl_hold"].update({"cash":10,"units":4,"trades":1,
-                "fees":1,"last_price":250,"last_price_at":(t-timedelta(days=2)).isoformat()})
-            data={"schema":1,"created":t.isoformat(),"portfolios":portfolio,
-                  "last_signal_day":{},"initial_per_strategy_usd":1000}
+            portfolio["aapl_hold"].update({"cash":2,"units":0.08,"trades":1,
+                "fees":0.02,"last_price":250,"last_price_at":(t-timedelta(days=2)).isoformat()})
+            data={"schema":2,"created":t.isoformat(),"portfolios":portfolio,
+                  "last_signal_day":{},"initial_per_strategy_usd":20}
             files["STATE"].write_text(json.dumps(data))
             from contextlib import ExitStack
             with ExitStack() as stack:
@@ -70,9 +80,9 @@ class MultiAssetTests(unittest.TestCase):
             with files["LATEST"].open(newline="",encoding="utf8") as f:
                 rows={r["strategy"]:r for r in csv.DictReader(f)}
             self.assertEqual(len(rows),len(sim.SPECS)*2)
-            self.assertGreater(float(rows["aapl_hold"]["capital_usd"]),10)
+            self.assertGreater(float(rows["aapl_hold"]["capital_usd"]),2)
             self.assertEqual(rows["aapl_hold"]["pricing_quality"],"STALE")
-            self.assertEqual(float(rows["aapl_hold"]["units"]),4.0)
+            self.assertEqual(float(rows["aapl_hold"]["units"]),0.08)
 
     def test_cached_quote_cannot_trade_after_close(self):
         now=datetime(2026,10,28,19,45,tzinfo=timezone.utc)
