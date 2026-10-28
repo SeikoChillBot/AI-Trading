@@ -98,9 +98,9 @@ setText('stat-bots',rows.length.toString().padStart(2,'0'));
 setText('stat-trades',totalTrades.toLocaleString('fr-FR'));
 
 function toView(next,updateHash=true) {
- const titles={home:['PAPER TRADING · LABORATOIRE','Vue d’ensemble','Les résultats de votre expérience, au même endroit.'],robots:['LES STRATÉGIES','Vos robots','18 approches, une seule expérience.'],analysis:['LES STATISTIQUES','Analyse','Comprendre la performance, sans raccourcis.']};
+ const titles={home:['PAPER TRADING · LABORATOIRE','Vue d’ensemble','Les résultats de votre expérience, au même endroit.'],robots:['LES STRATÉGIES','Vos robots','18 approches, une seule expérience.'],analysis:['LES STATISTIQUES','Analyse','Comprendre la performance, sans raccourcis.'],explore:['PANORAMA DES INVESTISSEMENTS','Explorer','13 marchés à explorer, aucune promesse de rendement.']};
  if(!titles[next])next='home';view=next;
- for(const item of ['home','robots','analysis']){const el=$('view-'+item);el.hidden=item!==next;el.classList.toggle('is-visible',item===next);}
+ for(const item of ['home','robots','analysis','explore']){const el=$('view-'+item);el.hidden=item!==next;el.classList.toggle('is-visible',item===next);}
  document.querySelectorAll('[data-view]').forEach(el=>{const active=el.dataset.view===next;el.classList.toggle('is-active',active);if(active)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});
  setText('page-eyebrow',titles[next][0]);
  $('page-title').innerHTML='';$('page-title').append(document.createTextNode(titles[next][1]));const dot=document.createElement('span');dot.className='title-period';dot.textContent='.';$('page-title').append(dot);
@@ -288,6 +288,89 @@ if(DATA.model==='realistic_v2'){
  if(method[2])method[2].textContent='Limites : les cotations sont observées puis simulées, et non garanties comme un ordre réellement exécuté. Les minimums de marché sont vérifiés.';
  // The display currency badge is managed centrally when toggling.
 }
+
+/* Market exploration is separate from actual trading results. No fabricated orders. */
+const catalog=DATA.market_catalog&&Array.isArray(DATA.market_catalog.markets)?DATA.market_catalog.markets:[];
+const catalogStatuses=DATA.market_catalog?.status_labels||{};
+let marketFilter='all',marketTerm='';
+const mk=(name,className,textContent)=>{
+  const node=document.createElement(name);
+  if(className)node.className=className;
+  if(textContent!==undefined)node.textContent=String(textContent);
+  return node;
+};
+function makeMarketCard(item){
+ const card=mk('article','market-card'+(item.status==='active'?' is-active':''));
+ const head=mk('div','market-card-head');
+ const glyph=mk('span','market-card-symbol',item.icon);
+ glyph.setAttribute('aria-hidden','true');
+ const title=mk('div','market-card-title');
+ title.append(mk('h3','',item.title),mk('small','',item.family));
+ head.append(glyph,title);
+ card.append(head);
+ const badge=mk('span','market-card-state',catalogStatuses[item.status]||'À étudier');
+ badge.dataset.status=item.status;card.append(badge);
+ card.append(mk('p','market-card-description',item.description));
+ const tags=mk('div','market-card-tags');
+ for(const example of item.examples.slice(0,3))tags.append(mk('span','',example));
+ card.append(tags);
+ const details=mk('details','market-card-expand');
+ details.append(mk('summary','', 'Stratégies et conditions'));
+ const content=mk('div','market-card-details');
+ const add=(label,value)=>{
+   const section=mk('div','');
+   section.append(mk('small','',label),mk('p','',value));
+   content.append(section);
+ };
+ const section=mk('div','');
+ section.append(mk('small','','STRATÉGIES À TESTER'));
+ const list=mk('ul','');
+ for(const strategy of item.strategies)list.append(mk('li','',strategy));
+ section.append(list);content.append(section);
+ add('OBJECTIF',item.goal);
+ add('AUTOMATISATION ENVISAGÉE',item.automation+' · '+item.horizon);
+ add('DONNÉES NÉCESSAIRES',item.data);
+ add('EXÉCUTION ET COURTIER',item.execution);
+ add('LIMITES À VÉRIFIER',item.constraint);
+ const info=mk('div','');
+ info.append(mk('small','','SOURCE D’INFORMATION'));
+ if(typeof item.source==='string'&&/^https:\/\//.test(item.source)){
+   const link=mk('a','','Consulter la référence officielle');
+   link.href=item.source;link.rel='noopener noreferrer';link.target='_blank';
+   info.append(link);
+ }else info.append(mk('p','','Documentation officielle à vérifier'));
+ content.append(info);
+ details.append(content);card.append(details);
+ return card;
+}
+function renderMarketExplorer(){
+ const grid=$('market-grid');if(!grid)return;
+ const term=marketTerm.toLocaleLowerCase('fr').trim();
+ const visible=catalog.filter(item=>
+  (marketFilter==='all'||item.status===marketFilter)&&
+  (!term||[item.title,item.family,item.description,...item.examples,...item.strategies]
+   .join(' ').toLocaleLowerCase('fr').includes(term)));
+ grid.replaceChildren();
+ for(const item of visible)grid.append(makeMarketCard(item));
+ if(!visible.length)grid.append(mk('div','market-no-results','Aucun marché ne correspond à cette recherche.'));
+ setText('market-visible-count',visible.length+' / '+catalog.length);
+ setText('market-universe-count',catalog.length);
+ setText('market-strategy-count',catalog.reduce((n,item)=>n+item.strategies.length,0));
+ setText('market-active-count',catalog.filter(item=>item.status==='active').length);
+ document.querySelectorAll('[data-market-filter]').forEach(button=>{
+  const active=button.dataset.marketFilter===marketFilter;
+  button.classList.toggle('is-active',active);
+  button.setAttribute('aria-pressed',String(active));
+ });
+}
+const marketSearch=$('market-search');
+if(marketSearch)marketSearch.addEventListener('input',event=>{
+ marketTerm=event.target.value;renderMarketExplorer();
+});
+document.querySelectorAll('[data-market-filter]').forEach(button=>button.addEventListener('click',()=>{
+ marketFilter=button.dataset.marketFilter;renderMarketExplorer();
+}));
+renderMarketExplorer();
 
 let assetFilter='all';
 document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
