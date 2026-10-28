@@ -25,7 +25,8 @@ class MobileDashboardTests(unittest.TestCase):
  def test_market_data_not_counted_as_crypto(self):
   script=(ROOT/"site/lab04-core.js").read_text(encoding="utf8")
   self.assertIn("crypto:cr.length*20",script)
-  self.assertIn("r.initial_usd||1000",script)
+  self.assertIn("r.initial_usd||20",script)
+  self.assertNotIn("r.initial_usd||1000",script)
   self.assertIn("history={crypto:",script)
  def test_safe_daily_research_is_integrated(self):
   template=(ROOT/"site/index.html").read_text(encoding="utf8")
