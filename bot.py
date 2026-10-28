@@ -5,6 +5,7 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 import requests
+from research.robot_tuning import active_scales, scale_for
 
 STATE = Path("state/portfolios.json")
 REPORT = Path("reports/latest.csv")
@@ -74,7 +75,9 @@ def rsi(values, period=14):
         return 100.0 if gains else 50.0
     return 100 - 100 / (1 + gains / losses)
 
-def decide(mode, prices, holding, portfolio=None):
+def decide(mode, prices, holding, portfolio=None, threshold_scale=1.0):
+    if type(threshold_scale) not in (int, float) or threshold_scale not in (0.8, 1.0, 1.2):
+        raise ValueError("Unapproved strategy tuning scale")
     last = prices[-1]
     mean20 = sum(prices[-20:]) / 20
     if mode.startswith("scalp_"):
@@ -93,34 +96,34 @@ def decide(mode, prices, holding, portfolio=None):
         # Thresholds deliberately exceed the 0.2% modeled round-trip fees.
         rise = last / prices[-4] - 1
         if mode == "scalp_momentum":
-            return "buy" if rise > .004 and last > mean20 * 1.002 else "wait"
+            return "buy" if rise > .004*threshold_scale and last > mean20 * (1+.002*threshold_scale) else "wait"
         if mode == "scalp_trailing":
-            return "buy" if rise > .005 and last > mean20 * 1.002 else "wait"
+            return "buy" if rise > .005*threshold_scale and last > mean20 * (1+.002*threshold_scale) else "wait"
         if mode == "scalp_microtrend":
-            return "buy" if last > mean20 * 1.003 and prices[-1] > prices[-2] > prices[-3] else "wait"
+            return "buy" if last > mean20 * (1+.003*threshold_scale) and prices[-1] > prices[-2] > prices[-3] else "wait"
         if mode == "scalp_conservative":
-            return "buy" if rise > .008 and last > mean20 * 1.005 else "wait"
+            return "buy" if rise > .008*threshold_scale and last > mean20 * (1+.005*threshold_scale) else "wait"
     if mode == "hold":
         return "buy" if not holding else "wait"
     if mode == "momentum":
-        return ("buy" if last > mean20 * 1.003 else "sell") if not holding else ("sell" if last < mean20 * 0.997 else "wait")
+        return ("buy" if last > mean20 * (1+.003*threshold_scale) else "sell") if not holding else ("sell" if last < mean20 * 0.997 else "wait")
     if mode == "reversion":
-        return ("buy" if last < mean20 * 0.99 else "wait") if not holding else ("sell" if last > mean20 * 1.005 else "wait")
+        return ("buy" if last < mean20 * (1-.01*threshold_scale) else "wait") if not holding else ("sell" if last > mean20 * 1.005 else "wait")
     if mode == "breakout":
-        return ("buy" if last > max(prices[-21:-1]) else "wait") if not holding else ("sell" if last < min(prices[-11:-1]) else "wait")
+        return ("buy" if last > max(prices[-21:-1]) * (1+.001*(threshold_scale-1)) else "wait") if not holding else ("sell" if last < min(prices[-11:-1]) else "wait")
     if mode == "rsi":
         level = rsi(prices)
-        return ("sell" if level > 60 else "wait") if holding else ("buy" if level < 35 else "wait")
+        return ("sell" if level > 60 else "wait") if holding else ("buy" if level < 35-8*(threshold_scale-1) else "wait")
     if mode == "ema_cross":
         fast, slow = ema(prices[-60:], 9), ema(prices[-60:], 21)
-        return ("sell" if fast < slow else "wait") if holding else ("buy" if fast > slow * 1.001 else "wait")
+        return ("sell" if fast < slow else "wait") if holding else ("buy" if fast > slow * (1+.001*threshold_scale) else "wait")
     if mode == "bollinger":
         variance = sum((p - mean20)**2 for p in prices[-20:]) / 20
         std = variance**0.5
-        return ("sell" if last > mean20 else "wait") if holding else ("buy" if last < mean20 - 2*std else "wait")
+        return ("sell" if last > mean20 else "wait") if holding else ("buy" if last < mean20 - (2*threshold_scale)*std else "wait")
     if mode == "volatility":
         high = max(prices[-21:-1]); low = min(prices[-21:-1])
-        return ("sell" if last < mean20 else "wait") if holding else ("buy" if last > high and (high-low)/mean20 > 0.01 else "wait")
+        return ("sell" if last < mean20 else "wait") if holding else ("buy" if last > high*(1+.001*(threshold_scale-1)) and (high-low)/mean20 > .01*threshold_scale else "wait")
     return "wait"
 
 def main():
@@ -130,13 +133,14 @@ def main():
     state = json.loads(STATE.read_text()) if STATE.exists() else {"created": now, "portfolios": {}, "last_candle": {}}
     portfolios = state["portfolios"]
     rows = []
+    tuning = active_scales()
     for name, symbol, mode in STRATEGIES:
         interval = TIMEFRAMES[name]
         candles = market[(symbol, interval)]
         timestamp, price = candles[-1]
         portfolio = portfolios.setdefault(name, {"cash": 20.0, "units": 0.0, "trades": 0, "fees": 0.0})
         if state["last_candle"].get(name) != timestamp:
-            action = decide(mode, [p for _, p in candles], portfolio["units"] > 0, portfolio)
+            action = decide(mode, [p for _, p in candles], portfolio["units"] > 0, portfolio, scale_for(name, tuning))
             if action == "buy" and portfolio["cash"] > 0:
                 gross = portfolio["cash"]
                 portfolio["units"] += gross * (1 - FEE) / price
