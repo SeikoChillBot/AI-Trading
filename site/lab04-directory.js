@@ -60,3 +60,13 @@ function detailSheet(r){
  source.forEach(item=>{if(item.strategy===r.strategy&&Number.isFinite(Number(item.capital_usd)))series.push(Number(item.capital_usd))});
  const max=Math.max(...series),min=Math.min(...series),peak=series.reduce((a,v)=>Math.max(a,v),initial);
  set('sheet-drawdown',L.pct(peak?100*(min/peak-1):0));
+ const host=$('sheet-chart');host.replaceChildren();
+ const w=420,h=150,lo=Math.min(...series),hi=Math.max(...series);
+ const span=Math.max((hi-lo)*1.2,initial*.005),mid=(lo+hi)/2;
+ const path=series.map((v,i)=>(i?'L':'M')+(8+i*(w-16)/Math.max(1,series.length-1)).toFixed(1)+' '+(h/2-(v-mid)/span*110).toFixed(1)).join(' ');
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.setAttribute('viewBox','0 0 '+w+' '+h);svg.style.width='100%';svg.style.height='100%';
+ svg.innerHTML='<path d="'+path+'" fill="none" stroke="'+(n(r.return_pct)>=0?'#b9f477':'#ff8497')+'" stroke-width="2.6" stroke-linecap="round"/>';
+ host.append(svg);
+ $('robot-sheet').hidden=false;document.body.style.overflow='hidden';$('close-sheet').focus();
+}
