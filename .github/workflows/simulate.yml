@@ -5,6 +5,10 @@ on:
     paths:
       - 'multi_asset_sim.py'
       - 'tests/test_multi_asset_sim.py'
+      - 'site/index.html'
+      - 'site/lab04-*.js'
+      - 'site/lab04-*.css'
+      - 'tests/test_site_lab04.py'
       - '.github/workflows/simulate.yml'
   schedule:
     - cron: '3,8,13,18,23,28,33,38,43,48,53,58 * * * *'
