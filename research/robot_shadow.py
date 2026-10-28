@@ -56,7 +56,7 @@ def process_one(record, candle_id, close, signal_fn, cost):
             p["cash"] = gross*(1-expense)
             p["units"] = 0.0
             p["closed_trades"] += 1
-        p["pending"] = signal_fn(scale, p["units"] > 0)
+        p["pending"] = signal_fn(key, scale, p["units"] > 0)
         equity = p["cash"]+p["units"]*close*(1-expense)
         if not math.isfinite(equity) or equity < 0:
             raise ValueError("Non-finite simulated shadow equity")
@@ -113,9 +113,8 @@ def observe_crypto(market, now=None):
                 old[key]["pending"] = "WAIT"
             continue
         closes=[v for _,v in points]
-        def action(scale,holding):
-            return decide(mode,closes,holding,old["candidate"] if scale!=1 else
-                          old["control"],scale).upper()
+        def action(label,scale,holding):
+            return decide(mode,closes,holding,old[label],scale).upper()
         records[name] = process_one(old,candle_id,price,action,.009)
     _write(now,records)
 
@@ -148,7 +147,7 @@ def observe_multi(sources, now=None):
                 old[key]["pending"]="WAIT"
             continue
         previous=quote["previous"]
-        def action(scale,held):
+        def action(label,scale,held):
             return evaluate("trend20",previous,held,scale)[0]
         records[name]=process_one(old,candle_id,price,action,.003 if symbol!="EURUSD" else .006)
     _write(now,records)
