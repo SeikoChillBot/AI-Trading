@@ -27,6 +27,15 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("crypto:cr.length*20",script)
   self.assertIn("r.initial_usd||1000",script)
   self.assertIn("history={crypto:",script)
+ def test_safe_daily_research_is_integrated(self):
+  template=(ROOT/"site/index.html").read_text(encoding="utf8")
+  builder=(ROOT/"build_site.py").read_text(encoding="utf8")
+  self.assertIn('id="research-title"',template)
+  self.assertIn('id="research-idea-list"',template)
+  self.assertIn('lab04-research.js?v=4.1',template)
+  self.assertIn('data["research"]',builder)
+  self.assertTrue((ROOT/"site/lab04-research.js").exists())
+
  def test_workflow_publishes_versions(self):
   workflow=(ROOT/".github/workflows/simulate.yml").read_text(encoding="utf8")
   self.assertIn("cp site/lab04-*.js docs/",workflow)
