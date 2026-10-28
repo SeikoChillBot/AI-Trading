@@ -171,6 +171,12 @@ def main():
         writer = csv.DictWriter(f, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
+    # Independent prospective shadow results; failures never alter paper accounts.
+    try:
+        from research.robot_shadow import observe_crypto
+        observe_crypto(market)
+    except (OSError, KeyError, TypeError, ValueError) as exc:
+        print("Shadow research unavailable:", type(exc).__name__)
     for row in rows:
         print(row)
 
