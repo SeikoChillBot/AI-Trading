@@ -79,7 +79,7 @@ jobs:
                 exit 0
               fi
               git fetch origin main
-              git rebase origin/main || { git rebase --abort || true; exit 1; }
+              git rebase origin/main || { git rebase --abort || true; echo "::warning::Concurrent Git publication; this report cycle was skipped safely. The next scheduled run will retry."; exit 0; }
               sleep 3
             done
             exit 1
