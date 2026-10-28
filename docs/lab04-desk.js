@@ -56,12 +56,16 @@ if(placements){
    terminated_missing_observation:'Test interrompu : données manquantes',
    terminated_invalid_price:'Test interrompu : cotation invalide'
   }[item.status]||'Test suspendu ou non vérifié';
+  const actor=item.actor==='gemini_structured_decision'?
+   'Décision Gemini exécutée automatiquement':
+   item.actor==='quantitative_auto_fallback'?
+   'Moteur statistique autonome (Gemini en attente)':'Source de décision non précisée';
   const pct=Number(item.estimated_net_pct);
   const amount=Number(item.equity_usd);
   card(placements,(item.asset||'Actif')+' · '+Number(item.horizon_days||0)+' jour(s)',
    status+' · '+(item.rationale||'Hypothèse de recherche'),
    'Démarré : '+stamp(item.created_at)+
-    ' · Capital fictif : '+(Number.isFinite(amount)?amount.toFixed(2)+' $':'en attente')+
+    ' · '+actor+' · Capital fictif : '+(Number.isFinite(amount)?amount.toFixed(2)+' $':'en attente')+
     ' · variation fictive : '+(Number.isFinite(pct)?pct.toFixed(2)+' %':'non disponible'));
  }
 }
