@@ -237,7 +237,7 @@ def main():
                                                    "trades": 0, "fees": 0.0})
         if int(state["last_candle"].get(name, 0)) != signal_open_ms:
             action = decide(mode, [v for _,v in candles], holding, portfolio)
-            if action in ("buy","sell"):
+            if (action=="buy" and not holding) or (action=="sell" and holding):
                 reason = describe_signal(mode,[v for _,v in candles], portfolio, action)
                 book=books[symbol];limits=rules[symbol]
                 side=action.upper()
