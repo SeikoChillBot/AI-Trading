@@ -31,3 +31,18 @@ function paint(){
  for(const [label,value] of stats){const card=ce('div','');card.append(ce('small','',label),ce('strong','',value));risk.append(card)}
  drawMultiChart();
 }
+function drawMultiChart(){
+ const host=$('multi-analysis-chart');if(!host)return;host.replaceChildren();
+ if(!L.ready){host.append(ce('p','micro-note','La courbe apparaîtra avec le premier relevé multi-actifs.'));return}
+ const points=L.history.multi;if(points.length<2)return;
+ const values=points.map(p=>p.v),low=Math.min(...values),high=Math.max(...values),margin=Math.max((high-low)*.25,5);
+ const w=700,h=170;const coords=points.map((p,i)=>({x:5+i*690/(points.length-1),y:9+(h-18)*(1-(p.v-(low-margin))/(high-low+2*margin))}));
+ const d=coords.map((v,i)=>(i?'L':'M')+v.x.toFixed(2)+' '+v.y.toFixed(2)).join(' ');
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.setAttribute('viewBox','0 0 '+w+' '+h);svg.setAttribute('preserveAspectRatio','none');
+ svg.setAttribute('role','img');svg.setAttribute('aria-label','Historique multi-actifs depuis le lancement');
+ svg.style.width='100%';svg.style.height='100%';
+ const color=values.at(-1)>=values[0]?'#b9f477':'#ff8497';
+ svg.innerHTML='<path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2.8" stroke-linejoin="round"/>';
+ host.append(svg);
+}
