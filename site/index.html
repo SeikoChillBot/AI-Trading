@@ -54,6 +54,24 @@
 <div class="filter-list" id="robot-filters" role="group" aria-label="Filtrer les robots"><button data-filter="all" class="is-active">Tous</button><button data-filter="positive">En hausse</button><button data-filter="negative">En baisse</button><button data-filter="inactive">Sans opération</button></div><div class="asset-filter-bar" id="crypto-asset-filters" role="group" aria-label="Filtrer par cryptomonnaie"><span>ACTIF</span><button data-coin="all" class="is-active">Tous</button><button data-coin="BTC">₿ BTC</button><button data-coin="ETH">Ξ ETH</button><button data-coin="SOL">◎ SOL</button></div>
 <div class="list-caption"><span id="robots-count">— stratégies</span><span>CAPITAL / RENDEMENT</span></div><div id="robot-list" class="robot-list"></div></section>
 <section id="view-analysis" class="view" aria-label="Analyse" hidden>
+<section class="research-panel" aria-labelledby="research-title">
+ <div class="research-panel-head"><div>
+  <span class="eyebrow">LABORATOIRE D'EXPÉRIMENTATION</span>
+  <h2 id="research-title">Recherche automatisée<span class="title-period">.</span></h2>
+  <p>Un rapport quotidien pour repérer les coûts, les risques et les prochaines hypothèses à tester.</p>
+ </div><span id="research-ai-state" class="research-panel-state">En attente</span></div>
+ <div class="research-panel-metrics">
+  <div><small>ROBOTS ANALYSÉS</small><strong id="research-bots">—</strong></div>
+  <div><small>REVUE STATISTIQUE POSSIBLE</small><strong id="research-eligible">—</strong></div>
+  <div><small>HYPOTHÈSES À TESTER</small><strong id="research-ideas">—</strong></div>
+ </div>
+ <p id="research-status" class="research-panel-status">Première analyse automatique en attente.</p>
+ <details class="research-panel-details">
+  <summary>Consulter les hypothèses et leurs critères de validation</summary>
+  <div id="research-idea-list" class="research-idea-list"></div>
+ </details>
+ <p class="research-panel-footer" id="research-updated">Les robots restent inchangés. Aucun ordre réel.</p>
+</section>
 <section class="cross-analysis" aria-labelledby="cross-analysis-title">
  <div class="cross-analysis-heading"><div><span class="eyebrow">DEUX EXPÉRIENCES DISTINCTES</span><h2 id="cross-analysis-title">Comparer sans confondre.</h2><p>Les mises de départ sont identiques, mais les dates, les marchés et la qualité des cotations diffèrent. Aucun résultat n'est encore validé.</p></div><span class="cross-analysis-pill" id="cross-analysis-stage">Échantillon insuffisant</span></div>
  <div class="cross-scorecard" id="cross-scorecard"></div>
