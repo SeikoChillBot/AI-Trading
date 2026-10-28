@@ -48,3 +48,6 @@ function detailSheet(r){
  set('sheet-fees',L.money(r.fees_usd,3));
  set('sheet-timeframe',crypto?r.timeframe_min+' min':'1 séance');
  $('sheet-return').className=L.tone(n(r.return_pct));
+ $('sheet-coin').className='coin-icon is-market';
+ set('sheet-coin',crypto?({BTC:'₿',ETH:'Ξ',SOL:'◎'}[r.asset.slice(0,3)]||'◈'):r.asset.slice(0,2));
+ set('sheet-description',(r.strategy.endsWith('_hold')?'Conservation longue durée.':'Stratégie de tendance.')+(crypto?' Carnet Kraken simulé.':' Cotations publiques indicatives, coûts estimés ; dividendes non modélisés.'));
