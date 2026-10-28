@@ -23,7 +23,7 @@ OUTPUT = ROOT / "reports" / "ai_research.md"
 DATA = ROOT / "reports" / "ai_research_proposals.json"
 STATUS = ROOT / "reports" / "ai_research_status.json"
 API_URL = "https://api.openai.com/v1/responses"
-GEMINI_MODEL = "gemini-2.5-flash-lite"  # Deliberate free-tier model allowlist.
+GEMINI_MODEL = "gemini-3.5-flash-lite"  # Free-tier eligible for newly created projects.
 GEMINI_URL = ("https://generativelanguage.googleapis.com/v1beta/models/"
               + GEMINI_MODEL + ":generateContent")
 
