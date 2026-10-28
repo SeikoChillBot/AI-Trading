@@ -13,6 +13,8 @@ on:
       - 'research/ai_reflection.py'
       - 'research/large_transfers.py'
       - 'research/market_pulse.py'
+      - 'research/challenger_incubator.py'
+      - 'tests/test_challenger_incubator.py'
       - 'tests/test_autonomous_market.py'
       - 'research/ai_decision_support.py'
       - 'tests/test_ai_decision_support.py'
@@ -59,6 +61,10 @@ jobs:
           python research/large_transfers.py
       - name: Test historical strategies
         run: python -m unittest discover -s tests -p 'test_historical_research.py' -v && python research/walkforward.py && python research/market_pulse.py
+      - name: Test and update frozen forward-only challenger incubator
+        run: |
+          python -m unittest discover -s tests -p 'test_challenger_incubator.py' -v
+          python -m research.challenger_incubator
       - name: Read live paper reports and suggest experiments
         run: python research/auto_research.py
       - name: AI research every six hours maximum — cached between reviews
@@ -81,9 +87,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
           git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json
-          git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/market_pulse.json
+          git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/market_pulse.json reports/challenger_incubator.json
           git add site/dashboard.html docs/index.html
-          git add -A state/whale_watch_state.json state/large_transfer_cursor.json reports/whale_transfer_events.jsonl 2>/dev/null || true
+          git add -A state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "Update guarded Seiko research observations"
             for attempt in 1 2 3 4 5; do
