@@ -36,3 +36,11 @@ function render(){
  const coins=$('crypto-asset-filters');if(coins)coins.hidden=scope!=='crypto';
  document.querySelectorAll('[data-robot-lab]').forEach(b=>{let yes=b.dataset.robotLab===scope;b.classList.toggle('is-active',yes);b.setAttribute('aria-pressed',String(yes))});
 }
+function detailSheet(r){
+ opened=r;
+ const crypto=r.kind==='crypto';
+ const set=(id,value)=>L.put(id,value);
+ set('sheet-name',r.name);set('sheet-capital',L.money(r.capital_usd));
+ set('sheet-return',L.pct(n(r.return_pct)));
+ set('sheet-asset',r.asset);
+ set('sheet-category',crypto?'Crypto':'Multi-actifs');
