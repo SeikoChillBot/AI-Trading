@@ -10,6 +10,13 @@ STATE = Path("state/portfolios.json")
 REPORT = Path("reports/latest.csv")
 FEE = 0.001
 SYMBOLS = ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+TIMEFRAMES = {
+    "btc_hold": 60, "eth_hold": 60, "sol_hold": 60,
+    "btc_momentum": 5, "eth_momentum": 15, "sol_momentum": 5,
+    "btc_reversion": 5, "eth_reversion": 15, "sol_reversion": 5,
+    "btc_breakout": 15, "btc_rsi": 5, "eth_ema_cross": 15,
+    "sol_bollinger": 5, "btc_volatility": 60,
+}
 STRATEGIES = [
     ("btc_hold", "BTCUSDT", "hold"),
     ("eth_hold", "ETHUSDT", "hold"),
@@ -27,11 +34,11 @@ STRATEGIES = [
     ("btc_volatility", "BTCUSDT", "volatility"),
 ]
 
-def fetch_candles(symbol):
+def fetch_candles(symbol, interval):
     pair = {"BTCUSDT": "XBTUSD", "ETHUSDT": "ETHUSD", "SOLUSDT": "SOLUSD"}[symbol]
     response = requests.get(
         "https://api.kraken.com/0/public/OHLC",
-        params={"pair": pair, "interval": 15},
+        params={"pair": pair, "interval": interval},
         timeout=20,
     )
     response.raise_for_status()
@@ -88,13 +95,15 @@ def decide(mode, prices, holding):
     return "wait"
 
 def main():
-    market = {symbol: fetch_candles(symbol) for symbol in SYMBOLS}
+    market = {(symbol, interval): fetch_candles(symbol, interval)
+              for symbol, interval in {(symbol, TIMEFRAMES[name]) for name, symbol, _ in STRATEGIES}}
     now = datetime.now(timezone.utc).isoformat()
     state = json.loads(STATE.read_text()) if STATE.exists() else {"created": now, "portfolios": {}, "last_candle": {}}
     portfolios = state["portfolios"]
     rows = []
     for name, symbol, mode in STRATEGIES:
-        candles = market[symbol]
+        interval = TIMEFRAMES[name]
+        candles = market[(symbol, interval)]
         timestamp, price = candles[-1]
         portfolio = portfolios.setdefault(name, {"cash": 20.0, "units": 0.0, "trades": 0, "fees": 0.0})
         if state["last_candle"].get(name) != timestamp:
@@ -115,7 +124,8 @@ def main():
         equity = portfolio["cash"] + portfolio["units"] * price
         rows.append({"strategy": name, "asset": symbol, "capital_usd": round(equity, 5),
                      "return_pct": round((equity / 20 - 1) * 100, 3), "trades": portfolio["trades"],
-                     "fees_usd": round(portfolio["fees"], 5), "candle_end_ms": timestamp})
+                     "fees_usd": round(portfolio["fees"], 5), "candle_end_ms": timestamp,
+                     "timeframe_min": interval})
     # USD quotes are used. The starting 20 units are USD fictifs, not EUR.
     state["updated"] = now
     STATE.parent.mkdir(exist_ok=True)
