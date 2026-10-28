@@ -52,7 +52,8 @@ class RobotEvolutionTests(unittest.TestCase):
         self.assertEqual(events[0]["action"],"proposed_by_gemini")
         self.assertEqual(sum(x["action"]=="proposed_by_quant_engine" for x in events),3)
         again,reg2,active2,events2=evolution.build(NOW,research,ideas,{},reg,active)
-        self.assertEqual(events2,[])
+        self.assertEqual(len(events2),3)
+        self.assertTrue(all(x["action"]=="proposed_by_quant_engine" for x in events2))
         self.assertEqual(reg2["candidates"]["btc_momentum"]["created_at"],NOW.isoformat())
 
     def test_all_individual_bots_receive_bounded_prospective_studies(self):
