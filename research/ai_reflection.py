@@ -44,13 +44,43 @@ INSTRUCTIONS = (
     "Aucun ordre, aucune modification des 36 robots, aucune promotion automatique, "
     "aucune promesse de rendement. Capital fictif 20 USD par scénario. "
     "Les fractions d'ETF US et taux BCE ne prouvent pas une exécution possible. "
+    "Gemini peut aussi suggérer jusqu'à trois ajustements PAR ROBOT parmi "
+    "les 36 statistiques fournies : chaque proposition doit nommer exactement "
+    "un identifiant autorisé, choisir un profil 'conservative' ou 'responsive', "
+    "et expliquer sa logique. Il s'agit d'hypothèses, jamais de gains avérés. "
+    "Les robots hold restent des témoins immuables. Les variantes sont testées "
+    "en portefeuille fictif séparé AVANT tout ajustement d'un robot. "
+    "Ne propose aucun code exécutable, API, secret, effet de levier ou signal d'ordre. "
     "Réponds exclusivement dans le schéma JSON demandé, en français."
 )
+
+BOT_TUNING_OPTIONS = [
+    "btc_momentum", "eth_momentum", "sol_momentum",
+    "btc_reversion", "eth_reversion", "sol_reversion",
+    "btc_breakout", "btc_rsi", "eth_ema_cross", "sol_bollinger",
+    "btc_volatility", "btc_scalp_momentum", "eth_scalp_trailing",
+    "sol_scalp_microtrend", "btc_scalp_conservative",
+] + [n+"_trend20" for n in (
+    "aapl", "msft", "spy", "qqq", "bnd", "gld", "slv", "vnq", "eurusd")]
 
 IDEA_SCHEMA = {
     "type": "object",
     "properties": {
         "summary": {"type": "string"},
+        "bot_adjustments": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "strategy": {"type": "string", "enum": BOT_TUNING_OPTIONS},
+                    "profile": {"type": "string",
+                                "enum": ["conservative", "responsive"]},
+                    "reason": {"type": "string"},
+                },
+                "required": ["strategy", "profile", "reason"],
+                "additionalProperties": False,
+            },
+        },
         "experiments": {
             "type": "array",
             "items": {
@@ -67,7 +97,7 @@ IDEA_SCHEMA = {
             },
         },
     },
-    "required": ["summary", "experiments"],
+    "required": ["summary", "experiments", "bot_adjustments"],
     "additionalProperties": False,
 }
 
@@ -125,6 +155,16 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         "type": "OBJECT",
         "properties": {
             "summary": {"type": "STRING"},
+            "bot_adjustments": {
+                "type":"ARRAY",
+                "items":{"type":"OBJECT",
+                    "properties":{
+                        "strategy":{"type":"STRING","enum":BOT_TUNING_OPTIONS},
+                        "profile":{"type":"STRING","enum":["conservative","responsive"]},
+                        "reason":{"type":"STRING"}
+                    },
+                    "required":["strategy","profile","reason"]}
+            },
             "experiments": {
                 "type": "ARRAY",
                 "items": {
@@ -151,7 +191,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         "generationConfig": {
             "responseMimeType": "application/json",
             "responseSchema": schema,
-            "maxOutputTokens": 1800,
+            "maxOutputTokens": 3000,
             "temperature": 0.2,
         },
     }
@@ -217,6 +257,7 @@ def main():
     state = "not_configured"
     summary = "Diagnostic statistique local ; analyse générative non activée."
     proposals = baseline_ideas(historical)
+    bot_adjustments = []
     # Max four provider requests per UTC day, despite more frequent market scans.
     review_slot = now.strftime("%Y-%m-%d") + "T%02d:00Z" % ((now.hour // 6)*6)
     cached_attempt = (prior.get("review_slot") == review_slot
@@ -233,6 +274,7 @@ def main():
             used_cache = True
             model_last_called_at = prior.get("model_last_called_at")
             proposals = cached["experiments"]
+            bot_adjustments = cached.get("bot_adjustments", [])
             summary = str(cached.get("summary", ""))[:1000]
         elif cached_attempt:
             state = "model_reflection_failed"
@@ -243,6 +285,7 @@ def main():
                 result = (run_gemini(api_key, research, historical) if provider == "gemini"
                           else run(api_key, model, research, historical))
                 proposals = result["experiments"]
+                bot_adjustments = result.get("bot_adjustments", [])
                 summary = result["summary"]
                 state = "model_reflection_completed"
                 model_last_called_at = now.isoformat()
@@ -261,6 +304,7 @@ def main():
         "source": provider_source if state == "model_reflection_completed" else "deterministic_fallback",
         "state": state, "provider": provider, "summary": summary, "historical": historical,
         "experiments": proposals[:3],
+        "bot_adjustments": bot_adjustments[:3],
         "experiments_validated": False,
         "live_strategy_changes_enabled": False,
         "real_orders_enabled": False,
