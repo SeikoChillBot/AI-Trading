@@ -61,7 +61,7 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn('id="desk-patchnotes"',html)
   self.assertIn('id="desk-news"',html)
   self.assertIn('id="desk-placements"',html)
-  self.assertIn('lab04-desk.js?v=4.6',html)
+  self.assertIn('lab04-desk.js?v=4.7',html)
   self.assertIn("'analysis','explore','desk'",app)
   self.assertIn('data["gemini_desk"]',builder)
   self.assertIn("textContent",script)
