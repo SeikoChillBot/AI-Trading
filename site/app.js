@@ -6,7 +6,18 @@ const rawRows = Array.isArray(DATA.rows) ? DATA.rows : [];
 const rows = rawRows.map(r => ({...r, capital_usd: Number(r.capital_usd), return_pct: Number(r.return_pct), trades: Number(r.trades), fees_usd: Number(r.fees_usd), timeframe_min: Number(r.timeframe_min) || 0}));
 const byName = new Map(rows.map(r => [r.strategy, r]));
 const history = Array.isArray(DATA.history) ? DATA.history : [];
-const money = (n, digits=2) => Number(n).toLocaleString('fr-FR',{minimumFractionDigits:digits,maximumFractionDigits:digits}) + ' $';
+// The trading model remains in USD. EUR is a display-only conversion.
+const fxReference = DATA.fx && typeof DATA.fx === 'object' ? DATA.fx : null;
+const usdPerEur = Number(fxReference?.usd_per_eur);
+const fxDate = Date.parse(String(fxReference?.reference_date || '') + 'T12:00:00Z');
+const fxAgeDays = (Date.now() - fxDate) / 86400000;
+const fxAvailable = fxReference?.source === 'ECB' && Number.isFinite(usdPerEur) &&
+  usdPerEur > .5 && usdPerEur < 3.5 && Number.isFinite(fxAgeDays) && fxAgeDays >= -1 && fxAgeDays <= 9.5;
+let displayCurrency = 'USD';
+try { if(fxAvailable && localStorage.getItem('seiko-trading-display-currency') === 'EUR') displayCurrency = 'EUR'; } catch (_) {}
+const displayAmount = value => Number(value) / (displayCurrency === 'EUR' ? usdPerEur : 1);
+const money = (n, digits=2) => displayAmount(n).toLocaleString('fr-FR',
+  {minimumFractionDigits:digits,maximumFractionDigits:digits}) + (displayCurrency === 'EUR' ? ' €' : ' $');
 const percentage = n => (n > 0 ? '+' : '') + Number(n).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' %';
 const signedMoney = n => (n > 0 ? '+' : n === 0 ? '±' : '') + money(n);
 const polarity = n => n > 0.000001 ? 'positive' : n < -0.000001 ? 'negative' : 'neutral';
@@ -213,6 +224,14 @@ function renderSheetExtras(r){
  else{setText('sheet-benchmark','—');setText('sheet-benchmark-note','Pas de robot Hold de référence pour cet actif.');}
 }
 
+// Signals are measured in USD; convert only explicitly labelled price values.
+function displaySignalReason(reason){
+ const text=String(reason||'Motif non enregistré');
+ return displayCurrency === 'EUR'
+   ? text.replace(/\b(close|moy20)=([0-9]+(?:\.[0-9]+)?)/g,
+       (_,name,value)=>name+'='+money(Number(value),4))
+   : text;
+}
 // Human-readable paper execution log. Source: recorded quotes and decisions,
 // never reconstructed or invented transactions.
 let showAllEvents=false;
@@ -244,7 +263,7 @@ function renderTradeJournal(){
    card.append(head,when);
    const details=document.createElement('div');details.className='trade-event-metrics';
    if(filled){
-      const price=document.createElement('span');price.textContent='Prix estimé '+Number(e.executed_price).toLocaleString('fr-FR',{maximumFractionDigits:4})+' USD';
+      const price=document.createElement('span');price.textContent='Prix estimé '+money(Number(e.executed_price),4);
       const qty=document.createElement('span');qty.textContent='Quantité '+String(e.quantity);
       const fees=document.createElement('span');fees.textContent='Frais '+money(Number(e.fee_usd),4);
       details.append(price,qty,fees);
@@ -254,7 +273,7 @@ function renderTradeJournal(){
    card.append(details);
    const explain=document.createElement('details');explain.className='trade-explanation';
    const summary=document.createElement('summary');summary.textContent='Pourquoi cette décision ?';
-   const body=document.createElement('p');body.textContent=e.reason||'Motif non enregistré';
+   const body=document.createElement('p');body.textContent=displaySignalReason(e.reason);
    explain.append(summary,body);card.append(explain);
    container.append(card);
  }
@@ -267,12 +286,48 @@ if(DATA.model==='realistic_v2'){
  const method=document.querySelectorAll('.method-list > div p');
  if(method[1])method[1].textContent='Frais et exécution : ordres simulés sur le carnet Kraken, 0,80 % de frais taker et 0,05 % de glissement supplémentaire estimé.';
  if(method[2])method[2].textContent='Limites : les cotations sont observées puis simulées, et non garanties comme un ordre réellement exécuté. Les minimums de marché sont vérifiés.';
- const tag=document.querySelector('.hero-small-tag');
- if(tag)tag.textContent='USD · MODÈLE PRUDENT V2';
+ // The display currency badge is managed centrally when toggling.
 }
 
 let assetFilter='all';
 document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
+function refreshCurrency(){
+ setText('portfolio-value',rows.length ? money(latest) : '—');
+ setText('portfolio-profit',rows.length ? signedMoney(profit) : '—');
+ const tag=document.querySelector('.hero-small-tag');
+ if(tag)tag.textContent=displayCurrency+' · '+(DATA.model==='realistic_v2' ? 'MODÈLE PRUDENT V2' : 'SIMULATION');
+ const fxNote=$('fx-note');
+ if(fxNote)fxNote.textContent=fxAvailable
+  ? 'BCE · taux du '+new Intl.DateTimeFormat('fr-FR',{timeZone:'UTC',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(fxDate))+
+    ' · 1 € = '+usdPerEur.toLocaleString('fr-FR',{minimumFractionDigits:4,maximumFractionDigits:4})+
+    ' $ · conversion indicative uniquement'
+  : 'Taux BCE indisponible ou trop ancien : affichage en USD uniquement.';
+ document.querySelectorAll('[data-currency]').forEach(button=>{
+   const active=button.dataset.currency===displayCurrency;
+   button.classList.toggle('is-active',active);
+   button.setAttribute('aria-pressed',String(active));
+   if(button.dataset.currency==='EUR'){
+     button.disabled=!fxAvailable;
+     button.title=fxAvailable?'Afficher les équivalents en euros':'Taux BCE indisponible';
+   }
+ });
+ renderMainChart();renderRobots();renderAnalysis();renderTradeJournal();
+ if(sheetRobot){
+   setText('sheet-capital',money(sheetRobot.capital_usd));
+   setText('sheet-fees',money(sheetRobot.fees_usd,3));
+   lineChart($('sheet-chart'),series.map(p=>({
+      v:p.values.get(sheetRobot.strategy)??START,t:p.t,label:p.label
+   })),{compact:true,tone:sheetRobot.capital_usd-START});
+ }
+}
+document.querySelectorAll('[data-currency]').forEach(button=>button.addEventListener('click',()=>{
+ const next=button.dataset.currency;
+ if(next==='EUR'&&!fxAvailable)return;
+ if(next!=='USD'&&next!=='EUR')return;
+ displayCurrency=next;
+ try { localStorage.setItem('seiko-trading-display-currency',next); } catch (_) {}
+ refreshCurrency();
+}));
 renderLabTimeline();researchInsights();
-renderRobots();renderAnalysis();renderTradeJournal();toView(window.location.hash.substring(1)||'home',false);
+refreshCurrency();toView(window.location.hash.substring(1)||'home',false);
 })();
