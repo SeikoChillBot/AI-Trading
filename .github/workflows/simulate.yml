@@ -75,7 +75,7 @@ jobs:
               fi
               echo "Remote updated during run; rebasing and retrying ($attempt/5)"
               git fetch origin main
-              git rebase origin/main || { git rebase --abort || true; exit 1; }
+              git rebase origin/main || { git rebase --abort || true; echo "::warning::Concurrent Git publication; this report cycle was skipped safely. The next scheduled run will retry."; exit 0; }
               sleep 3
             done
             echo "Could not publish after 5 attempts" >&2
