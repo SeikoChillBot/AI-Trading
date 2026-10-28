@@ -23,7 +23,7 @@ jobs:
       - run: python bot.py
       - name: Validate and run independent realistic paper-trading engine
         run: |
-          python -m unittest discover -s tests -p 'test_realistic_sim.py' -v
+          python -m unittest discover -s tests -p 'test_realistic_*.py' -v
           python realistic_sim.py
         continue-on-error: true
       - run: python dashboard.py
