@@ -1,6 +1,6 @@
 # Seiko Trading Lab — Réflexion par IA
 
-Génération UTC : 2026-10-28T21:41:11.118521+00:00
+Génération UTC : 2026-10-28T21:41:50.865493+00:00
 
 **Statut : not_configured.** Les propositions ne sont pas validées par un backtest.
 
