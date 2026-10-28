@@ -77,7 +77,7 @@ const aiReview=DATA.ai_review||{};
 const aiHost=get('ai-experiment-list');
 if(aiHost){
  aiHost.replaceChildren();
- const fromModel=aiReview.source==='openai_responses'&&aiReview.state==='model_reflection_completed';
+ const fromModel=['openai_responses','gemini_generate_content'].includes(aiReview.source)&&aiReview.state==='model_reflection_completed';
  const label=fromModel?'Modèle IA connecté : hypothèses à tester.':
   'Diagnostic de robustesse statistique. Modèle IA externe non activé.';
  const observations=Array.isArray(aiReview.historical?.assets)?aiReview.historical.assets:[];
