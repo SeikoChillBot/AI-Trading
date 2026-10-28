@@ -39,3 +39,16 @@
 .trade-explanation p{font-size:12px;line-height:1.6;color:#b2c5ce;overflow-wrap:anywhere}
 .trade-show-all{margin-top:12px}
 @media(max-width:530px){.trade-event{padding:14px 12px}.trade-event-head strong{font-size:12px}.trade-status{font-size:9px}.trade-event-metrics{font-size:11px}}
+
+/* Currency display control: unobtrusive, touch-friendly and responsive. */
+.display-currency{display:flex;align-items:center;justify-content:space-between;gap:8px 18px;margin:-8px 0 21px;flex-wrap:wrap}
+.display-currency-controls{display:flex;align-items:center;gap:12px}
+.display-currency-label{font-size:10px;letter-spacing:.13em;font-weight:800;color:#94a5af}
+.display-currency-switch{display:inline-flex;align-items:center;gap:3px;border:1px solid #3f5a4a;border-radius:11px;background:#131d26;padding:3px}
+.display-currency-switch button{display:inline-flex;align-items:center;gap:7px;background:transparent;border:0;border-radius:8px;color:#94aaa0;font-size:12px;font-weight:800;padding:9px 12px;min-height:38px;transition:background .15s,color .15s}
+.display-currency-switch button span{font-size:11px;opacity:.7}
+.display-currency-switch button.is-active{color:#14241b;background:var(--lime)}
+.display-currency-switch button:disabled{opacity:.38;cursor:not-allowed}
+.display-fx-note{margin:0;color:#98abb0;font-size:10px;line-height:1.5;text-align:right;flex:1;min-width:200px}
+@media(max-width:680px){.display-currency{align-items:flex-start;flex-direction:column;margin:-9px 0 20px;gap:7px}.display-fx-note{min-width:0;text-align:left;flex:auto;font-size:10px}}
+@media(max-width:360px){.display-currency-label{font-size:9px}.display-currency-controls{gap:8px}.display-currency-switch button{padding:8px 10px}}
