@@ -10,7 +10,7 @@ const money = (n, digits=2) => Number(n).toLocaleString('fr-FR',{minimumFraction
 const percentage = n => (n > 0 ? '+' : '') + Number(n).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' %';
 const signedMoney = n => (n > 0 ? '+' : n === 0 ? '±' : '') + money(n);
 const polarity = n => n > 0.000001 ? 'positive' : n < -0.000001 ? 'negative' : 'neutral';
-const coinFor = asset => String(asset || '').replace('USDT','').toUpperCase();
+const coinFor = asset => String(asset || '').replace(/(?:USDT|USD)$/,'').replace('/','').toUpperCase();
 const nameFor = key => { const [asset,...parts] = key.split('_'); return asset.toUpperCase() + ' ' + parts.map(p => p === 'ema' ? 'EMA' : p === 'rsi' ? 'RSI' : p[0].toUpperCase()+p.slice(1)).join(' '); };
 const descriptions = {
  hold:['Buy & Hold','Un achat initial, puis conservation de la cryptomonnaie, même lorsque son prix diminue.'],
@@ -56,6 +56,13 @@ function reconstruct() {
  // Include a last point from the current live report to avoid a misleading old total.
  const last = snapshots[snapshots.length-1];
  if(Math.abs(last.capital-latest)>0.0001) snapshots.push({label:'Dernier relevé',t:Date.parse(rawDate)||Date.now(),capital:latest,values:new Map(rows.map(r=>[r.strategy,r.capital_usd]))});
+ // The new experiment starts exactly at $20 per robot, before any fees.
+ // The first filled orders may immediately reduce liquidation value.
+ if(DATA.model==='realistic_v2'){
+   const launch=Date.parse(DATA.launched_at);
+   if(Number.isFinite(launch))snapshots.unshift({label:'Capital initial',t:launch-1,
+      capital:initial,values:new Map(rows.map(r=>[r.strategy,START]))});
+ }
  return snapshots;
 }
 const series = reconstruct();
@@ -205,8 +212,71 @@ function renderSheetExtras(r){
  else if(hold){const diff=r.return_pct-hold.return_pct;setText('sheet-benchmark',(diff>0?'+':'')+diff.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' pt');setText('sheet-benchmark-note','Écart de rendement avec '+asset+' Hold, sans équivalence de risque.');}
  else{setText('sheet-benchmark','—');setText('sheet-benchmark-note','Pas de robot Hold de référence pour cet actif.');}
 }
+
+// Human-readable paper execution log. Source: recorded quotes and decisions,
+// never reconstructed or invented transactions.
+let showAllEvents=false;
+function renderTradeJournal(){
+ const container=$('trade-journal-list'),toggle=$('trade-journal-toggle');
+ if(!container)return;
+ const events=Array.isArray(DATA.orders)?[...DATA.orders].reverse():[];
+ container.replaceChildren();
+ if(!events.length){
+   const empty=document.createElement('p');empty.className='micro-note';
+   empty.textContent='Aucune opération ou tentative enregistrée pour cette expérience.';
+   container.append(empty);toggle.hidden=true;return;
+ }
+ const visible=showAllEvents?events:events.slice(0,8);
+ toggle.hidden=events.length<=8;
+ toggle.textContent=showAllEvents?'Réduire la liste':'Afficher les '+events.length+' événements';
+ for(const e of visible){
+   const card=document.createElement('article');card.className='trade-event';
+   const head=document.createElement('div');head.className='trade-event-head';
+   const label=document.createElement('strong');label.textContent=nameFor(e.strategy);
+   const status=document.createElement('span');
+   const filled=e.status==='FILLED_SIMULATED';
+   status.className=filled?'trade-status is-filled':'trade-status is-rejected';
+   const action=e.side==='BUY'?'Achat':'Vente';
+   status.textContent=filled?action+' simulé':action+' refusé';
+   head.append(label,status);
+   const when=document.createElement('small');when.className='trade-when';
+   when.textContent=dateFR(e.observed_at)+' · '+(e.asset||'').replace('USDT','/USD').replace(/([A-Z]{3})USD$/,'$1/USD');
+   card.append(head,when);
+   const details=document.createElement('div');details.className='trade-event-metrics';
+   if(filled){
+      const price=document.createElement('span');price.textContent='Prix estimé '+Number(e.executed_price).toLocaleString('fr-FR',{maximumFractionDigits:4})+' 
+document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
+renderLabTimeline();researchInsights();
+renderRobots();renderAnalysis();renderTradeJournal();toView(window.location.hash.substring(1)||'home',false);
+})();;
+      const qty=document.createElement('span');qty.textContent='Quantité '+String(e.quantity);
+      const fees=document.createElement('span');fees.textContent='Frais '+money(Number(e.fee_usd),4);
+      details.append(price,qty,fees);
+   }else{
+      const reason=document.createElement('span');reason.textContent='Motif du refus : '+String(e.status).replaceAll('_',' ').toLowerCase();details.append(reason);
+   }
+   card.append(details);
+   const explain=document.createElement('details');explain.className='trade-explanation';
+   const summary=document.createElement('summary');summary.textContent='Pourquoi cette décision ?';
+   const body=document.createElement('p');body.textContent=e.reason||'Motif non enregistré';
+   explain.append(summary,body);card.append(explain);
+   container.append(card);
+ }
+}
+const journalToggle=$('trade-journal-toggle');
+if(journalToggle)journalToggle.addEventListener('click',()=>{showAllEvents=!showAllEvents;renderTradeJournal();});
+if(DATA.model==='realistic_v2'){
+ const note=document.querySelector('.notice p');
+ if(note)note.textContent='Simulation conservatrice : carnet d’ordres Kraken, frais taker 0,80 %, glissement supplémentaire estimé 0,05 % par opération. Aucun ordre réel.';
+ const method=document.querySelectorAll('.method-list > div p');
+ if(method[1])method[1].textContent='Frais et exécution : ordres simulés sur le carnet Kraken, 0,80 % de frais taker et 0,05 % de glissement supplémentaire estimé.';
+ if(method[2])method[2].textContent='Limites : les cotations sont observées puis simulées, et non garanties comme un ordre réellement exécuté. Les minimums de marché sont vérifiés.';
+ const tag=document.querySelector('.hero-small-tag');
+ if(tag)tag.textContent='USD · MODÈLE PRUDENT V2';
+}
+
 let assetFilter='all';
 document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
 renderLabTimeline();researchInsights();
-renderRobots();renderAnalysis();toView(window.location.hash.substring(1)||'home',false);
+renderRobots();renderAnalysis();renderTradeJournal();toView(window.location.hash.substring(1)||'home',false);
 })();
