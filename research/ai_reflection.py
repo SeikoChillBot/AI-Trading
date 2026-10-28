@@ -199,7 +199,7 @@ def main():
     historical = summarize_challengers(read_json(WALK), now)
     configured = os.environ.get("SEIKO_AI_ENABLED") == "1"
     # A provider must be explicitly activated; Gemini free model is preferred.
-    provider = os.environ.get("SEIKO_AI_PROVIDER", "gemini").strip().lower()
+    provider = (os.environ.get("SEIKO_AI_PROVIDER") or "gemini").strip().lower()
     if provider not in ("gemini", "openai"):
         provider = "disabled"
     api_key = (os.environ.get("GEMINI_API_KEY", "") if provider == "gemini"
