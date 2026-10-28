@@ -104,3 +104,8 @@ def main():
             events.extend(step(state["portfolios"][asset],bars,now,book,rules[symbol]))
         except (ValueError,RuntimeError,KeyError) as exc:
             errors[asset]=type(exc).__name__+": "+str(exc)[:140]
+    state["updated"]=now.isoformat()
+    rows=[]
+    for asset,item in state["portfolios"].items():
+        rows.append({"id":item["id"],"asset":asset,"parameters":item["parameters"],
+                     "capital_initial_usd":START,"capital_estimated_usd":item["last_equity"]})
