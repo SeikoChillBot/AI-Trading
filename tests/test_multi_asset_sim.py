@@ -74,6 +74,16 @@ class MultiAssetTests(unittest.TestCase):
             self.assertEqual(rows["aapl_hold"]["pricing_quality"],"STALE")
             self.assertEqual(float(rows["aapl_hold"]["units"]),4.0)
 
+    def test_cached_quote_cannot_trade_after_close(self):
+        now=datetime(2026,10,28,19,45,tzinfo=timezone.utc)
+        quote={"symbol":"AAPL","eligible":True,"quote_at":
+               datetime(2026,10,28,19,30,tzinfo=timezone.utc).isoformat()}
+        self.assertTrue(sim.quote_still_executable(quote,now))
+        self.assertFalse(sim.quote_still_executable(
+            quote,datetime(2026,10,28,20,10,tzinfo=timezone.utc)))
+        self.assertFalse(sim.quote_still_executable(
+            quote,now+timedelta(days=1)))
+
     def test_no_feed_does_not_start_fake_portfolios(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d)
