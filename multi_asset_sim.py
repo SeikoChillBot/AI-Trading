@@ -12,6 +12,7 @@ import time
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from decimal import Decimal, ROUND_DOWN
+from xml.etree import ElementTree
 from pathlib import Path
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
@@ -143,37 +144,61 @@ def fetch_yahoo(symbol, now):
 
 
 def fetch_ecb(now):
-    """ECB fixes are informational; never label them executable FX quotes."""
-    response=requests.get(
-        "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A",
-        params={"format":"csvdata","lastNObservations":"95"},
-        headers={"Accept":"text/csv","User-Agent":USER_AGENT},timeout=9)
-    response.raise_for_status()
-    reader=csv.DictReader(response.text.splitlines())
-    if not reader.fieldnames or "TIME_PERIOD" not in reader.fieldnames or "OBS_VALUE" not in reader.fieldnames:
-        raise ValueError("Malformed ECB exchange-rate CSV")
+    """Official ECB daily USD/EUR references: information-only, NOT executable."""
     bars=[]
-    for row in reader:
-        try:
-            d=row["TIME_PERIOD"]; datetime.fromisoformat(d)
-            v=safe_number(row["OBS_VALUE"])
-            if d<=now.astimezone(PAIR_TZ).date().isoformat():bars.append({"date":d,"close":v})
-        except (ValueError,KeyError,TypeError):
-            continue
+    errors=[]
+    try:
+        response=requests.get(
+            "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A",
+            params={"format":"csvdata","lastNObservations":"95"},
+            headers={"Accept":"text/csv","User-Agent":USER_AGENT},timeout=9)
+        response.raise_for_status()
+        reader=csv.DictReader(response.text.splitlines())
+        if not reader.fieldnames or "TIME_PERIOD" not in reader.fieldnames or "OBS_VALUE" not in reader.fieldnames:
+            raise ValueError("Malformed ECB exchange-rate CSV")
+        for row in reader:
+            try:
+                d=row["TIME_PERIOD"]
+                datetime.fromisoformat(d)
+                v=safe_number(row["OBS_VALUE"])
+                if d<=now.astimezone(PAIR_TZ).date().isoformat():
+                    bars.append({"date":d,"close":v})
+            except (ValueError,KeyError,TypeError):
+                continue
+        if len(bars)<22:raise ValueError("ECB history too short")
+    except (requests.RequestException,ValueError) as exc:
+        errors.append(str(exc)[:180])
+        bars=[]
+    if len(bars)<22:
+        # Official last-90-day XML on the same domain as our verified ECB FX cache.
+        response=requests.get(
+           "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+           headers={"User-Agent":USER_AGENT},timeout=9)
+        response.raise_for_status()
+        root=ElementTree.fromstring(response.content)
+        for node in root.iter():
+            d=node.attrib.get("time")
+            if not d:continue
+            for value in node:
+                if value.attrib.get("currency")=="USD":
+                    v=safe_number(value.attrib["rate"])
+                    if d<=now.astimezone(PAIR_TZ).date().isoformat():
+                        bars.append({"date":d,"close":v})
+        if len(bars)<22:
+            raise ValueError("ECB XML insufficient observations. CSV: "+", ".join(errors))
     bars=sorted({b["date"]:b for b in bars}.values(),key=lambda b:b["date"])
-    if len(bars)<22:raise ValueError("ECB history too short")
     today=now.astimezone(PAIR_TZ).date()
     quote_date=datetime.fromisoformat(bars[-1]["date"]).date()
-    if (today-quote_date).days>6:raise ValueError("Stale ECB reference")
-    # A newly published reference is already in the API, but is NOT an
-    # executable FX bid/ask. All EURUSD fills are clearly indicative.
-    earlier=bars[:-1]
+    if (today-quote_date).days>6 or (today-quote_date).days<0:
+        raise ValueError("Stale or future ECB reference")
+    # ECB fixes are reference-only. Modeling a fill at that number is NOT a
+    # real Forex fill; disclose synthetic spread and fees in every report.
     return {"symbol":"EURUSD","source":"ECB daily reference (not executable)",
             "quote_at":datetime.fromisoformat(bars[-1]["date"]).replace(
                 hour=16,minute=0,tzinfo=PAIR_TZ).isoformat(),
             "price":bars[-1]["close"],"reference_date":bars[-1]["date"],
             "eligible":quote_date==today and today.weekday()<5,
-            "bars":bars[-70:],"previous":earlier[-60:],
+            "bars":bars[-70:],"previous":bars[:-1][-60:],
             "currency":"USD","feed":"ECB indicative fix"}
 
 
