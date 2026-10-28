@@ -76,6 +76,8 @@ def step(row,bars,now,book,limits):
                    "reason":"Closed SMA" if trade else error}
             if trade:
                 row["cash"] += trade["net"]
+                row["units"]=row["units"]+trade["units"] if action=="BUY" else 0.0
+                row["closed_trades"]+=int(action=="SELL")
                 row["orders"]+=1
                 row["fees"]+=trade["fee"]
                 event.update(quantity=trade["units"],fee_usd=trade["fee"],
