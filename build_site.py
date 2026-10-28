@@ -250,7 +250,7 @@ if desk_path.exists():
                 ],
                 "experiments": [
                     {k: trial.get(k) for k in
-                     ("id","asset","trigger","status","horizon_days","created_at",
+                     ("id","asset","trigger","actor","status","horizon_days","created_at",
                       "estimated_net_pct","equity_usd","rationale")}
                     for trial in desk.get("paper_experiments", [])[:12]
                     if isinstance(trial, dict) and trial.get("paper_only") is True
