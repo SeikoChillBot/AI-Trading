@@ -1,9 +1,10 @@
-"""Seiko Multi-Market Lab — forward-only indicative paper simulation.
+"""Seiko Multi-Market Lab — 20 USD micro-capital, forward-only indicative paper simulation.
 
 Stocks/ETFs use observed public US market quotes (Yahoo chart, unofficial/delayed).
 EUR/USD uses ECB information-only daily reference rates, NOT executable FX quotes.
 No broker/API keys, no live orders, no shorting, no leverage, no invented prices.
-Crypto V2 remains entirely separate.
+Crypto V2 remains entirely separate. Previous 1000 USD study is archived in its original paths.
+Fractional fills are exploratory assumptions until broker-specific eligibility is verified.
 """
 import csv
 import json
@@ -19,16 +20,16 @@ from zoneinfo import ZoneInfo
 
 import requests
 
-STATE = Path("state/multi_asset_portfolios.json")
-LATEST = Path("reports/multi_asset_latest.csv")
-HISTORY = Path("reports/multi_asset_history.csv")
-EVENTS = Path("reports/multi_asset_orders.csv")
-STATUS = Path("reports/multi_asset_sources.json")
-CACHE = Path("reports/multi_asset_quotes_cache.json")
+STATE = Path("state/multi_asset_micro_portfolios.json")
+LATEST = Path("reports/multi_asset_micro_latest.csv")
+HISTORY = Path("reports/multi_asset_micro_history.csv")
+EVENTS = Path("reports/multi_asset_micro_orders.csv")
+STATUS = Path("reports/multi_asset_micro_sources.json")
+CACHE = Path("reports/multi_asset_micro_quotes_cache.json")
 FX_CACHE = Path("reports/fx_reference.json")
-START = 1000.0
+START = 20.0
 FEE_RATE = 0.001  # illustrative broker fee, NOT a published broker price
-MIN_FEE = 1.0
+MIN_FEE = 0.0  # illustrative fractional account without minimum commission
 HALF_SPREAD = 0.0005  # indicative cost per side; real spread not captured
 SLIP = 0.001  # additional conservative per-side price uncertainty
 FX_FEE = 0.0015
@@ -257,7 +258,7 @@ def round_down(value, decimals):
 def costs(symbol):
     if symbol=="EURUSD":
         return FX_FEE,0,FX_HALF_SPREAD+FX_SLIP,2
-    return FEE_RATE,MIN_FEE,HALF_SPREAD+SLIP,0
+    return FEE_RATE,MIN_FEE,HALF_SPREAD+SLIP,6  # hypothetical share fractions
 
 
 def fill(side,cash,units,price,symbol):
@@ -265,6 +266,8 @@ def fill(side,cash,units,price,symbol):
     fee_rate,min_fee,impact,precision=costs(symbol)
     if side=="BUY":
         estimated=price*(1+impact)
+        if cash < 1.0:
+            return None,"MINIMUM_NOTIONAL_USD_1"
         raw=(cash-min_fee)/(estimated*(1+fee_rate))
         qty=round_down(max(0,raw),precision)
         if qty<=0:return None,"MINIMUM_QUANTITY_OR_FUNDS"
@@ -326,9 +329,9 @@ def main():
         return
     state=load_json(STATE)
     if state is None:
-        state={"schema":1,"created":now.isoformat(),"portfolios":{},
+        state={"schema":2,"created":now.isoformat(),"portfolios":{},
                "last_signal_day":{},"initial_per_strategy_usd":START}
-    if state.get("schema")!=1 or state.get("initial_per_strategy_usd")!=START:
+    if state.get("schema")!=2 or state.get("initial_per_strategy_usd")!=START:
         raise ValueError("Incompatible multi-asset state")
     reports=[];new_events=[]
     for symbol,label,market,kind,src in SPECS:
@@ -357,7 +360,7 @@ def main():
                             entry={"id":now.isoformat()+":"+key+":"+action,
                                 "observed_at":now.isoformat(),"strategy":key,"market":market,
                                 "asset":symbol,"side":action,
-                                "status":"SIMULATED_FILL" if execution else rejection,
+                                "status":("SIMULATED_FILL_FRACTIONAL_UNVERIFIED" if execution and symbol!="EURUSD" and execution["qty"]%1!=0 else "SIMULATED_FILL") if execution else rejection,
                                 "signal_date":signal_day,"signal_close":previous[-1]["close"],
                                 "quote_at":asof,"quote_price":price,"fill_estimate":"",
                                 "quantity":"","gross_usd":"","fee_usd":"","net_usd":"",
@@ -375,7 +378,7 @@ def main():
                                     fee_usd=round(execution["fee"],5),
                                     net_usd=round(execution["net"],5))
                             new_events.append(entry)
-                            status="SIMULATED_FILL" if execution else "ORDER_REJECTED"
+                            status=entry["status"] if execution else "ORDER_REJECTED"
                         state["last_signal_day"][key]=signal_day
             if priced is None:
                 priced=p.get("last_price")
@@ -399,9 +402,12 @@ def main():
                 "pricing_quality":quality,"last_event":now.isoformat() if status=="SIMULATED_FILL" else "",
                 "initial_usd":START,"last_signal_date":state["last_signal_day"].get(key,"")})
     state["updated"]=now.isoformat()
+    state["capital_policy"]="20 USD per independent research robot; no collective funding required"
+    state["fractional_policy"]="Assumed fractional fills for research; per-asset and EU broker eligibility NOT verified"
     state["feed_notes"]={"equities":"Yahoo Finance public chart, unofficial, delayed; bid/ask are modeled",
         "forex":"ECB reference is information-only; fill prices not executable",
-        "distributions":"Dividends, fund distributions and tax are not yet included"}
+        "distributions":"Dividends, fund distributions and tax are not yet included",
+        "fractional":"Fractional-share eligibility and broker minimums remain UNVERIFIED; research estimates only"}
     prior_history=read_rows(HISTORY)
     prior_events=read_rows(EVENTS)
     # Snapshots are append-only and all strategies start from the same state timestamp.
