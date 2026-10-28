@@ -58,8 +58,8 @@ function detailSheet(r){
  const initial=r.initial,series=[initial];
  const source=(crypto?L.D.history:L.m.history)||[];
  source.forEach(item=>{if(item.strategy===r.strategy&&Number.isFinite(Number(item.capital_usd)))series.push(Number(item.capital_usd))});
- const max=Math.max(...series),min=Math.min(...series),peak=series.reduce((a,v)=>Math.max(a,v),initial);
- set('sheet-drawdown',L.pct(peak?100*(min/peak-1):0));
+ let peak=initial,worst=0;for(const v of series){peak=Math.max(peak,v);if(peak>0)worst=Math.max(worst,100*(peak-v)/peak)}
+ set('sheet-drawdown',worst.toLocaleString('fr-FR',{maximumFractionDigits:2})+' %');
  const host=$('sheet-chart');host.replaceChildren();
  const w=420,h=150,lo=Math.min(...series),hi=Math.max(...series);
  const span=Math.max((hi-lo)*1.2,initial*.005),mid=(lo+hi)/2;
