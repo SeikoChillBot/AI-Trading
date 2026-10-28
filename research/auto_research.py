@@ -190,7 +190,7 @@ def build_report(crypto: dict | None, multi: dict | None, now: datetime, context
     ready = sum(x["eligible"] for x in labs.values())
     blocked = [
         "Aucune promesse de rentabilité, d'alpha ou de revenu mensuel.",
-        "Aucune modification des stratégies en cours ou des anciens historiques.",
+        "Les historiques restent intacts ; seuls des paramètres fictifs préautorisés peuvent évoluer après validation prospective indépendante.",
         "Aucun ordre réel, effet de levier ou connexion courtier.",
         "Une optimisation future doit être vérifiée hors échantillon (walk-forward).",
         "Les ETF US fractionnés et les taux BCE ne démontrent pas l'exécutabilité chez un courtier.",
