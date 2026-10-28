@@ -177,9 +177,30 @@ def fetch_ecb(now):
             "currency":"USD","feed":"ECB indicative fix"}
 
 
+def quote_still_executable(q,now):
+    """A cached quote must be rechecked on EVERY run (especially after market close)."""
+    try:
+        if not q.get("eligible"):return False
+        if q.get("symbol")=="EURUSD":
+            return q.get("reference_date")==now.astimezone(PAIR_TZ).date().isoformat()
+        published=datetime.fromisoformat(q["quote_at"])
+        market_now=now.astimezone(MARKET_TZ)
+        quote_local=published.astimezone(MARKET_TZ)
+        lag=now-published
+        return (market_now.weekday()<5 and
+                (9,40)<=(market_now.hour,market_now.minute)<=(15,55) and
+                quote_local.date()==market_now.date() and
+                timedelta(minutes=-2)<=lag<=timedelta(minutes=35))
+    except (TypeError,ValueError,KeyError):
+        return False
+
+
 def fetch_sources(now):
     cached,old_errors,reused=cached_market_quotes(now)
-    if reused:return cached,old_errors
+    if reused:
+        restored={symbol:{**q,"eligible":quote_still_executable(q,now)}
+                  for symbol,q in cached.items()}
+        return restored,old_errors
     data={};errors={}
     # Prevent nine sequential HTTP timeouts from delaying crypto workflow runs.
     with ThreadPoolExecutor(max_workers=2) as executor:
