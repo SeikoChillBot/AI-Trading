@@ -10,7 +10,7 @@ A, B = "0x"+"1"*40, "0x"+"2"*40
 def tx(token, units="2100000000000", contract=None):
     return {"token":{"address_hash":contract or chain.CONTRACTS[token]},
             "total":{"decimals":"6","value":units},
-            "timestamp":"2026-10-28T21:00:00Z","tx_hash":TX,
+            "timestamp":"2026-10-28T21:00:00Z","transaction_hash":TX,
             "from":{"hash":A},"to":{"hash":B},"log_index":21}
 
 class Response:
