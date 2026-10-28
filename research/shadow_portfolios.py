@@ -109,3 +109,13 @@ def main():
     for asset,item in state["portfolios"].items():
         rows.append({"id":item["id"],"asset":asset,"parameters":item["parameters"],
                      "capital_initial_usd":START,"capital_estimated_usd":item["last_equity"]})
+    if state["portfolios"]:
+        save(STATE,state)
+    summary={"schema":1,"generated_at":now.isoformat(),
+             "mode":"prospective_research_only",
+             "created_at":state["created"],"robots":rows,
+             "errors":errors,"new_order_events":len(events),
+             "real_orders":False,"baseline_robots_modified":False,
+             "warning":"First run enrolls without retrospective trades. Future signals use observed Kraken books and actual exchange minimums. $20 fictional capital, no investment advice."}
+    save(REPORT,summary)
+    append(ORDERS,events)
