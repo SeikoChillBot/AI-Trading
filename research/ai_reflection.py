@@ -1,7 +1,7 @@
-"""Optional bounded LLM research plus offline robustness analysis.
+"""Bounded LLM research with automatic, isolated paper-only experiments.
 
-Read-only: neither LLM output nor deterministic suggestions are connected to
-trading execution, robot configurations, or portfolio state.
+Structured suggestions feed validated simulation modules; model-generated code
+is never executed, and no real orders or broker credentials are available.
 The API is never called without explicit GitHub opt-in and a secret key.
 """
 from __future__ import annotations
@@ -41,7 +41,12 @@ INSTRUCTIONS = (
     "Propose au plus trois expériences falsifiables qui utilisent exclusivement "
     "les actifs du JSON et demandent de nouvelles données non utilisées. "
     "La recherche répétée sur les mêmes holdouts surestime la performance. "
-    "Aucun ordre, aucune modification des 36 robots, aucune promotion automatique, "
+    "Toute demande de test dans tes champs JSON est exécutée en SIMULATION automatiquement "
+    "par le laboratoire dès que les données vérifiées remplissent les critères, "
+    "sans validation humaine ni intervention dans le chat. "
+    "Si une hypothèse ne mérite pas de test, laisse les tableaux correspondants vides. "
+    "Les 36 historiques doivent rester intacts, aucune transaction réelle n’est autorisée, "
+    "et un réglage de robot nécessite des preuves prospectives avant adoption. "
     "aucune promesse de rendement. Capital fictif 20 USD par scénario. "
     "Les fractions d'ETF US et taux BCE ne prouvent pas une exécution possible. "
     "Gemini peut aussi suggérer jusqu'à trois ajustements PAR ROBOT parmi "
