@@ -428,6 +428,11 @@ def main():
                               for s,q in sources.items()},
          "price_sources":"Yahoo unofficial and ECB reference; execution is hypothetical"},
          ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    try:
+        from research.robot_shadow import observe_multi
+        observe_multi(sources, now)
+    except (OSError, KeyError, TypeError, ValueError) as exc:
+        print("Multi shadow research unavailable:",type(exc).__name__)
     print("Multi-asset: sources",len(sources),"/",len(SPECS),
           "strategies",len(reports),"new paper orders",len(new_events),
           "estimated USD",round(sum(float(r["capital_usd"]) for r in reports),3))
