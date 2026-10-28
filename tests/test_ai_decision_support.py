@@ -92,6 +92,68 @@ class EvidenceTests(unittest.TestCase):
         self.assertNotIn("tools", captured[0])
         self.assertEqual(captured[0]["text"]["format"]["type"], "json_schema")
 
+    def test_gemini_free_model_and_structured_output(self):
+        reply = {"candidates": [{"finishReason": "STOP", "content": {"parts": [{
+            "text": json.dumps({"summary": "Preuves historiques insuffisantes", "experiments": []})
+        }]}}]}
+        class FakeResponse:
+            def raise_for_status(self):
+                pass
+            def json(self):
+                return reply
+        captured = []
+        def fake_post(url, **kwargs):
+            captured.append((url, kwargs))
+            return FakeResponse()
+        historical = support.summarize_challengers(sample_report(), NOW)
+        with patch.object(ai.requests, "post", fake_post):
+            result = ai.run_gemini("mock_only", {}, historical)
+        self.assertEqual(result["experiments"], [])
+        self.assertIn("gemini-2.5-flash-lite", captured[0][0])
+        self.assertEqual(captured[0][1]["json"]["generationConfig"]["responseMimeType"], "application/json")
+        self.assertNotIn("tools", captured[0][1]["json"])
+        self.assertEqual(captured[0][1]["headers"]["x-goog-api-key"], "mock_only")
+
+    def test_gemini_refuses_partial_or_unverified_answer(self):
+        historical = support.summarize_challengers(sample_report(), NOW)
+        class FakeResponse:
+            def raise_for_status(self):
+                pass
+            def json(self):
+                return {"candidates": [{"finishReason": "MAX_TOKENS",
+                                        "content": {"parts": [{"text": "{}"}]}}]}
+        with patch.object(ai.requests, "post", return_value=FakeResponse()):
+            with self.assertRaises(ValueError):
+                ai.run_gemini("test", {}, historical)
+
+    def test_gemini_selection_does_not_invoke_openai(self):
+        with tempfile.TemporaryDirectory() as folder:
+            folder = Path(folder)
+            (folder / "research.json").write_text('{"labs":{}}', encoding="utf-8")
+            example = sample_report()
+            example["generated_at"] = datetime.now(timezone.utc).isoformat()
+            (folder / "walk.json").write_text(json.dumps(example), encoding="utf-8")
+            with (patch.object(ai, "REPORT", folder / "research.json"),
+                  patch.object(ai, "WALK", folder / "walk.json"),
+                  patch.object(ai, "DATA", folder / "ideas.json"),
+                  patch.object(ai, "OUTPUT", folder / "ideas.md"),
+                  patch.object(ai, "STATUS", folder / "status.json"),
+                  patch.dict("os.environ", {"SEIKO_AI_ENABLED": "1",
+                        "SEIKO_AI_PROVIDER": "gemini", "GEMINI_API_KEY": "test",
+                        "OPENAI_API_KEY": "ignored-paid-key"}),
+                  patch.object(ai, "run_gemini", return_value={
+                      "summary": "Tests requis", "experiments": []}) as gemini,
+                  patch.object(ai, "run", side_effect=AssertionError("OpenAI is not allowed"))):
+                ai.main()
+                ai.main()
+            status = json.loads((folder / "status.json").read_text())
+            self.assertEqual(status["state"], "model_reflection_completed")
+            self.assertEqual(status["provider"], "gemini")
+            self.assertEqual(gemini.call_count, 1)
+            research = json.loads((folder / "ideas.json").read_text())
+            self.assertEqual(research["source"], "gemini_generate_content")
+            self.assertFalse(research["real_orders_enabled"])
+
     def test_no_key_means_no_paid_request(self):
         with tempfile.TemporaryDirectory() as folder:
             folder = Path(folder)
