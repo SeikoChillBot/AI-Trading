@@ -296,9 +296,9 @@ def evaluate(variant,previous,has_position):
     average=sum(b["close"] for b in previous[-20:])/20
     last=previous[-1]["close"]
     if not has_position and last>average*1.005:
-        return "BUY","Clôture %.5f > SMA20 %.5f (+0,5 %)"%(last,average)
+        return "BUY","Clôture %.5f > SMA20 %.5f (+0,5 %%)"%(last,average)
     if has_position and last<average*.995:
-        return "SELL","Clôture %.5f < SMA20 %.5f (-0,5 %)"%(last,average)
+        return "SELL","Clôture %.5f < SMA20 %.5f (-0,5 %%)"%(last,average)
     return "WAIT","Pas de signal confirmé sur 20 jours"
 
 
