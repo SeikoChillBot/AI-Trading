@@ -151,6 +151,49 @@ if ai_proposals_path.exists():
             }
     except (ValueError, TypeError, KeyError):
         pass
+# Report-only widgets for new market studies and forward-only challengers.
+data["market_pulse"] = {"ready": False}
+pulse_path = Path("reports/market_pulse.json")
+if pulse_path.exists():
+    try:
+        pulse = json.loads(pulse_path.read_text(encoding="utf-8"))
+        if pulse.get("schema") == 1 and pulse.get("real_orders") is False:
+            data["market_pulse"] = {
+                "ready": True, "generated_at": pulse.get("generated_at"),
+                "assets": {k: {
+                    attr: entry.get(attr) for attr in (
+                        "change_1d_pct", "change_7d_pct", "change_30d_pct",
+                        "realized_volatility_30d_annualized_pct", "last_closed_day_utc")}
+                    for k, entry in pulse.get("assets", {}).items()
+                    if k in ("BTCUSD", "ETHUSD", "SOLUSD") and isinstance(entry, dict)},
+                "macro": pulse.get("macro", {}),
+                "large_transfers": pulse.get("large_transfers", {}),
+                "issues": pulse.get("issues", {}),
+            }
+    except (ValueError, KeyError, TypeError):
+        pass
+data["forward_challengers"] = {"ready": False}
+incubator_path = Path("reports/challenger_incubator.json")
+if incubator_path.exists():
+    try:
+        forward = json.loads(incubator_path.read_text(encoding="utf-8"))
+        if (forward.get("schema") == 1 and not forward.get("real_orders", True)
+                and not forward.get("automatic_promotion", True)):
+            data["forward_challengers"] = {
+                "ready": True, "generated_at": forward.get("generated_at"),
+                "assets": {k: {
+                    attr: entry.get(attr) for attr in (
+                        "version", "created_at", "status", "parameters",
+                        "observations", "net_return_pct", "equity_usd",
+                        "hold_equity_usd", "closed_trades", "worst_drawdown_pct",
+                        "ready_for_review")}
+                    for k, entry in forward.get("assets", {}).items()
+                    if k in ("BTCUSD", "ETHUSD", "SOLUSD") and isinstance(entry, dict)},
+                "errors": forward.get("errors", {}),
+                "historical_bots_unchanged": True,
+            }
+    except (ValueError, KeyError, TypeError):
+        pass
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
