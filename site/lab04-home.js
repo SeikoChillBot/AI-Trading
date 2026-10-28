@@ -50,3 +50,36 @@ function draw(){
  L.put('chart-last','Dernier : '+L.money(amt));
  renderChart();
 }
+function renderChart(){
+ const host=$('portfolio-chart');if(!host)return;host.replaceChildren();
+ const raw=L.history[selected]||[],end=raw[raw.length-1]?.t||Date.now();
+ const windowMs=range==='1d'?86400000:range==='7d'?604800000:Infinity;
+ let series=raw.filter(p=>p.t>=end-windowMs);if(series.length<2)series=raw.slice(-2);
+ if(series.length<2)return;
+ const values=series.map(p=>p.v),minimum=Math.min(...values),maximum=Math.max(...values);
+ const margin=Math.max((maximum-minimum)*.22,(L.init[selected]||1)*.0002);
+ const low=minimum-margin,high=maximum+margin,W=760,H=210;
+ const xy=series.map((p,i)=>({x:14+i*(W-28)/(series.length-1),y:18+(H-36)*(1-(p.v-low)/(high-low))}));
+ const line=xy.map((p,i)=>(i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2)).join(' ');
+ const last=xy[xy.length-1],up=values.at(-1)>=values[0];
+ const color=up?'#b9f477':'#ff8497',grad='lab04-grad';
+ const fill=line+' L'+last.x+' '+(H-10)+' L'+xy[0].x+' '+(H-10)+' Z';
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.setAttribute('preserveAspectRatio','none');
+ svg.style.width='100%';svg.style.height='100%';svg.setAttribute('role','img');
+ svg.setAttribute('aria-label','Courbe '+labelFor(selected)+' : '+L.money(values[0])+' à '+L.money(values.at(-1)));
+ svg.innerHTML='<defs><linearGradient id="'+grad+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+color+'" stop-opacity=".23"/><stop offset="100%" stop-color="'+color+'" stop-opacity="0"/></linearGradient></defs>'+
+ '<path d="'+fill+'" fill="url(#'+grad+')"/>'+
+ '<path d="'+line+'" fill="none" stroke="'+color+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<circle cx="'+last.x+'" cy="'+last.y+'" r="5" fill="'+color+'" stroke="#172831" stroke-width="3"/>';
+ host.append(svg);
+}
+const labelFor=v=>v==='crypto'?'crypto':'multi-actifs';
+document.querySelectorAll('[data-lab]').forEach(b=>b.addEventListener('click',()=>L.selectWallet(b.dataset.lab)));
+document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',()=>{range=b.dataset.range;draw()}));
+document.querySelectorAll('[data-currency]').forEach(b=>b.addEventListener('click',()=>L.refresh()));
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>L.refresh()));
+window.addEventListener('hashchange',()=>L.refresh());
+on.push(draw);
+draw();
+})();
