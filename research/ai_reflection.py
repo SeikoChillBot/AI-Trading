@@ -175,6 +175,14 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
                     },
                     "required":["strategy","profile","reason"]}
             },
+            "scenario_proposals":{"type":"ARRAY","items":{"type":"OBJECT","properties":{
+                "asset":{"type":"STRING","enum":["BTCUSD","ETHUSD","SOLUSD"]},
+                "trigger":{"type":"STRING","enum":["market_uptrend","market_selloff","sampled_large_transfer"]},
+                "horizon_days":{"type":"INTEGER","enum":[1,3,7]},
+                "rationale":{"type":"STRING"}},"required":["asset","trigger","horizon_days","rationale"]}},
+            "desk_notes":{"type":"ARRAY","items":{"type":"OBJECT","properties":{
+                "category":{"type":"STRING","enum":["marche","strategie","baleines","risque"]},
+                "text":{"type":"STRING"}},"required":["category","text"]}},
             "experiments": {
                 "type": "ARRAY",
                 "items": {
@@ -191,7 +199,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
                 },
             },
         },
-        "required": ["summary", "experiments", "bot_adjustments"],
+        "required": ["summary", "experiments", "bot_adjustments", "scenario_proposals", "desk_notes"],
     }
     payload = {
         "systemInstruction": {"parts": [{"text": INSTRUCTIONS}]},
@@ -201,7 +209,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         "generationConfig": {
             "responseMimeType": "application/json",
             "responseSchema": schema,
-            "maxOutputTokens": 3000,
+            "maxOutputTokens": 3400,
             "temperature": 0.2,
         },
     }
