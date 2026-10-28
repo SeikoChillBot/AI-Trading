@@ -1,0 +1,17 @@
+name: Schedule diagnostic
+on:
+  schedule:
+    - cron: '4,9,14,19,24,29,34,39,44,49,54,59 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Report trigger
+        run: |
+          echo "Event: ${{ github.event_name }}"
+          echo "UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+          echo "Branch: ${{ github.ref }}"
