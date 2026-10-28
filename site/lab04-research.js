@@ -29,6 +29,16 @@ const date=Number.isFinite(timestamp)?
 const human=modelState==='model_reflection_completed'?'Modèle d’IA interrogé ; propositions non validées.':
  'Statistiques automatisées actives. Modèle d’IA générative non connecté.';
 put('research-updated','Dernière recherche : '+date+' · '+human+' Aucun ordre réel, aucune modification des robots.');
+const intel=report.market_intelligence||{};
+const feeling=intel.sentiment||{};
+put('intel-sentiment',Number.isInteger(feeling.index)?feeling.index+'/100':'—');
+function toBillions(value){return Number(value)>0?(Number(value)/1e9).toFixed(1)+' Md USD':'—';}
+put('intel-ethereum',toBillions((intel.chain_tvl||{}).tvl_usd_by_chain?.Ethereum));
+put('intel-stablecoins',toBillions(intel.stablecoins?.circulating_usd_estimate));
+const whale=intel.whales||{};
+put('intel-whales',whale.state==='not_configured'?
+ 'Baleines : aucun wallet vérifié configuré. Aucun achat supposé.':
+ 'Baleines : '+Number(whale.observed_transfer_events||0)+' transfert(s) brut(s) observé(s). Achats non confirmés.');
 const host=get('research-idea-list');if(!host)return;
 host.replaceChildren();
 for(const idea of ideas){
