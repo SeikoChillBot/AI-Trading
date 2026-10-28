@@ -33,8 +33,14 @@ class MobileDashboardTests(unittest.TestCase):
   builder=(ROOT/"build_site.py").read_text(encoding="utf8")
   self.assertIn('id="research-title"',template)
   self.assertIn('id="research-idea-list"',template)
-  self.assertIn('lab04-research.js?v=4.1',template)
+  self.assertIn('lab04-research.js?v=4.2',template)
   self.assertIn('data["research"]',builder)
+  self.assertIn('id="ai-review-panel"',template)
+  self.assertIn('id="ai-experiment-list"',template)
+  self.assertIn('data["ai_review"]',builder)
+  reviewer=(ROOT/"site/lab04-research.js").read_text(encoding="utf8")
+  self.assertIn("aiReview.experiments",reviewer)
+  self.assertIn("textContent",reviewer)
   self.assertTrue((ROOT/"site/lab04-research.js").exists())
 
  def test_workflow_publishes_versions(self):
