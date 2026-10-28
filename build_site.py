@@ -73,14 +73,14 @@ multi_orders_path = Path("reports/multi_asset_micro_orders.csv")
 multi_sources_path = Path("reports/multi_asset_micro_sources.json")
 multi = {"ready": False, "rows": [], "history": [], "orders": [],
          "sources": {}, "started_at": None, "updated_at": None,
-         "initial_per_strategy_usd": 1000}
+         "initial_per_strategy_usd": 20}
 if multi_state_path.exists() and multi_report_path.exists() and multi_history_path.exists():
     multi_state = json.loads(multi_state_path.read_text(encoding="utf-8"))
     multi_rows = read_csv(multi_report_path)
     keys = [r.get("strategy") for r in multi_rows]
-    if (multi_state.get("schema") != 1 or len(multi_rows) != 18
+    if (multi_state.get("schema") != 2 or len(multi_rows) != 18
             or len(set(keys)) != 18
-            or multi_state.get("initial_per_strategy_usd") != 1000):
+            or multi_state.get("initial_per_strategy_usd") != 20):
         raise RuntimeError("Multi-asset state invalid: refuse to publish misleading totals")
     multi = {"ready": True, "rows": multi_rows,
              "history": read_csv(multi_history_path)[-720:],
@@ -88,7 +88,7 @@ if multi_state_path.exists() and multi_report_path.exists() and multi_history_pa
              "sources": json.loads(multi_sources_path.read_text(encoding="utf-8"))
                  if multi_sources_path.exists() else {},
              "started_at": multi_state["created"], "updated_at": multi_state["updated"],
-             "initial_per_strategy_usd": 1000,
+             "initial_per_strategy_usd": 20,
              "warnings": multi_state.get("feed_notes", {})}
 data["multi_asset"] = multi
 rows = data['rows']
