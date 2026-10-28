@@ -80,6 +80,14 @@ document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',
 document.querySelectorAll('[data-currency]').forEach(b=>b.addEventListener('click',()=>L.refresh()));
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>L.refresh()));
 window.addEventListener('hashchange',()=>L.refresh());
-on.push(draw);
-draw();
+function navigationTitles(){
+ const tab=window.location.hash.replace('#','');
+ const labels={robots:['Vos 36 robots','Deux expériences, classement par rendement'],explore:['Marchés','Neuf instruments suivis et des pistes à explorer'],analysis:['Analyse','Comparer les résultats et le risque par expérience']};
+ if(!labels[tab])return;
+ const title=document.getElementById('page-title');
+ if(title){title.replaceChildren(document.createTextNode(labels[tab][0]));const dot=document.createElement('span');dot.className='title-period';dot.textContent='.';title.append(dot)}
+ L.put('page-subtitle',labels[tab][1]);
+}
+on.push(draw,navigationTitles);
+draw();navigationTitles();
 })();
