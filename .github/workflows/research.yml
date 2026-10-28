@@ -11,12 +11,15 @@ on:
       - 'research/whale_watchlist.json'
       - 'tests/test_market_intelligence.py'
       - 'research/ai_reflection.py'
+      - 'research/large_transfers.py'
+      - 'research/market_pulse.py'
+      - 'tests/test_autonomous_market.py'
       - 'research/ai_decision_support.py'
       - 'tests/test_ai_decision_support.py'
       - 'tests/test_research_automation.py'
       - '.github/workflows/research.yml'
   schedule:
-    - cron: '17 3 * * *'
+    - cron: '17 */2 * * *'
 
 permissions:
   contents: write
@@ -46,17 +49,19 @@ jobs:
         run: |
           python -m py_compile research/market_context.py research/whale_watch.py
           python -m unittest discover -s tests -p 'test_market_intelligence.py' -v
+          python -m unittest discover -s tests -p 'test_autonomous_market.py' -v
       - name: Collect free research data and optional verified-wallet transfers
         env:
           ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
         run: |
           python research/market_context.py
           python research/whale_watch.py
+          python research/large_transfers.py
       - name: Test historical strategies
-        run: python -m unittest discover -s tests -p 'test_historical_research.py' -v && python research/walkforward.py
+        run: python -m unittest discover -s tests -p 'test_historical_research.py' -v && python research/walkforward.py && python research/market_pulse.py
       - name: Read live paper reports and suggest experiments
         run: python research/auto_research.py
-      - name: Optional AI interpretation — off by default
+      - name: AI research every six hours maximum — cached between reviews
         env:
           SEIKO_AI_ENABLED: ${{ vars.SEIKO_AI_ENABLED || '1' }}
           SEIKO_AI_PROVIDER: ${{ vars.SEIKO_AI_PROVIDER || 'gemini' }}
@@ -76,9 +81,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
           git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json
-          git add reports/market_context.json reports/whale_observations.json
+          git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/market_pulse.json
           git add site/dashboard.html docs/index.html
-          git add -A state/whale_watch_state.json reports/whale_transfer_events.jsonl 2>/dev/null || true
+          git add -A state/whale_watch_state.json state/large_transfer_cursor.json reports/whale_transfer_events.jsonl 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "Update guarded Seiko research observations"
             for attempt in 1 2 3 4 5; do
