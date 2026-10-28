@@ -12,12 +12,13 @@ ema_cross:["EMA 9/21","Achète quand EMA 9 dépasse EMA 21 de 0,1 %, vend lorsqu
 bollinger:["Bandes de Bollinger","Achète sous la bande basse (moyenne 20 − 2 écarts-types), vend au-dessus de la moyenne."],
 volatility:["Cassure volatile","Achète un nouveau sommet 20 bougies si l’amplitude récente dépasse 1 %, vend sous la moyenne 20."]
 };
+const parisTime=value=>{const d=new Date(value);return Number.isNaN(d.getTime())?'Date indisponible':new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(d).replace(',', ' à')};
 const fmt=n=>Number(n).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const cls=n=>n>0?'positive':n<0?'negative':'';
 const rows=[...DATA.rows].sort((a,b)=>Number(b.return_pct)-Number(a.return_pct)), hist=DATA.history;
 let selected=null,mode='all',chart=null;
 const info=r=>descriptions[r.strategy.split('_').slice(1).join('_')]||['Expérimental','Description à compléter'];
-document.getElementById('updated').textContent='Dernier relevé : '+DATA.updated+' · Actualisation environ toutes les 15 minutes';
+document.getElementById('updated').textContent='Dernière mise à jour : '+parisTime(DATA.updated)+' (heure de Paris) · Vérification environ toutes les 15 minutes';
 document.getElementById('count').textContent=rows.length+' portefeuilles';
 const total=rows.reduce((s,r)=>s+Number(r.capital_usd),0),gain=total-20*rows.length;
 document.getElementById('total').textContent=fmt(total)+' $';
@@ -44,7 +45,7 @@ function draw(){
  const datasets=names.map((name,i)=>({label:name?.replaceAll('_',' '),data:ticks.map(t=>{const p=hist.find(x=>x.strategy===name&&String(x.candle_end_ms)===t);return p?Number(p.capital_usd):null}),borderColor:palette[(rows.findIndex(x=>x.strategy===name)+palette.length)%palette.length],borderWidth:2,tension:.3,pointRadius:0,spanGaps:true}));
  if(chart)chart.destroy();
  document.getElementById('nochart').hidden=ticks.length>1;
- chart=new Chart(document.getElementById('chart'),{type:'line',data:{labels:ticks.map(t=>new Date(Number(t)).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})),datasets},options:{responsive:true,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:mode==='all',labels:{color:'#aebbd2',boxWidth:10,font:{size:10}}}},scales:{x:{ticks:{color:'#8c9ab0',maxTicksLimit:7},grid:{color:'#263248'}},y:{ticks:{color:'#8c9ab0',callback:v=>v+' $'},grid:{color:'#263248'}}}}});
+ chart=new Chart(document.getElementById('chart'),{type:'line',data:{labels:ticks.map(t=>new Date(Number(t)).toLocaleString('fr-FR',{timeZone:'Europe/Paris',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})),datasets},options:{responsive:true,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:mode==='all',labels:{color:'#aebbd2',boxWidth:10,font:{size:10}}}},scales:{x:{ticks:{color:'#8c9ab0',maxTicksLimit:7},grid:{color:'#263248'}},y:{ticks:{color:'#8c9ab0',callback:v=>v+' $'},grid:{color:'#263248'}}}}});
 }
 render();
 </script></body></html>
