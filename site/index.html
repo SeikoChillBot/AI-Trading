@@ -51,9 +51,29 @@
   <div class="market-intro">
     <span class="eyebrow">SEIKO / UNIVERS D’INVESTISSEMENT</span>
     <h2>Un laboratoire. Tous les marchés<span class="title-period">.</span></h2>
-    <p>Repérer des stratégies prometteuses, puis les tester avec des cotations vérifiées et des coûts réalistes. Les catégories présentées ici ne sont pas des robots déjà actifs.</p>
+    <p>Repérer des stratégies prometteuses, puis les tester avec des cotations vérifiées et des coûts réalistes. Les simulations de nouveaux marchés figurent ci-dessous, séparément du catalogue de recherche et des 18 robots crypto.</p>
   </div>
-  <div class="market-overview" aria-label="État du laboratoire multi-marchés">
+  <section class="multi-live" aria-labelledby="multi-title">
+  <div class="multi-live-header">
+    <div><span class="eyebrow">NOUVELLE EXPÉRIENCE · CAPITAL SÉPARÉ</span><h2 id="multi-title">Robots multi-marchés<span class="title-period">.</span></h2></div>
+    <span id="multi-live-state" class="multi-state">Préparation</span>
+  </div>
+  <p class="multi-intro">Actions, ETF indiciels et obligataires, or, argent, immobilier coté, et EUR/USD. Les ordres sont fictifs ; les prix et coûts des nouveaux marchés sont des estimations, pas des exécutions de courtier.</p>
+  <div id="multi-live-empty" class="multi-empty">Moteur installé. En attente de la première collecte de prix validés. Aucun rendement n'est inventé.</div>
+  <div id="multi-live-body" hidden>
+    <div class="multi-stats">
+      <div><small>CAPITAL FICTIF INITIAL</small><strong id="multi-initial">—</strong></div>
+      <div><small>VALEUR ESTIMÉE</small><strong id="multi-current">—</strong></div>
+      <div><small>RÉSULTAT NET ESTIMÉ</small><strong id="multi-profit">—</strong></div>
+      <div><small>ROBOTS / COTATIONS</small><strong id="multi-coverage">—</strong></div>
+    </div>
+    <p class="multi-updated" id="multi-updated">—</p>
+    <div id="multi-market-groups" class="multi-market-groups"></div>
+    <details class="multi-log"><summary>Dernières décisions des robots <span id="multi-event-count">—</span></summary><div id="multi-event-list" class="multi-event-list"></div></details>
+    <p class="multi-caution">Modèle expérimental : actions et ETF américains observés via une source non officielle, commissions et écarts de prix estimés. Frais annuels des ETF intégrés aux cotations, mais distributions/dividendes et fiscalité pas encore modélisés. Les ETF américains présentés ne sont pas automatiquement accessibles aux particuliers en France. Les taux BCE ne sont pas des prix Forex négociables.</p>
+  </div>
+</section>
+<div class="market-overview" aria-label="État du laboratoire multi-marchés">
     <div><strong id="market-universe-count">—</strong><span>Univers à explorer</span></div>
     <div><strong id="market-strategy-count">—</strong><span>Pistes de stratégies</span></div>
     <div><strong id="market-active-count">—</strong><span>Marché en simulation</span></div>
