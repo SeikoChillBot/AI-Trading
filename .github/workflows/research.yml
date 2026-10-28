@@ -11,6 +11,10 @@ on:
       - 'research/whale_watchlist.json'
       - 'tests/test_market_intelligence.py'
       - 'research/ai_reflection.py'
+      - 'research/robot_evolution.py'
+      - 'research/robot_tuning.py'
+      - 'research/robot_shadow.py'
+      - 'tests/test_robot_evolution.py'
       - 'research/large_transfers.py'
       - 'research/market_pulse.py'
       - 'research/challenger_incubator.py'
@@ -44,7 +48,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Verify research safety gates
         run: |
-          python -m py_compile research/auto_research.py research/ai_reflection.py research/ai_decision_support.py
+          python -m py_compile research/auto_research.py research/ai_reflection.py research/ai_decision_support.py research/robot_evolution.py research/robot_tuning.py research/robot_shadow.py
+          python -m unittest discover -s tests -p 'test_robot_evolution.py' -v
           python -m unittest discover -s tests -p 'test_research_automation.py' -v
           python -m unittest discover -s tests -p 'test_ai_decision_support.py' -v
       - name: Validate independent market intelligence
@@ -75,6 +80,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python -m research.ai_reflection
+      - name: Review and safely promote eligible paper bot tuning candidates
+        run: python -m research.robot_evolution
       - name: Validate site independently of research data
         id: site_validation
         continue-on-error: true
@@ -93,10 +100,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
-          git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json
+          git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json reports/robot_evolution.json
           git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/market_pulse.json reports/challenger_incubator.json
           git add site/dashboard.html docs/index.html
-          for artifact in state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
+          for artifact in state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
             if [ -f "$artifact" ]; then git add -- "$artifact"; fi
           done
           if ! git diff --cached --quiet; then
