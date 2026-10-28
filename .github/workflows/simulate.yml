@@ -53,6 +53,7 @@ jobs:
           mkdir -p docs
           cp site/dashboard.html docs/index.html
           cp site/lab04-*.css docs/
+          cp site/lab04-*.js docs/
       - name: Save paper portfolios
         run: |
           git config user.name "github-actions[bot]"
