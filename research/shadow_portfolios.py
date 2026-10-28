@@ -86,3 +86,13 @@ def step(row,bars,now,book,limits):
         row["last_closed_day"]=last
     row['last_equity']=estimated_liquidation(row,book)
     return events
+
+def main():
+    now=datetime.now(timezone.utc)
+    evaluation=load(BACKTEST) or {}
+    candles=load(MARKET) or {}
+    candidates=valid_sources(evaluation,candles,now)
+    state=load(STATE) or {"schema":1,"created":now.isoformat(),"portfolios":{}}
+    if state.get("schema")!=1:raise ValueError("Unexpected shadow state")
+    enroll(state,candidates,now)
+    events=[];errors={}
