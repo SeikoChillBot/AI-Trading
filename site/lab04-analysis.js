@@ -68,3 +68,19 @@ function marketCards(){
   card.append(button);box.append(card);
  }
 }
+function foldResearch(){
+ const anchor=document.querySelector('.market-workflow');
+ if(!anchor||document.querySelector('.market-research-fold'))return;
+ const details=ce('details','market-research-fold');
+ const summary=ce('summary','','Découvrir les 13 univers et 42 pistes de recherche');
+ details.append(summary);anchor.parentNode.insertBefore(details,anchor);
+ for(const node of [anchor,document.querySelector('.market-section-heading'),
+   document.querySelector('.market-search-wrap'),document.querySelector('.market-filters'),
+   $('market-grid'),document.querySelector('.market-disclaimer')])if(node)details.append(node);
+}
+function refresh(){paint();marketCards();L.put('market-active-count',L.ready?'2':'1')}
+foldResearch();
+L.refreshers.push(refresh);
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='analysis'||b.dataset.view==='explore')refresh()}));
+refresh();
+})();
