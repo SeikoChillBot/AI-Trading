@@ -11,9 +11,7 @@
  const rate=Number(D.fx?.usd_per_eur),ref=Date.parse((D.fx?.reference_date||'')+'T12:00:00Z');
  const fxOk=D.fx?.source==='ECB'&&rate>.5&&rate<3.5&&Math.abs(Date.now()-ref)<9.5*86400000;
  const eur=()=>{try{return fxOk&&localStorage.getItem('seiko-trading-display-currency')==='EUR'}catch(e){return false}};
- const money=(v,dec=2)=>(Number(v)/(eur()?rate:1)).toLocaleString('fr-FR',{minimumFractionDigits:dec,maximumFractionDigits:dec})+(eur()?' €':' D,m,cr,mr,init,total,start,pct,money,tone,put,stamp,day,history,ready:mr.length===18};
-})();
-);
+ const money=(v,dec=2)=>(Number(v)/(eur()?rate:1)).toLocaleString('fr-FR',{minimumFractionDigits:dec,maximumFractionDigits:dec})+(eur()?' €':' $');
  const tone=n=>n>0.00001?'positive':n<-.00001?'negative':'neutral';
  const put=(id,v)=>{const node=document.getElementById(id);if(node)node.textContent=v};
  const stamp=t=>{const d=Date.parse(t);return Number.isFinite(d)?new Intl.DateTimeFormat('fr-FR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Paris'}).format(new Date(d)):'En attente'};
@@ -36,5 +34,5 @@
  }
  const history={crypto:series(D.history,cr,()=>20,D.launched_at),
   multi:mr.length?series(m.history,mr,r=>Number(r.initial_usd||1000),m.started_at):[]};
- window.SeikoV4={D,m,cr,mr,init,total,start,pct,ready:mr.length===18};
+ window.SeikoV4={D,m,cr,mr,init,total,start,pct,money,tone,put,stamp,day,history,ready:mr.length===18};
 })();
