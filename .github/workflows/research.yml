@@ -1,0 +1,63 @@
+name: Seiko research — guarded automatic analysis
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/auto_research.py'
+      - 'research/ai_reflection.py'
+      - 'tests/test_research_automation.py'
+      - '.github/workflows/research.yml'
+  schedule:
+    - cron: '17 3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seiko-research
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Verify research safety gates
+        run: |
+          python -m py_compile research/auto_research.py research/ai_reflection.py
+          python -m unittest discover -s tests -p 'test_research_automation.py' -v
+      - name: Read live paper reports and suggest experiments
+        run: python research/auto_research.py
+      - name: Optional AI interpretation — off by default
+        env:
+          SEIKO_AI_ENABLED: ${{ vars.SEIKO_AI_ENABLED }}
+          SEIKO_AI_MODEL: ${{ vars.SEIKO_AI_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python research/ai_reflection.py
+      - name: Publish research observations (no robot changes)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
+          git add reports/ai_research.md reports/ai_research_status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update guarded Seiko research observations"
+            for attempt in 1 2 3 4 5; do
+              if git push; then
+                exit 0
+              fi
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort || true; exit 1; }
+              sleep 3
+            done
+            exit 1
+          fi
