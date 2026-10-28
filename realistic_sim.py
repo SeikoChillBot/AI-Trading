@@ -216,7 +216,15 @@ def main():
                                         for name,symbol,_ in STRATEGIES}}
     rules = pair_metadata()
     books = {symbol: orderbook(symbol) for symbol in PAIRS}
-    now = datetime.now(timezone.utc).isoformat()
+    now_dt = datetime.now(timezone.utc)
+    now = now_dt.isoformat()
+    now_ms = int(now_dt.timestamp() * 1000)
+    for (market_symbol, interval), candles in market.items():
+        last_closed_ms = int(candles[-1][0]) + interval*60*1000
+        lag_ms = now_ms - last_closed_ms
+        if lag_ms < -10000 or lag_ms > interval*60*1000 + 90000:
+            raise ValueError("Stale or future OHLC candles: %s/%s (lag %ss)" %
+                             (market_symbol, interval, round(lag_ms/1000)))
     if STATE.exists():
         state = json.loads(STATE.read_text(encoding="utf-8"))
         if state.get("version") != 2:
@@ -242,7 +250,7 @@ def main():
                 book=books[symbol];limits=rules[symbol]
                 side=action.upper()
                 event={"event_id": now+"-"+name+"-"+action,
-                       "observed_at":now,"strategy":name,"asset":symbol,"side":side,
+                       "observed_at":now,"strategy":name,"asset":symbol.replace("USDT","USD"),"side":side,
                        "status":"REJECTED","signal_candle_closed_at":
                            datetime.fromtimestamp(signal_closed_ms/1000,timezone.utc).isoformat(),
                        "signal_close":round(price,8),"reason":reason,
@@ -280,7 +288,7 @@ def main():
         equity = estimated_liquidation(portfolio,books[symbol])
         if equity is None:
             raise ValueError("Insufficient current book depth to value position "+name)
-        rows.append({"strategy":name,"asset":symbol,
+        rows.append({"strategy":name,"asset":symbol.replace("USDT","USD"),
                      "capital_usd":round(equity,5),
                      "return_pct":round((equity/START_CASH-1)*100,3),
                      "trades":portfolio["trades"],
