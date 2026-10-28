@@ -2,28 +2,18 @@ test_complete_trade_uses_net_cash_flows (test_multi_asset_analysis.MultiAssetAna
 test_observed_drawdown (test_multi_asset_analysis.MultiAssetAnalysisTests.test_observed_drawdown) ... ok
 test_report_sample_never_qualified_on_day_one (test_multi_asset_analysis.MultiAssetAnalysisTests.test_report_sample_never_qualified_on_day_one) ... ok
 test_cached_quote_cannot_trade_after_close (test_multi_asset_sim.MultiAssetTests.test_cached_quote_cannot_trade_after_close) ... ok
-test_daily_signals_only_use_completed_candles (test_multi_asset_sim.MultiAssetTests.test_daily_signals_only_use_completed_candles) ... ERROR
+test_daily_signals_only_use_completed_candles (test_multi_asset_sim.MultiAssetTests.test_daily_signals_only_use_completed_candles) ... ok
 test_fee_spread_slip_and_cash (test_multi_asset_sim.MultiAssetTests.test_fee_spread_slip_and_cash) ... ok
 test_full_share_order_rejects_if_too_small (test_multi_asset_sim.MultiAssetTests.test_full_share_order_rejects_if_too_small) ... ok
 test_missing_data_cannot_erase_held_assets (test_multi_asset_sim.MultiAssetTests.test_missing_data_cannot_erase_held_assets) ... ok
 test_no_feed_does_not_start_fake_portfolios (test_multi_asset_sim.MultiAssetTests.test_no_feed_does_not_start_fake_portfolios) ... ok
 test_sell_has_cost_and_no_leverage (test_multi_asset_sim.MultiAssetTests.test_sell_has_cost_and_no_leverage) ... ok
 
-======================================================================
-ERROR: test_daily_signals_only_use_completed_candles (test_multi_asset_sim.MultiAssetTests.test_daily_signals_only_use_completed_candles)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_sim.py", line 38, in test_daily_signals_only_use_completed_candles
-    action,reason=sim.evaluate("trend20",older,False)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/AI-Trading/AI-Trading/multi_asset_sim.py", line 299, in evaluate
-    return "BUY","Clôture %.5f > SMA20 %.5f (+0,5 %)"%(last,average)
-                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
-TypeError: not enough arguments for format string
-
 ----------------------------------------------------------------------
 Ran 10 tests in 0.005s
 
-FAILED (errors=1)
+OK
 Multi-asset: sources 1 / 9 strategies 18 new paper orders 0 estimated USD 18007.5
 Multi-asset: no validated sources. No portfolio initialized.
+Multi-asset: sources 9 / 9 strategies 18 new paper orders 12 estimated USD 17944.164
+Multi-asset: statistics for 18 strategies; qualified 0
