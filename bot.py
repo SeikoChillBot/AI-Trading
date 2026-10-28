@@ -21,6 +21,10 @@ STRATEGIES = [
     ("eth_reversion", "ETHUSDT", "reversion"),
     ("sol_reversion", "SOLUSDT", "reversion"),
     ("btc_breakout", "BTCUSDT", "breakout"),
+    ("btc_rsi", "BTCUSDT", "rsi"),
+    ("eth_ema_cross", "ETHUSDT", "ema_cross"),
+    ("sol_bollinger", "SOLUSDT", "bollinger"),
+    ("btc_volatility", "BTCUSDT", "volatility"),
 ]
 
 def fetch_candles(symbol):
@@ -42,6 +46,21 @@ def fetch_candles(symbol):
     # Kraken timestamps denote candle opening; final candle is still forming.
     return [(int(c[0]) * 1000, float(c[4])) for c in candles[:-1]]
 
+def ema(values, period):
+    alpha = 2 / (period + 1)
+    out = values[0]
+    for value in values[1:]:
+        out = alpha * value + (1 - alpha) * out
+    return out
+
+def rsi(values, period=14):
+    diffs = [b-a for a,b in zip(values[-period-1:-1], values[-period:])]
+    gains = sum(max(0, d) for d in diffs) / period
+    losses = sum(max(0, -d) for d in diffs) / period
+    if losses == 0:
+        return 100.0 if gains else 50.0
+    return 100 - 100 / (1 + gains / losses)
+
 def decide(mode, prices, holding):
     last = prices[-1]
     mean20 = sum(prices[-20:]) / 20
@@ -53,6 +72,19 @@ def decide(mode, prices, holding):
         return ("buy" if last < mean20 * 0.99 else "wait") if not holding else ("sell" if last > mean20 * 1.005 else "wait")
     if mode == "breakout":
         return ("buy" if last > max(prices[-21:-1]) else "wait") if not holding else ("sell" if last < min(prices[-11:-1]) else "wait")
+    if mode == "rsi":
+        level = rsi(prices)
+        return ("sell" if level > 60 else "wait") if holding else ("buy" if level < 35 else "wait")
+    if mode == "ema_cross":
+        fast, slow = ema(prices[-60:], 9), ema(prices[-60:], 21)
+        return ("sell" if fast < slow else "wait") if holding else ("buy" if fast > slow * 1.001 else "wait")
+    if mode == "bollinger":
+        variance = sum((p - mean20)**2 for p in prices[-20:]) / 20
+        std = variance**0.5
+        return ("sell" if last > mean20 else "wait") if holding else ("buy" if last < mean20 - 2*std else "wait")
+    if mode == "volatility":
+        high = max(prices[-21:-1]); low = min(prices[-21:-1])
+        return ("sell" if last < mean20 else "wait") if holding else ("buy" if last > high and (high-low)/mean20 > 0.01 else "wait")
     return "wait"
 
 def main():
