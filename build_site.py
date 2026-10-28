@@ -232,6 +232,34 @@ if evolution_path.exists():
             }
     except (ValueError, KeyError, TypeError):
         pass
+# Gemini notes and external headlines never enter portfolio calculations.
+desk_path = Path("reports/ai_journal.json")
+data["gemini_desk"] = {"ready": False}
+if desk_path.exists():
+    try:
+        desk = json.loads(desk_path.read_text(encoding="utf-8"))
+        if desk.get("schema") == 1 and desk.get("real_trades") is False:
+            data["gemini_desk"] = {
+                "ready": True, "generated_at": desk.get("generated_at"),
+                "model": desk.get("model"), "model_status": desk.get("model_status"),
+                "last_ai_call": desk.get("last_ai_call"),
+                "source_health": desk.get("source_health"),
+                "entries": [
+                    {k: item.get(k) for k in ("type","at","title","details","link")}
+                    for item in desk.get("entries", [])[:35] if isinstance(item, dict)
+                ],
+                "experiments": [
+                    {k: trial.get(k) for k in
+                     ("id","asset","trigger","status","horizon_days","created_at",
+                      "estimated_net_pct","equity_usd","rationale")}
+                    for trial in desk.get("paper_experiments", [])[:12]
+                    if isinstance(trial, dict) and trial.get("paper_only") is True
+                ],
+                "stats": desk.get("robot_statistics", {}),
+                "real_trades": False,
+            }
+    except (ValueError, KeyError, TypeError):
+        pass
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
