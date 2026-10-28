@@ -52,11 +52,12 @@ jobs:
         run: |
           mkdir -p docs
           cp site/dashboard.html docs/index.html
+          cp site/lab04-*.css docs/
       - name: Save paper portfolios
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/ reports/ DASHBOARD.md site/dashboard.html docs/index.html
+          git add state/ reports/ DASHBOARD.md site/dashboard.html docs/
           if ! git diff --cached --quiet; then
             git commit -m "Update simulated portfolios"
             for attempt in 1 2 3 4 5; do
