@@ -166,4 +166,85 @@ if(forwardBox){
  }
 }
 
+const evolution=DATA.robot_evolution||{};
+const evolList=get('evolution-bot-list');
+if(evolList){
+ const entries=Array.isArray(evolution.robots)?evolution.robots:[];
+ const statusLabels={
+   baseline_held:'Témoin de conservation, inchangé',
+   analyzing_for_opportunities:'En veille : données insuffisantes pour modifier',
+   testing_proposal:'Hypothèse Gemini à tester prospectivement',
+   tuning_activated:'Réglage appliqué en simulation après validation',
+ };
+ const counts=evolution.counts||{};
+ put('evolution-total',String(evolution.ready?entries.length:0));
+ put('evolution-testing',String(counts.testing||0));
+ put('evolution-activated',String(counts.activated||0));
+ put('evolution-summary',evolution.ready?
+  'Chaque robot conserve son historique. Gemini propose des réglages limités, mesurés puis éventuellement activés après validation hors échantillon.':
+  'Journal individuel en attente du premier cycle de recherche. Aucun réglage automatique présumé.');
+ const filter=get('evolution-filter');
+ const renderEvol=()=>{
+   const selected=filter?.value||'all';
+   evolList.replaceChildren();
+   let shown=0;
+   for(const item of entries){
+     if(selected!=='all'&&selected!==item.lab&&selected!==item.status)continue;
+     shown++;
+     const card=document.createElement('article');card.className='research-idea';
+     const heading=document.createElement('strong');
+     heading.textContent=item.strategy+' · '+(item.lab==='crypto'?'Crypto':'Multi-actifs');
+     const state=document.createElement('p');
+     state.textContent=statusLabels[item.status]||'Étude en cours';
+     const stats=document.createElement('p');
+     const ret=Number(item.paper_return_pct);
+     stats.textContent='Simulation actuelle : '+(Number.isFinite(ret)?ret.toFixed(2)+' %':'données en attente')+
+       ' · '+Number(item.closed_roundtrips||0)+' allers-retours clôturés · '+
+       Number(item.samples||0)+' observations.';
+     const tuning=document.createElement('small');
+     tuning.textContent='Sensibilité actuellement utilisée : x'+Number(item.current_entry_scale||1).toFixed(1)+
+       (item.proposed_entry_scale?' · Variante envisagée : x'+Number(item.proposed_entry_scale).toFixed(1):'')+
+       (item.last_change_at?' · Dernier réglage : '+stamp(item.last_change_at):'');
+     card.append(heading,state,stats,tuning);
+     if(item.gemini_decision){
+       const why=document.createElement('p');
+       why.textContent='Gemini : '+item.gemini_decision;
+       card.append(why);
+     }
+     if(Array.isArray(item.blocked_checks)&&item.blocked_checks.length){
+       const blocked=document.createElement('small');
+       blocked.textContent='Validation en attente : '+item.blocked_checks.join(', ');
+       card.append(blocked);
+     }
+     evolList.append(card);
+   }
+   if(!shown){
+     const empty=document.createElement('p');empty.className='micro-note';
+     empty.textContent='Aucun robot dans ce filtre pour le moment.';
+     evolList.append(empty);
+   }
+ };
+ if(filter)filter.addEventListener('change',renderEvol);
+ renderEvol();
+ const events=get('evolution-event-list');
+ if(events){
+   events.replaceChildren();
+   const items=Array.isArray(evolution.events)?evolution.events:[];
+   if(!items.length){
+     const p=document.createElement('p');p.className='micro-note';
+     p.textContent='Aucune modification ni proposition individuelle enregistrée à cette date.';
+     events.append(p);
+   }
+   for(const e of items.slice(0,40)){
+     const article=document.createElement('article');article.className='research-idea';
+     const title=document.createElement('strong');
+     title.textContent=(e.robot||'Robot')+' · '+(e.action||'événement');
+     const desc=document.createElement('p');
+     desc.textContent=(e.at?stamp(e.at)+' · ':'')+(e.details||'')+
+       (e.to_scale?' · nouveau profil candidat x'+Number(e.to_scale).toFixed(1):'');
+     article.append(title,desc);events.append(article);
+   }
+ }
+}
+
 })();
