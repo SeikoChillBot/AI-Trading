@@ -149,15 +149,21 @@ def main():
     state = "not_configured"
     summary = "Diagnostic statistique local ; analyse générative non activée."
     proposals = baseline_ideas(historical)
-    # One paid model request per UTC day at most, even after re-running a workflow.
+    # A completed or failed daily attempt is cached, avoiding repeated paid calls
+    # when GitHub workflows are retried. It must be saved by the publishing step.
+    attempted_today = (prior.get("research_date_utc") == now.date().isoformat()
+                       and prior.get("state") in ("model_reflection_completed",
+                                                 "model_reflection_failed"))
     if model_ready and historical["assets"]:
-        if (prior.get("state") == "model_reflection_completed"
-                and prior.get("research_date_utc") == now.date().isoformat()
+        if (attempted_today and prior.get("state") == "model_reflection_completed"
                 and cached.get("source") == "openai_responses"
                 and isinstance(cached.get("experiments"), list)):
             state = "model_reflection_completed"
             proposals = cached["experiments"]
             summary = str(cached.get("summary", ""))[:1000]
+        elif attempted_today:
+            state = "model_reflection_failed"
+            summary = "Une tentative IA a déjà eu lieu aujourd'hui ; nouvel essai à la prochaine date UTC."
         else:
             try:
                 result = run(api_key, model, research, historical)
