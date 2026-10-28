@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab, simulation de stratégies de trading algorithmique."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style></head>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style></head>
 <body><div class="app-shell" id="app">
-<header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
+<header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><span class="release-tag" aria-label="Version de l’interface">LAB / 04</span><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
 <div class="page-heading"><span class="eyebrow" id="page-eyebrow">PAPER TRADING · LABORATOIRE</span><h1 id="page-title">Vue d’ensemble<span class="title-period">.</span></h1><p id="page-subtitle">Les résultats de votre expérience, au même endroit.</p></div>
 <div class="display-currency" aria-label="Devise d'affichage">
   <div class="display-currency-controls"><span class="display-currency-label">DEVISE D’AFFICHAGE</span>
@@ -13,9 +13,27 @@
   <p class="display-fx-note" id="fx-note">Chargement du taux de référence…</p>
 </div>
 <main>
-<section id="view-home" class="view is-visible" aria-label="Portefeuille">
-<article class="hero-card"><div class="hero-glow" aria-hidden="true"></div><div class="hero-head"><span class="overline">CAPITAL TOTAL SIMULÉ</span><span class="hero-small-tag">USD · FICTIF</span></div><div class="hero-money" id="portfolio-value">—</div><div class="hero-performance"><span id="portfolio-profit" class="profit-amount">—</span><span id="portfolio-percent" class="profit-percent">—</span><span class="hero-meta">depuis le lancement</span></div><div class="chart-toolbar"><span class="section-overline">ÉVOLUTION DU PORTEFEUILLE</span><div class="range-control" id="range-control" role="group" aria-label="Période du graphique"><button data-range="1d" class="is-active">24 H</button><button data-range="7d">7 J</button><button data-range="all">TOUT</button></div></div><div class="portfolio-chart" id="portfolio-chart" role="img" aria-label="Courbe du capital fictif"><div class="chart-empty">Lecture des relevés…</div></div><div class="chart-foot"><span id="chart-period">Historique des simulations</span><span id="chart-last">—</span></div></article>
-<div class="quick-stats"><article class="quick-stat"><div class="stat-icon bots-icon">◈</div><div><span class="stat-label">ROBOTS ACTIFS</span><strong id="stat-bots">—</strong></div></article><article class="quick-stat"><div class="stat-icon deals-icon">↗</div><div><span class="stat-label">OPÉRATIONS</span><strong id="stat-trades">—</strong></div></article></div>
+<section id="view-home" class="view is-visible" aria-label="Tableau de bord des expériences">
+<div class="lab-overview">
+ <div class="lab-overview-top"><div><span class="eyebrow">PANORAMA / SIMULATIONS</span><h2>Deux laboratoires.<br><span>Une même ambition.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
+ <p>Les résultats sont conservés séparément : des mises de départ et des dates différentes ne doivent jamais être confondues avec un rendement commun.</p>
+ <div class="lab-tiles" role="group" aria-label="Sélectionner un portefeuille">
+  <button class="lab-tile is-selected" type="button" data-lab="crypto" aria-pressed="true">
+   <span class="lab-tile-top"><span class="lab-tile-glyph">₿</span><span class="lab-tile-status">KRAKEN · SPOT</span></span>
+   <span class="lab-tile-name">Crypto <small>18 stratégies · 20 $ / robot</small></span>
+   <span class="lab-tile-value" id="overview-crypto-value">—</span>
+   <span class="lab-tile-bottom"><span id="overview-crypto-return">—</span><span id="overview-crypto-age">—</span></span>
+  </button>
+  <button class="lab-tile" type="button" data-lab="multi" aria-pressed="false">
+   <span class="lab-tile-top"><span class="lab-tile-glyph">◈</span><span class="lab-tile-status">9 INSTRUMENTS · INDICATIF</span></span>
+   <span class="lab-tile-name">Multi-actifs <small>18 stratégies · 1 000 $ / robot</small></span>
+   <span class="lab-tile-value" id="overview-multi-value">—</span>
+   <span class="lab-tile-bottom"><span id="overview-multi-return">—</span><span id="overview-multi-age">—</span></span>
+  </button>
+ </div>
+</div>
+<article class="hero-card"><div class="hero-context"><span id="hero-portfolio-kind" class="eyebrow">PORTEFEUILLE CRYPTO</span><span class="hero-context-badge">100 % fictif</span></div><div class="hero-glow" aria-hidden="true"></div><div class="hero-head"><span class="overline" id="hero-capital-label">VALEUR ESTIMÉE · CRYPTO</span><span class="hero-small-tag">USD · FICTIF</span></div><div class="hero-money" id="portfolio-value">—</div><div class="hero-performance"><span id="portfolio-profit" class="profit-amount">—</span><span id="portfolio-percent" class="profit-percent">—</span><span class="hero-meta" id="hero-since">depuis son lancement</span></div><div class="chart-toolbar"><span class="section-overline">ÉVOLUTION DU PORTEFEUILLE</span><div class="range-control" id="range-control" role="group" aria-label="Période du graphique"><button data-range="1d" class="is-active">24 H</button><button data-range="7d">7 J</button><button data-range="all">TOUT</button></div></div><div class="portfolio-chart" id="portfolio-chart" role="img" aria-label="Courbe du capital fictif"><div class="chart-empty">Lecture des relevés…</div></div><div class="chart-foot"><span id="chart-period">Historique des simulations</span><span id="chart-last">—</span></div><p class="chart-clarification" id="chart-clarification">Valorisation après frais de sortie estimés. Historique propre à cette expérience.</p></article>
+<div class="quick-stats"><article class="quick-stat"><div class="stat-icon bots-icon">◈</div><div><span class="stat-label">ROBOTS SUIVIS</span><strong id="stat-bots">—</strong></div></article><article class="quick-stat"><div class="stat-icon deals-icon">↗</div><div><span class="stat-label">ORDRES SIMULÉS</span><strong id="stat-trades">—</strong></div></article></div>
 <section class="journey-card" aria-label="Suivi de l’expérience" id="experiment-timeline">
   <div class="journey-top"><div><span class="eyebrow">JOURNAL DE BORD</span><h2>Notre expérience, jour après jour.</h2></div><span class="journey-day" id="lab-day">J+0</span></div>
   <div class="journey-data"><div><small>PREMIÈRE SIMULATION</small><strong id="lab-start">—</strong></div><div><small>DURÉE ÉCOULÉE</small><strong id="lab-duration">—</strong></div></div>
@@ -23,7 +41,7 @@
   <div class="journey-progress" role="progressbar" aria-label="Avancement vers le bilan des sept jours" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="lab-progress"><span id="lab-progress-fill"></span></div>
   <div class="journey-foot"><span>Départ <strong>28 oct.</strong></span><span id="lab-review">Bilan <strong>4 nov.</strong></span></div>
 </section>
-<div class="section-header"><div><span class="eyebrow">EN UN COUP D’ŒIL</span><h2>Le terrain de jeu</h2></div><button class="text-action" id="open-all-robots">Tous les robots <span>↗</span></button></div><div class="highlights" id="highlights"></div>
+<div class="section-header"><div><span class="eyebrow">FOCUS CRYPTO</span><h2>À suivre dans le labo</h2></div><button class="text-action" id="open-all-robots">Tous les robots <span>↗</span></button></div><div class="highlights" id="highlights"></div>
 <div class="notice"><div class="notice-badge">i</div><p><strong>Simulation uniquement.</strong> Aucun argent réel n'est utilisé. Les résultats comprennent des frais simplifiés, mais pas les conditions réelles d'exécution.</p></div></section>
 <section id="view-robots" class="view" aria-label="Liste des robots" hidden>
 <div class="robots-tools"><div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.7" cy="10.7" r="6.5"/><path d="m16 16 5 5"/></svg><input id="robot-search" type="search" placeholder="Rechercher une stratégie…" aria-label="Rechercher un robot"></div><label class="sort-label">TRIER <select id="robot-sort"><option value="return">Performance</option><option value="activity">Activité</option><option value="name">Nom</option></select></label></div>
