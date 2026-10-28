@@ -46,3 +46,25 @@ function drawMultiChart(){
  svg.innerHTML='<path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2.8" stroke-linejoin="round"/>';
  host.append(svg);
 }
+function marketCards(){
+ if(!L.ready)return;
+ const box=$('multi-market-groups');if(!box)return;box.replaceChildren();
+ const groups=new Map();
+ for(const r of L.mr){const list=groups.get(r.asset)||[];list.push(r);groups.set(r.asset,list)}
+ for(const [asset,rows] of groups){
+  const start=rows.reduce((n,r)=>n+Number(r.initial_usd||1000),0);
+  const total=rows.reduce((n,r)=>n+Number(r.capital_usd),0);
+  const card=ce('article','multi-group'),button=ce('button','multi-group-link');
+  button.type='button';button.setAttribute('aria-label','Voir les robots '+asset);
+  const head=ce('div','multi-group-head');
+  head.append(ce('h3','',asset+' · '+rows[0].label));
+  const pct=ce('small',L.tone(total-start),L.pct((total/start-1)*100));
+  head.append(pct);
+  const sub=ce('p','multi-group-sub',rows[0].market.toUpperCase()+' · 2 robots');
+  const foot=ce('div','multi-group-summary');
+  foot.append(ce('strong','',L.money(total)),ce('small','',rows.some(r=>r.pricing_quality==='STALE')?'Cotations périmées':rows.some(r=>r.pricing_quality==='NO_DATA')?'Sans cours':'Valeur indicative'));
+  button.append(head,sub,foot,ce('span','multi-group-open','Voir les deux stratégies →'));
+  button.addEventListener('click',()=>L.openRobotMarket&&L.openRobotMarket(asset));
+  card.append(button);box.append(card);
+ }
+}
