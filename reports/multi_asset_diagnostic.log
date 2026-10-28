@@ -3,17 +3,40 @@ test_observed_drawdown (test_multi_asset_analysis.MultiAssetAnalysisTests.test_o
 test_report_sample_never_qualified_on_day_one (test_multi_asset_analysis.MultiAssetAnalysisTests.test_report_sample_never_qualified_on_day_one) ... ok
 test_cached_quote_cannot_trade_after_close (test_multi_asset_sim.MultiAssetTests.test_cached_quote_cannot_trade_after_close) ... ok
 test_daily_signals_only_use_completed_candles (test_multi_asset_sim.MultiAssetTests.test_daily_signals_only_use_completed_candles) ... ok
-test_fee_spread_slip_and_cash (test_multi_asset_sim.MultiAssetTests.test_fee_spread_slip_and_cash) ... ok
-test_full_share_order_rejects_if_too_small (test_multi_asset_sim.MultiAssetTests.test_full_share_order_rejects_if_too_small) ... ok
-test_missing_data_cannot_erase_held_assets (test_multi_asset_sim.MultiAssetTests.test_missing_data_cannot_erase_held_assets) ... ok
+test_fee_spread_slip_and_cash (test_multi_asset_sim.MultiAssetTests.test_fee_spread_slip_and_cash) ... FAIL
+test_full_share_order_rejects_if_too_small (test_multi_asset_sim.MultiAssetTests.test_full_share_order_rejects_if_too_small) ... FAIL
+test_missing_data_cannot_erase_held_assets (test_multi_asset_sim.MultiAssetTests.test_missing_data_cannot_erase_held_assets) ... ERROR
 test_no_feed_does_not_start_fake_portfolios (test_multi_asset_sim.MultiAssetTests.test_no_feed_does_not_start_fake_portfolios) ... ok
 test_sell_has_cost_and_no_leverage (test_multi_asset_sim.MultiAssetTests.test_sell_has_cost_and_no_leverage) ... ok
 
+======================================================================
+ERROR: test_missing_data_cannot_erase_held_assets (test_multi_asset_sim.MultiAssetTests.test_missing_data_cannot_erase_held_assets)
 ----------------------------------------------------------------------
-Ran 10 tests in 0.005s
+Traceback (most recent call last):
+  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_sim.py", line 69, in test_missing_data_cannot_erase_held_assets
+    sim.main()
+  File "/home/runner/work/AI-Trading/AI-Trading/multi_asset_sim.py", line 335, in main
+    raise ValueError("Incompatible multi-asset state")
+ValueError: Incompatible multi-asset state
 
-OK
-Multi-asset: sources 1 / 9 strategies 18 new paper orders 0 estimated USD 18007.5
+======================================================================
+FAIL: test_fee_spread_slip_and_cash (test_multi_asset_sim.MultiAssetTests.test_fee_spread_slip_and_cash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_sim.py", line 21, in test_fee_spread_slip_and_cash
+    self.assertEqual(order["qty"],4)
+AssertionError: 4.244701 != 4
+
+======================================================================
+FAIL: test_full_share_order_rejects_if_too_small (test_multi_asset_sim.MultiAssetTests.test_full_share_order_rejects_if_too_small)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_sim.py", line 15, in test_full_share_order_rejects_if_too_small
+    self.assertIsNone(fill)
+AssertionError: {'qty': 0.1425, 'price': 701.0500000000001, 'gross': 99.899625, 'fee': 0.099899625, 'net': -99.999524625} is not None
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.003s
+
+FAILED (failures=2, errors=1)
 Multi-asset: no validated sources. No portfolio initialized.
-Multi-asset: sources 9 / 9 strategies 18 new paper orders 0 estimated USD 17952.302
-Multi-asset: statistics for 18 strategies; qualified 0
