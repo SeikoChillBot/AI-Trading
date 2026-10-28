@@ -44,3 +44,4 @@ function detailSheet(r){
  set('sheet-return',L.pct(n(r.return_pct)));
  set('sheet-asset',r.asset);
  set('sheet-category',crypto?'Crypto':'Multi-actifs');
+ set('sheet-trades',String(r.trades));
