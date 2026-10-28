@@ -18,7 +18,7 @@ class WorkflowTests(unittest.TestCase):
                    "HISTORY":base/"history.csv","ORDERS":base/"orders.csv"}
             patches=[patch.object(sim,k,v) for k,v in files.items()]
             patches.extend([
-                patch.object(sim,"fetch_candles",side_effect=lambda s,i: [(1700000000000+n*i*60000,100.0) for n in range(40)]),
+                patch.object(sim,"fetch_candles",side_effect=lambda s,i: [(1700000000000-(40-n)*i*60000,100.0) for n in range(40)]),
                 patch.object(sim,"pair_metadata",return_value={s:dict(META) for s in sim.PAIRS}),
                 patch.object(sim,"orderbook",return_value=dict(BOOK)),
                 patch.object(sim,"decide",side_effect=lambda mode,prices,holding,p: "buy" if mode=="hold" else "wait")
@@ -30,7 +30,7 @@ class WorkflowTests(unittest.TestCase):
                 # so test only the pure execution system here, not market freshness.
                 with patch.object(sim,"datetime") as clock:
                     from datetime import datetime,timezone
-                    clock.now.return_value=datetime.fromtimestamp((1700000000000+40*60*60000)/1000,timezone.utc)
+                    clock.now.return_value=datetime.fromtimestamp(1700000000000/1000,timezone.utc)
                     clock.fromtimestamp.side_effect=datetime.fromtimestamp
                     sim.main()
                 rows=list(csv.DictReader(files["LATEST"].open(newline="")))
