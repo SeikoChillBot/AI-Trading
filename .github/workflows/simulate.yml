@@ -1,5 +1,11 @@
 name: Paper trading
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'multi_asset_sim.py'
+      - 'tests/test_multi_asset_sim.py'
+      - '.github/workflows/simulate.yml'
   schedule:
     - cron: '3,8,13,18,23,28,33,38,43,48,53,58 * * * *'
   workflow_dispatch:
