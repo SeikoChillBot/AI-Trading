@@ -29,6 +29,11 @@ jobs:
           python realistic_sim.py
           python analyze_realistic.py
         continue-on-error: true
+      - name: Validate and run independent multi-market paper simulator
+        run: |
+          python -m unittest discover -s tests -p 'test_multi_asset_sim.py' -v
+          python multi_asset_sim.py
+        continue-on-error: true
       - run: python dashboard.py
       - run: python build_site.py
       - name: Prepare GitHub Pages dashboard
