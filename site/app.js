@@ -372,6 +372,101 @@ document.querySelectorAll('[data-market-filter]').forEach(button=>button.addEven
 }));
 renderMarketExplorer();
 
+// All multi-asset values are sourced from their own state and order journal.
+// USD/EUR is display-only; no new robot changes the existing crypto portfolio.
+const crossLab=DATA.multi_asset&&typeof DATA.multi_asset==='object'?DATA.multi_asset:null;
+function renderMultiAsset(){
+ const body=$('multi-live-body'),empty=$('multi-live-empty'),tag=$('multi-live-state');
+ if(!body||!empty||!tag)return;
+ const available=Boolean(crossLab?.ready&&Array.isArray(crossLab.rows)&&crossLab.rows.length===18);
+ if(!available){
+    body.hidden=true;empty.hidden=false;
+    tag.textContent='En attente de données';tag.classList.add('is-loading');
+    return;
+ }
+ body.hidden=false;empty.hidden=true;tag.classList.remove('is-loading');
+ const parsed=crossLab.rows.map(r=>({...r,capital_usd:Number(r.capital_usd),
+    return_pct:Number(r.return_pct),trades:Number(r.trades),
+    units:Number(r.units),fees_usd:Number(r.fees_usd)}));
+ const base=parsed.reduce((n,r)=>n+Number(r.initial_usd||1000),0);
+ const total=parsed.reduce((n,r)=>n+r.capital_usd,0);
+ const diff=total-base;
+ const withPrice=parsed.filter(r=>Number(r.price_usd)>0);
+ const distinct=[...new Set(withPrice.map(r=>r.asset))].length;
+ const warnings=parsed.filter(r=>r.pricing_quality==='STALE').length;
+ tag.textContent=distinct?('Simulation indicative · '+distinct+'/9 flux'): 'Sources indisponibles';
+ if(!distinct)tag.classList.add('is-loading');
+ setText('multi-initial',money(base));
+ setText('multi-current',money(total));
+ setText('multi-profit',signedMoney(diff)+' · '+percentage(diff/base*100));
+ const gain=$('multi-profit');gain.classList.remove('positive','negative','neutral');gain.classList.add(polarity(diff));
+ setText('multi-coverage',parsed.length+' robots · '+distinct+'/9 cotations');
+ setText('multi-updated','Expérience démarrée le '+dateFR(crossLab.started_at)+
+    ' · Dernière observation '+dateFR(crossLab.updated_at)+
+    (warnings?' · '+warnings+' relevés périmés':''));
+ const groups=$('multi-market-groups');groups.replaceChildren();
+ const assetGroups=new Map();
+ for(const row of parsed){
+   const arr=assetGroups.get(row.asset)||[];arr.push(row);assetGroups.set(row.asset,arr);
+ }
+ const prettify={
+  actions:'Actions',etf:'ETF indices',obligations:'ETF obligataire',
+  or:'Or coté',argent:'Argent coté',immobilier:'Immobilier coté',forex:'Forex indicatif'
+ };
+ for(const [symbol,rows] of assetGroups){
+   const card=document.createElement('article');card.className='multi-group';
+   const head=document.createElement('div');head.className='multi-group-head';
+   const h=document.createElement('h3');h.textContent=symbol+' · '+(rows[0].label||'');
+   const gain=rows.reduce((n,r)=>n+(r.capital_usd-Number(r.initial_usd||1000)),0);
+   const change=document.createElement('small');change.textContent=signedMoney(gain);change.className=polarity(gain);
+   head.append(h,change);card.append(head);
+   const note=document.createElement('p');note.className='multi-group-sub';
+   note.textContent=(prettify[rows[0].market]||rows[0].market)+
+       ' · '+(rows.some(r=>Number(r.price_usd)>0)?'Cotation observée':'Données indisponibles');
+   card.append(note);
+   for(const r of rows){
+     const line=document.createElement('div');line.className='multi-robot';
+     const left=document.createElement('div');left.className='multi-robot-main';
+     const title=document.createElement('strong');
+     title.textContent=r.strategy.endsWith('_hold')?'Conservation':'Tendance SMA20';
+     const detail=document.createElement('small');
+     const qual=r.pricing_quality==='STALE'?'Cours ancien':
+          r.pricing_quality==='NO_DATA'?'Pas de cotation':
+          r.market==='forex'?'Taux BCE indicatif':
+          r.status==='QUOTE_DELAYED_OR_MARKET_CLOSED'?'Marché fermé / prix différé':
+          r.position==='INVESTED'?'Position ouverte':'En liquidités';
+     detail.textContent=r.trades+' opération(s) · '+qual;
+     left.append(title,detail);
+     const right=document.createElement('div');right.className='multi-robot-right';
+     const cap=document.createElement('strong');cap.textContent=money(r.capital_usd);
+     const percent=document.createElement('small');percent.className=polarity(r.return_pct);
+     percent.textContent=percentage(r.return_pct);
+     right.append(cap,percent);line.append(left,right);card.append(line);
+   }
+   groups.append(card);
+ }
+ const events=Array.isArray(crossLab.orders)?[...crossLab.orders].reverse().slice(0,18):[];
+ setText('multi-event-count','· '+events.length+' dernières');
+ const list=$('multi-event-list');list.replaceChildren();
+ if(!events.length){
+   const p=document.createElement('p');p.className='multi-intro';
+   p.textContent='Aucune tentative d’ordre enregistrée. Les robots attendent des données et des signaux valides.';
+   list.append(p);
+ }
+ for(const e of events){
+   const card=document.createElement('article');card.className='multi-event';
+   const title=document.createElement('strong');
+   const action=e.side==='BUY'?'Achat':'Vente';
+   title.textContent=(e.asset||'?')+' · '+(e.strategy.endsWith('_hold')?'Conservation':'Tendance')+
+        ' · '+action+(e.status==='SIMULATED_FILL'?' simulé':' refusé');
+   const desc=document.createElement('p');
+   desc.textContent=dateFR(e.observed_at)+' · '+String(e.reason||'')+
+      (e.status==='SIMULATED_FILL'?' · Prix estimé : '+money(Number(e.fill_estimate),4)+
+       ' · Frais : '+money(Number(e.fee_usd),3):' · '+String(e.status));
+   card.append(title,desc);list.append(card);
+ }
+}
+
 let assetFilter='all';
 document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
 function refreshCurrency(){
@@ -395,7 +490,7 @@ function refreshCurrency(){
      button.title=fxAvailable?'Afficher les équivalents en euros':'Taux BCE indisponible';
    }
  });
- renderMainChart();renderRobots();renderAnalysis();renderTradeJournal();
+ renderMainChart();renderRobots();renderAnalysis();renderTradeJournal();renderMultiAsset();
  if(sheetRobot){
    setText('sheet-capital',money(sheetRobot.capital_usd));
    setText('sheet-fees',money(sheetRobot.fees_usd,3));
