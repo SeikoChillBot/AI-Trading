@@ -51,12 +51,20 @@ jobs:
           } 2>&1 | tee reports/multi_asset_diagnostic.log
         continue-on-error: true
       - name: Validate Lab 04 web interface
+        id: site_validation
+        continue-on-error: true
         run: |
           python -m unittest discover -s tests -p 'test_site_lab04.py' -v
           for f in site/lab04-*.js; do node --check "$f"; done
+      - name: Warn if UI check failed
+        if: steps.site_validation.outcome != 'success'
+        run: echo "::warning::Site invalid; preserve last site and continue saving simulated portfolios."
       - run: python dashboard.py
-      - run: python build_site.py
+      - name: Build site only when validated
+        if: steps.site_validation.outcome == 'success'
+        run: python build_site.py
       - name: Prepare GitHub Pages dashboard
+        if: steps.site_validation.outcome == 'success'
         run: |
           mkdir -p docs
           cp site/dashboard.html docs/index.html
