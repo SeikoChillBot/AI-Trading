@@ -99,7 +99,7 @@
   <div class="trade-journal-list" id="trade-journal-list"></div>
   <button class="text-action trade-show-all" id="trade-journal-toggle" type="button" hidden>Afficher les événements</button>
 </article>
-<article class="surface analysis-card"><span class="eyebrow">PROTOCOLE D’EXPÉRIENCE</span><h2>Ce qu’il faut garder à l’esprit</h2><div class="method-list"><div><span>01</span><p><strong>20 $ fictifs par robot.</strong> Tous partent du même montant initial, indépendamment.</p></div><div><span>02</span><p><strong>Résultat net simulé.</strong> Des frais fixes de 0,1 % par ordre sont pris en compte.</p></div><div><span>03</span><p><strong>Exécution idéalisée.</strong> Le spread, le slippage et le biais d'exécution à la clôture ne sont pas corrigés.</p></div><div><span>04</span><p><strong>Pas de conclusion hâtive.</strong> Quelques heures ou jours ne prouvent pas qu'un robot est rentable.</p></div></div></article></section>
+<article class="surface analysis-card"><span class="eyebrow">PROTOCOLE D’EXPÉRIENCE</span><h2>Ce qu’il faut garder à l’esprit</h2><div class="method-list"><div><span>01</span><p><strong id="initial-per-robot">20 $ fictifs par robot.</strong> Tous partent du même montant initial, indépendamment.</p></div><div><span>02</span><p><strong>Résultat net simulé.</strong> Des frais fixes de 0,1 % par ordre sont pris en compte.</p></div><div><span>03</span><p><strong>Exécution idéalisée.</strong> Le spread, le slippage et le biais d'exécution à la clôture ne sont pas corrigés.</p></div><div><span>04</span><p><strong>Pas de conclusion hâtive.</strong> Quelques heures ou jours ne prouvent pas qu'un robot est rentable.</p></div></div></article></section>
 </main>
 <footer class="site-footer">SEIKO TRADING LAB <span>·</span> Expérience algorithmique, sans argent réel <span>·</span> <span id="footer-update">—</span></footer></div>
 <nav class="bottom-nav" aria-label="Navigation principale"><div class="bottom-nav-inner">
@@ -404,6 +404,7 @@ if(DATA.model==='realistic_v2'){
 let assetFilter='all';
 document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
 function refreshCurrency(){
+ setText('initial-per-robot',money(START)+' fictifs par robot.');
  setText('portfolio-value',rows.length ? money(latest) : '—');
  setText('portfolio-profit',rows.length ? signedMoney(profit) : '—');
  const tag=document.querySelector('.hero-small-tag');
