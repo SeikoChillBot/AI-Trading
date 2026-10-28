@@ -20,6 +20,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
+      - name: Validate multi-market research catalog
+        run: python -m unittest discover -s tests -p 'test_market_catalog.py' -v
       - run: python bot.py
       - name: Validate and run independent realistic paper-trading engine
         run: |
