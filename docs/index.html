@@ -96,9 +96,7 @@ const rawRows = Array.isArray(DATA.rows) ? DATA.rows : [];
 const rows = rawRows.map(r => ({...r, capital_usd: Number(r.capital_usd), return_pct: Number(r.return_pct), trades: Number(r.trades), fees_usd: Number(r.fees_usd), timeframe_min: Number(r.timeframe_min) || 0}));
 const byName = new Map(rows.map(r => [r.strategy, r]));
 const history = Array.isArray(DATA.history) ? DATA.history : [];
-const money = (n, digits=2) => Number(n).toLocaleString('fr-FR',{minimumFractionDigits:digits,maximumFractionDigits:digits}) + ' </script>
-</body></html>
-;
+const money = (n, digits=2) => Number(n).toLocaleString('fr-FR',{minimumFractionDigits:digits,maximumFractionDigits:digits}) + ' $';
 const percentage = n => (n > 0 ? '+' : '') + Number(n).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' %';
 const signedMoney = n => (n > 0 ? '+' : n === 0 ? '±' : '') + money(n);
 const polarity = n => n > 0.000001 ? 'positive' : n < -0.000001 ? 'negative' : 'neutral';
