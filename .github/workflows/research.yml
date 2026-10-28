@@ -75,12 +75,19 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python -m research.ai_reflection
+      - name: Validate site independently of research data
+        id: site_validation
+        continue-on-error: true
+        run: python -m unittest discover -s tests -p 'test_site_lab04.py' -v
       - name: Rebuild read-only Lab 04 after AI research
+        if: steps.site_validation.outcome == 'success'
         run: |
-          python -m unittest discover -s tests -p 'test_site_lab04.py' -v
           python build_site.py
           mkdir -p docs
           cp site/dashboard.html docs/index.html
+      - name: Warn if UI failed; continue publishing research reports
+        if: steps.site_validation.outcome != 'success'
+        run: echo "::warning::Site validation failed; keeping last published UI while saving research."
       - name: Publish research observations (no robot changes)
         run: |
           git config user.name "github-actions[bot]"
