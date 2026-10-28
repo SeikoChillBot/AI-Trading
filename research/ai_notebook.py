@@ -86,6 +86,30 @@ def build(now, data, old):
                    "Lien vers la publication d'origine. Actualité informative, pas une recommandation de placement.",
                    article.get("url"))
     history=sorted(history,key=lambda x:x.get("at",""),reverse=True)[:85]
+    pulse=data.get("pulse",{})
+    market_watch=[]
+    try:
+        market_age=(now-datetime.fromisoformat(pulse["generated_at"])).total_seconds()
+    except (ValueError,KeyError,TypeError):
+        market_age=999999
+    if 0 <= market_age <= 12*3600:
+        for asset in ("BTCUSD","ETHUSD","SOLUSD"):
+            stats=pulse.get("assets",{}).get(asset)
+            if not isinstance(stats,dict):continue
+            try:
+                move=float(stats["change_7d_pct"])
+                volatility=float(stats["realized_volatility_30d_annualized_pct"])
+                if not (-100 < move < 1000 and 0 <= volatility < 1000):continue
+                direction="repli à examiner" if move < 0 else "dynamique positive à vérifier"
+                market_watch.append({
+                    "asset":asset,"move_7d_pct":round(move,3),
+                    "annualized_volatility_30d_pct":round(volatility,2),
+                    "label":direction,"source":"Kraken daily closed OHLC",
+                    "source_at":stats.get("last_closed_day_utc"),
+                    "verified_opportunity":False,"buy_signal":False,
+                })
+            except (KeyError,ValueError,TypeError):
+                continue
     output={
         "schema":1,"generated_at":now.isoformat(),"title":"Gemini — journal du laboratoire",
         "model_status":status.get("state","not_configured"),
@@ -96,6 +120,7 @@ def build(now, data, old):
         "entries":history[:35],
         "latest_notes":ai.get("desk_notes",[])[:3] if ai.get("source")=="gemini_generate_content" else [],
         "paper_experiments":placement.get("trials",[])[:12],
+        "market_watch":market_watch,
         "robot_statistics":evol.get("counts",{}),
         "limits":"News and AI suggestions are not confirmed profit opportunities; all trades are fictitious.",
         "real_trades":False,
