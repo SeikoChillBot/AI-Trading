@@ -1,13 +1,13 @@
 # Seiko Trading Lab — Recherche automatique
 
-Date UTC : 2026-10-28T22:58:49.200435+00:00
+Date UTC : 2026-10-28T23:01:15.159630+00:00
 
 **État : analyse statistique automatique. La disponibilité de l’IA générative est indiquée séparément.**
 **Aucune stratégie modifiée ni aucun ordre réel.**
 
 ## Données observées
 - **crypto** : 18 robots, 0.180 jour(s) de données, 360.00 $ fictifs de référence, 2.5330 $ de frais déjà enregistrés, **0 éligibles à une revue**.
-- **multi** : 18 robots, 0.090 jour(s) de données, 360.00 $ fictifs de référence, 0.0300 $ de frais déjà enregistrés, **0 éligibles à une revue**.
+- **multi** : 18 robots, 0.093 jour(s) de données, 360.00 $ fictifs de référence, 0.0300 $ de frais déjà enregistrés, **0 éligibles à une revue**.
 
 **Conclusion : 0 stratégie(s) suffisamment documentée(s) pour une revue ; aucune rentabilité démontrée.**
 
@@ -51,7 +51,7 @@ Date UTC : 2026-10-28T22:58:49.200435+00:00
 
 ## Limites et règles
 - Aucune promesse de rentabilité, d'alpha ou de revenu mensuel.
-- Aucune modification des stratégies en cours ou des anciens historiques.
+- Les historiques restent intacts ; seuls des paramètres fictifs préautorisés peuvent évoluer après validation prospective indépendante.
 - Aucun ordre réel, effet de levier ou connexion courtier.
 - Une optimisation future doit être vérifiée hors échantillon (walk-forward).
 - Les ETF US fractionnés et les taux BCE ne démontrent pas l'exécutabilité chez un courtier.
