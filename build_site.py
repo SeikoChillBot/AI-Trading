@@ -49,6 +49,22 @@ else:
     }
 # FX is a display-only quotation; it never enters the trading calculations.
 data['fx'] = load_fx()
+catalog_path = Path('research/market_catalog.json')
+catalog = json.loads(catalog_path.read_text(encoding='utf-8'))
+required = {'id', 'title', 'family', 'status', 'risk', 'strategies', 'data',
+            'execution', 'constraint', 'source', 'examples', 'description'}
+allowed_status = {'active', 'connect', 'research', 'high_risk'}
+markets = catalog.get('markets', [])
+ids = [market.get('id') for market in markets]
+if (catalog.get('schema_version') != 1 or len(markets) < 8
+        or len(set(ids)) != len(ids) or any(not required.issubset(market) for market in markets)
+        or any(market['status'] not in allowed_status for market in markets)
+        or any(not market['strategies'] for market in markets)
+        or any(not market['source'].startswith('https://') for market in markets)
+        or {m['id'] for m in markets if m['status'] == 'active'} != {'crypto'}):
+    raise RuntimeError('Unvalidated market catalog, refusing to publish unverified activity')
+# Research ideas never participate in simulated balances or performance calculations.
+data['market_catalog'] = catalog
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
