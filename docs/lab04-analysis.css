@@ -35,3 +35,23 @@
 .cross-method{font-size:10px;line-height:1.75;color:#aabcc2;margin:14px 0 0}
 @media(max-width:750px){.cross-analysis-heading{flex-direction:column}.cross-risk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:530px){.robot-lab-switch button{gap:4px;font-size:11px;padding:9px 4px}.robot-lab-switch button small{font-size:9px}.cross-analysis{padding:17px 12px}.cross-scorecard{gap:8px}.cross-score{padding:12px}.cross-score-top{flex-direction:column;align-items:flex-start}.cross-score-money{font-size:22px}.cross-risk-grid>div{padding:10px}}
+
+
+/* Daily research panel */
+.research-panel{background:#16272c;border:1px solid #3f5b47;border-radius:17px;padding:20px;margin-bottom:23px}
+.research-panel-head{display:flex;justify-content:space-between;gap:12px}
+.research-panel-head h2{font-size:25px;margin:8px 0}
+.research-panel-head p,.research-panel-status{font-size:12px;line-height:1.6;color:#adbec1}
+.research-panel-state{font-size:10px;color:#c9e0ca;border:1px solid #4d7458;padding:7px;border-radius:8px;height:max-content}
+.research-panel-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:17px 0}
+.research-panel-metrics>div{background:#1a2e32;border:1px solid #344f47;border-radius:10px;padding:12px}
+.research-panel-metrics small{font-size:9px;color:#acc5b9;display:block;line-height:1.4}
+.research-panel-metrics strong{font-size:24px;color:var(--lime);display:block;margin-top:6px}
+.research-panel-details{border-top:1px solid #3e5546;padding-top:15px}
+.research-panel-details summary{color:var(--lime);font-size:12px;font-weight:750;cursor:pointer}
+.research-idea-list{display:grid;gap:8px;margin-top:12px}
+.research-idea{padding:12px;border:1px solid #3b514b;background:#1a2e35;border-radius:10px}
+.research-idea strong{font-size:12px}
+.research-idea p,.research-idea small{font-size:11px;line-height:1.5;color:#b5c8c4;margin:6px 0 0;display:block}
+.research-panel-footer{font-size:10px;color:#a4b8b6;margin:13px 0 0}
+@media(max-width:560px){.research-panel{padding:15px}.research-panel-head{flex-direction:column}.research-panel-metrics{gap:6px}.research-panel-metrics>div{padding:8px 6px}}
