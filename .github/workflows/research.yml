@@ -6,6 +6,10 @@ on:
     branches: [main]
     paths:
       - 'research/auto_research.py'
+      - 'research/market_context.py'
+      - 'research/whale_watch.py'
+      - 'research/whale_watchlist.json'
+      - 'tests/test_market_intelligence.py'
       - 'research/ai_reflection.py'
       - 'tests/test_research_automation.py'
       - '.github/workflows/research.yml'
@@ -35,6 +39,16 @@ jobs:
         run: |
           python -m py_compile research/auto_research.py research/ai_reflection.py
           python -m unittest discover -s tests -p 'test_research_automation.py' -v
+      - name: Validate independent market intelligence
+        run: |
+          python -m py_compile research/market_context.py research/whale_watch.py
+          python -m unittest discover -s tests -p 'test_market_intelligence.py' -v
+      - name: Collect free research data and optional verified-wallet transfers
+        env:
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+        run: |
+          python research/market_context.py
+          python research/whale_watch.py
       - name: Test historical strategies
         run: python -m unittest discover -s tests -p 'test_historical_research.py' -v && python research/walkforward.py
       - name: Read live paper reports and suggest experiments
@@ -51,6 +65,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
           git add reports/ai_research.md reports/ai_research_status.json reports/challenger_walkforward.json reports/challenger_candles.json
+          git add reports/market_context.json reports/whale_observations.json
+          git add -A state/whale_watch_state.json reports/whale_transfer_events.jsonl 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "Update guarded Seiko research observations"
             for attempt in 1 2 3 4 5; do
