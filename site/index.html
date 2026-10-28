@@ -9,7 +9,7 @@
 <div class="quick-stats"><article class="quick-stat"><div class="stat-icon bots-icon">◈</div><div><span class="stat-label">ROBOTS ACTIFS</span><strong id="stat-bots">—</strong></div></article><article class="quick-stat"><div class="stat-icon deals-icon">↗</div><div><span class="stat-label">OPÉRATIONS</span><strong id="stat-trades">—</strong></div></article></div>
 <section class="journey-card" aria-label="Suivi de l’expérience" id="experiment-timeline">
   <div class="journey-top"><div><span class="eyebrow">JOURNAL DE BORD</span><h2>Notre expérience, jour après jour.</h2></div><span class="journey-day" id="lab-day">J+0</span></div>
-  <div class="journey-data"><div><small>PREMIÈRE SIMULATION</small><strong id="lab-start">28 oct. 2026 · 07:36</strong></div><div><small>DURÉE ÉCOULÉE</small><strong id="lab-duration">—</strong></div></div>
+  <div class="journey-data"><div><small>PREMIÈRE SIMULATION</small><strong id="lab-start">—</strong></div><div><small>DURÉE ÉCOULÉE</small><strong id="lab-duration">—</strong></div></div>
   <div class="journey-progress-head"><span>Premier bilan · 7 jours</span><strong id="lab-progress-label">—</strong></div>
   <div class="journey-progress" role="progressbar" aria-label="Avancement vers le bilan des sept jours" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="lab-progress"><span id="lab-progress-fill"></span></div>
   <div class="journey-foot"><span>Départ <strong>28 oct.</strong></span><span id="lab-review">Bilan <strong>4 nov.</strong></span></div>
@@ -30,6 +30,12 @@
 
 
 
+<article class="surface analysis-card" id="trade-journal">
+  <div class="section-header compact"><div><span class="eyebrow">JOURNAL DES ORDRES</span><h2>Pourquoi les robots ont agi.</h2></div><span class="insight-tag">Opérations simulées</span></div>
+  <p class="micro-note">Heure, conditions du signal, prix estimé et frais pour chaque tentative enregistrée. Une exécution simulée ne représente pas une transaction passée sur un compte réel.</p>
+  <div class="trade-journal-list" id="trade-journal-list"></div>
+  <button class="text-action trade-show-all" id="trade-journal-toggle" type="button" hidden>Afficher les événements</button>
+</article>
 <article class="surface analysis-card"><span class="eyebrow">PROTOCOLE D’EXPÉRIENCE</span><h2>Ce qu’il faut garder à l’esprit</h2><div class="method-list"><div><span>01</span><p><strong>20 $ fictifs par robot.</strong> Tous partent du même montant initial, indépendamment.</p></div><div><span>02</span><p><strong>Résultat net simulé.</strong> Des frais fixes de 0,1 % par ordre sont pris en compte.</p></div><div><span>03</span><p><strong>Exécution idéalisée.</strong> Le spread, le slippage et le biais d'exécution à la clôture ne sont pas corrigés.</p></div><div><span>04</span><p><strong>Pas de conclusion hâtive.</strong> Quelques heures ou jours ne prouvent pas qu'un robot est rentable.</p></div></div></article></section>
 </main>
 <footer class="site-footer">SEIKO TRADING LAB <span>·</span> Expérience algorithmique, sans argent réel <span>·</span> <span id="footer-update">—</span></footer></div>
