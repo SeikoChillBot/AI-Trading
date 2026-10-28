@@ -205,10 +205,6 @@ function renderSheetExtras(r){
  else if(hold){const diff=r.return_pct-hold.return_pct;setText('sheet-benchmark',(diff>0?'+':'')+diff.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' pt');setText('sheet-benchmark-note','Écart de rendement avec '+asset+' Hold, sans équivalence de risque.');}
  else{setText('sheet-benchmark','—');setText('sheet-benchmark-note','Pas de robot Hold de référence pour cet actif.');}
 }
-// CSV is produced on demand from the exact reports embedded in the page.
-function saveReportCSV(fileName,entries){if(!entries.length)return;const columns=Object.keys(entries[0]);const cell=v=>{const text=String(v??'');const safe=/^[=+@]/.test(text)?"'"+text:text;return '"'+safe.replaceAll('"','""')+'"';};const csv=[columns.map(cell).join(';'),...entries.map(r=>columns.map(k=>cell(r[k])).join(';'))].join('\r\n');const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fileName;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-$('export-current').addEventListener('click',()=>saveReportCSV('seiko-robots-releve.csv',rawRows));
-$('export-history').addEventListener('click',()=>saveReportCSV('seiko-robots-historique.csv',history));
 let assetFilter='all';
 document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
 renderLabTimeline();researchInsights();
