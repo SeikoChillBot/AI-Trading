@@ -2,6 +2,7 @@ import csv
 import json
 from pathlib import Path
 from datetime import datetime, timezone
+from fx_reference import load_fx
 
 
 def read_csv(path):
@@ -46,6 +47,8 @@ else:
         'orders': [],
         'assumptions': {},
     }
+# FX is a display-only quotation; it never enters the trading calculations.
+data['fx'] = load_fx()
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
