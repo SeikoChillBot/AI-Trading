@@ -66,14 +66,56 @@ def eligible(now, idea, pulse):
     return True,"fresh_observation_present_not_predictive"
 
 
+def automatic_regime_studies(pulse):
+    """Always-on research fallback when Gemini has no eligible new tests.
+
+    These are quantitative baselines, never represented as model decisions or
+    as profitable signals. Only daily close observations qualify.
+    """
+    result=[]
+    candidates=[]
+    assets=pulse.get("assets",{}) if isinstance(pulse,dict) else {}
+    if not isinstance(assets,dict):
+        return []
+    for symbol in ("BTCUSD","ETHUSD","SOLUSD"):
+        item=assets.get(symbol,{})
+        if not isinstance(item,dict):
+            continue
+        try:
+            move=float(item["change_7d_pct"])
+            volatility=float(item["realized_volatility_30d_annualized_pct"])
+            if not math.isfinite(move) or not math.isfinite(volatility):
+                continue
+            if abs(move)<1.0 or not 0<volatility<150:
+                continue
+            trigger="market_selloff" if move<0 else "market_uptrend"
+            candidates.append((abs(move),symbol,trigger,move))
+        except (TypeError,ValueError,KeyError):
+            continue
+    for _,symbol,trigger,move in sorted(candidates,reverse=True)[:2]:
+        result.append({"asset":symbol,"trigger":trigger,"horizon_days":3,
+                       "rationale":"Experience automatique de regime sur 3 jours apres mouvement 7j "
+                                   +str(round(move,2))+"%, sans hypothese de profit.",
+                       "actor":"quantitative_auto_fallback"})
+    return result
+
+
 def evolve(now, ideas, pulse, candles, state):
     previous=state.get("trials",[])
     trials=[dict(x) for x in previous if isinstance(x,dict)][:12]
     outcomes=[]
     seen={x.get("id") for x in trials}
-    new_requests=ideas.get("scenario_proposals",[]) if ideas.get("source")=="gemini_generate_content" else []
-    if not isinstance(new_requests,list):
-        new_requests=[]
+    model_requests=(ideas.get("scenario_proposals",[])
+                    if ideas.get("source")=="gemini_generate_content"
+                    and ideas.get("state")=="model_reflection_completed" else [])
+    if not isinstance(model_requests,list):
+        model_requests=[]
+    # Gemini's tests execute automatically. When there are none, the deterministic
+    # research engine tests an observed market regime without spending API quota.
+    new_requests = ([
+        {**x,"actor":"gemini_structured_decision"} for x in model_requests[:2]
+        if isinstance(x,dict)]
+        if model_requests else automatic_regime_studies(pulse))
     for item in new_requests[:2]:
         if not isinstance(item,dict):
             continue
@@ -103,6 +145,7 @@ def evolve(now, ideas, pulse, candles, state):
         rec={
             "id":key,"asset":item["asset"],"trigger":item["trigger"],
             "horizon_days":item["horizon_days"],"created_at":now.isoformat(),
+            "actor":item.get("actor","automatic_market_research"),
             "last_t":at,"status":"waiting_next_closed_day",
             "entry_price":None,"entry_day":None,"observations_after_entry":0,
             "units":0.0,"equity_usd":CAPITAL,"estimated_net_pct":0.0,
@@ -111,7 +154,8 @@ def evolve(now, ideas, pulse, candles, state):
             "execution_type":"modeled_fills_at_later_observed_daily_close",
         }
         seen.add(key);trials.append(rec)
-        outcomes.append({"asset":rec["asset"],"id":key,"status":"paper_experiment_registered"})
+        outcomes.append({"asset":rec["asset"],"id":key,"status":"paper_experiment_registered",
+                         "actor":rec["actor"]})
     for item in trials:
         if item.get("status") not in ("waiting_next_closed_day","in_paper_position"):
             continue
@@ -148,6 +192,8 @@ def evolve(now, ideas, pulse, candles, state):
         "schema":1,"generated_at":now.isoformat(),"type":"independent_forward_only_paper_scenarios",
         "active":sum(x.get("status") in ("waiting_next_closed_day","in_paper_position") for x in trials),
         "trials":trials[-12:],"events":outcomes,
+        "no_user_approval_required":True,
+        "model_decisions_executed_automatically":True,
         "controls":{"max_simulated_capital_usd":CAPITAL,"paper_only":True,
                     "real_orders":False,"prediction_guaranteed":False,
                     "sampled_whale_transfer_is_confirmed_buy":False},
