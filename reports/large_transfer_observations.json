@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-28T22:56:56.010135+00:00",
+  "generated_at": "2026-10-28T22:58:33.694596+00:00",
   "source": "https://eth.blockscout.com/api/v2",
   "chain": "ethereum",
   "state": "observing",
@@ -12,12 +12,40 @@
     "USDT": 50
   },
   "validated_records": {
-    "USDC": 45,
-    "USDT": 39
+    "USDC": 50,
+    "USDT": 50
   },
-  "large_transfers_observed": 0,
-  "large_transfers_new": [],
-  "sample_highlights": [],
+  "large_transfers_observed": 1,
+  "large_transfers_new": [
+    {
+      "id": "339b4ce41373a005de45859d55dc3bdad00be478cb82b5101f1ad099ad9758e3",
+      "token": "USDC",
+      "quantity": "100000000",
+      "nominal_usd_approx": 100000000.0,
+      "timestamp": "2026-10-28T22:57:47+00:00",
+      "tx_hash": "0x4734dea9ee4d94a026ca0b5b7704f3846fc1416c44237500b079c80cb7dbfdbd",
+      "from_address": "0xfff2edfa5b0c48378e06531b1220ea3455d4b5ce",
+      "to_address": "0xcd531ae9efcce479654c4926dec5f6209531ca7b",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
+  "sample_highlights": [
+    {
+      "id": "339b4ce41373a005de45859d55dc3bdad00be478cb82b5101f1ad099ad9758e3",
+      "token": "USDC",
+      "quantity": "100000000",
+      "nominal_usd_approx": 100000000.0,
+      "timestamp": "2026-10-28T22:57:47+00:00",
+      "tx_hash": "0x4734dea9ee4d94a026ca0b5b7704f3846fc1416c44237500b079c80cb7dbfdbd",
+      "from_address": "0xfff2edfa5b0c48378e06531b1220ea3455d4b5ce",
+      "to_address": "0xcd531ae9efcce479654c4926dec5f6209531ca7b",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
   "errors": {},
   "buy_sell_inference": false,
   "real_trades": false,
