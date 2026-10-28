@@ -49,4 +49,28 @@ for(const idea of ideas){
  const criterion=document.createElement('small');criterion.textContent='Condition : '+(idea.success_rule||'Non définie');
  card.append(title,why,test,criterion);host.append(card);
 }
+const historical=DATA.challenger_optimization||{};
+const historicalList=get('challenger-evaluations');
+if(historicalList){
+ historicalList.replaceChildren();
+ if(historical.ready&&Array.isArray(historical.instruments)){
+  for(const item of historical.instruments){
+   const card=document.createElement('article');card.className='research-idea';
+   const title=document.createElement('strong');
+   title.textContent=item.asset+' : '+item.folds+' fenêtres chronologiques';
+   const pct=document.createElement('p');
+   const relative=Number(item.oos_excess);
+   pct.textContent='Écart historique moyen vs conserver : '+
+      (relative>0?'+':'')+relative.toFixed(2)+' points de pourcentage';
+   const details=document.createElement('small');
+   details.textContent='Risque maximal observé : '+Number(item.worst_drawdown).toFixed(1)+
+     ' % | SMA'+item.parameters.window+' | Seuil '+(item.parameters.buffer*100).toFixed(1)+' %';
+   card.append(title,pct,details);historicalList.append(card);
+  }
+ }else{
+  const note=document.createElement('p');note.className='micro-note';
+  note.textContent='Validation historique non disponible.';
+  historicalList.append(note);
+ }
+}
 })();
