@@ -12,6 +12,7 @@ from pathlib import Path
 
 import requests
 from bot import STRATEGIES, TIMEFRAMES, fetch_candles, decide, rsi, ema
+from research.robot_tuning import active_scales, scale_for
 
 ROOT = Path(".")
 STATE = ROOT / "state/realistic_portfolios.json"
@@ -235,6 +236,7 @@ def main():
     portfolios = state["portfolios"]
     rows = []
     events = []
+    tuning = active_scales()
     for name, symbol, mode in STRATEGIES:
         interval = TIMEFRAMES[name]
         candles = market[(symbol, interval)]
@@ -244,7 +246,7 @@ def main():
         portfolio = portfolios.setdefault(name, {"cash": START_CASH, "units": 0.0,
                                                    "trades": 0, "fees": 0.0})
         if int(state["last_candle"].get(name, 0)) != signal_open_ms:
-            action = decide(mode, [v for _,v in candles], holding, portfolio)
+            action = decide(mode, [v for _,v in candles], holding, portfolio, scale_for(name, tuning))
             if (action=="buy" and not holding) or (action=="sell" and holding):
                 reason = describe_signal(mode,[v for _,v in candles], portfolio, action)
                 book=books[symbol];limits=rules[symbol]
