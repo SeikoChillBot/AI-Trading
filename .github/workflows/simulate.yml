@@ -21,6 +21,11 @@ jobs:
           python-version: '3.12'
       - run: pip install -r requirements.txt
       - run: python bot.py
+      - name: Validate and run independent realistic paper-trading engine
+        run: |
+          python -m unittest discover -s tests -p 'test_realistic_sim.py' -v
+          python realistic_sim.py
+        continue-on-error: true
       - run: python dashboard.py
       - run: python build_site.py
       - name: Prepare GitHub Pages dashboard
