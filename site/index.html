@@ -42,12 +42,26 @@
   <div class="journey-foot"><span>Départ <strong>28 oct.</strong></span><span id="lab-review">Bilan <strong>4 nov.</strong></span></div>
 </section>
 <div class="section-header"><div><span class="eyebrow">FOCUS CRYPTO</span><h2>À suivre dans le labo</h2></div><button class="text-action" id="open-all-robots">Tous les robots <span>↗</span></button></div><div class="highlights" id="highlights"></div>
-<div class="notice"><div class="notice-badge">i</div><p><strong>Simulation uniquement.</strong> Aucun argent réel n'est utilisé. Les résultats comprennent des frais simplifiés, mais pas les conditions réelles d'exécution.</p></div></section>
-<section id="view-robots" class="view" aria-label="Liste des robots" hidden>
+<div class="notice"><div class="notice-badge">i</div><p><strong>Une expérience, pas un conseil d’investissement.</strong> La crypto utilise des carnets Kraken simulés ; les autres marchés utilisent des cotations ou des références avec des coûts hypothétiques. Aucun ordre réel.</p></div></section>
+<section id="view-robots" class="view" aria-label="Tous les robots" hidden>
+<div class="robot-lab-switch" role="group" aria-label="Univers des stratégies">
+ <button type="button" data-robot-lab="all" class="is-active" aria-pressed="true"><span>Tous</span><small id="switch-all-count">36</small></button>
+ <button type="button" data-robot-lab="crypto" aria-pressed="false"><span>Crypto</span><small>18</small></button>
+ <button type="button" data-robot-lab="multi" aria-pressed="false"><span>Multi-actifs</span><small>18</small></button>
+</div>
+<div class="robot-page-intro"><span class="eyebrow">36 STRATÉGIES / 2 EXPÉRIENCES</span><p>Classement en <strong>rendement %</strong> : les robots à 20 $ et ceux à 1 000 $ ne peuvent pas être comparés sur leur bénéfice brut.</p></div>
 <div class="robots-tools"><div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.7" cy="10.7" r="6.5"/><path d="m16 16 5 5"/></svg><input id="robot-search" type="search" placeholder="Rechercher une stratégie…" aria-label="Rechercher un robot"></div><label class="sort-label">TRIER <select id="robot-sort"><option value="return">Performance</option><option value="activity">Activité</option><option value="name">Nom</option></select></label></div>
-<div class="filter-list" id="robot-filters" role="group" aria-label="Filtrer les robots"><button data-filter="all" class="is-active">Tous</button><button data-filter="positive">En hausse</button><button data-filter="negative">En baisse</button><button data-filter="inactive">Sans opération</button></div><div class="asset-filter-bar" role="group" aria-label="Filtrer par cryptomonnaie"><span>ACTIF</span><button data-coin="all" class="is-active">Tous</button><button data-coin="BTC">₿ BTC</button><button data-coin="ETH">Ξ ETH</button><button data-coin="SOL">◎ SOL</button></div>
+<div class="filter-list" id="robot-filters" role="group" aria-label="Filtrer les robots"><button data-filter="all" class="is-active">Tous</button><button data-filter="positive">En hausse</button><button data-filter="negative">En baisse</button><button data-filter="inactive">Sans opération</button></div><div class="asset-filter-bar" id="crypto-asset-filters" role="group" aria-label="Filtrer par cryptomonnaie"><span>ACTIF</span><button data-coin="all" class="is-active">Tous</button><button data-coin="BTC">₿ BTC</button><button data-coin="ETH">Ξ ETH</button><button data-coin="SOL">◎ SOL</button></div>
 <div class="list-caption"><span id="robots-count">— stratégies</span><span>CAPITAL / RENDEMENT</span></div><div id="robot-list" class="robot-list"></div></section>
-<section id="view-analysis" class="view" aria-label="Analyse" hidden><div class="analysis-intro"><span class="eyebrow">LIRE AU-DELÀ DES CHIFFRES</span><h2>Ce qui se passe vraiment.</h2><p>Une photographie de nos stratégies, sans confondre gains ponctuels et rentabilité démontrée.</p></div>
+<section id="view-analysis" class="view" aria-label="Analyse" hidden>
+<section class="cross-analysis" aria-labelledby="cross-analysis-title">
+ <div class="cross-analysis-heading"><div><span class="eyebrow">DEUX EXPÉRIENCES DISTINCTES</span><h2 id="cross-analysis-title">Comparer sans confondre.</h2><p>Les capitaux sont différents ; les rendements et les risques doivent être étudiés séparément. Tous les résultats sont encore provisoires.</p></div><span class="cross-analysis-pill" id="cross-analysis-stage">Échantillon insuffisant</span></div>
+ <div class="cross-scorecard" id="cross-scorecard"></div>
+ <div class="cross-chart-wrap"><div class="cross-chart-head"><strong>Historique du portefeuille multi-actifs</strong><small>Valorisation depuis le démarrage</small></div><div id="multi-analysis-chart" class="cross-chart"></div></div>
+ <div class="cross-risk-grid" id="cross-risk-grid"></div>
+ <p class="cross-method">Crypto : carnet Kraken et frais taker simulés. Multi-actifs : cotations publiques non officielles / références BCE et coûts estimés. Les dividendes et la fiscalité ne sont pas encore traités.</p>
+</section>
+<div class="analysis-intro"><span class="eyebrow">LIRE AU-DELÀ DES CHIFFRES</span><h2>Zoom sur les cryptos.</h2><p>Analyse spécifique aux 18 robots crypto. Les autres stratégies sont évaluées séparément ci-dessus.</p></div>
 <div class="analysis-stats"><article class="analysis-tile"><span>STRATÉGIES EN GAIN</span><strong id="analysis-winners">—</strong><small>Rendement supérieur à zéro</small></article><article class="analysis-tile"><span>STRATÉGIES EN PERTE</span><strong id="analysis-losers">—</strong><small>Rendement inférieur à zéro</small></article><article class="analysis-tile"><span>FRAIS SIMULÉS</span><strong id="analysis-fees">—</strong><small>Frais cumulés modélisés</small></article><article class="analysis-tile"><span>STRATÉGIES INACTIVES</span><strong id="analysis-idle">—</strong><small>Aucun ordre encore passé</small></article></div>
 <article class="surface analysis-card"><div class="section-header compact"><div><span class="eyebrow">PAR CRYPTOMONNAIE</span><h2>Performance des groupes</h2></div></div><div id="asset-breakdown" class="asset-breakdown"></div><p class="micro-note">Somme des résultats des robots associés à chaque actif ; ce n'est pas le rendement du marché lui-même.</p></article>
 <article class="surface analysis-card insight-card" id="experiment-insights"><div class="section-header compact"><div><span class="eyebrow">QUALITÉ DES RÉSULTATS</span><h2>Les chiffres derrière le classement</h2></div><span class="insight-tag" id="insight-samples">— relevés</span></div>
@@ -63,13 +77,13 @@
   <div class="trade-journal-list" id="trade-journal-list"></div>
   <button class="text-action trade-show-all" id="trade-journal-toggle" type="button" hidden>Afficher les événements</button>
 </article>
-<article class="surface analysis-card"><span class="eyebrow">PROTOCOLE D’EXPÉRIENCE</span><h2>Ce qu’il faut garder à l’esprit</h2><div class="method-list"><div><span>01</span><p><strong id="initial-per-robot">20 $ fictifs par robot.</strong> Tous partent du même montant initial, indépendamment.</p></div><div><span>02</span><p><strong>Résultat net simulé.</strong> Des frais fixes de 0,1 % par ordre sont pris en compte.</p></div><div><span>03</span><p><strong>Exécution idéalisée.</strong> Le spread, le slippage et le biais d'exécution à la clôture ne sont pas corrigés.</p></div><div><span>04</span><p><strong>Pas de conclusion hâtive.</strong> Quelques heures ou jours ne prouvent pas qu'un robot est rentable.</p></div></div></article></section>
+<article class="surface analysis-card"><span class="eyebrow">PROTOCOLE D’EXPÉRIENCE</span><h2>Comment lire nos chiffres</h2><div class="method-list"><div><span>01</span><p><strong id="initial-per-robot">20 $ fictifs par robot.</strong> Tous partent du même montant initial, indépendamment.</p></div><div><span>02</span><p><strong>Coûts intégrés.</strong> Les frais et les coûts estimés dépendent du marché : 0,8 % taker pour le modèle crypto V2 ; modèle indicatif distinct pour les titres.</p></div><div><span>03</span><p><strong>Simulations distinctes.</strong> Les carnets Kraken sont observés après signal ; les prix actions/ETF et taux BCE ne garantissent aucune exécution réelle.</p></div><div><span>04</span><p><strong>Pas de conclusion hâtive.</strong> Quelques heures ou jours ne prouvent pas qu'un robot est rentable.</p></div></div></article></section>
 
 <section id="view-explore" class="view" aria-label="Explorer les marchés" hidden>
   <div class="market-intro">
-    <span class="eyebrow">SEIKO / UNIVERS D’INVESTISSEMENT</span>
-    <h2>Un laboratoire. Tous les marchés<span class="title-period">.</span></h2>
-    <p>Repérer des stratégies prometteuses, puis les tester avec des cotations vérifiées et des coûts réalistes. Les simulations de nouveaux marchés figurent ci-dessous, séparément du catalogue de recherche et des 18 robots crypto.</p>
+    <span class="eyebrow">MARCHÉS ACTIFS / PROSPECTION</span>
+    <h2>Les marchés,<br>en clair<span class="title-period">.</span></h2>
+    <p>Neuf instruments suivis dans une expérience séparée, puis treize univers supplémentaires à étudier. Sources, qualité des prix et limites sont détaillées sans embellir les résultats.</p>
   </div>
   <section class="multi-live" aria-labelledby="multi-title">
   <div class="multi-live-header">
@@ -94,7 +108,7 @@
 <div class="market-overview" aria-label="État du laboratoire multi-marchés">
     <div><strong id="market-universe-count">—</strong><span>Univers à explorer</span></div>
     <div><strong id="market-strategy-count">—</strong><span>Pistes de stratégies</span></div>
-    <div><strong id="market-active-count">—</strong><span>Marché en simulation</span></div>
+    <div><strong id="market-active-count">—</strong><span>Laboratoires actifs</span></div>
   </div>
   <div class="market-workflow"><span class="eyebrow">NOTRE MÉTHODE</span>
     <div class="market-phases">
@@ -104,7 +118,7 @@
       <div><span>04</span><strong>Évaluer</strong><small>Rendement net, risque et stabilité</small></div>
     </div>
   </div>
-  <div class="market-section-heading"><div><span class="eyebrow">LE CATALOGUE</span><h2>Les opportunités à étudier</h2></div><span id="market-visible-count" class="market-visible-count">—</span></div>
+  <div class="market-section-heading"><div><span class="eyebrow">RÉSERVE D’IDÉES</span><h2>Autres pistes de recherche</h2></div><span id="market-visible-count" class="market-visible-count">—</span></div>
   <div class="market-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.7" cy="10.7" r="6.5"/><path d="m16 16 5 5"/></svg><input id="market-search" type="search" placeholder="Rechercher un marché ou une stratégie…" aria-label="Rechercher un marché"></div>
   <div class="market-filters" role="group" aria-label="Filtrer les marchés">
     <button type="button" class="is-active" data-market-filter="all" aria-pressed="true">Tous</button>
@@ -117,12 +131,12 @@
   <div class="market-disclaimer"><strong>Pas de performances inventées.</strong> Les marchés sans données et sans moteur d’exécution validé restent des pistes de recherche. Aucun argent réel, aucun effet de levier et aucune connexion à un courtier ne sont activés par ce catalogue.</div>
 </section>
 </main>
-<footer class="site-footer">SEIKO TRADING LAB <span>·</span> Expérience algorithmique, sans argent réel <span>·</span> <span id="footer-update">—</span></footer></div>
+<footer class="site-footer">SEIKO TRADING LAB <span>·</span> LAB / 04 <span>·</span> Capital et ordres fictifs <span>·</span> <span id="footer-update">—</span></footer></div>
 <nav class="bottom-nav" aria-label="Navigation principale"><div class="bottom-nav-inner">
 <button class="nav-button is-active" data-view="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 12 12 4l9 8v9H3v-9Z"/><path d="M9 21v-8h6v8"/></svg><span>Accueil</span></button>
 <button class="nav-button" data-view="robots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="7" width="16" height="13" rx="3"/><path d="M12 3v4M9 3h6M8 12h.01M16 12h.01M9 16h6"/></svg><span>Robots</span></button>
 <button class="nav-button" data-view="analysis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 19V5M4 19h17M8 15l4-5 3 2 5-7"/></svg><span>Analyse</span></button>
-<button class="nav-button" data-view="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m9 15 2-6 6-2-2 6-6 2Z"/></svg><span>Explorer</span></button>
+<button class="nav-button" data-view="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m9 15 2-6 6-2-2 6-6 2Z"/></svg><span>Marchés</span></button>
 </div></nav>
 <div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE STRATÉGIE</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Rendement</span><strong id="sheet-return">—</strong></div></div><div class="sheet-chart-wrap"><div class="section-overline">HISTORIQUE DU CAPITAL</div><div id="sheet-chart" class="sheet-chart"></div></div><div class="sheet-metrics"><div><span>ACTIF</span><strong id="sheet-asset">—</strong></div><div><span>INTERVALLE</span><strong id="sheet-timeframe">—</strong></div><div><span>OPÉRATIONS</span><strong id="sheet-trades">—</strong></div><div><span>FRAIS SIMULÉS</span><strong id="sheet-fees">—</strong></div></div><div class="sheet-extra"><div><span>BAISSE MAX. OBSERVÉE</span><strong id="sheet-drawdown">—</strong></div><div><span>ÉCART AVEC LE HOLD</span><strong id="sheet-benchmark">—</strong></div><p id="sheet-benchmark-note">Comparaison indicative entre stratégies différentes.</p></div>
 
