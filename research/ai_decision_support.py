@@ -126,7 +126,20 @@ def safe_context(research, historical):
             for k in ("state", "coverage", "sampled_records", "large_transfers_observed",
                       "new_in_sample", "largest_nominal_usd")},
     }
-    return {"market_pulse": pulse, "research_date_utc": research.get("research_date_utc"),
+    bot_reviews = []
+    for lab in ("crypto", "multi"):
+        for robot in research.get("labs", {}).get(lab, {}).get("strategies", []):
+            if isinstance(robot, dict):
+                bot_reviews.append({
+                    "id": robot.get("strategy"), "lab": lab,
+                    "asset": robot.get("asset"),
+                    "net_return_pct": robot.get("net_return_pct"),
+                    "drawdown_pct": robot.get("drawdown_pct"),
+                    "closed_roundtrips": robot.get("completed_roundtrips"),
+                    "observations": robot.get("observations"),
+                    "ready_for_review": robot.get("ready_for_review"),
+                })
+    return {"robot_reviews": bot_reviews[:36], "market_pulse": pulse, "research_date_utc": research.get("research_date_utc"),
             "qualification": research.get("qualification", {}),
             "labs": labs, "hypotheses": hypotheses,
             "historical": historical,
@@ -168,4 +181,26 @@ def validate_model_ideas(value, assets):
         clean.append({"asset": item["asset"], **{k: item[k].strip() for k in keys},
                       "evidence_state": "ai_hypothesis_not_tested",
                       "blocking_checks": next((x["blocking_checks"] for x in baseline_ideas({"assets": assets.values()}) if x["asset"] == item["asset"]), [])})
-    return {"summary": value["summary"].strip()[:1000], "experiments": clean}
+    from research.robot_tuning import TUNABLE_CRYPTO, TUNABLE_MULTI
+    proposals = value.get("bot_adjustments", [])
+    if not isinstance(proposals, list) or len(proposals) > 3:
+        raise ValueError("Invalid number of robot suggestions")
+    bot_adjustments = []
+    seen = set()
+    for candidate in proposals:
+        if not isinstance(candidate, dict):
+            raise ValueError("Invalid robot tuning payload")
+        name = candidate.get("strategy")
+        profile = candidate.get("profile")
+        reason = candidate.get("reason")
+        if (name not in TUNABLE_CRYPTO | TUNABLE_MULTI
+                or name in seen or profile not in ("conservative", "responsive")
+                or not isinstance(reason, str) or not 12 <= len(reason.strip()) <= 450):
+            raise ValueError("Robot suggestion outside reviewed safe parameter grid")
+        seen.add(name)
+        bot_adjustments.append({
+            "strategy": name, "entry_scale": 1.2 if profile == "conservative" else 0.8,
+            "reason": reason.strip(), "evidence_state": "gemini_hypothesis_unverified",
+        })
+    return {"summary": value["summary"].strip()[:1000], "experiments": clean,
+            "bot_adjustments": bot_adjustments}
