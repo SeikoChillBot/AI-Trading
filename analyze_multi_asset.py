@@ -5,11 +5,11 @@ from collections import defaultdict
 from datetime import datetime,timezone
 from pathlib import Path
 
-LATEST=Path("reports/multi_asset_latest.csv")
-HISTORY=Path("reports/multi_asset_history.csv")
-ORDERS=Path("reports/multi_asset_orders.csv")
-STATE=Path("state/multi_asset_portfolios.json")
-OUT=Path("reports/multi_asset_metrics.json")
+LATEST=Path("reports/multi_asset_micro_latest.csv")
+HISTORY=Path("reports/multi_asset_micro_history.csv")
+ORDERS=Path("reports/multi_asset_micro_orders.csv")
+STATE=Path("state/multi_asset_micro_portfolios.json")
+OUT=Path("reports/multi_asset_micro_metrics.json")
 
 
 def read(path):
@@ -30,7 +30,7 @@ def drawdown(values):
 def complete_trades(events):
     cost=None;profits=[]
     for e in events:
-        if e.get("status")!="SIMULATED_FILL":continue
+        if not str(e.get("status","")).startswith("SIMULATED_FILL"):continue
         if e.get("side")=="BUY":
             if cost is None:cost=-float(e["net_usd"])
         elif e.get("side")=="SELL" and cost is not None:
@@ -41,7 +41,7 @@ def complete_trades(events):
 
 def build_report(rows,history,orders,state):
     expected=state.get("initial_per_strategy_usd")
-    if expected!=1000 or state.get("schema")!=1 or len(rows)!=18:
+    if expected!=20 or state.get("schema")!=2 or len(rows)!=18:
         raise ValueError("Multi-market consistency error")
     hist=defaultdict(list)
     for x in history:hist[x["strategy"]].append(x)
@@ -82,14 +82,14 @@ def build_report(rows,history,orders,state):
             "evaluable_count":sum(v["evaluable"] for v in values)})
     starting=sum(float(r["initial_usd"]) for r in rows)
     final=sum(float(r["capital_usd"]) for r in rows)
-    return {"version":1,"model":"multi_asset_paper_v1",
+    return {"version":1,"model":"multi_asset_micro_v2",
         "started_at":state["created"],"updated_at":state["updated"],
         "elapsed_days":round(elapsed_days,4),"starting_usd":starting,
         "capital_usd":round(final,5),"return_pct":round(100*(final/starting-1),4),
         "evaluated_count":sum(v["evaluable"] for v in metrics),
         "qualified_after_days":30,"qualified_after_closed_trades":20,
         "groups":groups,"strategies":metrics,
-        "warning":"Exploratory paper research. Yahoo quote source unofficial and delayed. FX reference not executable. Dividends, corporate actions, fees/taxes may differ. No statistical inference without out-of-sample testing."}
+        "warning":"20 USD experimental portfolios. Fractional eligibility NOT broker-verified; quotes unofficial and possibly delayed; ECB rates non-executable. Fees and corporate actions not fully modeled."}
 
 
 def main():
