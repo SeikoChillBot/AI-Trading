@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-28T21:40:42.551838+00:00",
+  "generated_at": "2026-10-28T21:41:11.027403+00:00",
   "research_date_utc": "2026-10-28",
   "kind": "deterministic_statistical_research",
   "llm_connected": false,
@@ -556,7 +556,7 @@
     }
   },
   "market_intelligence": {
-    "generated_at": "2026-10-28T21:40:42.551838+00:00",
+    "generated_at": "2026-10-28T21:41:11.027403+00:00",
     "signals_generated": 0,
     "trade_actions": 0,
     "sentiment": {
@@ -577,7 +577,12 @@
       "source": "https://api.llama.fi/v2/chains",
       "kind": "defi_tvl_not_capital_inflow"
     },
-    "stablecoins": null,
+    "stablecoins": {
+      "circulating_usd_estimate": 302769820230.17,
+      "stablecoins_included": 334,
+      "source": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
+      "kind": "stablecoin_supply_not_immediate_buying_pressure"
+    },
     "whales": {
       "state": "not_configured",
       "wallets_configured": 0,
@@ -587,7 +592,7 @@
     "source_quality": {
       "sentiment": "observed_within_48_hours",
       "chain_tvl": "observed_within_48_hours",
-      "stablecoins": "unavailable_or_stale"
+      "stablecoins": "observed_within_48_hours"
     }
   },
   "hypotheses": [

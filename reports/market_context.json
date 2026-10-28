@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-28T21:40:40.357250+00:00",
+  "generated_at": "2026-10-28T21:41:09.354490+00:00",
   "model": "market_context_observation_v1",
   "auto_trading": false,
   "whale_purchases_inferred": false,
@@ -22,11 +22,15 @@
       },
       "source": "https://api.llama.fi/v2/chains",
       "kind": "defi_tvl_not_capital_inflow"
+    },
+    "stablecoins": {
+      "circulating_usd_estimate": 302769820230.17,
+      "stablecoins_included": 334,
+      "source": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
+      "kind": "stablecoin_supply_not_immediate_buying_pressure"
     }
   },
-  "errors": {
-    "stablecoins": "HTTPError: 404 Client Error: Not Found for url: https://api.llama.fi/stablecoins"
-  },
+  "errors": {},
   "limitations": [
     "TVL is not the same as inflow or investment return.",
     "Stablecoin issuance does not prove an upcoming asset purchase.",
