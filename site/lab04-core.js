@@ -4,7 +4,7 @@
  const D=DATA, m=D.multi_asset||{};
  const cr=Array.isArray(D.rows)?D.rows:[];
  const mr=m.ready&&Array.isArray(m.rows)&&m.rows.length===18?m.rows:[];
- const init={crypto:cr.length*20,multi:mr.reduce((a,r)=>a+Number(r.initial_usd||1000),0)};
+ const init={crypto:cr.length*20,multi:mr.reduce((a,r)=>a+Number(r.initial_usd||20),0)};
  const total={crypto:cr.reduce((a,r)=>a+Number(r.capital_usd),0),multi:mr.reduce((a,r)=>a+Number(r.capital_usd),0)};
  const start={crypto:D.launched_at,multi:m.started_at};
  const pct=n=>(n>0?'+':'')+Number(n).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' %';
@@ -33,6 +33,6 @@
   return pts;
  }
  const history={crypto:series(D.history,cr,()=>20,D.launched_at),
-  multi:mr.length?series(m.history,mr,r=>Number(r.initial_usd||1000),m.started_at):[]};
+  multi:mr.length?series(m.history,mr,r=>Number(r.initial_usd||20),m.started_at):[]};
  window.SeikoV4={D,m,cr,mr,init,total,start,pct,money,tone,put,stamp,day,history,ready:mr.length===18};
 })();
