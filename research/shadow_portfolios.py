@@ -74,4 +74,11 @@ def step(row,bars,now,book,limits):
                    "signal_closed":last+86400,"action":action,
                    "status":"FILLED_PAPER" if trade else "REJECTED",
                    "reason":"Closed SMA" if trade else error}
+            if trade:
+                row["orders"]+=1
+                row["fees"]+=trade["fee"]
+                event.update(quantity=trade["units"],fee_usd=trade["fee"],
+                             cash_delta=trade["net"])
+            events.append(event)
+        row["last_closed_day"]=last
     return events
