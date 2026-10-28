@@ -46,6 +46,10 @@ jobs:
             python analyze_multi_asset.py
           } 2>&1 | tee reports/multi_asset_diagnostic.log
         continue-on-error: true
+      - name: Validate Lab 04 web interface
+        run: |
+          python -m unittest discover -s tests -p 'test_site_lab04.py' -v
+          for f in site/lab04-*.js; do node --check "$f"; done
       - run: python dashboard.py
       - run: python build_site.py
       - name: Prepare GitHub Pages dashboard
