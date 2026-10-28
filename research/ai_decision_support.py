@@ -109,7 +109,24 @@ def safe_context(research, historical):
     for item in research.get("hypotheses", [])[:6]:
         if isinstance(item, dict):
             hypotheses.append({key: item.get(key) for key in ("id", "domain", "title", "experiment", "state")})
-    return {"research_date_utc": research.get("research_date_utc"),
+    raw_pulse = research.get("market_pulse", {})
+    observed = raw_pulse.get("assets", {}) if isinstance(raw_pulse, dict) else {}
+    pulse = {
+        "generated_at": raw_pulse.get("generated_at") if isinstance(raw_pulse, dict) else None,
+        "assets": {name: {
+            field: observed.get(name, {}).get(field) for field in (
+                "last_closed_day_utc", "change_1d_pct", "change_7d_pct",
+                "change_30d_pct", "realized_volatility_30d_annualized_pct"
+            )} for name in ASSETS if isinstance(observed.get(name), dict)},
+        "macro": {k: (raw_pulse.get("macro", {}).get(k) if isinstance(raw_pulse, dict) else None)
+                  for k in ("fear_greed_index", "tvl_ethereum_usd", "tvl_solana_usd",
+                            "stablecoin_supply_usd_estimate")},
+        "large_transfer_sample": {
+            k: (raw_pulse.get("large_transfers", {}).get(k) if isinstance(raw_pulse, dict) else None)
+            for k in ("state", "coverage", "sampled_records", "large_transfers_observed",
+                      "new_in_sample", "largest_nominal_usd")},
+    }
+    return {"market_pulse": pulse, "research_date_utc": research.get("research_date_utc"),
             "qualification": research.get("qualification", {}),
             "labs": labs, "hypotheses": hypotheses,
             "historical": historical,
