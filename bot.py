@@ -24,17 +24,23 @@ STRATEGIES = [
 ]
 
 def fetch_candles(symbol):
+    pair = {"BTCUSDT": "XBTUSD", "ETHUSDT": "ETHUSD", "SOLUSDT": "SOLUSD"}[symbol]
     response = requests.get(
-        "https://api.binance.com/api/v3/klines",
-        params={"symbol": symbol, "interval": "15m", "limit": 55},
+        "https://api.kraken.com/0/public/OHLC",
+        params={"pair": pair, "interval": 15},
         timeout=20,
     )
     response.raise_for_status()
-    candles = response.json()
-    if not isinstance(candles, list) or len(candles) < 30:
+    payload = response.json()
+    if payload.get("error"):
+        raise ValueError("Kraken API: " + str(payload["error"]))
+    result = payload["result"]
+    key = next(k for k in result if k != "last")
+    candles = result[key]
+    if len(candles) < 30:
         raise ValueError("Insufficient candle data for " + symbol)
-    # Ignore the current, incomplete candle.
-    return [(int(c[6]), float(c[4])) for c in candles[:-1]]
+    # Kraken timestamps denote candle opening; final candle is still forming.
+    return [(int(c[0]) * 1000, float(c[4])) for c in candles[:-1]]
 
 def decide(mode, prices, holding):
     last = prices[-1]
@@ -75,11 +81,10 @@ def main():
                 portfolio["trades"] += 1
             state["last_candle"][name] = timestamp
         equity = portfolio["cash"] + portfolio["units"] * price
-        rows.append({"strategy": name, "asset": symbol, "capital_eur_equivalent": round(equity, 5),
+        rows.append({"strategy": name, "asset": symbol, "capital_usd": round(equity, 5),
                      "return_pct": round((equity / 20 - 1) * 100, 3), "trades": portfolio["trades"],
-                     "fees_usdt": round(portfolio["fees"], 5), "candle_end_ms": timestamp})
-    # USDT quotes are treated as EUR-equivalent numerically in this prototype;
-    # not a real EUR conversion. This limitation is disclosed in README.
+                     "fees_usd": round(portfolio["fees"], 5), "candle_end_ms": timestamp})
+    # USD quotes are used. The starting 20 units are USD fictifs, not EUR.
     state["updated"] = now
     STATE.parent.mkdir(exist_ok=True)
     REPORT.parent.mkdir(exist_ok=True)
