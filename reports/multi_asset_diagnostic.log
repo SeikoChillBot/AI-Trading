@@ -1,42 +1,29 @@
 test_complete_trade_uses_net_cash_flows (test_multi_asset_analysis.MultiAssetAnalysisTests.test_complete_trade_uses_net_cash_flows) ... ok
 test_observed_drawdown (test_multi_asset_analysis.MultiAssetAnalysisTests.test_observed_drawdown) ... ok
-test_report_sample_never_qualified_on_day_one (test_multi_asset_analysis.MultiAssetAnalysisTests.test_report_sample_never_qualified_on_day_one) ... ok
+test_report_sample_never_qualified_on_day_one (test_multi_asset_analysis.MultiAssetAnalysisTests.test_report_sample_never_qualified_on_day_one) ... ERROR
 test_cached_quote_cannot_trade_after_close (test_multi_asset_sim.MultiAssetTests.test_cached_quote_cannot_trade_after_close) ... ok
 test_daily_signals_only_use_completed_candles (test_multi_asset_sim.MultiAssetTests.test_daily_signals_only_use_completed_candles) ... ok
-test_fee_spread_slip_and_cash (test_multi_asset_sim.MultiAssetTests.test_fee_spread_slip_and_cash) ... FAIL
-test_full_share_order_rejects_if_too_small (test_multi_asset_sim.MultiAssetTests.test_full_share_order_rejects_if_too_small) ... FAIL
-test_missing_data_cannot_erase_held_assets (test_multi_asset_sim.MultiAssetTests.test_missing_data_cannot_erase_held_assets) ... ERROR
+test_fee_spread_slip_and_cash (test_multi_asset_sim.MultiAssetTests.test_fee_spread_slip_and_cash) ... ok
+test_fractional_scenario_works_with_20_dollars (test_multi_asset_sim.MultiAssetTests.test_fractional_scenario_works_with_20_dollars) ... ok
+test_minimum_one_dollar_notional (test_multi_asset_sim.MultiAssetTests.test_minimum_one_dollar_notional) ... ok
+test_missing_data_cannot_erase_held_assets (test_multi_asset_sim.MultiAssetTests.test_missing_data_cannot_erase_held_assets) ... ok
 test_no_feed_does_not_start_fake_portfolios (test_multi_asset_sim.MultiAssetTests.test_no_feed_does_not_start_fake_portfolios) ... ok
 test_sell_has_cost_and_no_leverage (test_multi_asset_sim.MultiAssetTests.test_sell_has_cost_and_no_leverage) ... ok
 
 ======================================================================
-ERROR: test_missing_data_cannot_erase_held_assets (test_multi_asset_sim.MultiAssetTests.test_missing_data_cannot_erase_held_assets)
+ERROR: test_report_sample_never_qualified_on_day_one (test_multi_asset_analysis.MultiAssetAnalysisTests.test_report_sample_never_qualified_on_day_one)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_sim.py", line 69, in test_missing_data_cannot_erase_held_assets
-    sim.main()
-  File "/home/runner/work/AI-Trading/AI-Trading/multi_asset_sim.py", line 335, in main
-    raise ValueError("Incompatible multi-asset state")
-ValueError: Incompatible multi-asset state
-
-======================================================================
-FAIL: test_fee_spread_slip_and_cash (test_multi_asset_sim.MultiAssetTests.test_fee_spread_slip_and_cash)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_sim.py", line 21, in test_fee_spread_slip_and_cash
-    self.assertEqual(order["qty"],4)
-AssertionError: 4.244701 != 4
-
-======================================================================
-FAIL: test_full_share_order_rejects_if_too_small (test_multi_asset_sim.MultiAssetTests.test_full_share_order_rejects_if_too_small)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_sim.py", line 15, in test_full_share_order_rejects_if_too_small
-    self.assertIsNone(fill)
-AssertionError: {'qty': 0.1425, 'price': 701.0500000000001, 'gross': 99.899625, 'fee': 0.099899625, 'net': -99.999524625} is not None
+  File "/home/runner/work/AI-Trading/AI-Trading/tests/test_multi_asset_analysis.py", line 20, in test_report_sample_never_qualified_on_day_one
+    report=build_report(rows,[],[],state)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/AI-Trading/AI-Trading/analyze_multi_asset.py", line 45, in build_report
+    raise ValueError("Multi-market consistency error")
+ValueError: Multi-market consistency error
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.003s
+Ran 11 tests in 0.003s
 
-FAILED (failures=2, errors=1)
+FAILED (errors=1)
+Multi-asset: sources 1 / 9 strategies 18 new paper orders 0 estimated USD 361.95
 Multi-asset: no validated sources. No portfolio initialized.
