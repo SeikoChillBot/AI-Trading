@@ -92,7 +92,7 @@ def observe_crypto(market, now=None):
     records = state.get("accounts", {}) if isinstance(state.get("accounts", {}), dict) else {}
     for name,symbol,mode in STRATEGIES:
         candidate = proposals.get(name, {})
-        if name not in TUNABLE_CRYPTO or candidate.get("status") != "shadow_pending":
+        if name not in TUNABLE_CRYPTO or candidate.get("status") not in ("shadow_pending", "automatically_promoted_paper_only"):
             continue
         points = market.get((symbol, TIMEFRAMES[name]), [])
         if len(points) < 60:
@@ -126,7 +126,7 @@ def observe_multi(sources, now=None):
     state=read(STATE)
     records=state.get("accounts", {}) if isinstance(state.get("accounts",{}),dict) else {}
     for name,candidate in proposals.items():
-        if name not in TUNABLE_MULTI or candidate.get("status")!="shadow_pending":
+        if name not in TUNABLE_MULTI or candidate.get("status") not in ("shadow_pending","automatically_promoted_paper_only"):
             continue
         symbol=name.rsplit("_",1)[0].upper()
         quote=sources.get(symbol,{})
