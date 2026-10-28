@@ -23,3 +23,19 @@
 @media(max-width:740px){.journey-card{margin:-12px 0 29px;padding:21px 19px}.journey-top h2{font-size:17px}.journey-data{gap:8px;margin:21px 0}.journey-data strong{font-size:14px}.insight-metric{padding:14px}.insight-metric strong{font-size:20px}.export-panel summary{padding:17px}.benchmark-item{padding:15px}}
 @media(max-width:375px){.journey-top h2{font-size:15px}.journey-data strong{font-size:13px}.journey-day{font-size:12px;padding:6px 8px}.asset-filter-bar{gap:5px}.asset-filter-bar button{padding:6px 8px}.benchmark-pair strong{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.journey-progress>span{transition:none}}
+
+/* Realistic execution journal — deliberately compact on phones. */
+.trade-journal-list{display:grid;gap:10px;margin-top:18px}
+.trade-event{border:1px solid var(--border);background:#101b26;border-radius:13px;padding:15px 17px}
+.trade-event-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.trade-event-head strong{font-size:14px}
+.trade-status{font-size:10px;font-weight:800;padding:5px 8px;border-radius:7px;white-space:nowrap}
+.trade-status.is-filled{color:var(--lime);background:#b9f47716}
+.trade-status.is-rejected{color:#f4b7ac;background:#ff849715}
+.trade-when{color:var(--muted);display:block;margin-top:5px;font-size:11px}
+.trade-event-metrics{display:flex;gap:7px 14px;flex-wrap:wrap;color:#b7c8d3;font-size:11px;margin-top:13px}
+.trade-explanation{margin-top:12px;border-top:1px solid var(--border);padding-top:11px}
+.trade-explanation summary{cursor:pointer;color:var(--lime);font-size:12px;font-weight:700}
+.trade-explanation p{font-size:12px;line-height:1.6;color:#b2c5ce;overflow-wrap:anywhere}
+.trade-show-all{margin-top:12px}
+@media(max-width:530px){.trade-event{padding:14px 12px}.trade-event-head strong{font-size:12px}.trade-status{font-size:9px}.trade-event-metrics{font-size:11px}}
