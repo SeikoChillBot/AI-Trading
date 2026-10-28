@@ -10,16 +10,21 @@ class MultiAssetAnalysisTests(unittest.TestCase):
               {"status":"SIMULATED_FILL","side":"SELL","net_usd":"945"},
               {"status":"MINIMUM_QUANTITY_OR_FUNDS","side":"BUY","net_usd":""}]
         self.assertEqual(complete_trades(logs),[45.0])
+    def test_fractional_fills_count_in_closed_trades(self):
+        events=[{"status":"SIMULATED_FILL_FRACTIONAL_UNVERIFIED","side":"BUY","net_usd":"-19.9"},
+                {"status":"SIMULATED_FILL_FRACTIONAL_UNVERIFIED","side":"SELL","net_usd":"19.8"}]
+        self.assertEqual(len(complete_trades(events)),1)
+
     def test_report_sample_never_qualified_on_day_one(self):
         from datetime import datetime,timezone
         stamp=datetime.now(timezone.utc).isoformat()
-        state={"schema":1,"initial_per_strategy_usd":1000,"created":stamp,"updated":stamp}
+        state={"schema":2,"initial_per_strategy_usd":20,"created":stamp,"updated":stamp}
         rows=[{"strategy":str(i)+"_hold","asset":"TEST","market":"action",
-               "capital_usd":"1000","initial_usd":"1000","pricing_quality":"NO_DATA",
+               "capital_usd":"20","initial_usd":"20","pricing_quality":"NO_DATA",
                "fees_usd":"0","position":"CASH"} for i in range(18)]
         report=build_report(rows,[],[],state)
         self.assertEqual(report["evaluated_count"],0)
-        self.assertEqual(report["capital_usd"],18000)
+        self.assertEqual(report["capital_usd"],360)
         self.assertEqual(len(report["strategies"]),18)
 
 if __name__=="__main__":
