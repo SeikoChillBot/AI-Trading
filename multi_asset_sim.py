@@ -19,6 +19,7 @@ from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
 import requests
+from research.robot_tuning import active_scales, scale_for
 
 STATE = Path("state/multi_asset_micro_portfolios.json")
 LATEST = Path("reports/multi_asset_micro_latest.csv")
@@ -292,15 +293,17 @@ def liquidation(cash,units,price,symbol):
     return cash+max(0,gross-max(min_fee,gross*fee))
 
 
-def evaluate(variant,previous,has_position):
+def evaluate(variant,previous,has_position,threshold_scale=1.0):
+    if type(threshold_scale) not in (int, float) or threshold_scale not in (0.8,1.0,1.2):
+        raise ValueError("Unapproved tuning parameter")
     if variant=="hold":
         return "WAIT" if has_position else "BUY","Conservation longue durée"
     if len(previous)<20:return "WAIT","Historique inférieur à 20 clôtures"
     average=sum(b["close"] for b in previous[-20:])/20
     last=previous[-1]["close"]
-    if not has_position and last>average*1.005:
+    if not has_position and last>average*(1+.005*threshold_scale):
         return "BUY","Clôture %.5f > SMA20 %.5f (+0,5 %%)"%(last,average)
-    if has_position and last<average*.995:
+    if has_position and last<average*(1-.005*threshold_scale):
         return "SELL","Clôture %.5f < SMA20 %.5f (-0,5 %%)"%(last,average)
     return "WAIT","Pas de signal confirmé sur 20 jours"
 
@@ -334,6 +337,7 @@ def main():
     if state.get("schema")!=2 or state.get("initial_per_strategy_usd")!=START:
         raise ValueError("Incompatible multi-asset state")
     reports=[];new_events=[]
+    tuning=active_scales()
     for symbol,label,market,kind,src in SPECS:
         quote=sources.get(symbol)
         for strategy in ("hold","trend20"):
@@ -354,7 +358,7 @@ def main():
                     previous=quote["previous"]
                     signal_day=previous[-1]["date"] if previous else None
                     if signal_day and state["last_signal_day"].get(key)!=signal_day:
-                        action,reason=evaluate(strategy,previous,p["units"]>0)
+                        action,reason=evaluate(strategy,previous,p["units"]>0,scale_for(key,tuning))
                         if action in ("BUY","SELL"):
                             execution,rejection=fill(action,p["cash"],p["units"],price,symbol)
                             entry={"id":now.isoformat()+":"+key+":"+action,
