@@ -168,7 +168,8 @@ def fetch_ecb(now):
     # executable FX bid/ask. All EURUSD fills are clearly indicative.
     earlier=bars[:-1]
     return {"symbol":"EURUSD","source":"ECB daily reference (not executable)",
-            "quote_at":(bars[-1]["date"]+"T16:00:00+01:00"),
+            "quote_at":datetime.fromisoformat(bars[-1]["date"]).replace(
+                hour=16,minute=0,tzinfo=PAIR_TZ).isoformat(),
             "price":bars[-1]["close"],"reference_date":bars[-1]["date"],
             "eligible":quote_date==today and today.weekday()<5,
             "bars":bars[-70:],"previous":earlier[-60:],
@@ -287,7 +288,7 @@ def main():
                 price=safe_number(quote["price"])
                 asof=quote["quote_at"]
                 is_recent=(now-datetime.fromisoformat(asof)).total_seconds()<=6*86400
-                if is_recent:
+                if is_recent and datetime.fromisoformat(asof)<=now+timedelta(minutes=2):
                     p["last_price"]=price;p["last_price_at"]=asof
                 priced=p.get("last_price")
                 status="QUOTE_READY" if quote["eligible"] else "QUOTE_DELAYED_OR_MARKET_CLOSED"
@@ -322,12 +323,18 @@ def main():
                             new_events.append(entry)
                             status="SIMULATED_FILL" if execution else "ORDER_REJECTED"
                         state["last_signal_day"][key]=signal_day
+            if priced is None:
+                priced=p.get("last_price")
+            # Never silently mark invested holdings as $0 when the external feed fails.
+            if float(p["units"])>0 and priced is None:
+                raise ValueError("Missing last valuation for invested position "+key)
             equity=liquidation(float(p["cash"]),float(p["units"]),
                                 float(priced),symbol) if priced is not None else float(p["cash"])
             quality="OBSERVED" if quote and quote["eligible"] else (
                 "REFERENCE_ONLY" if symbol=="EURUSD" and quote else
                 "DELAYED_OR_CLOSED" if quote else "NO_DATA")
             if quote and status=="STALE_QUOTE":quality="STALE"
+            if not quote and priced is not None:quality="STALE"
             reports.append({"strategy":key,"asset":symbol,"market":market,"label":label,
                 "status":status,"capital_usd":round(equity,5),
                 "return_pct":round((equity/START-1)*100,4),"trades":p["trades"],
