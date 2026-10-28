@@ -139,7 +139,14 @@ def safe_context(research, historical):
                     "observations": robot.get("observations"),
                     "ready_for_review": robot.get("ready_for_review"),
                 })
-    return {"robot_reviews": bot_reviews[:36], "market_pulse": pulse, "research_date_utc": research.get("research_date_utc"),
+    news = research.get("news_observations", {})
+    highlights = []
+    if isinstance(news, dict) and news.get("status") in ("available", "partial"):
+        for article in news.get("articles", [])[:5]:
+            if isinstance(article, dict) and article.get("source") in ("Fed", "BCE", "CoinDesk"):
+                highlights.append({k:article.get(k) for k in
+                                   ("source","category","title","published_at")})
+    return {"news_headlines_unverified": highlights, "robot_reviews": bot_reviews[:36], "market_pulse": pulse, "research_date_utc": research.get("research_date_utc"),
             "qualification": research.get("qualification", {}),
             "labs": labs, "hypotheses": hypotheses,
             "historical": historical,
@@ -202,5 +209,41 @@ def validate_model_ideas(value, assets):
             "strategy": name, "entry_scale": 1.2 if profile == "conservative" else 0.8,
             "reason": reason.strip(), "evidence_state": "gemini_hypothesis_unverified",
         })
+    scenario_items = value.get("scenario_proposals", [])
+    if not isinstance(scenario_items, list) or len(scenario_items) > 2:
+        raise ValueError("Invalid number of sandbox placement hypotheses")
+    trials = []
+    seen_trials = set()
+    for item in scenario_items:
+        if not isinstance(item, dict):
+            raise ValueError("Invalid sandbox hypothesis")
+        asset, trigger, horizon = (item.get("asset"), item.get("trigger"),
+                                   item.get("horizon_days"))
+        rationale = item.get("rationale")
+        if (asset not in ("BTCUSD","ETHUSD","SOLUSD")
+                or trigger not in ("market_uptrend","market_selloff","sampled_large_transfer")
+                or type(horizon) is not int or horizon not in (1,3,7)
+                or not isinstance(rationale,str)
+                or not 12 <= len(rationale.strip()) <= 350):
+            raise ValueError("Unapproved trial request")
+        key = (asset, trigger, horizon)
+        if key in seen_trials:
+            continue
+        seen_trials.add(key)
+        trials.append({"asset":asset,"trigger":trigger,"horizon_days":horizon,
+                       "rationale":rationale.strip(),"status":"hypothesis_not_executed"})
+    note_items = value.get("desk_notes", [])
+    if not isinstance(note_items, list) or len(note_items) > 3:
+        raise ValueError("Invalid note count")
+    notes = []
+    for item in note_items:
+        if (not isinstance(item,dict) or item.get("category") not in
+            ("marche","strategie","baleines","risque")
+            or not isinstance(item.get("text"),str)
+            or not 12 <= len(item["text"].strip()) <= 420):
+            raise ValueError("Invalid research note")
+        notes.append({"category":item["category"],"text":item["text"].strip(),
+                      "status":"non_verified_analyst_interpretation"})
     return {"summary": value["summary"].strip()[:1000], "experiments": clean,
-            "bot_adjustments": bot_adjustments}
+            "bot_adjustments": bot_adjustments,
+            "scenario_proposals": trials, "desk_notes": notes}
