@@ -49,7 +49,7 @@ def transfer(raw, token, now):
     dt = datetime.fromisoformat(raw["timestamp"].replace("Z", "+00:00"))
     if dt.tzinfo is None or not 0 <= (now - dt).total_seconds() <= 86400:
         raise ValueError("Transfer outside a bounded fresh period")
-    tx = str(raw.get("tx_hash", "")).lower()
+    tx = str(raw.get("transaction_hash") or raw.get("tx_hash") or "").lower()
     if len(tx) != 66 or not tx.startswith("0x") or any(x not in "0123456789abcdef" for x in tx[2:]):
         raise ValueError("Invalid transaction hash")
     sender = str((raw.get("from") or {}).get("hash", "")).lower()
@@ -79,7 +79,7 @@ def build(now, state, get=requests.get):
         "state": "observing", "method": "sample_latest_public_token_transfers",
         "coverage": "NOT_EXHAUSTIVE_first_page_only_per_contract",
         "minimum_nominal_usd": int(MIN_UNITS),
-        "sampled_records": {}, "large_transfers_observed": 0,
+        "sampled_records": {}, "validated_records": {}, "large_transfers_observed": 0,
         "large_transfers_new": [], "sample_highlights": [],
         "errors": {}, "buy_sell_inference": False, "real_trades": False,
         "warning": "Large stablecoin transfers may be exchange movements, mint/redemption, custody or bridges; not proof of a whale purchase.",
@@ -96,14 +96,18 @@ def build(now, state, get=requests.get):
             if not isinstance(items, list) or len(items) > MAX_RECORDS:
                 raise ValueError("Unexpected token transfer page")
             output["sampled_records"][token] = len(items)
+            output["validated_records"][token] = 0
             for raw in items:
                 try:
                     item = transfer(raw, token, now)
                 except (KeyError, TypeError, ValueError, InvalidOperation):
                     continue
+                output["validated_records"][token] += 1
                 observed.add(item["id"])
                 if Decimal(item["quantity"]) >= MIN_UNITS:
                     examples.append(item)
+            if items and output["validated_records"][token] == 0:
+                raise ValueError("No transfers decoded; source response incompatible")
         except (ValueError, TypeError, KeyError, requests.RequestException) as error:
             output["errors"][token] = type(error).__name__ + ": " + str(error)[:130]
     # Do not call observations "new" on the initial polling run.
