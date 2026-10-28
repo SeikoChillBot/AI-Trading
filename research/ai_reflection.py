@@ -181,7 +181,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
                 },
             },
         },
-        "required": ["summary", "experiments"],
+        "required": ["summary", "experiments", "bot_adjustments"],
     }
     payload = {
         "systemInstruction": {"parts": [{"text": INSTRUCTIONS}]},
