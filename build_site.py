@@ -66,11 +66,11 @@ if (catalog.get('schema_version') != 1 or len(markets) < 8
 # Research ideas never participate in simulated balances or performance calculations.
 data['market_catalog'] = catalog
 # Multi-asset experiment is fully independent: separate capital, orders and history.
-multi_state_path = Path("state/multi_asset_portfolios.json")
-multi_report_path = Path("reports/multi_asset_latest.csv")
-multi_history_path = Path("reports/multi_asset_history.csv")
-multi_orders_path = Path("reports/multi_asset_orders.csv")
-multi_sources_path = Path("reports/multi_asset_sources.json")
+multi_state_path = Path("state/multi_asset_micro_portfolios.json")
+multi_report_path = Path("reports/multi_asset_micro_latest.csv")
+multi_history_path = Path("reports/multi_asset_micro_history.csv")
+multi_orders_path = Path("reports/multi_asset_micro_orders.csv")
+multi_sources_path = Path("reports/multi_asset_micro_sources.json")
 multi = {"ready": False, "rows": [], "history": [], "orders": [],
          "sources": {}, "started_at": None, "updated_at": None,
          "initial_per_strategy_usd": 1000}
