@@ -18,6 +18,7 @@ state_path = Path('state/portfolios.json')
 state = json.loads(state_path.read_text(encoding='utf-8')) if state_path.exists() else {}
 data = {
     'updated': state.get('updated', datetime.now(timezone.utc).isoformat()),
+    'launched_at': '2026-10-28T06:36:00Z',  # timestamp of first recorded simulation, not candle time
     'rows': rows,
     'history': history,
 }
