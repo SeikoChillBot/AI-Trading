@@ -129,6 +129,28 @@ if walk_path.exists():
             ],
             "errors": record.get("issues", {})
         }
+# Machine-readable, non-executable research proposals only (never portfolio inputs).
+ai_proposals_path = Path("reports/ai_research_proposals.json")
+data["ai_review"] = {"ready": False}
+if ai_proposals_path.exists():
+    try:
+        advisory = json.loads(ai_proposals_path.read_text(encoding="utf-8"))
+        if (advisory.get("schema") == 1
+                and not advisory.get("real_orders_enabled", True)
+                and not advisory.get("live_strategy_changes_enabled", True)):
+            data["ai_review"] = {
+                "ready": True, "state": advisory.get("state", "not_configured"),
+                "source": advisory.get("source", "deterministic_fallback"),
+                "summary": str(advisory.get("summary", ""))[:1000],
+                "experiments": advisory.get("experiments", [])[:3],
+                "historical": {
+                    "status": advisory.get("historical", {}).get("status"),
+                    "assets": advisory.get("historical", {}).get("assets", [])[:3],
+                },
+                "validated": False,
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
