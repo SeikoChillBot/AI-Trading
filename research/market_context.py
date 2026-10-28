@@ -16,7 +16,7 @@ CHAINS=("Ethereum","Solana","Base","Arbitrum","BSC")
 SOURCES={
  "sentiment":"https://api.alternative.me/fng/?limit=2",
  "chain_tvl":"https://api.llama.fi/v2/chains",
- "stablecoins":"https://api.llama.fi/stablecoins",
+ "stablecoins":"https://stablecoins.llama.fi/stablecoins?includePrices=true",
 }
 
 def finite(v):
