@@ -3,6 +3,7 @@
 'use strict';
 const report=DATA.research||{};
 const get=id=>document.getElementById(id);
+const stamp=value=>{const t=Date.parse(value);return Number.isFinite(t)?new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(t)):'date inconnue'};
 const put=(id,value)=>{const node=get(id);if(node)node.textContent=String(value)};
 if(!get('research-panel')&&!get('research-title'))return;
 if(!report.ready){
