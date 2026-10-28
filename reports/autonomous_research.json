@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-28T22:38:35.295736+00:00",
+  "generated_at": "2026-10-28T22:39:46.526648+00:00",
   "research_date_utc": "2026-10-28",
   "kind": "deterministic_statistical_research",
   "llm_connected": false,
@@ -556,7 +556,7 @@
     }
   },
   "market_intelligence": {
-    "generated_at": "2026-10-28T22:38:35.295736+00:00",
+    "generated_at": "2026-10-28T22:39:46.526648+00:00",
     "signals_generated": 0,
     "trade_actions": 0,
     "sentiment": {
@@ -595,7 +595,71 @@
       "stablecoins": "observed_within_48_hours"
     }
   },
-  "market_pulse": {},
+  "market_pulse": {
+    "schema": 1,
+    "generated_at": "2026-10-28T22:39:46.485630+00:00",
+    "kind": "market_context_observations_not_trading_signals",
+    "real_orders": false,
+    "signal_count": 0,
+    "assets": {
+      "BTCUSD": {
+        "last_closed_day_utc": "2026-10-27",
+        "last_close_usd": 80800.9,
+        "change_1d_pct": 0.999,
+        "change_7d_pct": -2.575,
+        "change_30d_pct": -4.314,
+        "realized_volatility_30d_annualized_pct": 25.36,
+        "direction_7d": "down",
+        "source": "Kraken closed daily OHLC, research only"
+      },
+      "ETHUSD": {
+        "last_closed_day_utc": "2026-10-27",
+        "last_close_usd": 2347.34,
+        "change_1d_pct": 1.159,
+        "change_7d_pct": -4.062,
+        "change_30d_pct": -12.674,
+        "realized_volatility_30d_annualized_pct": 33.76,
+        "direction_7d": "down",
+        "source": "Kraken closed daily OHLC, research only"
+      },
+      "SOLUSD": {
+        "last_closed_day_utc": "2026-10-27",
+        "last_close_usd": 101.22,
+        "change_1d_pct": 0.457,
+        "change_7d_pct": -4.886,
+        "change_30d_pct": -17.019,
+        "realized_volatility_30d_annualized_pct": 36.23,
+        "direction_7d": "down",
+        "source": "Kraken closed daily OHLC, research only"
+      }
+    },
+    "macro": {
+      "fear_greed_index": 51,
+      "tvl_ethereum_usd": 46450947484.01,
+      "tvl_solana_usd": 5748687095.33,
+      "stablecoin_supply_usd_estimate": 302643520977.01,
+      "source_errors": {}
+    },
+    "large_transfers": {
+      "state": "observing",
+      "coverage": "NOT_EXHAUSTIVE_first_page_only_per_contract",
+      "sampled_records": {
+        "USDC": 50,
+        "USDT": 50
+      },
+      "large_transfers_observed": 0,
+      "new_in_sample": 0,
+      "largest_nominal_usd": 0,
+      "source": "https://eth.blockscout.com/api/v2",
+      "is_verified_buy_sell": false
+    },
+    "issues": {},
+    "limitations": [
+      "Only closed daily Kraken OHLC; no intraday execution inference.",
+      "Sentiment, TVL and stablecoin supply cannot prove future price movement.",
+      "Large on-chain transfers are sampled; not an exhaustive whale feed, nor confirmed trades."
+    ]
+  },
   "hypotheses": [
     {
       "id": "WAIT-000",
