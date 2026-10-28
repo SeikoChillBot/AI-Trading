@@ -67,6 +67,29 @@
  </div>
  <p id="research-status" class="research-panel-status">Première analyse automatique en attente.</p>
 
+ <div class="research-panel-details" id="robot-evolution-panel">
+  <div class="section-header compact"><div><span class="eyebrow">JOURNAL DES DÉCISIONS · 36 ROBOTS</span><h3>Évolution autonome des robots</h3></div></div>
+  <p class="micro-note" id="evolution-summary">État des propositions, tests et réglages individuels en cours de chargement.</p>
+  <div class="research-panel-metrics">
+   <div><small>ROBOTS SUIVIS</small><strong id="evolution-total">—</strong></div>
+   <div><small>VARIANTES EN TEST</small><strong id="evolution-testing">—</strong></div>
+   <div><small>MODIFICATIONS VALIDÉES</small><strong id="evolution-activated">—</strong></div>
+  </div>
+  <label class="micro-note" for="evolution-filter">Afficher les robots</label>
+  <select id="evolution-filter" aria-label="Filtrer les robots par état">
+   <option value="all">Les 36 robots</option>
+   <option value="crypto">Crypto</option>
+   <option value="multi">Multi-actifs</option>
+   <option value="testing_proposal">Propositions Gemini en test</option>
+   <option value="tuning_activated">Réglages activés automatiquement</option>
+  </select>
+  <div class="research-idea-list" id="evolution-bot-list" aria-live="polite"></div>
+  <details class="research-panel-details">
+   <summary>Historique détaillé des décisions et modifications</summary>
+   <div id="evolution-event-list" class="research-idea-list"></div>
+  </details>
+  <p class="micro-note">Les 12 robots Hold sont des témoins immuables. Une IA peut suggérer un réglage, mais seule une comparaison prospective indépendante après frais peut autoriser sa modification en simulation. Aucun ordre réel, ni code IA exécuté.</p>
+ </div>
  <div class="research-panel-details" id="market-intelligence-panel">
   <div class="section-header compact"><div><span class="eyebrow">DONNÉES EXTERNES VÉRIFIÉES</span><h3>Intelligence de marché</h3></div></div>
   <div class="research-panel-metrics">
@@ -195,4 +218,4 @@
 
 <div class="strategy-description"><span class="eyebrow">LOGIQUE DU ROBOT</span><p id="sheet-description">—</p></div></section></div>
 <script>const DATA=/*__DATA__*/{"updated":"En attente du premier relevé","rows":[],"history":[]};</script><script>/*__JS__*/</script>
-<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.4" defer></script></body></html>
+<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script></body></html>
