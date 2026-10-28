@@ -97,3 +97,10 @@ def main():
     enroll(state,candidates,now)
     events=[];errors={}
     if candidates:rules=pair_metadata()
+    for asset,(info,bars,param) in candidates.items():
+        symbol=asset+"T"
+        try:
+            book=orderbook(symbol)
+            events.extend(step(state["portfolios"][asset],bars,now,book,rules[symbol]))
+        except (ValueError,RuntimeError,KeyError) as exc:
+            errors[asset]=type(exc).__name__+": "+str(exc)[:140]
