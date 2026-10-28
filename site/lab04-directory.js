@@ -50,7 +50,7 @@ function detailSheet(r){
  $('sheet-return').className=L.tone(n(r.return_pct));
  $('sheet-coin').className='coin-icon is-market';
  set('sheet-coin',crypto?({BTC:'₿',ETH:'Ξ',SOL:'◎'}[r.asset.slice(0,3)]||'◈'):r.asset.slice(0,2));
- set('sheet-description',(r.strategy.endsWith('_hold')?'Conservation longue durée.':'Stratégie de tendance.')+(crypto?' Carnet Kraken simulé.':' Cotations publiques indicatives, coûts estimés ; dividendes non modélisés.'));
+ set('sheet-description',(r.strategy.endsWith('_hold')?'Conservation longue durée.':'Stratégie algorithmique fondée sur des conditions de marché configurées.')+(crypto?' Carnet Kraken simulé.':' Cotations publiques indicatives, coûts estimés ; dividendes non modélisés.'));
  const mates=crypto?L.cr:L.mr;
  const hold=mates.find(x=>x.asset===r.asset&&x.strategy.endsWith('_hold'));
  set('sheet-benchmark',hold?L.pct(n(r.return_pct)-n(hold.return_pct)):'—');
