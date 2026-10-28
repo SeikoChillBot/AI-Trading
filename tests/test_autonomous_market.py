@@ -48,7 +48,7 @@ class PublicTransferTests(unittest.TestCase):
 
 class PulseTests(unittest.TestCase):
     def test_descriptive_only(self):
-        bars={"BTCUSD":[{"t":int(NOW.timestamp())-(31-i)*86400,
+        bars={"BTCUSD":[{"t":int(NOW.timestamp())-(32-i)*86400,
                          "close":100+i} for i in range(32)]}
         context={"model":"market_context_observation_v1",
                  "generated_at":NOW.isoformat(),"errors":{},
