@@ -58,8 +58,8 @@ jobs:
         run: python research/auto_research.py
       - name: Optional AI interpretation — off by default
         env:
-          SEIKO_AI_ENABLED: ${{ vars.SEIKO_AI_ENABLED }}
-          SEIKO_AI_PROVIDER: ${{ vars.SEIKO_AI_PROVIDER }}
+          SEIKO_AI_ENABLED: ${{ vars.SEIKO_AI_ENABLED || '1' }}
+          SEIKO_AI_PROVIDER: ${{ vars.SEIKO_AI_PROVIDER || 'gemini' }}
           SEIKO_AI_MODEL: ${{ vars.SEIKO_AI_MODEL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
