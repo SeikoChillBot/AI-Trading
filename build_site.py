@@ -91,6 +91,22 @@ if multi_state_path.exists() and multi_report_path.exists() and multi_history_pa
              "initial_per_strategy_usd": 20,
              "warnings": multi_state.get("feed_notes", {})}
 data["multi_asset"] = multi
+research_file = Path("reports/autonomous_research.json")
+research_status = Path("reports/ai_research_status.json")
+data["research"] = {"ready": False}
+if research_file.exists():
+    item = json.loads(research_file.read_text(encoding="utf-8"))
+    if item.get("schema") == 1 and item.get("kind") == "deterministic_statistical_research":
+        data["research"] = {
+            "ready": True, "generated_at": item.get("generated_at"),
+            "qualification": item.get("qualification", {}),
+            "labs": {k: {"count": v.get("count"), "eligible": v.get("eligible"),
+                         "elapsed_days": v.get("elapsed_days")}
+                     for k, v in item.get("labs", {}).items()},
+            "hypotheses": item.get("hypotheses", [])[:6],
+            "ai_status": json.loads(research_status.read_text()) if research_status.exists() else {},
+            "auto_changes": False
+        }
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
