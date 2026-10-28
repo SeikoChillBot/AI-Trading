@@ -104,6 +104,7 @@ if research_file.exists():
                          "elapsed_days": v.get("elapsed_days")}
                      for k, v in item.get("labs", {}).items()},
             "hypotheses": item.get("hypotheses", [])[:6],
+            "market_intelligence": item.get("market_intelligence", {}),
             "ai_status": json.loads(research_status.read_text()) if research_status.exists() else {},
             "auto_changes": False
         }
