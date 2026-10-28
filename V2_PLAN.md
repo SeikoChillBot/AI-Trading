@@ -34,3 +34,28 @@ Tester des stratégies qui recherchent de nombreux petits gains **nets** sans fo
 
 ## Note de faisabilité
 Avec 20 USD par portefeuille et 0,1 % de frais par côté, l'aller-retour coûte environ 0,2 % hors spread/slippage. Un grand nombre de petits trades peut être perdant malgré un taux de réussite élevé. Les données OHLC 15 minutes de la V1 ne suffisent pas à simuler fidèlement du scalping intrabougie.
+
+## Comparaison demandée : 10 techniques distinctes
+
+Chaque robot V2 partira de 20 USD fictifs et aura une technique principale différente ; les paramètres seront gelés avant la comparaison en conditions identiques.
+
+| Robot | Technique candidate | Hypothèse testée |
+|---|---|---|
+| V2-01 | EMA 9/21 avec filtre de tendance | Capturer les impulsions courtes |
+| V2-02 | RSI de retour à la moyenne | Acheter un repli temporaire |
+| V2-03 | Bandes de Bollinger | Profiter du retour vers la moyenne |
+| V2-04 | Cassure du canal de Donchian | Suivre une sortie de range |
+| V2-05 | MACD avec filtre de volatilité | Filtrer les faux signaux de momentum |
+| V2-06 | VWAP avec confirmation du volume | Exploiter les écarts au prix moyen pondéré |
+| V2-07 | Stochastique en marché latéral | Rechercher les oscillations de range |
+| V2-08 | ATR et breakout de volatilité | Éviter les mouvements trop faibles |
+| V2-09 | Momentum multi-horizon | Confirmer la direction sur deux horizons |
+| V2-10 | Régime de marché + sélection de signal | Adapter l'entrée à la tendance ou au range |
+
+**Attention :** ce sont des hypothèses expérimentales, pas des techniques dont la rentabilité est démontrée. Pour isoler l'effet de la technique, tester autant que possible les mêmes actifs et périodes, et documenter les différences d'exposition.
+
+### Objectif de gain
+L'utilisateur vise 1 à 2 EUR nets par transaction. Sur un capital de 20 USD, cela implique un ordre de grandeur de 5 à 10 % du capital initial par trade, sans compter les conversions de devises ; ce n'est **pas** un objectif réaliste pour du scalping prudent à faible risque. Ne pas forcer les trades pour atteindre cette cible. Évaluer plutôt l'espérance nette par transaction, la distribution des gains/pertes, la fréquence et le drawdown.
+
+### Statut
+Ce document définit les stratégies à développer. Aucun robot V2 n'est encore activé et la V1 n'a pas été modifiée.
