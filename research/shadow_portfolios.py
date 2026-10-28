@@ -74,3 +74,4 @@ def step(row,bars,now,book,limits):
                    "signal_closed":last+86400,"action":action,
                    "status":"FILLED_PAPER" if trade else "REJECTED",
                    "reason":"Closed SMA" if trade else error}
+    return events
