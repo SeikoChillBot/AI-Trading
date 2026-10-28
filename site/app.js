@@ -141,6 +141,7 @@ function robotRow(r){const button=document.createElement('button');button.classN
  const right=document.createElement('span');right.className='robot-row-right';const cap=document.createElement('strong');cap.textContent=money(r.capital_usd);const percent=document.createElement('small');percent.className=polarity(r.return_pct);percent.textContent=percentage(r.return_pct);right.append(cap,percent);
  button.append(icon,middle,right);button.addEventListener('click',()=>openSheet(r));return button;}
 function renderRobots(){const term=search.trim().toLocaleLowerCase('fr');let list=rows.filter(r=>{const ok=filter==='all'||filter==='positive'&&r.return_pct>0||filter==='negative'&&r.return_pct<0||filter==='inactive'&&r.trades===0;return ok&&(!term||(nameFor(r.strategy)+' '+info(r)[0]+' '+coinFor(r.asset)).toLowerCase().includes(term));});
+ list=list.filter(r=>assetFilter==='all'||coinFor(r.asset)===assetFilter);
  if(sort==='return')list.sort((a,b)=>b.return_pct-a.return_pct);else if(sort==='activity')list.sort((a,b)=>b.trades-a.trades||b.return_pct-a.return_pct);else list.sort((a,b)=>nameFor(a.strategy).localeCompare(nameFor(b.strategy),'fr'));
  const box=$('robot-list');box.replaceChildren();setText('robots-count',list.length+' / '+rows.length+' stratégies');if(!list.length){const empty=document.createElement('div');empty.className='empty-list';empty.textContent='Aucun robot pour ce filtre.';box.append(empty);}else list.forEach(r=>box.append(robotRow(r)));}
 $('robot-search').addEventListener('input',e=>{search=e.target.value;renderRobots();});$('robot-sort').addEventListener('change',e=>{sort=e.target.value;renderRobots();});document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('is-active',x===b));renderRobots();}));
@@ -151,9 +152,65 @@ function renderAnalysis(){const wins=rows.filter(r=>r.return_pct>0).length,losse
  const box=$('asset-breakdown');box.replaceChildren();groups.forEach(g=>{const item=document.createElement('div');const head=document.createElement('div');head.className='asset-item-head';const title=document.createElement('strong');title.textContent=g.asset+' · '+g.values.length+' robots';const value=document.createElement('span');value.className=polarity(g.gain);value.textContent=signedMoney(g.gain);head.append(title,value);const track=document.createElement('div');track.className='asset-track';const bar=document.createElement('div');bar.className='asset-bar'+(g.gain<0?' is-negative':'');bar.style.width=(Math.abs(g.gain)/max*47)+'%';bar.style.left=g.gain<0?(50-Math.abs(g.gain)/max*47)+'%':'50%';track.append(bar);item.append(head,track);box.append(item);});}
 
 function openSheet(r){sheetRobot=r;previouslyFocused=document.activeElement;const coin=coinFor(r.asset),v=r.capital_usd-START;
- $('sheet-coin').className='coin-icon '+coinClass(coin);$('sheet-coin').textContent=symbol(coin);setText('sheet-name',nameFor(r.strategy));setText('sheet-category',info(r)[0]);setText('sheet-capital',money(r.capital_usd));setText('sheet-return',percentage(r.return_pct));$('sheet-return').className=polarity(r.return_pct);setText('sheet-asset',coin);setText('sheet-timeframe',r.timeframe_min+' min');setText('sheet-trades',r.trades.toLocaleString('fr-FR'));setText('sheet-fees',money(r.fees_usd,3));setText('sheet-description',info(r)[1]);
+ $('sheet-coin').className='coin-icon '+coinClass(coin);$('sheet-coin').textContent=symbol(coin);setText('sheet-name',nameFor(r.strategy));setText('sheet-category',info(r)[0]);setText('sheet-capital',money(r.capital_usd));setText('sheet-return',percentage(r.return_pct));$('sheet-return').className=polarity(r.return_pct);setText('sheet-asset',coin);setText('sheet-timeframe',r.timeframe_min+' min');setText('sheet-trades',r.trades.toLocaleString('fr-FR'));setText('sheet-fees',money(r.fees_usd,3));setText('sheet-description',info(r)[1]);renderSheetExtras(r);
  const points=series.map(s=>({v:s.values.get(r.strategy)??START,t:s.t,label:s.label}));lineChart($('sheet-chart'),points,{compact:true,tone:v});$('robot-sheet').hidden=false;document.body.style.overflow='hidden';$('close-sheet').focus();}
 function closeSheet(){$('robot-sheet').hidden=true;document.body.style.overflow='';sheetRobot=null;if(previouslyFocused&&previouslyFocused.focus)previouslyFocused.focus();}
 $('close-sheet').addEventListener('click',closeSheet);$('sheet-backdrop').addEventListener('click',closeSheet);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetRobot)closeSheet();if(e.key==='Tab'&&sheetRobot){const targets=[$('close-sheet')];if(!targets.includes(document.activeElement)){$('close-sheet').focus();e.preventDefault();}}});
+/* Seiko Trading Lab — provenance, research diagnostics, and accessible exports. */
+const labEpoch=Date.parse(DATA.launched_at||'2026-10-28T06:36:00Z');
+const msDay=86400000;
+const labClock=()=>Math.max(0,Date.now()-labEpoch);
+const labDate=ms=>new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(ms));
+const labShortDate=ms=>new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',day:'numeric',month:'short',year:'numeric'}).format(new Date(ms));
+const labDuration=ms=>{const d=Math.floor(ms/msDay),h=Math.floor(ms%msDay/3600000),m=Math.floor(ms%3600000/60000);return d?d+' j '+h+' h':h?h+' h '+m+' min':m+' min';};
+function renderLabTimeline(){
+ if(!Number.isFinite(labEpoch))return;
+ const elapsed=labClock(),day=Math.floor(elapsed/msDay),progress=Math.min(100,Math.max(0,elapsed/(7*msDay)*100));
+ setText('lab-start',labDate(labEpoch));setText('lab-duration',labDuration(elapsed));setText('lab-day','J+'+day);
+ setText('lab-progress-label',day>=7?'J+7 atteint':Math.floor(progress)+' %');
+ $('lab-progress-fill').style.width=progress.toFixed(2)+'%';$('lab-progress').setAttribute('aria-valuenow',Math.round(progress));
+ setText('lab-review','Bilan '+labShortDate(labEpoch+7*msDay));
+ setText('review-one',labShortDate(labEpoch+7*msDay));setText('review-two',labShortDate(labEpoch+14*msDay));
+}
+// These values are observed on recorded portfolio snapshots, not intra-candle extremes.
+function observedDrawdown(values){let peak=-Infinity,worst=0;for(const n of values){if(!Number.isFinite(n)||n<=0)continue;peak=Math.max(peak,n);if(peak>0)worst=Math.max(worst,(peak-n)/peak*100);}return worst;}
+function researchInsights(){
+ const totals=[initial,...series.map(s=>s.capital),latest];
+ const dd=observedDrawdown(totals);
+ const n=history.length?new Set(history.map(x=>String(x.recorded_at))).size:0;
+ setText('insight-samples',n.toLocaleString('fr-FR')+' relevés');
+ setText('insight-drawdown',dd.toLocaleString('fr-FR',{maximumFractionDigits:2,minimumFractionDigits:2})+' %');
+ setText('insight-activity',rows.filter(r=>r.trades>0).length+' / '+rows.length);
+ const ranked=[...rows].sort((a,b)=>b.return_pct-a.return_pct);
+ if(ranked.length){setText('insight-best',percentage(ranked[0].return_pct));setText('insight-best-name',nameFor(ranked[0].strategy));setText('insight-worst',percentage(ranked.at(-1).return_pct));setText('insight-worst-name',nameFor(ranked.at(-1).strategy));}
+ const grid=$('benchmark-grid');grid.replaceChildren();
+ ['BTC','ETH','SOL'].forEach(asset=>{
+  const group=rows.filter(r=>coinFor(r.asset)===asset),hold=group.find(r=>r.strategy===asset.toLowerCase()+'_hold'),active=group.filter(r=>r!==hold);
+  if(!hold||!active.length)return;
+  const mean=active.reduce((sum,r)=>sum+r.return_pct,0)/active.length,diff=mean-hold.return_pct;
+  const tile=document.createElement('article');tile.className='benchmark-item';
+  const head=document.createElement('div');head.className='benchmark-head';const label=document.createElement('strong');label.textContent=symbol(asset)+' '+asset;const count=document.createElement('small');count.textContent=active.length+' stratégies comparées';head.append(label,count);
+  const pair=document.createElement('div');pair.className='benchmark-pair';
+  for(const [title,value] of [['Robot Hold',hold.return_pct],['Moyenne des autres robots',mean]]){const col=document.createElement('div'),sm=document.createElement('small'),strong=document.createElement('strong');sm.textContent=title;strong.textContent=percentage(value);strong.className=polarity(value);col.append(sm,strong);pair.append(col);}
+  const foot=document.createElement('div');foot.className='benchmark-delta';foot.textContent=(diff>=0?'+':'')+diff.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' point(s) de rendement pour les stratégies actives';
+  tile.append(head,pair,foot);grid.append(tile);
+ });
+}
+function renderSheetExtras(r){
+ const numbers=[START,...series.map(s=>s.values.get(r.strategy)).filter(Number.isFinite),r.capital_usd];
+ const dd=observedDrawdown(numbers);
+ setText('sheet-drawdown',dd.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' %');
+ const asset=coinFor(r.asset),hold=rows.find(x=>x.strategy===asset.toLowerCase()+'_hold');
+ if(r===hold){setText('sheet-benchmark','Référence');setText('sheet-benchmark-note','Ce robot sert de comparaison « acheter et conserver » pour '+asset+'.');}
+ else if(hold){const diff=r.return_pct-hold.return_pct;setText('sheet-benchmark',(diff>0?'+':'')+diff.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' pt');setText('sheet-benchmark-note','Écart de rendement avec '+asset+' Hold, sans équivalence de risque.');}
+ else{setText('sheet-benchmark','—');setText('sheet-benchmark-note','Pas de robot Hold de référence pour cet actif.');}
+}
+// CSV is produced on demand from the exact reports embedded in the page.
+function saveReportCSV(fileName,entries){if(!entries.length)return;const columns=Object.keys(entries[0]);const cell=v=>{const text=String(v??'');const safe=/^[=+@]/.test(text)?"'"+text:text;return '"'+safe.replaceAll('"','""')+'"';};const csv=[columns.map(cell).join(';'),...entries.map(r=>columns.map(k=>cell(r[k])).join(';'))].join('\r\n');const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fileName;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('export-current').addEventListener('click',()=>saveReportCSV('seiko-robots-releve.csv',rawRows));
+$('export-history').addEventListener('click',()=>saveReportCSV('seiko-robots-historique.csv',history));
+let assetFilter='all';
+document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
+renderLabTimeline();researchInsights();
 renderRobots();renderAnalysis();toView(window.location.hash.substring(1)||'home',false);
 })();
