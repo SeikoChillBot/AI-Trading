@@ -119,3 +119,4 @@ def main():
              "warning":"First run enrolls without retrospective trades. Future signals use observed Kraken books and actual exchange minimums. $20 fictional capital, no investment advice."}
     save(REPORT,summary)
     append(ORDERS,events)
+    append(HISTORY,[{"at":now.isoformat(),**row} for row in rows])
