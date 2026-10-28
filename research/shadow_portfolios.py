@@ -96,3 +96,4 @@ def main():
     if state.get("schema")!=1:raise ValueError("Unexpected shadow state")
     enroll(state,candidates,now)
     events=[];errors={}
+    if candidates:rules=pair_metadata()
