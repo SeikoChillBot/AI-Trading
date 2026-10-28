@@ -29,6 +29,21 @@ put('desk-bots',d.ready?Number(stats.tracked||0):'—');
 put('desk-tests',d.ready?Number(stats.testing||0):'—');
 const trials=Array.isArray(d.experiments)?d.experiments:[];
 put('desk-experiments',d.ready?trials.length:'—');
+const watch=get('desk-market-watch');
+if(watch){
+ watch.replaceChildren();
+ const alerts=Array.isArray(d.market_watch)?d.market_watch:[];
+ if(!alerts.length)empty(watch,'Aucune étude de marché récente fiable disponible.');
+ for(const market of alerts){
+  const move=Number(market.move_7d_pct);
+  const vol=Number(market.annualized_volatility_30d_pct);
+  card(watch,(market.asset||'Marché')+' · '+(market.label||'à examiner'),
+   'Évolution constatée sur 7 jours : '+(Number.isFinite(move)?move.toFixed(2)+' %':'non disponible')+
+   ' · volatilité 30 jours annualisée : '+(Number.isFinite(vol)?vol.toFixed(1)+' %':'non disponible'),
+   'Source : Kraken, clôture '+(market.source_at||'inconnue')+
+   ' · Ce n’est pas un signal d’achat confirmé.');
+ }
+}
 const placements=get('desk-placements');
 if(placements){
  placements.replaceChildren();
