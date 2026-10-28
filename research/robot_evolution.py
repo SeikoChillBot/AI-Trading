@@ -145,6 +145,38 @@ def build(now, research, ideas, shadow, state, active):
                            "from_scale":candidate["from_scale"],
                            "to_scale":candidate["entry_scale"],
                            "details":"Validated independent prospective shadow; no real orders"})
+    # Monitor adopted paper settings and automatically restore x1.0 if the
+    # independent shadow now materially underperforms its matched control.
+    for name, candidate in candidates.items():
+        if candidate.get("status") != "automatically_promoted_paper_only":
+            continue
+        active_profile = profiles.get(name, {})
+        if active_profile.get("source") != "automatic_prospective_validation":
+            continue
+        evidence = fresh_shadow.get(name, {})
+        try:
+            active_days = (now-datetime.fromisoformat(active_profile["approved_at"])).total_seconds()/86400
+            future_samples = int(evidence.get("observations",0))
+            if (active_days < 2 or future_samples < 48
+                    or evidence.get("source") != "independent_forward_shadow_v1"
+                    or evidence.get("entry_scale") != candidate.get("entry_scale")
+                    or evidence.get("created_at") != candidate.get("created_at")):
+                continue
+            p = evidence["candidate"]
+            control = evidence["control"]
+            loss_vs_control = float(p["net_return_pct"]) - float(control["net_return_pct"])
+            dd = float(p["max_drawdown_pct"])
+            if loss_vs_control <= -4 or dd >= 25:
+                profiles.pop(name, None)
+                candidate["status"] = "automatically_rolled_back"
+                candidate["failed_checks"] = ["significant_forward_deterioration_after_promotion"]
+                events.append({
+                    "at":now.isoformat(),"robot":name,"action":"paper_tuning_rolled_back",
+                    "from_scale":candidate["entry_scale"],"to_scale":1.0,
+                    "details":"Forward-only loss vs matched control or max drawdown exceeded rollback threshold"
+                })
+        except (KeyError, ValueError, TypeError, OverflowError):
+            continue
     listed = []
     for name in sorted(ALL_ROBOTS):
         lab = "crypto" if name in CRYPTO_HOLD | TUNABLE_CRYPTO else "multi"
@@ -161,7 +193,9 @@ def build(now, research, ideas, shadow, state, active):
             "mode":"hold" if control else name.rsplit("_", 1)[-1],
             "status":("baseline_held" if control else
                       "tuning_activated" if approved else
-                      "testing_proposal" if proposed else "analyzing_for_opportunities"),
+                      "rollback_completed" if proposed and proposed.get("status")=="automatically_rolled_back" else
+                      "testing_proposal" if proposed and proposed.get("status")=="shadow_pending" else
+                      "analyzing_for_opportunities"),
             "gemini_decision": (proposed or {}).get("reason"),
             "proposed_entry_scale":(proposed or {}).get("entry_scale"),
             "proposed_at":(proposed or {}).get("created_at"),
