@@ -53,7 +53,8 @@ def preview_only(source: dict) -> dict:
     """Never send repository secrets, wallet credentials or trade identifiers."""
     safe = {"research_date_utc": source.get("research_date_utc"),
             "qualification": source.get("qualification"),
-            "labs": {}, "hypotheses": source.get("hypotheses", [])[:6]}
+            "labs": {}, "hypotheses": source.get("hypotheses", [])[:6],
+            "market_intelligence": source.get("market_intelligence", {})}
     for name in ("crypto", "multi"):
         lab = source.get("labs", {}).get(name, {})
         safe["labs"][name] = {
