@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 report = Path("reports/latest.csv")
@@ -13,7 +14,7 @@ if history.exists():
     with history.open(newline="") as f:
         previous = list(csv.DictReader(f))
 seen = {(r["strategy"], r["candle_end_ms"]) for r in previous}
-stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+stamp = datetime.now(ZoneInfo("Europe/Paris")).strftime("%d/%m/%Y à %H:%M (heure de Paris)")
 for r in rows:
     if (r["strategy"], r["candle_end_ms"]) not in seen:
         previous.append({"recorded_at": stamp, **r})
