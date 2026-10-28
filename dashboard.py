@@ -32,7 +32,7 @@ def spark(vals):
 lines = [
     "# Tableau de bord — AI Trading",
     "",
-    f"Actualisé : **{stamp}** · **10 robots** · **20 USD fictifs chacun**",
+    f"Actualisé : **{stamp}** · **{len(rows)} robots** · **20 USD fictifs chacun**",
     "",
     "> Simulation uniquement, aucun argent réel. Les frais de marché sont simplifiés et les résultats ne sont pas des prévisions.",
     "",
