@@ -11,6 +11,10 @@ on:
       - 'research/whale_watchlist.json'
       - 'tests/test_market_intelligence.py'
       - 'research/ai_reflection.py'
+      - 'research/intraday_lab.py'
+      - 'research/ops_status.py'
+      - 'tests/test_intraday_lab.py'
+      - 'tests/test_ops_status.py'
       - 'research/news_watch.py'
       - 'research/scenario_lab.py'
       - 'research/ai_notebook.py'
@@ -57,6 +61,8 @@ jobs:
           python -m unittest discover -s tests -p 'test_research_automation.py' -v
           python -m unittest discover -s tests -p 'test_ai_decision_support.py' -v
           python -m unittest discover -s tests -p 'test_ai_notebook.py' -v
+          python -m unittest discover -s tests -p 'test_intraday_lab.py' -v
+          python -m unittest discover -s tests -p 'test_ops_status.py' -v
       - name: Validate independent market intelligence
         run: |
           python -m py_compile research/market_context.py research/whale_watch.py
@@ -76,6 +82,8 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_challenger_incubator.py' -v
           python -m research.challenger_incubator
+      - name: Run source-qualified hourly market studies and prospective paper followers
+        run: python -m research.intraday_lab
       - name: Read live paper reports and suggest experiments
         run: python research/auto_research.py
       - name: AI research every six hours maximum — cached between reviews
@@ -92,6 +100,10 @@ jobs:
         run: python -m research.scenario_lab
       - name: Publish sourced news and honest Gemini patchnotes
         run: python -m research.ai_notebook
+      - name: Check recent workflow reliability and publish live capability roadmap
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -m research.ops_status
       - name: Validate site independently of research data
         id: site_validation
         continue-on-error: true
@@ -111,9 +123,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
           git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json reports/robot_evolution.json reports/ai_placement_experiments.json reports/market_news.json reports/ai_journal.json
+          git add reports/intraday_research.json reports/system_health.json
           git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/market_pulse.json reports/challenger_incubator.json
           git add site/dashboard.html docs/index.html
-          for artifact in state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
+          for artifact in state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json state/intraday_paper.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
             if [ -f "$artifact" ]; then git add -- "$artifact"; fi
           done
           if ! git diff --cached --quiet; then

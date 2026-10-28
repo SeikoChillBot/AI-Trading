@@ -267,6 +267,48 @@ if desk_path.exists():
             }
     except (ValueError, KeyError, TypeError):
         pass
+# Read-only intraday research and transparent operational capability roadmap.
+intraday_path=Path("reports/intraday_research.json")
+data["intraday_study"]={"ready":False}
+if intraday_path.exists():
+    try:
+        hourly=json.loads(intraday_path.read_text(encoding="utf-8"))
+        if hourly.get("schema")==1 and hourly.get("real_orders") is False:
+            data["intraday_study"]={
+                "ready":hourly.get("status") in ("available","partial"),
+                "generated_at":hourly.get("generated_at"),
+                "status":hourly.get("status"),
+                "assets":{symbol:{
+                    "last_closed_hour_utc":item.get("last_closed_hour_utc"),
+                    "historical_study":{key:item.get("historical_study",{}).get(key)
+                      for key in ("avg_net_return_pct","avg_excess_vs_hold",
+                                  "max_drawdown_pct","proven_profitable")},
+                    "paper_forward":{k:item.get("paper_forward",{}).get(k)
+                      for k in ("observations","capital_usd","net_return_pct",
+                                "closed_trades","max_drawdown_pct","status","created_at")}
+                } for symbol,item in hourly.get("assets",{}).items()
+                  if symbol in ("BTCUSD","ETHUSD","SOLUSD") and isinstance(item,dict)},
+                "errors":hourly.get("errors",{}),
+                "real_orders":False,
+            }
+    except (ValueError,TypeError,KeyError):
+        pass
+health_path=Path("reports/system_health.json")
+data["operations"]={"ready":False}
+if health_path.exists():
+    try:
+        health=json.loads(health_path.read_text(encoding="utf-8"))
+        if health.get("schema")==1 and health.get("real_orders") is False:
+            data["operations"]={
+                "ready":True,"generated_at":health.get("generated_at"),
+                "status":health.get("status"),"alerts":health.get("alerts",[])[:12],
+                "roadmap":[{k:item.get(k) for k in ("id","title","status","detail")}
+                    for item in health.get("roadmap",[])[:12] if isinstance(item,dict)],
+                "workflows":health.get("workflows",{}).get("workflows",{}),
+                "real_orders":False,
+            }
+    except (ValueError,TypeError,KeyError):
+        pass
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')

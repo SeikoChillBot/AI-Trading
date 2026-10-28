@@ -68,6 +68,19 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("federalreserve.gov",script)
   self.assertNotIn("innerHTML",script)
 
+ def test_operational_roadmap_and_hourly_studies(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  builder=(ROOT/"build_site.py").read_text(encoding="utf8")
+  script=(ROOT/"site/lab04-ops.js").read_text(encoding="utf8")
+  self.assertIn('id="lab-operations-panel"',html)
+  self.assertIn('id="lab-hourly-panel"',html)
+  self.assertIn('id="operations-roadmap"',html)
+  self.assertIn('lab04-ops.js?v=1',html)
+  self.assertIn('data["intraday_study"]',builder)
+  self.assertIn('data["operations"]',builder)
+  self.assertIn("textContent",script)
+  self.assertNotIn("innerHTML",script)
+
  def test_workflow_publishes_versions(self):
   workflow=(ROOT/".github/workflows/simulate.yml").read_text(encoding="utf8")
   self.assertIn("cp site/lab04-*.js docs/",workflow)
