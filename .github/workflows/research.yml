@@ -11,6 +11,8 @@ on:
       - 'research/whale_watchlist.json'
       - 'tests/test_market_intelligence.py'
       - 'research/ai_reflection.py'
+      - 'research/ai_decision_support.py'
+      - 'tests/test_ai_decision_support.py'
       - 'tests/test_research_automation.py'
       - '.github/workflows/research.yml'
   schedule:
@@ -37,8 +39,9 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Verify research safety gates
         run: |
-          python -m py_compile research/auto_research.py research/ai_reflection.py
+          python -m py_compile research/auto_research.py research/ai_reflection.py research/ai_decision_support.py
           python -m unittest discover -s tests -p 'test_research_automation.py' -v
+          python -m unittest discover -s tests -p 'test_ai_decision_support.py' -v
       - name: Validate independent market intelligence
         run: |
           python -m py_compile research/market_context.py research/whale_watch.py
@@ -58,13 +61,13 @@ jobs:
           SEIKO_AI_ENABLED: ${{ vars.SEIKO_AI_ENABLED }}
           SEIKO_AI_MODEL: ${{ vars.SEIKO_AI_MODEL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python research/ai_reflection.py
+        run: python -m research.ai_reflection
       - name: Publish research observations (no robot changes)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
-          git add reports/ai_research.md reports/ai_research_status.json reports/challenger_walkforward.json reports/challenger_candles.json
+          git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json
           git add reports/market_context.json reports/whale_observations.json
           git add -A state/whale_watch_state.json reports/whale_transfer_events.jsonl 2>/dev/null || true
           if ! git diff --cached --quiet; then
