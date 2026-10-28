@@ -388,7 +388,7 @@ function renderMultiAsset(){
  const parsed=crossLab.rows.map(r=>({...r,capital_usd:Number(r.capital_usd),
     return_pct:Number(r.return_pct),trades:Number(r.trades),
     units:Number(r.units),fees_usd:Number(r.fees_usd)}));
- const base=parsed.reduce((n,r)=>n+Number(r.initial_usd||1000),0);
+ const base=parsed.reduce((n,r)=>n+Number(r.initial_usd||20),0);
  const total=parsed.reduce((n,r)=>n+r.capital_usd,0);
  const diff=total-base;
  const withPrice=parsed.filter(r=>Number(r.price_usd)>0);
@@ -417,7 +417,7 @@ function renderMultiAsset(){
    const card=document.createElement('article');card.className='multi-group';
    const head=document.createElement('div');head.className='multi-group-head';
    const h=document.createElement('h3');h.textContent=symbol+' · '+(rows[0].label||'');
-   const gain=rows.reduce((n,r)=>n+(r.capital_usd-Number(r.initial_usd||1000)),0);
+   const gain=rows.reduce((n,r)=>n+(r.capital_usd-Number(r.initial_usd||20)),0);
    const change=document.createElement('small');change.textContent=signedMoney(gain);change.className=polarity(gain);
    head.append(h,change);card.append(head);
    const note=document.createElement('p');note.className='multi-group-sub';
@@ -458,7 +458,7 @@ function renderMultiAsset(){
    const title=document.createElement('strong');
    const action=e.side==='BUY'?'Achat':'Vente';
    title.textContent=(e.asset||'?')+' · '+(e.strategy.endsWith('_hold')?'Conservation':'Tendance')+
-        ' · '+action+(e.status==='SIMULATED_FILL'?' simulé':' refusé');
+        ' · '+action+(String(e.status).startsWith('SIMULATED_FILL')?' simulé':' refusé');
    const desc=document.createElement('p');
    desc.textContent=dateFR(e.observed_at)+' · '+String(e.reason||'')+
       (e.status==='SIMULATED_FILL'?' · Prix estimé : '+money(Number(e.fill_estimate),4)+
