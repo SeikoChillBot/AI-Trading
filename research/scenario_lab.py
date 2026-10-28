@@ -112,11 +112,15 @@ def evolve(now, ideas, pulse, candles, state):
         model_requests=[]
     # Gemini's tests execute automatically. When there are none, the deterministic
     # research engine tests an observed market regime without spending API quota.
-    new_requests = ([
-        {**x,"actor":"gemini_structured_decision"} for x in model_requests[:2]
-        if isinstance(x,dict)]
-        if model_requests else automatic_regime_studies(pulse))
-    for item in new_requests[:2]:
+    new_requests = ([{**x,"actor":"gemini_structured_decision"}
+                     for x in model_requests[:2] if isinstance(x,dict)]
+                    + automatic_regime_studies(pulse))
+    # Maximum two *new* tests, not two attempts. If Gemini's hypotheses cannot
+    # qualify, try observable statistical baselines without user intervention.
+    registered = 0
+    for item in new_requests[:4]:
+        if registered >= 2:
+            break
         if not isinstance(item,dict):
             continue
         valid,why=eligible(now,item,pulse)
@@ -154,6 +158,7 @@ def evolve(now, ideas, pulse, candles, state):
             "execution_type":"modeled_fills_at_later_observed_daily_close",
         }
         seen.add(key);trials.append(rec)
+        registered += 1
         outcomes.append({"asset":rec["asset"],"id":key,"status":"paper_experiment_registered",
                          "actor":rec["actor"]})
     for item in trials:
