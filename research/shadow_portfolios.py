@@ -57,3 +57,20 @@ def enroll(state,approved,now):
             "last_equity":START,"price_quality":"not_yet_quoted"
         }
     return state
+
+def step(row,bars,now,book,limits):
+    """At most one new complete daily signal, using a freshly observed book."""
+    if row["units"]<0 or row["cash"]<-1e-8:raise ValueError("Negative balance")
+    last=bars[-1]["t"]
+    if last<row["last_closed_day"]:raise ValueError("Market data regressed")
+    events=[]
+    fresh=0<=now.timestamp()-(last+86400)<=36*3600
+    if last>row["last_closed_day"]:
+        action=signal(bars,len(bars),row["parameters"],row["units"]>0) if fresh else "WAIT"
+        if action in ("BUY","SELL"):
+            trade,error=(executable_buy(row["cash"],book,limits) if action=="BUY"
+                         else executable_sell(row["units"],book,limits))
+            event={"at":now.isoformat(),"strategy":row["id"],"asset":row["asset"],
+                   "signal_closed":last+86400,"action":action,
+                   "status":"FILLED_PAPER" if trade else "REJECTED",
+                   "reason":"Closed SMA" if trade else error}
