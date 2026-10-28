@@ -244,11 +244,7 @@ function renderTradeJournal(){
    card.append(head,when);
    const details=document.createElement('div');details.className='trade-event-metrics';
    if(filled){
-      const price=document.createElement('span');price.textContent='Prix estimé '+Number(e.executed_price).toLocaleString('fr-FR',{maximumFractionDigits:4})+' 
-document.querySelectorAll('[data-coin]').forEach(button=>button.addEventListener('click',()=>{assetFilter=button.dataset.coin;document.querySelectorAll('[data-coin]').forEach(x=>x.classList.toggle('is-active',x===button));renderRobots();}));
-renderLabTimeline();researchInsights();
-renderRobots();renderAnalysis();renderTradeJournal();toView(window.location.hash.substring(1)||'home',false);
-})();;
+      const price=document.createElement('span');price.textContent='Prix estimé '+Number(e.executed_price).toLocaleString('fr-FR',{maximumFractionDigits:4})+' USD';
       const qty=document.createElement('span');qty.textContent='Quantité '+String(e.quantity);
       const fees=document.createElement('span');fees.textContent='Frais '+money(Number(e.fee_usd),4);
       details.append(price,qty,fees);
