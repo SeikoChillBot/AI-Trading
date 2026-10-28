@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-28",
+  "currency": "USD",
+  "risk_policy": "paper_only_no_leverage_no_real_orders",
+  "status_labels": {
+    "active": "Simulation active",
+    "connect": "Données / courtier à connecter",
+    "research": "En étude",
+    "high_risk": "Recherche à risque élevé"
+  },
+  "markets": [
+    {
+      "id": "crypto",
+      "title": "Crypto spot",
+      "icon": "₿",
+      "family": "Alternatifs",
+      "status": "active",
+      "priority": 1,
+      "risk": "Élevé",
+      "automation": "24 h/24 · déjà simulé",
+      "horizon": "5 min à plusieurs mois",
+      "description": "Bitcoin, Ether et Solana : le laboratoire dispose déjà de 18 stratégies en simulation prudente.",
+      "examples": [
+        "BTC",
+        "ETH",
+        "SOL"
+      ],
+      "strategies": [
+        "Suivi de tendance",
+        "Retour à la moyenne",
+        "Achat-conservation",
+        "Scalping avec frais"
+      ],
+      "data": "Carnets et bougies Kraken déjà exploités",
+      "execution": "Carnet d'ordres Kraken simulé ; limites de quantité, spread, frais taker et glissement modélisés",
+      "constraint": "Les ordres sont simulés, les frais restent des hypothèses et le prix réellement exécuté n'est pas garanti.",
+      "goal": "Tester les stratégies nettes de frais",
+      "source": "https://docs.kraken.com/api/"
+    },
+    {
+      "id": "etf_ucits",
+      "title": "ETF diversifiés UCITS",
+      "icon": "◈",
+      "family": "Fonds & ETF",
+      "status": "connect",
+      "priority": 1,
+      "risk": "Modéré à élevé",
+      "automation": "Quotidien · selon courtier",
+      "horizon": "Mois à années",
+      "description": "ETF Monde, S&P 500, Europe : investissement programmé, rééquilibrage et suivi des risques.",
+      "examples": [
+        "Monde",
+        "S&P 500",
+        "Europe"
+      ],
+      "strategies": [
+        "DCA mensuel",
+        "Rééquilibrage 70/30",
+        "Tendance 200 jours",
+        "Rotation défensive"
+      ],
+      "data": "Cours ajustés de fonds UCITS, dividendes, devise, calendrier boursier et indicateur de liquidité nécessaires",
+      "execution": "Courtier permettant les ETF européens, leurs véritables minimums et la validation des fractions de parts",
+      "constraint": "Les ETF américains proposés en paper trading ne sont pas automatiquement accessibles à l'investisseur particulier européen.",
+      "goal": "Croissance diversifiée et discipline",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/comprendre-les-produits-financiers/placements-collectifs/trackers-etf"
+    },
+    {
+      "id": "actions",
+      "title": "Actions cotées",
+      "icon": "↗",
+      "family": "Actions",
+      "status": "connect",
+      "priority": 1,
+      "risk": "Élevé",
+      "automation": "Séances boursières",
+      "horizon": "Jours à années",
+      "description": "Actions américaines et européennes : comparer tendances, valeur, qualité et dividendes.",
+      "examples": [
+        "Apple",
+        "Microsoft",
+        "Actions européennes"
+      ],
+      "strategies": [
+        "Momentum 3–12 mois",
+        "Rotation sectorielle",
+        "Croisement de moyennes",
+        "Portefeuille qualité"
+      ],
+      "data": "Cotations bid/ask, horaires, splits, dividendes, données ajustées et marchés couverts",
+      "execution": "Alpaca Paper pour actions US avec données IEX ; éventuel connecteur multi-bourse à valider",
+      "constraint": "Les prix IEX seuls ne représentent pas toutes les exécutions du marché américain ; dividendes et opérations sur titres doivent être traités.",
+      "goal": "Comparer sélection et allocation",
+      "source": "https://docs.alpaca.markets/us/docs/paper-trading"
+    },
+    {
+      "id": "etf_secteurs",
+      "title": "ETF sectoriels",
+      "icon": "▤",
+      "family": "Fonds & ETF",
+      "status": "connect",
+      "priority": 2,
+      "risk": "Élevé",
+      "automation": "Quotidien · selon courtier",
+      "horizon": "Semaines à années",
+      "description": "Technologies, santé, énergie, infrastructures : rotation entre secteurs et contrôle des concentrations.",
+      "examples": [
+        "Technologie",
+        "Santé",
+        "Énergie"
+      ],
+      "strategies": [
+        "Force relative",
+        "Rotation mensuelle",
+        "Protection de tendance"
+      ],
+      "data": "Cours d'ETF comparables, frais courants et composition sous-jacente",
+      "execution": "Univers UCITS et couverture par une source de prix autorisée à confirmer",
+      "constraint": "Le chevauchement entre indices peut créer une fausse diversification.",
+      "goal": "Explorer l'allocation dynamique",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/comprendre-les-produits-financiers/placements-collectifs/trackers-etf"
+    },
+    {
+      "id": "bonds",
+      "title": "Obligations et ETF obligataires",
+      "icon": "≋",
+      "family": "Taux & trésorerie",
+      "status": "connect",
+      "priority": 1,
+      "risk": "Faible à élevé selon titres",
+      "automation": "Quotidien ou mensuel",
+      "horizon": "Mois à années",
+      "description": "Obligations d'États et d'entreprises, fonds court terme et stratégies liées aux taux.",
+      "examples": [
+        "Souveraines",
+        "Crédit entreprise",
+        "ETF obligataires"
+      ],
+      "strategies": [
+        "Échelonnement d'échéances",
+        "Rotation par duration",
+        "Allocation 60/40"
+      ],
+      "data": "Cours, coupons, échéances, taux, duration et risques de défaut",
+      "execution": "ETF obligataires possibles chez un courtier ; obligations en direct à modéliser différemment",
+      "constraint": "Les obligations peuvent perdre de la valeur lorsque les taux montent ; coupons et échéances doivent être comptés.",
+      "goal": "Stabilité relative et revenus",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/comprendre-les-produits-financiers/actions-obligations/obligations/comprendre-les-obligations-avant-dinvestir"
+    },
+    {
+      "id": "gold",
+      "title": "Or et matières premières",
+      "icon": "✦",
+      "family": "Matières premières",
+      "status": "connect",
+      "priority": 2,
+      "risk": "Modéré à très élevé",
+      "automation": "Séances boursières",
+      "horizon": "Jours à années",
+      "description": "Or, argent, énergie et matières premières via produits cotés lorsque c'est possible.",
+      "examples": [
+        "Or physique coté",
+        "Argent",
+        "Énergie"
+      ],
+      "strategies": [
+        "Tendance long terme",
+        "Diversification en période de crise",
+        "Rotation matières premières"
+      ],
+      "data": "Prix des produits réellement accessibles, frais et méthode de réplication",
+      "execution": "ETF/ETC éligibles ou contrats spécialisés après validation des instruments",
+      "constraint": "Les futures exigent rollover et marge ; un indice de matières premières n'est pas un ordre réel.",
+      "goal": "Diversification et cycles économiques",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/comprendre-les-produits-financiers/placements-collectifs/trackers-etf"
+    },
+    {
+      "id": "reit",
+      "title": "Immobilier coté",
+      "icon": "⌂",
+      "family": "Immobilier",
+      "status": "connect",
+      "priority": 2,
+      "risk": "Modéré à élevé",
+      "automation": "Séances boursières",
+      "horizon": "Mois à années",
+      "description": "Foncières cotées et ETF immobiliers, avec dividendes et exposition aux taux.",
+      "examples": [
+        "Foncières",
+        "ETF REIT",
+        "Infrastructure cotée"
+      ],
+      "strategies": [
+        "Diversification immobilière",
+        "Dividendes réinvestis",
+        "Rééquilibrage par zone"
+      ],
+      "data": "Prix ajustés, distributions, fiscalité et exposition géographique",
+      "execution": "Titres ou ETF via courtier compatible",
+      "constraint": "La volatilité des foncières cotées ne reflète pas directement le prix d'un bien immobilier.",
+      "goal": "Explorer les revenus distribués",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/comprendre-les-produits-financiers/placements-collectifs/trackers-etf"
+    },
+    {
+      "id": "fx",
+      "title": "Devises au comptant",
+      "icon": "↔",
+      "family": "Devises",
+      "status": "connect",
+      "priority": 2,
+      "risk": "Modéré à très élevé",
+      "automation": "24 h/24 · jours ouvrés",
+      "horizon": "Minutes à mois",
+      "description": "EUR/USD, GBP/USD, USD/JPY, en étudiant d'abord les conversions sans levier.",
+      "examples": [
+        "EUR/USD",
+        "GBP/USD",
+        "USD/JPY"
+      ],
+      "strategies": [
+        "Suivi de tendance",
+        "Retour à la moyenne",
+        "Rééquilibrage de devises"
+      ],
+      "data": "Cotations bid/ask d'un prestataire, swaps, horaires et frais de conversion",
+      "execution": "Compte compatible et profondeur de marché ; taux BCE uniquement indicatif, pas un prix négociable",
+      "constraint": "Les taux de référence BCE ne peuvent pas simuler de façon fiable des exécutions intrajournalières.",
+      "goal": "Étudier le coût et les tendances de change",
+      "source": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+    },
+    {
+      "id": "cash",
+      "title": "Trésorerie et fonds monétaires",
+      "icon": "◷",
+      "family": "Taux & trésorerie",
+      "status": "research",
+      "priority": 1,
+      "risk": "Faible à modéré",
+      "automation": "Mensuel · suivi du rendement",
+      "horizon": "Mois à années",
+      "description": "Comparer placements monétaires, liquidité et rendement réellement perçu après frais.",
+      "examples": [
+        "Fonds monétaires",
+        "Compte rémunéré",
+        "Épargne de précaution"
+      ],
+      "strategies": [
+        "Allocation de réserve",
+        "Comparaison après frais",
+        "Lissage des versements"
+      ],
+      "data": "Rendements de part, frais, conditions, disponibilité et fiscalité",
+      "execution": "Souscription via établissements autorisés et gestion d'épargne, pas trading de marché à la minute",
+      "constraint": "Ne pas présenter un taux annoncé comme un revenu définitivement acquis.",
+      "goal": "Préserver les liquidités et comparer le rendement net",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/conseils-et-mises-en-garde"
+    },
+    {
+      "id": "multi_asset",
+      "title": "Portefeuilles multi-actifs",
+      "icon": "◉",
+      "family": "Allocation",
+      "status": "research",
+      "priority": 1,
+      "risk": "Variable selon allocation",
+      "automation": "Mensuel à trimestriel",
+      "horizon": "Années",
+      "description": "Combiner ETF actions, obligations, or et trésorerie dans un ensemble avec rebalancement.",
+      "examples": [
+        "60/40",
+        "Portefeuille permanent",
+        "Allocation dynamique"
+      ],
+      "strategies": [
+        "Rééquilibrage périodique",
+        "Parité de risque",
+        "Trend allocation"
+      ],
+      "data": "Historique cohérent de chaque composante, dividendes, taux de change à la date, corrélations",
+      "execution": "Nécessite plusieurs flux de cotation et un courtier acceptant les instruments retenus",
+      "constraint": "L'efficacité apparente sur données historiques peut provenir du sur-ajustement.",
+      "goal": "Comparer rendement et drawdown global",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/savoir-bien-investir/cadrer-son-projet/risques-et-rendements-des-placements/connaissez-vous-vraiment-les-risques-des-differents-placements-financiers"
+    },
+    {
+      "id": "private_real_estate",
+      "title": "SCPI et financement immobilier",
+      "icon": "▦",
+      "family": "Immobilier",
+      "status": "research",
+      "priority": 3,
+      "risk": "Modéré à élevé",
+      "automation": "Rapports périodiques",
+      "horizon": "Années",
+      "description": "SCPI, dette immobilière et financement participatif : suivi des distributions et défauts.",
+      "examples": [
+        "SCPI",
+        "Crowdfunding immobilier",
+        "Dette privée"
+      ],
+      "strategies": [
+        "Comparaison revenus et liquidité",
+        "Diversification par projet",
+        "Analyse du risque de défaut"
+      ],
+      "data": "Bulletins de fonds, rendement réellement distribué, frais d'entrée et sortie, valeurs de retrait",
+      "execution": "L'investissement est souvent manuel ou peu liquide ; l'automatisation relève surtout de l'analyse",
+      "constraint": "Aucun prix de revente garanti ni négociation continue. Risque de perte et de blocage du capital.",
+      "goal": "Évaluer des revenus moins liquides",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/comprendre-les-produits-financiers/financement-participatif-crowdfunding/investir-le-crowdfunding-immobilier"
+    },
+    {
+      "id": "crypto_yield",
+      "title": "Staking, prêt et DeFi",
+      "icon": "◇",
+      "family": "Alternatifs",
+      "status": "high_risk",
+      "priority": 3,
+      "risk": "Très élevé",
+      "automation": "24 h/24 · protocoles spécifiques",
+      "horizon": "Jours à années",
+      "description": "Récompenses de validation, prêt de crypto-actifs, stratégies de rendement on-chain.",
+      "examples": [
+        "Staking",
+        "Lending",
+        "Liquidité DeFi"
+      ],
+      "strategies": [
+        "Suivi du rendement net",
+        "Analyse des risques protocole",
+        "Comparaison avec conservation"
+      ],
+      "data": "Rendements effectivement reçus, frais réseaux, retrait et risque de contrepartie",
+      "execution": "Systèmes de contrats intelligents différents ; aucun protocole connecté",
+      "constraint": "Smart contracts, piratage, dépeg et pertes permanentes peuvent anéantir les rendements annoncés.",
+      "goal": "Observer seulement avant tout essai",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/proteger-son-epargne/crypto-actifs-bitcoin-etc/investir-en-crypto-actifs-les-precautions-pratiques"
+    },
+    {
+      "id": "derivatives",
+      "title": "Options et contrats à terme",
+      "icon": "⚡",
+      "family": "Produits complexes",
+      "status": "high_risk",
+      "priority": 3,
+      "risk": "Très élevé",
+      "automation": "Séances et échéances spécifiques",
+      "horizon": "Minutes à mois",
+      "description": "Stratégies sur options, futures et volatilité, séparées de l'investissement classique.",
+      "examples": [
+        "Options couvertes",
+        "Futures",
+        "Volatilité"
+      ],
+      "strategies": [
+        "Couverture delta",
+        "Stratégies bornées",
+        "Comparaison prime et risque"
+      ],
+      "data": "Carnet d'options, volatilité implicite, marge, échéances, coûts et exercise/assignment",
+      "execution": "Broker spécialisé et exigences de marge à valider ; aucune position ouverte",
+      "constraint": "Le levier peut provoquer des pertes supérieures au capital sur certains produits.",
+      "goal": "Recherche avancée, sans levier réel",
+      "source": "https://www.amf-france.org/fr/espace-epargnants/comprendre-les-produits-financiers/produits-complexes/cfd"
+    }
+  ]
+}
