@@ -56,7 +56,7 @@ HISTORY_FIELDS = ["recorded_at",*REPORT_FIELDS]
 EVENT_FIELDS = ["id","observed_at","strategy","market","asset","side","status",
                 "signal_date","signal_close","quote_at","quote_price","fill_estimate",
                 "quantity","gross_usd","fee_usd","net_usd","reason","price_source"]
-USER_AGENT = "SeikoTradingLab-Research/1.0 (paper simulation, source may restrict access)"
+USER_AGENT = "Mozilla/5.0 (compatible; SeikoTradingLab/1.0; research-only; no-order-bot)"
 
 
 def safe_number(value):
