@@ -12,16 +12,42 @@ def read_csv(path):
         return list(csv.DictReader(f))
 
 
-rows = read_csv('reports/latest.csv')
-history = read_csv('reports/history.csv')
-state_path = Path('state/portfolios.json')
-state = json.loads(state_path.read_text(encoding='utf-8')) if state_path.exists() else {}
-data = {
-    'updated': state.get('updated', datetime.now(timezone.utc).isoformat()),
-    'launched_at': '2026-10-28T06:36:00Z',  # timestamp of first recorded simulation, not candle time
-    'rows': rows,
-    'history': history,
-}
+# Keep the 2026-10-28 legacy experiment untouched and visibly separate.
+# Display the forward-only, conservative model only after its first complete run.
+real_state_path = Path('state/realistic_portfolios.json')
+real_report = Path('reports/realistic_latest.csv')
+real_history = Path('reports/realistic_history.csv')
+real_orders = Path('reports/realistic_orders.csv')
+realistic = real_state_path.exists() and real_report.exists() and real_history.exists()
+if realistic:
+    state = json.loads(real_state_path.read_text(encoding='utf-8'))
+    rows = read_csv(real_report)
+    history = read_csv(real_history)
+    if state.get('version') != 2 or len(rows) != 18 or any(r.get('strategy') is None for r in rows):
+        raise RuntimeError('Incomplete realistic simulation: refusing to mix histories')
+    data = {
+        'model': 'realistic_v2',
+        'updated': state['updated'],
+        'launched_at': state['created'],
+        'rows': rows,
+        'history': history,
+        'orders': read_csv(real_orders)[-100:],
+        'assumptions': state.get('market_assumptions', {}),
+    }
+else:
+    state_path = Path('state/portfolios.json')
+    state = json.loads(state_path.read_text(encoding='utf-8')) if state_path.exists() else {}
+    data = {
+        'model': 'legacy_v1',
+        'updated': state.get('updated', datetime.now(timezone.utc).isoformat()),
+        'launched_at': '2026-10-28T06:36:00Z',
+        'rows': read_csv('reports/latest.csv'),
+        'history': read_csv('reports/history.csv'),
+        'orders': [],
+        'assumptions': {},
+    }
+rows = data['rows']
+history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
 optional = {
     '/*__CSS__*/': Path('site/theme.css').read_text(encoding='utf-8'),
