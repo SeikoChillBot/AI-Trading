@@ -62,10 +62,10 @@ class DeskTests(unittest.TestCase):
             "SOLUSD":{"change_7d_pct":-8,"realized_volatility_30d_annualized_pct":45}}}
         initial, state=scenario_lab.evolve(NOW,{},pulse,
             {"BTCUSD":bars,"ETHUSD":bars,"SOLUSD":bars},{})
-        self.assertEqual(len(initial["trials"]),2)
+        self.assertEqual(len(initial["trials"]),4)
         self.assertTrue(initial["no_user_approval_required"])
         self.assertTrue(initial["model_decisions_executed_automatically"])
-        self.assertEqual(initial["active"],2)
+        self.assertEqual(initial["active"],4)
         self.assertTrue(all(t["actor"]=="quantitative_auto_fallback"
                             for t in initial["trials"]))
         self.assertTrue(all(t["status"]=="waiting_next_closed_day"
@@ -74,7 +74,7 @@ class DeskTests(unittest.TestCase):
                             for t in initial["trials"]))
         repeated, _=scenario_lab.evolve(NOW,{},pulse,
             {"BTCUSD":bars,"ETHUSD":bars,"SOLUSD":bars},state)
-        self.assertEqual(len(repeated["trials"]),2)
+        self.assertEqual(len(repeated["trials"]),4)
 
     def test_news_host_and_date_validation(self):
         xml=b'<rss><channel><item><title>Inflation update</title><link>https://www.federalreserve.gov/newsevents/x.htm</link><pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate></item></channel></rss>'

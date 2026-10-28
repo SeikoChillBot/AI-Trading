@@ -19,6 +19,9 @@ STATE=ROOT/"state/ai_placement_experiments.json"
 REPORT=ROOT/"reports/ai_placement_experiments.json"
 COST=.009
 CAPITAL=20.0
+MAX_CONCURRENT=12
+MAX_PER_CYCLE=4
+HISTORY_LIMIT=60
 ALLOWED={"BTCUSD","ETHUSD","SOLUSD"}
 TRIGGERS={"market_uptrend","market_selloff","sampled_large_transfer"}
 
@@ -92,17 +95,20 @@ def automatic_regime_studies(pulse):
             candidates.append((abs(move),symbol,trigger,move))
         except (TypeError,ValueError,KeyError):
             continue
-    for _,symbol,trigger,move in sorted(candidates,reverse=True)[:2]:
-        result.append({"asset":symbol,"trigger":trigger,"horizon_days":3,
-                       "rationale":"Experience automatique de regime sur 3 jours apres mouvement 7j "
-                                   +str(round(move,2))+"%, sans hypothese de profit.",
-                       "actor":"quantitative_auto_fallback"})
+    # Multiple horizons are independent: additional trials open only if slots
+    # are free and there are no active duplicates of the same hypothesis.
+    for _,symbol,trigger,move in sorted(candidates,reverse=True):
+        for horizon in (1,3,7):
+            result.append({"asset":symbol,"trigger":trigger,"horizon_days":horizon,
+                           "rationale":"Test automatique sur "+str(horizon)+" jour(s) après évolution 7j "
+                                       +str(round(move,2))+" %, sans prévision de bénéfice.",
+                           "actor":"quantitative_auto_fallback"})
     return result
 
 
 def evolve(now, ideas, pulse, candles, state):
     previous=state.get("trials",[])
-    trials=[dict(x) for x in previous if isinstance(x,dict)][:12]
+    trials=[dict(x) for x in previous if isinstance(x,dict)][-HISTORY_LIMIT:]
     outcomes=[]
     seen={x.get("id") for x in trials}
     model_requests=(ideas.get("scenario_proposals",[])
@@ -115,11 +121,11 @@ def evolve(now, ideas, pulse, candles, state):
     new_requests = ([{**x,"actor":"gemini_structured_decision"}
                      for x in model_requests[:2] if isinstance(x,dict)]
                     + automatic_regime_studies(pulse))
-    # Maximum two *new* tests, not two attempts. If Gemini's hypotheses cannot
-    # qualify, try observable statistical baselines without user intervention.
+    # A bounded experiment queue, not a fixed total number of two trials.
+    # Continue starting new distinct prospective tests as previous ones finish.
     registered = 0
-    for item in new_requests[:4]:
-        if registered >= 2:
+    for item in new_requests:
+        if registered >= MAX_PER_CYCLE:
             break
         if not isinstance(item,dict):
             continue
@@ -142,8 +148,13 @@ def evolve(now, ideas, pulse, candles, state):
         key=hashlib.sha256(identity.encode()).hexdigest()[:15]
         if key in seen:
             continue
+        if any(x.get("asset")==item["asset"] and x.get("trigger")==item["trigger"]
+               and x.get("horizon_days")==item["horizon_days"] and
+               x.get("status") in ("waiting_next_closed_day","in_paper_position")
+               for x in trials):
+            continue
         if sum(x.get("status") in ("waiting_next_closed_day","in_paper_position")
-               for x in trials)>=6:
+               for x in trials)>=MAX_CONCURRENT:
             outcomes.append({"asset":item["asset"],"status":"rejected_experiment_capacity"})
             continue
         rec={
@@ -196,7 +207,9 @@ def evolve(now, ideas, pulse, candles, state):
     report={
         "schema":1,"generated_at":now.isoformat(),"type":"independent_forward_only_paper_scenarios",
         "active":sum(x.get("status") in ("waiting_next_closed_day","in_paper_position") for x in trials),
-        "trials":trials[-12:],"events":outcomes,
+        "trials":trials[-HISTORY_LIMIT:],"events":outcomes,
+        "capacity":{"max_active":MAX_CONCURRENT,"max_new_per_cycle":MAX_PER_CYCLE,
+                    "created_this_cycle":registered,"total_retained":len(trials)},
         "no_user_approval_required":True,
         "model_decisions_executed_automatically":True,
         "controls":{"max_simulated_capital_usd":CAPITAL,"paper_only":True,
@@ -204,7 +217,7 @@ def evolve(now, ideas, pulse, candles, state):
                     "sampled_whale_transfer_is_confirmed_buy":False},
         "warning":"Paper fills at later observed daily closes, not executable exchange fills. Model proposals are hypotheses, not proven profits.",
     }
-    return report,{"schema":1,"trials":trials[-12:]}
+    return report,{"schema":1,"trials":trials[-HISTORY_LIMIT:]}
 
 
 def main():

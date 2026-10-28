@@ -47,12 +47,27 @@ class RobotEvolutionTests(unittest.TestCase):
         output,reg,active,events=evolution.build(NOW,research,ideas,{}, {}, {})
         self.assertEqual(output["counts"]["tracked"],36)
         self.assertEqual(output["counts"]["immutable_benchmarks"],12)
-        self.assertEqual(output["counts"]["testing"],1)
+        self.assertEqual(output["counts"]["testing"],4)
         self.assertEqual(active["profiles"],{})
         self.assertEqual(events[0]["action"],"proposed_by_gemini")
+        self.assertEqual(sum(x["action"]=="proposed_by_quant_engine" for x in events),3)
         again,reg2,active2,events2=evolution.build(NOW,research,ideas,{},reg,active)
         self.assertEqual(events2,[])
         self.assertEqual(reg2["candidates"]["btc_momentum"]["created_at"],NOW.isoformat())
+
+    def test_all_individual_bots_receive_bounded_prospective_studies(self):
+        research={"labs":{
+          "crypto":{"strategies":[{"strategy":name,"drawdown_pct":0} for name in
+                  robot_tuning.TUNABLE_CRYPTO | robot_tuning.CRYPTO_HOLD]},
+          "multi":{"strategies":[{"strategy":name,"drawdown_pct":0} for name in
+                 robot_tuning.TUNABLE_MULTI | robot_tuning.MULTI_HOLD]}}}
+        state,active={},{}
+        for _ in range(7):
+            output,state,active,events=evolution.build(NOW,research,{}, {},state,active)
+        self.assertEqual(len(state["candidates"]),24)
+        self.assertEqual(output["counts"]["testing"],24)
+        self.assertEqual(active["profiles"],{})
+        self.assertTrue(all(x["source"]=="automatic_statistical_shadow" for x in state["candidates"].values()))
 
     def test_minimum_days_trades_fee_stress_and_drawdown(self):
         candidate={"created_at":(NOW-timedelta(days=15)).isoformat(),"lab":"crypto",

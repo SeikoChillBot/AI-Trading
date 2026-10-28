@@ -107,6 +107,24 @@ def build(now, research, ideas, shadow, state, active):
                 robots[name] = {"lab":lab, "stats":item}
     proposals = valid_gemini_adjustments(ideas, robots)
     candidates = dict(state.get("candidates", {})) if isinstance(state.get("candidates", {}), dict) else {}
+    # All 24 adjustable robots are allowed to enter independent shadow research.
+    # Enroll up to four per cycle; only valid future evidence may ever promote.
+    if len(candidates)<len(TUNABLE_CRYPTO | TUNABLE_MULTI):
+        already={p["strategy"] for p in proposals}
+        for name in sorted(TUNABLE_CRYPTO | TUNABLE_MULTI):
+            if len(proposals)>=4:
+                break
+            if name not in robots or name in candidates or name in already:
+                continue
+            stats=robots[name]["stats"]
+            # Conservatism first if early drawdown is observed; never call this profitable.
+            scale=1.2 if float(stats.get("drawdown_pct") or 0)>5 else 0.8
+            proposals.append({"strategy":name,"entry_scale":scale,
+                              "reason":"Essai quantitatif indépendant d'un seuil plus "+
+                                       ("prudent" if scale>1 else "réactif")+
+                                       " ; aucune rentabilité présumée.",
+                              "source":"automatic_statistical_shadow"})
+            already.add(name)
     profiles = dict(active.get("profiles", {})) if isinstance(active.get("profiles", {}), dict) else {}
     events = []
     for p in proposals:
@@ -120,9 +138,11 @@ def build(now, research, ideas, shadow, state, active):
                      "source":p["source"], "status":"shadow_pending",
                      "last_review":created, "failed_checks":["missing_forward_shadow_data"]}
         candidates[name] = candidate
-        events.append({"at":created, "robot":name, "action":"proposed_by_gemini",
+        events.append({"at":created, "robot":name,
+                       "action":("proposed_by_gemini" if p["source"]=="gemini_structured_hypothesis"
+                                 else "proposed_by_quant_engine"),
                        "from_scale":1.0, "to_scale":p["entry_scale"],
-                       "details":"Shadow validation required before any change"})
+                       "details":"Comparaison prospective requise avant tout changement"})
     fresh_shadow = shadow.get("assets", {}) if isinstance(shadow.get("assets", {}), dict) else {}
     for name, candidate in candidates.items():
         if candidate.get("status") != "shadow_pending":
@@ -197,6 +217,7 @@ def build(now, research, ideas, shadow, state, active):
                       "testing_proposal" if proposed and proposed.get("status")=="shadow_pending" else
                       "analyzing_for_opportunities"),
             "gemini_decision": (proposed or {}).get("reason"),
+            "decision_source":(proposed or {}).get("source"),
             "proposed_entry_scale":(proposed or {}).get("entry_scale"),
             "proposed_at":(proposed or {}).get("created_at"),
             "blocked_checks":(proposed or {}).get("failed_checks", []),
