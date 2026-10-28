@@ -256,6 +256,13 @@ if desk_path.exists():
                     if isinstance(trial, dict) and trial.get("paper_only") is True
                 ],
                 "stats": desk.get("robot_statistics", {}),
+                "market_watch": [
+                    {k:item.get(k) for k in (
+                        "asset","move_7d_pct","annualized_volatility_30d_pct",
+                        "label","source","source_at","verified_opportunity","buy_signal")}
+                    for item in desk.get("market_watch",[])[:3]
+                    if isinstance(item,dict) and item.get("buy_signal") is False
+                ],
                 "real_trades": False,
             }
     except (ValueError, KeyError, TypeError):
