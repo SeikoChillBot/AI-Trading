@@ -89,6 +89,7 @@ def build(now, candles, context, transfers):
                 "state": transfers.get("state"),
                 "coverage": transfers.get("coverage"),
                 "sampled_records": transfers.get("sampled_records", {}),
+                "validated_records": transfers.get("validated_records", {}),
                 "large_transfers_observed": transfers.get("large_transfers_observed", 0),
                 "new_in_sample": len(transfers.get("large_transfers_new", [])),
                 "largest_nominal_usd": max(
