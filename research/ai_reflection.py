@@ -81,6 +81,16 @@ IDEA_SCHEMA = {
                 "additionalProperties": False,
             },
         },
+        "scenario_proposals":{"type":"array","items":{"type":"object","properties":{
+            "asset":{"type":"string","enum":["BTCUSD","ETHUSD","SOLUSD"]},
+            "trigger":{"type":"string","enum":["market_uptrend","market_selloff","sampled_large_transfer"]},
+            "horizon_days":{"type":"integer","enum":[1,3,7]},
+            "rationale":{"type":"string"}},"required":["asset","trigger","horizon_days","rationale"],
+            "additionalProperties":False}},
+        "desk_notes":{"type":"array","items":{"type":"object","properties":{
+            "category":{"type":"string","enum":["marche","strategie","baleines","risque"]},
+            "text":{"type":"string"}},"required":["category","text"],
+            "additionalProperties":False}},
         "experiments": {
             "type": "array",
             "items": {
@@ -97,7 +107,7 @@ IDEA_SCHEMA = {
             },
         },
     },
-    "required": ["summary", "experiments", "bot_adjustments"],
+    "required": ["summary", "experiments", "bot_adjustments", "scenario_proposals", "desk_notes"],
     "additionalProperties": False,
 }
 
