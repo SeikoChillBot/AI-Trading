@@ -194,6 +194,44 @@ if incubator_path.exists():
             }
     except (ValueError, KeyError, TypeError):
         pass
+# Per-robot audit and autonomous, validated tuning: never portfolio input.
+evolution_path = Path("reports/robot_evolution.json")
+evolution_history = Path("reports/robot_evolution_events.jsonl")
+data["robot_evolution"] = {"ready": False}
+if evolution_path.exists():
+    try:
+        evolution = json.loads(evolution_path.read_text(encoding="utf-8"))
+        if (evolution.get("schema") == 1
+                and evolution.get("model") == "per_robot_review_and_guarded_paper_evolution_v1"
+                and evolution.get("real_orders") is False
+                and evolution.get("llm_generated_code_executed") is False):
+            bots = [
+                {field: r.get(field) for field in (
+                    "strategy", "lab", "asset", "role", "status",
+                    "current_entry_scale", "proposed_entry_scale", "proposed_at",
+                    "gemini_decision", "blocked_checks", "paper_return_pct",
+                    "drawdown_pct", "closed_roundtrips", "samples",
+                    "ready_for_review", "last_change_at"
+                )} for r in evolution.get("robots", [])
+                if isinstance(r, dict) and isinstance(r.get("strategy"), str)
+            ]
+            history = []
+            if evolution_history.exists():
+                for line in evolution_history.read_text(encoding="utf-8").splitlines()[-120:]:
+                    try:
+                        event = json.loads(line)
+                        if isinstance(event, dict) and event.get("robot"):
+                            history.append({k:event.get(k) for k in (
+                                "at","robot","action","from_scale","to_scale","details")})
+                    except (ValueError, TypeError):
+                        continue
+            data["robot_evolution"] = {
+                "ready":len(bots)==36, "generated_at":evolution.get("generated_at"),
+                "counts":evolution.get("counts", {}), "robots":bots[:36],
+                "events":history[-40:][::-1], "real_orders":False,
+            }
+    except (ValueError, KeyError, TypeError):
+        pass
 rows = data['rows']
 history = data['history']
 template = Path('site/index.html').read_text(encoding='utf-8')
