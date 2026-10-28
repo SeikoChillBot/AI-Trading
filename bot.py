@@ -16,6 +16,8 @@ TIMEFRAMES = {
     "btc_reversion": 5, "eth_reversion": 15, "sol_reversion": 5,
     "btc_breakout": 15, "btc_rsi": 5, "eth_ema_cross": 15,
     "sol_bollinger": 5, "btc_volatility": 60,
+    "btc_scalp_momentum": 5, "eth_scalp_trailing": 5,
+    "sol_scalp_microtrend": 5, "btc_scalp_conservative": 5,
 }
 STRATEGIES = [
     ("btc_hold", "BTCUSDT", "hold"),
@@ -32,6 +34,10 @@ STRATEGIES = [
     ("eth_ema_cross", "ETHUSDT", "ema_cross"),
     ("sol_bollinger", "SOLUSDT", "bollinger"),
     ("btc_volatility", "BTCUSDT", "volatility"),
+    ("btc_scalp_momentum", "BTCUSDT", "scalp_momentum"),
+    ("eth_scalp_trailing", "ETHUSDT", "scalp_trailing"),
+    ("sol_scalp_microtrend", "SOLUSDT", "scalp_microtrend"),
+    ("btc_scalp_conservative", "BTCUSDT", "scalp_conservative"),
 ]
 
 def fetch_candles(symbol, interval):
@@ -68,9 +74,32 @@ def rsi(values, period=14):
         return 100.0 if gains else 50.0
     return 100 - 100 / (1 + gains / losses)
 
-def decide(mode, prices, holding):
+def decide(mode, prices, holding, portfolio=None):
     last = prices[-1]
     mean20 = sum(prices[-20:]) / 20
+    if mode.startswith("scalp_"):
+        portfolio = portfolio or {}
+        # Trailing stops are evaluated on CLOSED candles only; gaps may exceed thresholds.
+        if holding:
+            peak = max(float(portfolio.get("peak_price", last)), last)
+            portfolio["peak_price"] = peak
+            trail = {"scalp_momentum": .004, "scalp_trailing": .006,
+                     "scalp_microtrend": .005, "scalp_conservative": .008}[mode]
+            if last <= peak * (1 - trail):
+                return "sell"
+            if mode == "scalp_microtrend" and last < mean20 * .998:
+                return "sell"
+            return "wait"
+        # Thresholds deliberately exceed the 0.2% modeled round-trip fees.
+        rise = last / prices[-4] - 1
+        if mode == "scalp_momentum":
+            return "buy" if rise > .004 and last > mean20 * 1.002 else "wait"
+        if mode == "scalp_trailing":
+            return "buy" if rise > .005 and last > mean20 * 1.002 else "wait"
+        if mode == "scalp_microtrend":
+            return "buy" if last > mean20 * 1.003 and prices[-1] > prices[-2] > prices[-3] else "wait"
+        if mode == "scalp_conservative":
+            return "buy" if rise > .008 and last > mean20 * 1.005 else "wait"
     if mode == "hold":
         return "buy" if not holding else "wait"
     if mode == "momentum":
@@ -107,19 +136,22 @@ def main():
         timestamp, price = candles[-1]
         portfolio = portfolios.setdefault(name, {"cash": 20.0, "units": 0.0, "trades": 0, "fees": 0.0})
         if state["last_candle"].get(name) != timestamp:
-            action = decide(mode, [p for _, p in candles], portfolio["units"] > 0)
+            action = decide(mode, [p for _, p in candles], portfolio["units"] > 0, portfolio)
             if action == "buy" and portfolio["cash"] > 0:
                 gross = portfolio["cash"]
                 portfolio["units"] += gross * (1 - FEE) / price
                 portfolio["fees"] += gross * FEE
                 portfolio["cash"] = 0.0
                 portfolio["trades"] += 1
+                if mode.startswith("scalp_"):
+                    portfolio["peak_price"] = price
             elif action == "sell" and portfolio["units"] > 0:
                 gross = portfolio["units"] * price
                 portfolio["cash"] += gross * (1 - FEE)
                 portfolio["fees"] += gross * FEE
                 portfolio["units"] = 0.0
                 portfolio["trades"] += 1
+                portfolio.pop("peak_price", None)
             state["last_candle"][name] = timestamp
         equity = portfolio["cash"] + portfolio["units"] * price
         rows.append({"strategy": name, "asset": symbol, "capital_usd": round(equity, 5),
