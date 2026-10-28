@@ -73,4 +73,40 @@ if(historicalList){
   historicalList.append(note);
  }
 }
+const aiReview=DATA.ai_review||{};
+const aiHost=get('ai-experiment-list');
+if(aiHost){
+ aiHost.replaceChildren();
+ const fromModel=aiReview.source==='openai_responses'&&aiReview.state==='model_reflection_completed';
+ const label=fromModel?'Modèle IA connecté : hypothèses à tester.':
+  'Diagnostic de robustesse statistique. Modèle IA externe non activé.';
+ const observations=Array.isArray(aiReview.historical?.assets)?aiReview.historical.assets:[];
+ put('ai-review-summary',aiReview.ready?
+  label+' Aucune stratégie automatiquement promue ; résultats historiques non garantis.':
+  'Diagnostic de robustesse en attente de sa première publication.');
+ for(const item of observations.slice(0,3)){
+  const card=document.createElement('article');card.className='research-idea';
+  const name=document.createElement('strong');name.textContent=item.asset+' · '+item.folds+' périodes historiques';
+  const findings=document.createElement('p');
+  findings.textContent='Rendement moyen '+Number(item.avg_net_return_pct).toFixed(2)+
+   ' % ; contre Hold '+Number(item.avg_excess_vs_hold_points).toFixed(2)+
+   ' points ; avec frais doublés '+Number(item.avg_net_return_double_cost_pct).toFixed(2)+' %.';
+  const limits=document.createElement('small');
+  const passed=Object.values(item.research_checks||{}).filter(Boolean).length;
+  const total=Object.keys(item.research_checks||{}).length;
+  limits.textContent=item.closed_trades+' transactions closes · drawdown '+Number(item.worst_drawdown_pct).toFixed(1)+
+   ' % · '+passed+'/'+total+' contrôles de recherche. Non validé pour une mise réelle.';
+  card.append(name,findings,limits);aiHost.append(card);
+ }
+ const proposals=Array.isArray(aiReview.experiments)?aiReview.experiments.slice(0,3):[];
+ for(const idea of proposals){
+  const card=document.createElement('article');card.className='research-idea';
+  const title=document.createElement('strong');title.textContent=(idea.asset||'Recherche')+' · '+(idea.title||'Expérience proposée');
+  const hypothesis=document.createElement('p');hypothesis.textContent=idea.hypothesis||'Hypothèse non vérifiée.';
+  const method=document.createElement('p');method.textContent='À tester : '+(idea.experiment||'Étude à définir.');
+  const stopping=document.createElement('small');stopping.textContent='Critère d’abandon : '+(idea.rejection_rule||'Non défini.');
+  card.append(title,hypothesis,method,stopping);aiHost.append(card);
+ }
+}
+
 })();
