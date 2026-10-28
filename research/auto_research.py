@@ -19,6 +19,7 @@ MULTI_PATH = REPORTS / "multi_asset_micro_metrics.json"
 CONTEXT_PATH = REPORTS / "market_context.json"
 WHALE_PATH = REPORTS / "whale_observations.json"
 PULSE_PATH = REPORTS / "market_pulse.json"
+NEWS_PATH = REPORTS / "market_news.json"
 OUTPUT_JSON = REPORTS / "autonomous_research.json"
 OUTPUT_MD = REPORTS / "autonomous_research.md"
 HISTORY = REPORTS / "autonomous_research_history.jsonl"
@@ -184,7 +185,7 @@ def describe_context(context, whales, now):
     return snapshot
 
 
-def build_report(crypto: dict | None, multi: dict | None, now: datetime, context=None, whales=None, pulse=None) -> dict:
+def build_report(crypto: dict | None, multi: dict | None, now: datetime, context=None, whales=None, pulse=None, news=None) -> dict:
     labs = {"crypto": inspect_lab("crypto", crypto),
             "multi": inspect_lab("multi", multi)}
     ready = sum(x["eligible"] for x in labs.values())
@@ -211,6 +212,7 @@ def build_report(crypto: dict | None, multi: dict | None, now: datetime, context
         "labs": labs,
         "market_intelligence": describe_context(context, whales, now),
         "market_pulse": pulse if isinstance(pulse, dict) and pulse.get("schema") == 1 else {},
+        "news_observations": news if isinstance(news, dict) and news.get("schema") == 1 else {},
         "hypotheses": hypotheses(labs),
         "safety_guards": blocked,
     }
@@ -287,7 +289,7 @@ def write_once_per_day(report: dict) -> None:
 
 def main() -> None:
     now = datetime.now(timezone.utc)
-    report = build_report(read_json(CRYPTO_PATH), read_json(MULTI_PATH), now, read_json(CONTEXT_PATH), read_json(WHALE_PATH), read_json(PULSE_PATH))
+    report = build_report(read_json(CRYPTO_PATH), read_json(MULTI_PATH), now, read_json(CONTEXT_PATH), read_json(WHALE_PATH), read_json(PULSE_PATH), read_json(NEWS_PATH))
     REPORTS.mkdir(exist_ok=True, parents=True)
     OUTPUT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     OUTPUT_MD.write_text(as_markdown(report), encoding="utf-8")
