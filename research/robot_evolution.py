@@ -223,6 +223,31 @@ def build(now, research, ideas, shadow, state, active):
         approved = current.get("source")=="automatic_prospective_validation"
         proposed = candidates.get(name)
         control = name in CRYPTO_HOLD | MULTI_HOLD
+        study=fresh_shadow.get(name,{}) if proposed else {}
+        study=study if isinstance(study,dict) else {}
+        valid_study=(proposed is not None and
+                     study.get("source")=="independent_forward_shadow_v1" and
+                     study.get("created_at")==proposed.get("created_at") and
+                     study.get("entry_scale")==proposed.get("entry_scale"))
+        study=study if valid_study else {}
+        try:
+            age_days=max(0,(now-datetime.fromisoformat(proposed["created_at"])).total_seconds()/86400) if proposed else 0
+        except (KeyError,ValueError,TypeError):
+            age_days=0
+        def safe_count(v):
+            try:return max(0,int(v))
+            except (ValueError,TypeError,OverflowError):return 0
+        progress={
+            "days_observed":round(age_days,1),
+            "minimum_days":MIN_PROSPECTIVE_DAYS[lab],
+            "closed_trades":safe_count(study.get("candidate",{}).get("closed_trades")),
+            "minimum_closed_trades":MIN_ROUNDTRIPS,
+            "future_observations":safe_count(study.get("observations")),
+            "minimum_future_observations":120 if lab=="crypto" else 24,
+            "missed_observations":safe_count(study.get("missed_observations")),
+            "shadow_data_confirmed":bool(valid_study),
+            "paper_only":True,
+        } if proposed and not control else None
         listed.append({
             "strategy":name, "lab":lab, "asset":stat.get("asset"),
             "role":"immutable_hold_benchmark" if control else "tunable_paper_robot",
@@ -238,6 +263,7 @@ def build(now, research, ideas, shadow, state, active):
             "proposed_entry_scale":(proposed or {}).get("entry_scale"),
             "proposed_at":(proposed or {}).get("created_at"),
             "blocked_checks":(proposed or {}).get("failed_checks", []),
+            "validation_progress":progress,
             "paper_return_pct":stat.get("net_return_pct"),
             "drawdown_pct":stat.get("drawdown_pct"),
             "closed_roundtrips":stat.get("completed_roundtrips"),
