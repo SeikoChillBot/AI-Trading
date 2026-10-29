@@ -23,12 +23,15 @@ TX=re.compile(r"0x[0-9a-f]{64}")
 # Official Base public JSON-RPC is free but rate-limited. Limit to 12 recent
 # blocks per research cycle: this is explicitly NOT continuous surveillance.
 RPC="https://mainnet.base.org"
+# Public, keyless endpoints. PublicNode is used first for the scheduled
+# read-only sample because Base official RPC often rate-limits eth_getLogs.
+RPC_HOSTS=("https://base-rpc.publicnode.com", "https://base.nodely.dev", RPC)
 EVENT_TRANSFER="0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
 MAX_RPC_BLOCKS=12
 MAX_RPC_LOGS=500
 
-def rpc_call(method,params,post):
-    response=post(RPC,json={"jsonrpc":"2.0","id":1,"method":method,
+def rpc_call(method,params,post,host=RPC):
+    response=post(host,json={"jsonrpc":"2.0","id":1,"method":method,
                              "params":params},timeout=12,
                   headers={"User-Agent":"AIT-BaseUSDC/1.1"})
     response.raise_for_status()
@@ -37,11 +40,11 @@ def rpc_call(method,params,post):
         raise ValueError("Invalid Base public RPC response")
     return body["result"]
 
-def observe_rpc(now,post):
-    latest=int(rpc_call("eth_blockNumber",[],post),16)
+def observe_rpc(now,post,host=RPC):
+    latest=int(rpc_call("eth_blockNumber",[],post,host),16)
     start=max(0,latest-MAX_RPC_BLOCKS+1)
     logs=rpc_call("eth_getLogs",[{"fromBlock":hex(start),"toBlock":hex(latest),
-            "address":CONTRACT,"topics":[EVENT_TRANSFER]}],post)
+            "address":CONTRACT,"topics":[EVENT_TRANSFER]}],post,host)
     if not isinstance(logs,list) or len(logs)>MAX_RPC_LOGS:
         raise ValueError("Unbounded Base RPC log response")
     found=[]
@@ -70,16 +73,33 @@ def observe_rpc(now,post):
             continue
     return {"sampled_count":len(logs),"large_count":len(found),
             "highlights":sorted(found,key=lambda r:r["nominal_usd_approx"],reverse=True)[:4],
-            "source":RPC,"source_method":"public_rpc_logs",
+            "source":host,"source_method":"public_rpc_logs",
             "coverage":"last_12_blocks_only","sampled_blocks":latest-start+1}
 
-def build(now,get=requests.get,post=requests.post):
+def build(now,get=requests.get,post=requests.post,prefer_rpc=False):
     result={"schema":1,"generated_at":now.isoformat(),"state":"observing",
             "chain":"base","token":"USDC","source":HOST,
             "contract":CONTRACT,"sampled_count":0,"large_count":0,
             "highlights":[],"error":None,"not_exhaustive":True,
             "can_infer_buy_sell":False,"real_orders":False,
             "source_method":"blockscout_explorer_page","coverage":"one_recent_page_only"}
+    if prefer_rpc:
+        # The old Base Blockscout API requires a paid key. Avoid it in
+        # scheduled runs rather than producing a predictable HTTP error.
+        errors=[]
+        for host in RPC_HOSTS:
+            try:
+                result.update(observe_rpc(now,post,host))
+                result["state"]="observing"
+                result["error"]=None
+                result["sources_attempted"]=[*errors,host]
+                return result
+            except (requests.RequestException,TypeError,ValueError,KeyError,OverflowError) as error:
+                errors.append(host+" ("+type(error).__name__+")")
+        result["state"]="unavailable"
+        result["error"]="public_rpc_unavailable"
+        result["sources_attempted"]=errors
+        return result
     try:
         response=get(HOST+"/tokens/"+CONTRACT+"/transfers",timeout=12,
                      headers={"User-Agent":"AIT-BaseUSDC/1.0"})
@@ -128,7 +148,7 @@ def build(now,get=requests.get,post=requests.post):
     return result
 
 def main():
-    output=build(datetime.now(timezone.utc))
+    output=build(datetime.now(timezone.utc),prefer_rpc=True)
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     OUTPUT.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("Base USDC:",output["state"],output["sampled_count"],
