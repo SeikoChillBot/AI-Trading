@@ -65,10 +65,10 @@ jobs:
       - name: AI research every six hours maximum — cached between reviews
         env:
           SEIKO_AI_ENABLED: ${{ vars.SEIKO_AI_ENABLED || '1' }}
-          SEIKO_AI_PROVIDER: ${{ vars.SEIKO_AI_PROVIDER || 'gemini' }}
-          SEIKO_AI_MODEL: ${{ vars.SEIKO_AI_MODEL }}
+          # GPT supervision is performed inside ChatGPT, never through a billed API.
+          # Lock the unattended workflow to Gemini; no OpenAI secret is exposed.
+          SEIKO_AI_PROVIDER: gemini
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python -m research.ai_reflection
       - name: Review and safely promote eligible paper bot tuning candidates
         run: python -m research.robot_evolution
