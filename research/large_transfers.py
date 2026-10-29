@@ -56,7 +56,7 @@ def transfer(raw, token, now):
         raise ValueError("Invalid transaction hash")
     sender = str((raw.get("from") or {}).get("hash", "")).lower()
     receiver = str((raw.get("to") or {}).get("hash", "")).lower()
-    if len(sender) != 42 or len(receiver) != 42:
+    if not re.fullmatch(r"0x[0-9a-f]{40}", sender) or not re.fullmatch(r"0x[0-9a-f]{40}", receiver):
         raise ValueError("Invalid transfer endpoints")
     # Stablecoin notional is not executable USD value: depegs and token restrictions.
     marker = str(raw.get("log_index") or raw.get("index") or "")
@@ -84,12 +84,15 @@ def build(now, state, get=requests.get):
         "minimum_nominal_usd": int(MIN_UNITS),
         "sampled_records": {}, "validated_records": {}, "large_transfers_observed": 0,
         "large_transfers_new": [], "sample_highlights": [],
+        "sampled_wallet_flows": [], "sampled_wallets_count": 0,
+        "new_event_count": 0,
         "errors": {}, "buy_sell_inference": False, "real_trades": False,
         "warning": "Large stablecoin transfers may be exchange movements, mint/redemption, custody or bridges; not proof of a whale purchase.",
     }
     observed=set()
     examples=[]
     highlighted=set()
+    wallet_flows={}
     for token,contract in CONTRACTS.items():
         try:
             output["sampled_records"][token]=0
@@ -113,6 +116,19 @@ def build(now, state, get=requests.get):
                     observed.add(item["id"])
                     if Decimal(item["quantity"])>=MIN_UNITS and item["id"] not in highlighted:
                         examples.append(item);highlighted.add(item["id"])
+                        # Directional activity only inside the explorer sample.
+                        # A positive net does NOT imply that this address bought
+                        # stablecoins or that the owner is an identified whale.
+                        for address,direction in ((item["from_address"],"sent"),
+                                                  (item["to_address"],"received")):
+                            if address == "0x" + "0"*40:
+                                continue
+                            row=wallet_flows.setdefault(address,{
+                                "sent":Decimal(0), "received":Decimal(0),
+                                "tokens":set(), "transfer_ids":set()})
+                            row[direction]+=Decimal(item["quantity"])
+                            row["tokens"].add(token)
+                            row["transfer_ids"].add(item["id"])
                 params=body.get("next_page_params")
                 if not params:break
                 if not isinstance(params,dict):raise ValueError("Malformed explorer cursor")
@@ -132,6 +148,19 @@ def build(now, state, get=requests.get):
     output["sample_highlights"] = sorted(examples, key=lambda x: x["nominal_usd_approx"], reverse=True)[:4]
     if not first:
         output["large_transfers_new"] = [x for x in examples if x["id"] not in seen][:8]
+    output["new_event_count"] = len(output["large_transfers_new"])
+    output["sampled_wallets_count"] = len(wallet_flows)
+    flows=sorted(wallet_flows.items(),
+                 key=lambda pair:pair[1]["sent"]+pair[1]["received"],reverse=True)
+    output["sampled_wallet_flows"] = [{
+        "address":address,
+        "incoming_nominal_usd":round(float(flow["received"]),2),
+        "outgoing_nominal_usd":round(float(flow["sent"]),2),
+        "sample_net_nominal_usd":round(float(flow["received"]-flow["sent"]),2),
+        "sample_observations":len(flow["transfer_ids"]),
+        "tokens":sorted(flow["tokens"]),
+        "identity_verified":False, "trade_inference":"unknown"
+    } for address,flow in flows[:10]]
     if len(output["errors"]) == len(CONTRACTS):
         output["state"] = "unavailable"
     elif output["errors"]:
