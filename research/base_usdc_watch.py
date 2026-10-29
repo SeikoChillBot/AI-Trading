@@ -28,7 +28,7 @@ RPC="https://mainnet.base.org"
 RPC_HOSTS=("https://base-rpc.publicnode.com", "https://base.nodely.dev", RPC)
 EVENT_TRANSFER="0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
 MAX_RPC_BLOCKS=12
-MAX_RPC_LOGS=500
+MAX_RPC_LOGS=5000
 
 def rpc_call(method,params,post,host=RPC):
     response=post(host,json={"jsonrpc":"2.0","id":1,"method":method,
@@ -36,8 +36,16 @@ def rpc_call(method,params,post,host=RPC):
                   headers={"User-Agent":"AIT-BaseUSDC/1.1"})
     response.raise_for_status()
     body=response.json()
-    if not isinstance(body,dict) or body.get("error") is not None:
-        raise ValueError("Invalid Base public RPC response")
+    if not isinstance(body,dict):
+        raise ValueError("invalid_rpc_payload")
+    error=body.get("error")
+    if error is not None:
+        code=error.get("code") if isinstance(error,dict) else None
+        # Read only error codes, never untrusted provider text or API secrets.
+        raise ValueError("rpc_error_"+str(code) if isinstance(code,int)
+                         else "rpc_error_unspecified")
+    if "result" not in body:
+        raise ValueError("rpc_missing_result")
     return body["result"]
 
 def observe_rpc(now,post,host=RPC):
@@ -45,8 +53,10 @@ def observe_rpc(now,post,host=RPC):
     start=max(0,latest-MAX_RPC_BLOCKS+1)
     logs=rpc_call("eth_getLogs",[{"fromBlock":hex(start),"toBlock":hex(latest),
             "address":CONTRACT,"topics":[EVENT_TRANSFER]}],post,host)
-    if not isinstance(logs,list) or len(logs)>MAX_RPC_LOGS:
-        raise ValueError("Unbounded Base RPC log response")
+    if not isinstance(logs,list):
+        raise ValueError("rpc_logs_not_array")
+    if len(logs)>MAX_RPC_LOGS:
+        raise ValueError("rpc_logs_over_local_cap")
     found=[]
     seen=set()
     for row in logs:
@@ -84,6 +94,9 @@ def build(now,get=requests.get,post=requests.post,prefer_rpc=False):
             "can_infer_buy_sell":False,"real_orders":False,
             "source_method":"blockscout_explorer_page","coverage":"one_recent_page_only"}
     if prefer_rpc:
+        result["source"]="public_base_rpc"
+        result["source_method"]="public_rpc_logs"
+        result["coverage"]="up_to_12_recent_blocks"
         # The old Base Blockscout API requires a paid key. Avoid it in
         # scheduled runs rather than producing a predictable HTTP error.
         errors=[]
@@ -95,7 +108,10 @@ def build(now,get=requests.get,post=requests.post,prefer_rpc=False):
                 result["sources_attempted"]=[*errors,host]
                 return result
             except (requests.RequestException,TypeError,ValueError,KeyError,OverflowError) as error:
-                errors.append(host+" ("+type(error).__name__+")")
+                reason=(str(error) if isinstance(error,ValueError)
+                        and str(error).startswith(("rpc_", "invalid_rpc_"))
+                        else type(error).__name__)
+                errors.append(host+" ("+reason+")")
         result["state"]="unavailable"
         result["error"]="public_rpc_unavailable"
         result["sources_attempted"]=errors
