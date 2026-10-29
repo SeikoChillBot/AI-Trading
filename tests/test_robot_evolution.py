@@ -110,6 +110,32 @@ class RobotEvolutionTests(unittest.TestCase):
         ok,blocked=evolution.sufficient_prospective(evidence,candidate,NOW)
         self.assertFalse(ok)
 
+    def test_rollback_uses_only_returns_after_approval(self):
+        name="btc_momentum"
+        created=(NOW-timedelta(days=20)).isoformat()
+        approved=(NOW-timedelta(days=3)).isoformat()
+        candidate={"strategy":name,"lab":"crypto","created_at":created,
+                   "entry_scale":1.2,"from_scale":1.0,
+                   "status":"automatically_promoted_paper_only"}
+        profiles={"schema":1,"profiles":{name:{
+            "source":"automatic_prospective_validation",
+            "approved_at":approved,"entry_scale":1.2,
+            "promoted_observations":100,
+            "promoted_candidate_return_pct":5,
+            "promoted_control_return_pct":15}}}
+        evidence={"assets":{name:{
+            "source":"independent_forward_shadow_v1",
+            "created_at":created,"observed_at":NOW.isoformat(),
+            "entry_scale":1.2,"observations":150,
+            "candidate":{"net_return_pct":7,"max_drawdown_pct":10},
+            "control":{"net_return_pct":16}}}}
+        report,_,active,events=evolution.build(
+            NOW,{"labs":{"crypto":{"strategies":[{"strategy":name}]}}},
+            {},evidence,{"candidates":{name:candidate}},profiles)
+        self.assertIn(name,active["profiles"])
+        self.assertFalse(any(e["action"]=="paper_tuning_rolled_back" for e in events))
+        self.assertEqual(next(r for r in report["robots"] if r["strategy"]==name)["status"],"tuning_activated")
+
     def test_shadow_first_registration_never_replays_old_profit(self):
         candidate={"created_at":NOW.isoformat(),"entry_scale":1.2}
         record=robot_shadow.start(candidate,100)
