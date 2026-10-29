@@ -87,7 +87,7 @@ INSTRUCTIONS = (
     "Utilise aussi les observations datées de marché (sentiment, prix, risque) : "
     "un historique court n'est PAS une preuve de corrélation causale ou de gain futur. "
     "Propose jusqu'à DEUX strategy_designs de nouvelles logiques sur BTCUSD,ETHUSD,SOLUSD : "
-    "logic trend_following,mean_reversion,breakout ; lookback_days 10,20,40 ; "
+    "logic trend_following,mean_reversion,breakout,ema_trend,rsi_reversal,volatility_gate,dual_confirmation ; lookback_days 10,20,40 ; "
     "threshold_pct 0.5,1,2 ; max_hold_days 1,3,7 ; rationale en français. "
     "Les conditions sont évaluées par Python, pas en exécutant du code Gemini. "
     "Évite de dupliquer les hypothèses échouées, sauf raison nouvelle vérifiable. "
@@ -138,7 +138,7 @@ IDEA_SCHEMA = {
         "strategy_designs": {"type": "array", "items": {"type": "object",
             "properties": {
                 "asset": {"type": "string", "enum": ["BTCUSD","ETHUSD","SOLUSD"]},
-                "logic": {"type": "string", "enum": ["trend_following","mean_reversion","breakout"]},
+                "logic": {"type": "string", "enum": ["trend_following","mean_reversion","breakout", "ema_trend", "rsi_reversal", "volatility_gate", "dual_confirmation"]},
                 "lookback_days": {"type": "integer", "enum": [10,20,40]},
                 "threshold_pct": {"type": "number", "enum": [0.5,1,2]},
                 "max_hold_days": {"type": "integer", "enum": [1,3,7]},
@@ -243,7 +243,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
             "strategy_designs": {"type": "ARRAY", "items": {"type": "OBJECT",
                 "properties": {
                     "asset": {"type": "STRING", "enum": ["BTCUSD","ETHUSD","SOLUSD"]},
-                    "logic": {"type": "STRING", "enum": ["trend_following","mean_reversion","breakout"]},
+                    "logic": {"type": "STRING", "enum": ["trend_following","mean_reversion","breakout", "ema_trend", "rsi_reversal", "volatility_gate", "dual_confirmation"]},
                     "lookback_days": {"type": "INTEGER", "enum": [10,20,40]},
                     "threshold_pct": {"type": "NUMBER", "enum": [0.5,1,2]},
                     "max_hold_days": {"type": "INTEGER", "enum": [1,3,7]},
