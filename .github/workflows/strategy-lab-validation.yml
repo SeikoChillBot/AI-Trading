@@ -6,6 +6,8 @@ on:
       - '.github/workflows/strategy-lab-validation.yml'
       - 'research/autonomous_optimizer.py'
       - 'research/strategy_foundry.py'
+      - 'research/strategy_evolution.py'
+      - 'research/strategy_competition.py'
       - 'research/strategy_forward.py'
       - 'research/manual_live_review.py'
       - 'research/market_knowledge.py'
@@ -16,6 +18,8 @@ on:
       - 'tests/test_autonomous_optimizer.py'
       - 'tests/test_manual_live_review.py'
       - 'tests/test_strategy_foundry.py'
+      - 'tests/test_strategy_evolution.py'
+      - 'tests/test_strategy_competition.py'
       - 'tests/test_strategy_forward.py'
       - 'tests/test_market_knowledge.py'
       - 'tests/test_site_lab04.py'
@@ -41,7 +45,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Validate Python and dashboard syntax
         run: |
-          python -m py_compile research/autonomous_optimizer.py research/strategy_foundry.py research/strategy_forward.py research/manual_live_review.py research/market_knowledge.py research/ai_reflection.py research/ai_decision_support.py build_site.py
+          python -m py_compile research/autonomous_optimizer.py research/strategy_evolution.py research/strategy_competition.py research/strategy_foundry.py research/strategy_forward.py research/manual_live_review.py research/market_knowledge.py research/ai_reflection.py research/ai_decision_support.py build_site.py
           node --check site/lab04-research.js
       - name: Test bounded optimizer and publication gates
         run: |
@@ -51,11 +55,15 @@ jobs:
           python -m unittest discover -s tests -p 'test_strategy_forward.py' -v
           python -m unittest discover -s tests -p 'test_market_knowledge.py' -v
           python -m unittest discover -s tests -p 'test_site_lab04.py' -v
+          python -m unittest discover -s tests -p 'test_strategy_evolution.py' -v
+          python -m unittest discover -s tests -p 'test_strategy_competition.py' -v
       - name: Smoke-test research on cached market snapshots
         run: |
           python -m research.autonomous_optimizer
+          python -m research.strategy_evolution
           python -m research.strategy_foundry
           python -m research.strategy_forward
+          python -m research.strategy_competition
           python -m research.manual_live_review
           python build_site.py
       - name: Assert no live trading controls were introduced
@@ -69,6 +77,8 @@ jobs:
           assert auto['real_orders'] is False and auto['robot_changes'] is False
           assert paper['real_orders'] is False and paper['robots_modified'] is False
           assert gate['real_trading_enabled'] is False
+          assert json.loads(Path('reports/strategy_evolution.json').read_text())['real_orders'] is False
+          assert json.loads(Path('reports/strategy_competition.json').read_text())['real_orders'] is False
           assert gate['model_can_enable_live_trading'] is False
           print('AIT paper-only firewall verified:', auto['candidate_count'], 'hypotheses')
           PY
