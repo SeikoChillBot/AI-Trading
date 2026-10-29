@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés** : Rejouer les signaux de btc_momentum avec des frais augmentés de 100 pour cent sur des données journalières historiques non utilisées. Critère d'abandon : Rejeter l'hypothèse si la perte nette moyenne reste inférieure à 2 pour cent sur la période.
-- **ETHUSD — Robustesse des seuils de repli** : Évaluer eth_reversion sur trois fenêtres OOS disjointes de 30 jours en enregistrant le drawdown maximal. Critère d'abandon : Rejeter l'hypothèse si le drawdown reste strictement inférieur à 3 pour cent sur toutes les fenêtres.
+- **BTCUSD — Test de placement fictif BTCUSD 7 jours** : Simuler un placement fictif de 20 USD en long spot sans levier sur BTCUSD pendant 7 jours en conditions de marché market_uptrend. Critère d'abandon : Le test sera rejeté si le rendement net est négatif à l'issue des 7 jours de simulation.
+- **ETHUSD — Test de placement fictif ETHUSD 3 jours** : Simuler un placement fictif de 20 USD en long spot sans levier sur ETHUSD pendant 3 jours en conditions de marché market_selloff. Critère d'abandon : Le test sera rejeté si le drawdown dépasse 3 % pendant la période de simulation.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.

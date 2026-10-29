@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T11:45:01.186521+00:00",
+  "generated_at": "2026-10-29T13:10:20.091834+00:00",
   "research_date_utc": "2026-10-29",
-  "review_slot": "2026-10-29T06:00Z",
-  "model_last_called_at": "2026-10-29T08:54:51.127374+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-29T12:00Z",
+  "model_last_called_at": "2026-10-29T13:10:20.091834+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-29T08:54:51.127374+00:00",
+  "last_attempt_at": "2026-10-29T13:10:20.091834+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des données quantitatives Seiko montrant des performances nettes négatives sur les robots crypto et multi-actifs, avec des historiques inférieurs au seuil requis de 14 ou 30 jours et aucun robot prêt pour la revue humaine ou la production.",
+  "summary": "Observation des laboratoires Seiko au 29 octobre 2026. Les robots hold et les stratégies actives (momentum, reversion, breakout, rsi, ema_cross, bollinger, volatility, scalping) affichent des performances historiques négatives et échouent à de nombreux critères de validation rigoureux. Aucune stratégie n'est robuste et aucune promesse de rendement n'est formulée. Les transferts de stablecoins échantillonnés ne prouvent ni achat ni vente.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés",
-      "hypothesis": "Doubler les frais de transaction supprime le peu de rentabilité résiduelle des stratégies de momentum sur BTCUSD.",
-      "experiment": "Rejouer les signaux de btc_momentum avec des frais augmentés de 100 pour cent sur des données journalières historiques non utilisées.",
-      "rejection_rule": "Rejeter l'hypothèse si la perte nette moyenne reste inférieure à 2 pour cent sur la période.",
+      "title": "Test de placement fictif BTCUSD 7 jours",
+      "hypothesis": "Un rebond court terme suite à une tendance de marché haussière observée le 28 octobre 2026.",
+      "experiment": "Simuler un placement fictif de 20 USD en long spot sans levier sur BTCUSD pendant 7 jours en conditions de marché market_uptrend.",
+      "rejection_rule": "Le test sera rejeté si le rendement net est négatif à l'issue des 7 jours de simulation.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -117,10 +117,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Robustesse des seuils de repli",
-      "hypothesis": "Les performances de eth_reversion dépendent excessivement du choix de la fenêtre d'observation initiale.",
-      "experiment": "Évaluer eth_reversion sur trois fenêtres OOS disjointes de 30 jours en enregistrant le drawdown maximal.",
-      "rejection_rule": "Rejeter l'hypothèse si le drawdown reste strictement inférieur à 3 pour cent sur toutes les fenêtres.",
+      "title": "Test de placement fictif ETHUSD 3 jours",
+      "hypothesis": "La résistance de l'actif face aux mouvements baissiers récents de 30 jours.",
+      "experiment": "Simuler un placement fictif de 20 USD en long spot sans levier sur ETHUSD pendant 3 jours en conditions de marché market_selloff.",
+      "rejection_rule": "Le test sera rejeté si le drawdown dépasse 3 % pendant la période de simulation.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -129,26 +129,7 @@
       ]
     }
   ],
-  "bot_adjustments": [
-    {
-      "strategy": "btc_reversion",
-      "entry_scale": 1.2,
-      "reason": "Réduction de l'exposition au vu d'un historique trop court et d'une performance OOS négative.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "eth_ema_cross",
-      "entry_scale": 1.2,
-      "reason": "Prudence face aux alertes de vulnérabilité technique et de drawdowns non validés.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "sol_momentum",
-      "entry_scale": 1.2,
-      "reason": "Limitation des risques suite à la volatilité annualisée élevée et aux pertes OOS sur Solana.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    }
-  ],
+  "bot_adjustments": [],
   "scenario_proposals": [],
   "desk_notes": [],
   "experiments_validated": false,
