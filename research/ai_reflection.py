@@ -18,6 +18,8 @@ from research.ai_decision_support import (
 from research.strategy_foundry import model_memory, MEMORY as STRATEGY_MEMORY
 from research.market_knowledge import model_memory as market_memory, OUTPUT as MARKET_MEMORY
 from research.autonomous_optimizer import REPORT as OPTIMIZER_REPORT
+from research.strategy_evolution import REPORT as EVOLUTION_REPORT
+from research.strategy_competition import REPORT as COMPETITION_REPORT
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "autonomous_research.json"
@@ -79,6 +81,11 @@ INSTRUCTIONS = (
     "Un transfert de stablecoins ne prouve jamais l'achat d'une baleine. "
     "Tu es aussi inventeur de stratégies, pas seulement commentateur des 36 robots. "
     "Lis la mémoire scientifique des hypothèses déjà testées dans le contexte. "
+    "Observe également les mutations documentées et la compétition prospective : "
+    "réponds aux raisons des échecs sans les interpréter comme preuve causale. "
+    "Quand une hypothèse nouvelle est défendable propose son génome structuré, "
+    "sinon renvoie un tableau vide et explique les limites. "
+
     "Une recherche quantitative indépendante explore des règles sur les périodes "
     "antérieures : ses scores de développement et ses périodes historiques de "
     "contrôle sont des indices de recherche, PAS des profits garantis. "
@@ -416,6 +423,34 @@ def main():
         research["independent_optimizer_memory"] = {
             "recent_frozen_search_candidates": top[-6:],
             "never_implies_future_profit": True,
+        }
+    evolution = read_json(EVOLUTION_REPORT)
+    if (evolution.get("schema") == 1
+            and evolution.get("source") == "bounded_evolution"
+            and evolution.get("real_orders") is False):
+        research["mutation_memory"] = {
+            "total_mutations": evolution.get("total_mutations", 0),
+            "last_mutations": [
+                {"asset": c.get("asset"), "parent_failure_reasons":
+                 c.get("parent_failure_reasons", [])[:4],
+                 "changed_dimension": c.get("changed_dimension"),
+                 "development_net_pct": c.get("selection_metrics", {}).get("avg_net_pct"),
+                 "control_net_pct": c.get("historical_challenge", {}).get("net_average_pct")}
+                for c in evolution.get("candidates", [])[-6:] if isinstance(c, dict)
+            ],
+            "historical_only": True,
+        }
+    comp = read_json(COMPETITION_REPORT)
+    if (comp.get("schema") == 1 and comp.get("real_orders") is False
+            and comp.get("robots_modified") is False):
+        research["paper_league_memory"] = {
+            "paper_champions": comp.get("paper_champions", 0),
+            "ranked": [{"asset": row.get("asset"), "logic": row.get("logic"),
+                        "stage": row.get("stage"),
+                        "net_pct": row.get("net_pct"),
+                        "excess_vs_hold_points": row.get("excess_vs_hold_points")}
+                       for row in comp.get("ranked", [])[:5] if isinstance(row, dict)],
+            "prospective_only": True,
         }
     historical = summarize_challengers(read_json(WALK), now)
     configured = os.environ.get("SEIKO_AI_ENABLED") == "1"
