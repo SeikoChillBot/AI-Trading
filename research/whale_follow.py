@@ -152,8 +152,12 @@ def observe(now,source,state,get=requests.get):
             # First observation only establishes baseline; no fake activity.
             new=[] if old is None else [e for k,e in unique.items()
                                            if k not in previous and Decimal(e["quantity"])>=MIN_UNITS]
+            # The same transfer can appear when following both sender and receiver.
+            # Count it for each address, but publish only one global event.
+            already_reported={e["id"] for e in report["new_transfers"]}
+            distinct_new=[e for e in new if e["id"] not in already_reported]
             space=max(0,MAX_REPORTED_NEW-len(report["new_transfers"]))
-            report["new_transfers"].extend(new[:space])
+            report["new_transfers"].extend(distinct_new[:space])
             report["tracked_addresses"].append({
                 "address":address,"verified_identity":False,"sample_count":len(unique),
                 "new_count":len(new),"baseline_at":baseline,
