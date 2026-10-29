@@ -210,6 +210,10 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
     for position, asset in enumerate(foundry.ASSETS):
         bars = candles.get(asset) if isinstance(candles, dict) else None
         try:
+            if (not science_ok or not isinstance(science_state, dict)
+                    or science_state.get("real_orders") is not False
+                    or science_state.get("robots_modified") is not False):
+                raise ValueError("unverified_scientific_evidence")
             foundry.validate_bars(bars, now)
             last_t = bars[-1]["t"]
             old_id = previous_active.get(asset)
