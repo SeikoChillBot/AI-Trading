@@ -20,6 +20,12 @@ function freshness(){
   ' Cette page est une publication statique, pas un flux boursier en direct.');
 }
 freshness();document.addEventListener('visibilitychange',()=>{if(!document.hidden)freshness()});setInterval(freshness,60000);
+const refresh=$('lab-refresh');
+if(refresh)refresh.addEventListener('click',()=>{
+ const url=new URL(window.location.href);
+ url.searchParams.set('r',String(Date.now()));
+ window.location.assign(url.href);
+});
 const ai=D.research?.ai_status||{};
 const state=ai.state;
 const reason=ai.last_http_status?'HTTP '+ai.last_http_status:
