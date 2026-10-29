@@ -111,7 +111,7 @@ function updateHoldings(){
  const L=window.SeikoV4;if(!L)return;
  const norm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
   .replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
- const key=norm(name.textContent);
+ const key=name.dataset.strategy||norm(name.textContent);
  const category=String($('sheet-category')?.textContent||'').toLowerCase();
  const rows=category.includes('multi')?L.mr:L.cr;
  let r=rows.find(x=>x.strategy===key);
