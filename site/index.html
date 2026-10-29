@@ -19,8 +19,8 @@
 <p>36 robots testent des idées avec de l’argent fictif : 20 $ chacun, soit 720 $ au total. Les gains et pertes affichés sont simulés, pas de l’argent à retirer.</p>
 <details><summary>Comprendre capital, position et rendement</summary><p><b>Capital</b> : valeur actuelle de la mise de départ. <b>Position</b> : ce que le robot détient. <b>Rendement</b> : évolution en pourcentage depuis le début.</p></details></section>
 <div class="lab-overview">
- <div class="lab-overview-top"><div><span class="eyebrow">PANORAMA / SIMULATIONS</span><h2>Deux équipes de robots.<br><span>Des essais sans argent réel.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
- <p>Les deux expériences utilisent 20 $ fictifs par robot, mais leurs dates de départ, marchés et coûts sont différents : leurs historiques restent séparés.</p>
+ <div class="lab-overview-top"><div><span class="eyebrow">SIMULATIONS · SANS ARGENT RÉEL</span><h2>Deux équipes de robots.<br><span>Des essais sans argent réel.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
+ <p>Deux groupes indépendants de 18 robots. Clique sur un groupe pour voir sa valeur actuelle, sa hausse ou sa baisse. Les deux historiques ne sont pas mélangés.</p>
  <div class="lab-tiles" role="group" aria-label="Sélectionner un portefeuille">
   <button class="lab-tile is-selected" type="button" data-lab="crypto" aria-pressed="true">
    <span class="lab-tile-top"><span class="lab-tile-glyph">₿</span><span class="lab-tile-status">CRYPTO · SIMULATION</span></span>
@@ -36,8 +36,8 @@
   </button>
  </div>
 </div>
-<article class="hero-card"><div class="hero-context"><span id="hero-portfolio-kind" class="eyebrow">PORTEFEUILLE CRYPTO</span><span class="hero-context-badge">100 % fictif</span></div><div class="hero-glow" aria-hidden="true"></div><div class="hero-head"><span class="overline" id="hero-capital-label">VALEUR ESTIMÉE · CRYPTO</span><span class="hero-small-tag">USD · FICTIF</span></div><div class="hero-money" id="portfolio-value">—</div><div class="hero-performance"><span id="portfolio-profit" class="profit-amount">—</span><span id="portfolio-percent" class="profit-percent">—</span><span class="hero-meta" id="hero-since">depuis son lancement</span></div><div class="chart-toolbar"><span class="section-overline">ÉVOLUTION DU PORTEFEUILLE</span><div class="range-control" id="range-control" role="group" aria-label="Période du graphique"><button data-range="1d" class="is-active">24 H</button><button data-range="7d">7 J</button><button data-range="all">TOUT</button></div></div><div class="portfolio-chart" id="portfolio-chart" role="img" aria-label="Courbe du capital fictif"><div class="chart-empty">Lecture des relevés…</div></div><div class="chart-foot"><span id="chart-period">Historique des simulations</span><span id="chart-last">—</span></div><p class="chart-clarification" id="chart-clarification">Valorisation après frais de sortie estimés. Historique propre à cette expérience.</p></article>
-<div class="quick-stats"><article class="quick-stat"><div class="stat-icon bots-icon">◈</div><div><span class="stat-label">ROBOTS SUIVIS</span><strong id="stat-bots">—</strong></div></article><article class="quick-stat"><div class="stat-icon deals-icon">↗</div><div><span class="stat-label">ORDRES SIMULÉS</span><strong id="stat-trades">—</strong></div></article></div>
+<article class="hero-card"><div class="hero-context"><span id="hero-portfolio-kind" class="eyebrow">PORTEFEUILLE CRYPTO</span><span class="hero-context-badge">100 % fictif</span></div><div class="hero-glow" aria-hidden="true"></div><div class="hero-head"><span class="overline" id="hero-capital-label">VALEUR DES PLACEMENTS FICTIFS</span><span class="hero-small-tag">USD · FICTIF</span></div><div class="hero-money" id="portfolio-value">—</div><div class="hero-performance"><span id="portfolio-profit" class="profit-amount">—</span><span id="portfolio-percent" class="profit-percent">—</span><span class="hero-meta" id="hero-since">depuis son lancement</span></div><div class="chart-toolbar"><span class="section-overline">ÉVOLUTION DES PLACEMENTS</span><div class="range-control" id="range-control" role="group" aria-label="Période du graphique"><button data-range="1d" class="is-active">24 H</button><button data-range="7d">7 J</button><button data-range="all">TOUT</button></div></div><div class="portfolio-chart" id="portfolio-chart" role="img" aria-label="Courbe du capital fictif"><div class="chart-empty">Lecture des relevés…</div></div><div class="chart-foot"><span id="chart-period">Historique des simulations</span><span id="chart-last">—</span></div><p class="chart-clarification" id="chart-clarification">Valorisation après frais de sortie estimés. Historique propre à cette expérience.</p></article>
+<div class="quick-stats"><article class="quick-stat"><div class="stat-icon bots-icon">◈</div><div><span class="stat-label">ROBOTS SUIVIS</span><strong id="stat-bots">—</strong></div></article><article class="quick-stat"><div class="stat-icon deals-icon">↗</div><div><span class="stat-label">ACHATS ET VENTES FICTIFS</span><strong id="stat-trades">—</strong></div></article></div>
 <section class="journey-card" aria-label="Suivi de l’expérience" id="experiment-timeline">
   <div class="journey-top"><div><span class="eyebrow">JOURNAL DE BORD</span><h2>Notre expérience, jour après jour.</h2></div><span class="journey-day" id="lab-day">J+0</span></div>
   <div class="journey-data"><div><small>PREMIÈRE SIMULATION</small><strong id="lab-start">—</strong></div><div><small>DURÉE ÉCOULÉE</small><strong id="lab-duration">—</strong></div></div>
@@ -53,24 +53,25 @@
  <button type="button" data-robot-lab="crypto" aria-pressed="false"><span>Crypto</span><small>18</small></button>
  <button type="button" data-robot-lab="multi" aria-pressed="false"><span>Multi-actifs</span><small>18</small></button>
 </div>
-<div class="robot-page-intro"><span class="eyebrow">36 STRATÉGIES / 2 EXPÉRIENCES</span><p>Classement en <strong>rendement %</strong> : chaque stratégie utilise désormais une mise fictive de 20 $, avec des historiques séparés.</p></div>
+<div class="robot-page-intro"><span class="eyebrow">36 STRATÉGIES / 2 EXPÉRIENCES</span><p>Chaque robot démarre avec 20 $ fictifs. La variation indique simplement s’il a gagné ou perdu. Appuie sur un robot pour voir ce qu’il possède.</p></div>
 <div class="robots-tools"><div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.7" cy="10.7" r="6.5"/><path d="m16 16 5 5"/></svg><input id="robot-search" type="search" placeholder="Rechercher une stratégie…" aria-label="Rechercher un robot"></div><label class="sort-label">TRIER <select id="robot-sort"><option value="return">Performance</option><option value="activity">Activité</option><option value="name">Nom</option></select></label></div>
 <div class="filter-list" id="robot-filters" role="group" aria-label="Filtrer les robots"><button data-filter="all" class="is-active">Tous</button><button data-filter="positive">En hausse</button><button data-filter="negative">En baisse</button><button data-filter="inactive">Sans opération</button></div><div class="asset-filter-bar" id="crypto-asset-filters" role="group" aria-label="Filtrer par cryptomonnaie"><span>ACTIF</span><button data-coin="all" class="is-active">Tous</button><button data-coin="BTC">₿ BTC</button><button data-coin="ETH">Ξ ETH</button><button data-coin="SOL">◎ SOL</button></div>
-<div class="list-caption"><span id="robots-count">— stratégies</span><span>CAPITAL / RENDEMENT</span></div><div id="robot-list" class="robot-list"></div></section>
+<div class="list-caption"><span id="robots-count">— stratégies</span><span>VALEUR / VARIATION</span></div><div id="robot-list" class="robot-list"></div></section>
 <section id="view-analysis" class="view" aria-label="Analyse" hidden>
 <section class="research-panel" aria-labelledby="research-title">
  <div class="research-panel-head"><div>
-  <span class="eyebrow">LABORATOIRE D'EXPÉRIMENTATION</span>
-  <h2 id="research-title">Recherche automatisée<span class="title-period">.</span></h2>
+  <span class="eyebrow">OBSERVATION AUTOMATIQUE</span>
+  <h2 id="research-title">Ce que le labo apprend<span class="title-period">.</span></h2>
   <p>La progression des robots, les analyses de Gemini et les mouvements importants du marché en mots simples.</p>
  </div><span id="research-ai-state" class="research-panel-state">En attente</span></div>
  <div class="research-panel-metrics">
   <div><small>ROBOTS ANALYSÉS</small><strong id="research-bots">—</strong></div>
-  <div><small>REVUE STATISTIQUE POSSIBLE</small><strong id="research-eligible">—</strong></div>
-  <div><small>HYPOTHÈSES À TESTER</small><strong id="research-ideas">—</strong></div>
+  <div><small>PISTES À VÉRIFIER</small><strong id="research-eligible">—</strong></div>
+  <div><small>NOUVELLES IDÉES</small><strong id="research-ideas">—</strong></div>
  </div>
  <p id="research-status" class="research-panel-status">Première analyse automatique en attente.</p>
 
+ <details class="lab-advanced"><summary>Fonctionnement technique et état du système</summary>
  <div class="research-panel-details" id="lab-operations-panel">
   <div class="section-header compact"><div><span class="eyebrow">TRANSPARENCE · FEUILLE DE ROUTE VIVANTE</span><h3>État réel du laboratoire</h3></div></div>
   <p class="micro-note" id="operations-status">Diagnostic des données et workflows en cours.</p>
@@ -86,20 +87,22 @@
   <div class="research-idea-list" id="hourly-study-list"></div>
   <p class="micro-note">Kraken 60 minutes ; backtests séparés chronologiquement, frais simulés et comparaisons au Hold. Les valorisations futures sont des approximations de simulation, non des transactions exécutables.</p>
  </div>
+ </details>
  <div class="research-panel-details" id="robot-evolution-panel">
-  <div class="section-header compact"><div><span class="eyebrow">JOURNAL DES DÉCISIONS · 36 ROBOTS</span><h3>Évolution autonome des robots</h3></div></div>
+  <div class="section-header compact"><div><span class="eyebrow">JOURNAL DES DÉCISIONS · 36 ROBOTS</span><h3>Les améliorations en cours</h3></div></div>
   <p class="micro-note" id="evolution-summary">État des propositions, tests et réglages individuels en cours de chargement.</p>
   <div class="research-panel-metrics">
    <div><small>ROBOTS SUIVIS</small><strong id="evolution-total">—</strong></div>
    <div><small>VARIANTES EN TEST</small><strong id="evolution-testing">—</strong></div>
    <div><small>MODIFICATIONS VALIDÉES</small><strong id="evolution-activated">—</strong></div>
   </div>
-  <label class="micro-note" for="evolution-filter">Afficher les robots</label>
+  <details class="lab-advanced"><summary>Voir le détail des tests de chaque robot</summary>
+<label class="micro-note" for="evolution-filter">Afficher les robots</label>
   <select id="evolution-filter" aria-label="Filtrer les robots par état">
    <option value="all">Les 36 robots</option>
    <option value="crypto">Crypto</option>
    <option value="multi">Multi-actifs</option>
-   <option value="testing_proposal">Propositions Gemini en test</option>
+   <option value="testing_proposal">En test</option>
    <option value="tuning_activated">Réglages activés automatiquement</option>
   </select>
   <div class="research-idea-list" id="evolution-bot-list" aria-live="polite"></div>
@@ -109,7 +112,9 @@
   </details>
   <p class="micro-note">Les 12 robots Hold sont des témoins immuables. Une IA peut suggérer un réglage, mais seule une comparaison prospective indépendante après frais peut autoriser sa modification en simulation. Aucun ordre réel, ni code IA exécuté.</p>
  </div>
- <div class="research-panel-details" id="market-intelligence-panel">
+ </details>
+<details class="lab-advanced"><summary>Indicateurs de marché et études approfondies</summary>
+<div class="research-panel-details" id="market-intelligence-panel">
   <div class="section-header compact"><div><span class="eyebrow">DONNÉES EXTERNES VÉRIFIÉES</span><h3>Intelligence de marché</h3></div></div>
   <div class="research-panel-metrics">
    <div><small>SENTIMENT DU MARCHÉ</small><strong id="intel-sentiment">—</strong></div>
@@ -126,19 +131,21 @@
   <p class="micro-note" id="pulse-whales">Échantillon de transferts publics en attente.</p>
   <p class="micro-note">Les transferts de stablecoins ne prouvent aucun achat ou vente. Échantillon limité, pas de couverture exhaustive.</p>
  </div>
- <div class="research-panel-details" id="whale-radar-panel">
-  <div class="section-header compact"><div><span class="eyebrow">ETHEREUM · TRANSFERTS PUBLICS</span><h3>Radar des gros mouvements</h3></div></div>
+ </details>
+<div class="research-panel-details" id="whale-radar-panel">
+  <div class="section-header compact"><div><span class="eyebrow">ETHEREUM · TRANSFERTS PUBLICS</span><h3>Mouvements importants détectés</h3></div></div>
   <p id="whale-radar-status" class="micro-note">Chargement de l'échantillon USDC/USDT.</p>
-  <div class="whale-radar-stats"><div><small>TRANSFERTS ≥ 1 M</small><strong id="whale-radar-count">—</strong></div><div><small>ADRESSES DANS L'ÉCHANTILLON</small><strong id="whale-radar-wallets">—</strong></div><div><small>NOUVELLES OBSERVATIONS</small><strong id="whale-radar-new">—</strong></div></div>
+  <div class="whale-radar-stats"><div><small>GROS TRANSFERTS</small><strong id="whale-radar-count">—</strong></div><div><small>ADRESSES REPÉRÉES</small><strong id="whale-radar-wallets">—</strong></div><div><small>NOUVEAUX MOUVEMENTS</small><strong id="whale-radar-new">—</strong></div></div>
   <h4>Mouvements les plus importants</h4>
   <div id="whale-radar-highlights" class="research-idea-list"></div>
   <details class="radar-details"><summary>Adresses actives dans l'échantillon</summary><div id="whale-radar-addresses" class="research-idea-list"></div></details>
-  <h4>Suivi indépendant d'adresses détectées</h4>
+  <details class="lab-advanced"><summary>Voir les adresses suivies et leur historique</summary><h4>Suivi d’adresses publiques</h4>
   <p id="whale-radar-follow-status" class="micro-note">Collecte complémentaire en attente.</p>
-  <div id="whale-radar-follow-list" class="research-idea-list"></div>
+  <div id="whale-radar-follow-list" class="research-idea-list"></div></details>
   <p class="micro-note">Montants nominaux approximatifs. Flux entrants/sortants calculés uniquement dans l'échantillon, pas solde complet. Aucune identité de baleine, aucune transaction d'achat/vente ni opportunité de trading vérifiée. <a href="https://eth.blockscout.com/" target="_blank" rel="noopener noreferrer">Source : Blockscout</a>.</p>
  </div>
- <div class="research-panel-details" id="forward-incubator-panel">
+ <details class="lab-advanced"><summary>Expériences et statistiques avancées</summary>
+<div class="research-panel-details" id="forward-incubator-panel">
   <div class="section-header compact"><div><span class="eyebrow">INCUBATEUR PROSPECTIF</span><h3>Nouveaux challengers autonomes</h3></div></div>
   <p class="micro-note" id="forward-incubator-status">Expériences prospectives en préparation.</p>
   <div class="research-idea-list" id="forward-incubator-list"></div>
@@ -159,7 +166,8 @@
   <summary>Consulter les hypothèses et leurs critères de validation</summary>
   <div id="research-idea-list" class="research-idea-list"></div>
  </details>
- <p class="research-panel-footer" id="research-updated">Historique des robots préservé. Aucun ordre réel.</p>
+ </details>
+<p class="research-panel-footer" id="research-updated">Historique des robots préservé. Aucun ordre réel.</p>
 </section>
 <section class="cross-analysis" aria-labelledby="cross-analysis-title">
  <div class="cross-analysis-heading"><div><span class="eyebrow">DEUX EXPÉRIENCES DISTINCTES</span><h2 id="cross-analysis-title">Comparer sans confondre.</h2><p>Les mises de départ sont identiques, mais les dates, les marchés et la qualité des cotations diffèrent. Aucun résultat n'est encore validé.</p></div><span class="cross-analysis-pill" id="cross-analysis-stage">Échantillon insuffisant</span></div>
@@ -249,7 +257,7 @@
   <div class="research-panel-metrics">
    <div><small>ROBOTS SUIVIS</small><strong id="desk-bots">—</strong></div>
    <div><small>VARIANTES EN TEST</small><strong id="desk-tests">—</strong></div>
-   <div><small>PLACEMENTS EXPÉRIMENTAUX</small><strong id="desk-experiments">—</strong></div>
+   <div><small>EXPÉRIENCES FICTIVES</small><strong id="desk-experiments">—</strong></div>
   </div>
   <p id="desk-last-report" class="micro-note">Données en cours de publication.</p>
   <p id="lab-gemini-diagnostic" class="micro-note" role="status">Statut réel de Gemini en cours de lecture.</p>
@@ -264,7 +272,8 @@
    <p id="desk-daily-status" class="micro-note">Premier bilan en préparation.</p>
    <div id="desk-daily-content" class="research-idea-list" aria-live="polite"></div>
   </section>
-  <div class="research-panel-details"><div class="section-header compact"><div>
+  <details class="lab-advanced"><summary>Voir les tests techniques du laboratoire</summary>
+<div class="research-panel-details"><div class="section-header compact"><div>
    <span class="eyebrow">RADAR DE RECHERCHE</span><h3>Marchés à étudier</h3>
   </div></div><p class="micro-note">Replis, tendances et volatilité d'après les dernières clôtures Kraken. Ce ne sont pas des signaux d'achat.</p>
   <div id="desk-market-watch" class="research-idea-list"></div></div>
@@ -275,13 +284,15 @@
   <div class="research-panel-details"><div class="section-header compact"><div>
    <span class="eyebrow">NOTES DE VERSION FACTUELLES</span><h3>Décisions et patchnotes</h3>
   </div></div><div id="desk-patchnotes" class="research-idea-list"></div></div>
-  <div class="research-panel-details"><div class="section-header compact"><div>
+  </details>
+<div class="research-panel-details"><div class="section-header compact"><div>
    <span class="eyebrow">VEILLE ÉCONOMIQUE & CRYPTO</span><h3>Actualités et pistes à examiner</h3>
   </div></div><p class="micro-note">Titres des éditeurs d’origine. Une actualité ou un gros transfert n’est pas une recommandation d’achat.</p>
   <div id="desk-news" class="research-idea-list"></div></div>
-  <div class="research-panel-details"><div class="section-header compact"><div>
+  <details class="lab-advanced"><summary>Lire les notes techniques de Gemini</summary>
+<div class="research-panel-details"><div class="section-header compact"><div>
    <span class="eyebrow">INTERPRÉTATIONS DE GEMINI</span><h3>Notes de recherche</h3>
-  </div></div><div id="desk-notes" class="research-idea-list"></div></div>
+  </div></div><div id="desk-notes" class="research-idea-list"></div></div></details>
  </section>
 </section>
 <nav class="bottom-nav" aria-label="Navigation principale"><div class="bottom-nav-inner">
@@ -291,17 +302,17 @@
 <button class="nav-button" data-view="desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg><span>Journal IA</span></button>
 <button class="nav-button" data-view="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m9 15 2-6 6-2-2 6-6 2Z"/></svg><span>Marchés</span></button>
 </div></nav>
-<div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE STRATÉGIE</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Rendement</span><strong id="sheet-return">—</strong></div></div><div class="lab-robot-holdings" aria-label="Composition du portefeuille fictif">
+<div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE STRATÉGIE</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Variation depuis le départ</span><strong id="sheet-return">—</strong></div></div><div class="lab-robot-holdings" aria-label="Composition du portefeuille fictif">
   <div><small>MISE DE DÉPART</small><strong id="sheet-initial">20 $</strong></div>
   <div><small>LIQUIDITÉS RESTANTES</small><strong id="sheet-cash">—</strong></div>
   <div><small>QUANTITÉ DÉTENUE</small><strong id="sheet-units">—</strong></div>
   <div><small>POSITION</small><strong id="sheet-position">—</strong></div>
  </div>
- <div class="sheet-chart-wrap"><div class="section-overline">HISTORIQUE DU CAPITAL · VALEUR FICTIVE</div>
+ <div class="sheet-chart-wrap"><div class="section-overline">ÉVOLUTION DE L’ARGENT FICTIF</div>
  <div class="sheet-range" role="group" aria-label="Choisir la durée du graphique du robot"><button type="button" data-sheet-range="1d">24 H</button><button type="button" data-sheet-range="7d">7 J</button><button type="button" data-sheet-range="all" class="is-active">TOUT</button></div>
  <div id="sheet-chart" class="sheet-chart"></div><p class="micro-note" id="sheet-chart-context">Dates et observations en préparation.</p>
- <p class="micro-note" id="sheet-chart-stats">Comparaison en cours.</p></div><div class="sheet-metrics"><div><span>ACTIF</span><strong id="sheet-asset">—</strong></div><div><span>INTERVALLE</span><strong id="sheet-timeframe">—</strong></div><div><span>OPÉRATIONS</span><strong id="sheet-trades">—</strong></div><div><span>FRAIS SIMULÉS</span><strong id="sheet-fees">—</strong></div></div><div class="sheet-extra"><div><span>BAISSE MAX. OBSERVÉE</span><strong id="sheet-drawdown">—</strong></div><div><span>ÉCART AVEC LE HOLD</span><strong id="sheet-benchmark">—</strong></div><p id="sheet-benchmark-note">Comparaison indicative entre stratégies différentes.</p></div>
+ <p class="micro-note" id="sheet-chart-stats">Comparaison en cours.</p></div><details class="lab-advanced sheet-technical"><summary>Frais, opérations et autres détails techniques</summary><div class="sheet-metrics"><div><span>ACTIF</span><strong id="sheet-asset">—</strong></div><div><span>INTERVALLE</span><strong id="sheet-timeframe">—</strong></div><div><span>OPÉRATIONS</span><strong id="sheet-trades">—</strong></div><div><span>FRAIS SIMULÉS</span><strong id="sheet-fees">—</strong></div></div><div class="sheet-extra"><div><span>BAISSE MAX. OBSERVÉE</span><strong id="sheet-drawdown">—</strong></div><div><span>ÉCART AVEC LA CONSERVATION SIMPLE</span><strong id="sheet-benchmark">—</strong></div><p id="sheet-benchmark-note">Comparaison indicative entre stratégies différentes.</p></div>
 
-<div class="strategy-description"><span class="eyebrow">LOGIQUE DU ROBOT</span><p id="sheet-description">—</p></div></section></div>
+</details><div class="strategy-description"><span class="eyebrow">Ce que fait ce robot</span><p id="sheet-description">—</p></div></section></div>
 <script>const DATA=/*__DATA__*/{"updated":"En attente du premier relevé","rows":[],"history":[]};</script><script>/*__JS__*/</script>
 <script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script><script src="./lab04-desk.js?v=4.8" defer></script><script src="./lab04-ops.js?v=1" defer></script><script src="./lab04-clarity.js?v=5" defer></script><script src="./lab04-simple.js?v=6" defer></script></body></html>
