@@ -68,6 +68,36 @@ class ForwardTests(unittest.TestCase):
         self.assertEqual(result["trials"][0]["observed_days"], 0)
         self.assertIn("paused", result["trials"][0]["status"])
 
+    def test_capacity_rotation_archives_old_trials_and_preserves_paper_champion(self):
+        values = candles()
+        specs = []
+        for logic in foundry.LOGICS:
+            for w in (10, 20, 40):
+                for threshold in (0.5, 1, 2):
+                    candidate = foundry.normalise({
+                        "asset": "BTCUSD", "logic": logic,
+                        "lookback_days": w, "threshold_pct": threshold,
+                        "max_hold_days": 3,
+                        "rationale": "Tester la rotation de capacité sans perdre les anciens essais.",
+                    })
+                    specs.append({"id": foundry.identifier(candidate),
+                                  "spec": candidate, "source": "bounded_evolution"})
+        first, state = shadow.build(NOW, {"ideas": specs[:24]},
+                                    {"BTCUSD": values}, {})
+        self.assertEqual(first["tracked"], 24)
+        champion = specs[0]["id"]
+        league = {"schema": 1, "real_orders": False, "robots_modified": False,
+                  "ranked": [{"id": champion, "stage": "paper_champion"}]}
+        next_result, state = shadow.build(NOW + timedelta(minutes=15),
+            {"ideas": specs[:26]}, {"BTCUSD": values}, state, league)
+        self.assertEqual(next_result["tracked"], 24)
+        self.assertEqual(next_result["archived_trials"], 2)
+        self.assertIn(champion, state["tracks"])
+        self.assertIn(specs[-1]["id"], state["tracks"])
+        self.assertTrue(all(r["status"] == "archived_capacity_rotation"
+                            for r in state["archived"]))
+        self.assertFalse(next_result["real_orders"])
+
     def test_never_accepts_or_executes_external_model_code(self):
         compromised = proposal()
         compromised["spec"]["logic"] = "exec"
