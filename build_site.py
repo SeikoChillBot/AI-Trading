@@ -151,6 +151,55 @@ if ai_proposals_path.exists():
             }
     except (ValueError, TypeError, KeyError):
         pass
+# Read-only radar of SAMPLE transfers, never balances or verified trades.
+data["whale_radar"] = {"ready": False, "state": "unknown"}
+radar_file = Path("reports/large_transfer_observations.json")
+if radar_file.exists():
+    try:
+        radar = json.loads(radar_file.read_text(encoding="utf-8"))
+        if radar.get("schema") == 1 and radar.get("real_trades") is False:
+            valid = []
+            for row in radar.get("sampled_wallet_flows", [])[:10]:
+                if not isinstance(row, dict):
+                    continue
+                address = row.get("address")
+                if not isinstance(address, str) or len(address) != 42 or not address.startswith("0x"):
+                    continue
+                if not all(ch in "0123456789abcdef" for ch in address[2:]):
+                    continue
+                valid.append({key: row.get(key) for key in (
+                    "address", "incoming_nominal_usd", "outgoing_nominal_usd",
+                    "sample_net_nominal_usd", "sample_observations", "tokens",
+                    "identity_verified", "trade_inference")})
+            highlights = []
+            for row in radar.get("sample_highlights", [])[:6]:
+                if not isinstance(row, dict):
+                    continue
+                tx = row.get("tx_hash", "")
+                if not isinstance(tx, str) or len(tx) != 66 or not tx.startswith("0x") or not all(ch in "0123456789abcdef" for ch in tx[2:]):
+                    continue
+                highlights.append({key:row.get(key) for key in (
+                    "token", "quantity", "nominal_usd_approx", "timestamp", "tx_hash",
+                    "classification", "owner_identity", "trade_inference")})
+            data["whale_radar"] = {
+                "ready": radar.get("state") in ("observing", "partial"),
+                "generated_at":radar.get("generated_at"),
+                "state":radar.get("state"),
+                "source":radar.get("source"),
+                "sampled_records":radar.get("sampled_records", {}),
+                "validated_records":radar.get("validated_records", {}),
+                "large_transfers_observed":radar.get("large_transfers_observed", 0),
+                "new_event_count":radar.get("new_event_count", 0),
+                "sampled_wallets_count":radar.get("sampled_wallets_count", 0),
+                "sampled_wallet_flows":valid,
+                "sample_highlights":highlights,
+                "errors":radar.get("errors", {}),
+                "not_exhaustive":True, "verified_wallet_identities":False,
+                "verified_buy_sell":False,
+            }
+    except (OSError, ValueError, TypeError):
+        pass
+
 # Report-only widgets for new market studies and forward-only challengers.
 data["market_pulse"] = {"ready": False}
 pulse_path = Path("reports/market_pulse.json")
