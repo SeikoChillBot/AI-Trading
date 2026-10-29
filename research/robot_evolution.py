@@ -72,10 +72,13 @@ def sufficient_prospective(evidence, candidate, now):
             or evidence.get("ready_for_real_orders") is not False):
         return False, ["shadow_provenance_or_candidate_mismatch"]
     try:
-        age = (now-datetime.fromisoformat(candidate["created_at"])).total_seconds()/86400
+        created = datetime.fromisoformat(candidate["created_at"])
+        age = (now-created).total_seconds()/86400
         updated = datetime.fromisoformat(evidence["observed_at"])
-        if updated.tzinfo is None or not 0 <= (now-updated).total_seconds() <= 8*3600:
-            return False, ["stale_shadow_evidence"]
+        if (created.tzinfo is None or updated.tzinfo is None or age < 0
+                or not 0 <= (now-updated).total_seconds() <= 8*3600
+                or updated < created):
+            return False, ["stale_or_inconsistent_shadow_evidence"]
         lab = candidate["lab"]
         control = evidence["control"]
         variant = evidence["candidate"]
@@ -83,6 +86,7 @@ def sufficient_prospective(evidence, candidate, now):
             "minimum_elapsed_days": age >= MIN_PROSPECTIVE_DAYS[lab],
             "minimum_closed_roundtrips": int(variant["closed_trades"]) >= MIN_ROUNDTRIPS,
             "sufficient_distinct_future_candles": int(evidence["observations"]) >= (120 if lab=="crypto" else 24),
+            "bounded_missing_market_observations": 0 <= int(evidence.get("missed_observations",0)) <= 3,
             "improves_net_after_costs": (
                 float(variant["net_return_pct"])-float(control["net_return_pct"])
                 >= MIN_GAIN_VS_CONTROL_POINTS
@@ -158,6 +162,7 @@ def build(now, research, ideas, shadow, state, active):
                 "source":"automatic_prospective_validation",
                 "from_scale":candidate["from_scale"],
                 "evidence":"reports/robot_shadow_observations.json",
+                "promoted_observations":int(evidence["observations"]),
                 "reason":"Net after costs, fee stress and max drawdown gates passed",
             }
             candidate["status"] = "automatically_promoted_paper_only"
@@ -177,7 +182,19 @@ def build(now, research, ideas, shadow, state, active):
         try:
             active_days = (now-datetime.fromisoformat(active_profile["approved_at"])).total_seconds()/86400
             future_samples = int(evidence.get("observations",0))
-            if (active_days < 2 or future_samples < 48
+            baseline=active_profile.get("promoted_observations")
+            if baseline is None:
+                # Legacy promoted profiles lack a post-approval baseline.
+                # Record it now rather than applying a rollback on PRE-approval
+                # observations or historic performance.
+                active_profile["promoted_observations"]=future_samples
+                continue
+            new_samples=future_samples-int(baseline)
+            updated=datetime.fromisoformat(evidence["observed_at"])
+            approved_at=datetime.fromisoformat(active_profile["approved_at"])
+            if (active_days < 2 or new_samples < (48 if candidate["lab"]=="crypto" else 2)
+                    or updated.tzinfo is None or updated < approved_at
+                    or not 0 <= (now-updated).total_seconds() <= 8*3600
                     or evidence.get("source") != "independent_forward_shadow_v1"
                     or evidence.get("entry_scale") != candidate.get("entry_scale")
                     or evidence.get("created_at") != candidate.get("created_at")):
