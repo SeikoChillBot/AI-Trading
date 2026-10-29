@@ -206,6 +206,7 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
     goal_order += [g for g in GOALS if g not in goal_order]
     tasks = _eligible_model_tasks(proposals, now)
     model_used = 0
+    local_used = 0
     for position, asset in enumerate(foundry.ASSETS):
         bars = candles.get(asset) if isinstance(candles, dict) else None
         try:
@@ -268,6 +269,8 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                 "real_orders": False, "robots_modified": False,
             }
             archive.append(frozen)
+            if origin == "bounded_local_research_director":
+                local_used += 1
             by_id[key] = frozen
             already.add(key)
             attempted.append(key)
@@ -294,9 +297,7 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
         "active_by_asset": selections, "experiments": archive,
         "tracked": len(selections), "total_experiments": len(archive),
         "model_directed_this_cycle": model_used,
-        "local_fallback_new_experiments": sum(
-            item.get("source") == "bounded_local_research_director"
-            and item.get("started_at") == now.isoformat() for item in archive),
+        "local_fallback_new_experiments": local_used,
         "status": status, "issues": errors, "observed_days": evidence_days,
         "selection_rule": "prospective_status_priority_else_falsifiable_untested_plan",
         "no_automatic_robot_promotion": True,
