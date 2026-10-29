@@ -81,6 +81,12 @@ def build(now, reports, actions):
     if not hourly_ok:errors.append("Marché horaire insuffisant ou indisponible")
     if transfers.get("state")=="unavailable":errors.append("Transferts publics non accessibles")
     if news.get("status")=="unavailable":errors.append("Flux d'actualités indisponibles")
+    sample_counts=transfers.get("sampled_records",{})
+    if not isinstance(sample_counts,dict):sample_counts={}
+    sampled_total=sum(int(v) for v in sample_counts.values()
+                      if type(v) in (int,float) and 0<=v<=150)
+    tracked=follow.get("tracked_addresses",[])
+    if not isinstance(tracked,list):tracked=[]
     for name,item in actions.get("workflows",{}).items():
         if item.get("state")=="failure":
             errors.append("Échec récent du workflow "+name+" (#"+str(item.get("run_id"))+")")
@@ -95,9 +101,9 @@ def build(now, reports, actions):
         {"id":"hourly","title":"Marchés et backtests horaires","status":"active" if hourly_ok else "degraded",
          "detail":str(oos)+" actifs avec études Kraken 60 minutes et candidat prospectif distinct."},
         {"id":"whales","title":"Surveillance des gros mouvements","status":"partial",
-         "detail":str(sum(int(v or 0) for v in transfers.get("sampled_records",{}).values()))+
+         "detail":str(sampled_total)+
                   " transferts publics échantillonnés USDC/USDT ; "+
-                  str(len(follow.get("tracked_addresses",[])))+
+                  str(len(tracked))+
                   " adresses publiques suivies indépendamment ("+
                   str(follow.get("state","non configuré"))+
                   "). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."},
