@@ -6,6 +6,7 @@ only returns a capped sample, not an exhaustive feed. Partial failure is explici
 from __future__ import annotations
 import hashlib
 import json
+import re
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -21,6 +22,7 @@ CONTRACTS = {
 }
 MIN_UNITS = Decimal("1000000")
 MAX_RECORDS = 50
+MAX_PAGES = 3
 
 
 def read(path, fallback):
@@ -77,39 +79,54 @@ def build(now, state, get=requests.get):
         "schema": 1, "generated_at": now.isoformat(),
         "source": HOST, "chain": "ethereum",
         "state": "observing", "method": "sample_latest_public_token_transfers",
-        "coverage": "NOT_EXHAUSTIVE_first_page_only_per_contract",
+        "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
+        "max_pages_per_token":MAX_PAGES,
         "minimum_nominal_usd": int(MIN_UNITS),
         "sampled_records": {}, "validated_records": {}, "large_transfers_observed": 0,
         "large_transfers_new": [], "sample_highlights": [],
         "errors": {}, "buy_sell_inference": False, "real_trades": False,
         "warning": "Large stablecoin transfers may be exchange movements, mint/redemption, custody or bridges; not proof of a whale purchase.",
     }
-    observed = set()
-    examples = []
-    for token, contract in CONTRACTS.items():
+    observed=set()
+    examples=[]
+    highlighted=set()
+    for token,contract in CONTRACTS.items():
         try:
-            response = get(HOST + "/tokens/" + contract + "/transfers",
-                           timeout=12, headers={"User-Agent": "SeikoResearch/1.0"})
-            response.raise_for_status()
-            body = response.json()
-            items = body.get("items")
-            if not isinstance(items, list) or len(items) > MAX_RECORDS:
-                raise ValueError("Unexpected token transfer page")
-            output["sampled_records"][token] = len(items)
-            output["validated_records"][token] = 0
-            for raw in items:
-                try:
-                    item = transfer(raw, token, now)
-                except (KeyError, TypeError, ValueError, InvalidOperation):
-                    continue
-                output["validated_records"][token] += 1
-                observed.add(item["id"])
-                if Decimal(item["quantity"]) >= MIN_UNITS:
-                    examples.append(item)
-            if items and output["validated_records"][token] == 0:
+            output["sampled_records"][token]=0
+            output["validated_records"][token]=0
+            cursor=None
+            previous_cursors=set()
+            for page in range(MAX_PAGES):
+                options={"timeout":12,"headers":{"User-Agent":"SeikoResearch/1.0"}}
+                if cursor is not None:options["params"]=cursor
+                response=get(HOST+"/tokens/"+contract+"/transfers",**options)
+                response.raise_for_status()
+                body=response.json()
+                items=body.get("items")
+                if not isinstance(items,list) or len(items)>MAX_RECORDS:
+                    raise ValueError("Unexpected token transfer page")
+                output["sampled_records"][token]+=len(items)
+                for raw in items:
+                    try:item=transfer(raw,token,now)
+                    except (KeyError,TypeError,ValueError,InvalidOperation):continue
+                    output["validated_records"][token]+=1
+                    observed.add(item["id"])
+                    if Decimal(item["quantity"])>=MIN_UNITS and item["id"] not in highlighted:
+                        examples.append(item);highlighted.add(item["id"])
+                params=body.get("next_page_params")
+                if not params:break
+                if not isinstance(params,dict):raise ValueError("Malformed explorer cursor")
+                cursor={k:v for k,v in params.items()
+                        if isinstance(k,str) and re.fullmatch(r"[a-z_]{1,32}",k)
+                        and (v is None or type(v) in (str,int,float,bool))
+                        and (not isinstance(v,str) or len(v)<150)}
+                marker=json.dumps(cursor,sort_keys=True)
+                if not cursor or marker in previous_cursors:break
+                previous_cursors.add(marker)
+            if output["sampled_records"][token] and not output["validated_records"][token]:
                 raise ValueError("No transfers decoded; source response incompatible")
-        except (ValueError, TypeError, KeyError, requests.RequestException) as error:
-            output["errors"][token] = type(error).__name__ + ": " + str(error)[:130]
+        except (ValueError,TypeError,KeyError,requests.RequestException) as error:
+            output["errors"][token]=type(error).__name__+": "+str(error)[:130]
     # Do not call observations "new" on the initial polling run.
     output["large_transfers_observed"] = len(examples)
     output["sample_highlights"] = sorted(examples, key=lambda x: x["nominal_usd_approx"], reverse=True)[:4]
@@ -122,7 +139,7 @@ def build(now, state, get=requests.get):
     if output["state"] == "unavailable":
         return output, state
     new_state = {
-        "schema": 1, "initialized": True, "seen_ids": list((observed | seen))[-400:],
+        "schema": 1, "initialized": True, "seen_ids": sorted(observed | seen)[-400:],
         "updated_at": now.isoformat(),
     }
     return output, new_state

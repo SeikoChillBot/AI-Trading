@@ -35,6 +35,25 @@ class PublicTransferTests(unittest.TestCase):
         self.assertEqual(len(changed["large_transfers_new"]),1)
         self.assertEqual(changed["large_transfers_new"][0]["trade_inference"],"unknown")
 
+    def test_bounded_pagination_uses_only_explorer(self):
+        calls=[]
+        def paged(url,params=None,**kwargs):
+            calls.append((url,params))
+            token="USDC" if chain.CONTRACTS["USDC"] in url else "USDT"
+            first=tx(token)
+            if params is not None:
+                return Response({"items":[tx(token,"3100000000000")],
+                                 "next_page_params":None})
+            return Response({"items":[first],
+                             "next_page_params":{"block_number":12345}})
+        result,state=chain.build(NOW,{},paged)
+        self.assertEqual(result["sampled_records"]["USDC"],2)
+        self.assertEqual(result["validated_records"]["USDC"],2)
+        self.assertEqual(result["large_transfers_observed"],4)
+        self.assertEqual(result["large_transfers_new"],[])
+        self.assertEqual(len(calls),4)
+        self.assertEqual(result["coverage"],"NOT_EXHAUSTIVE_up_to_3_pages_per_contract")
+
     def test_spoofed_contract_and_failure(self):
         with self.assertRaises(ValueError):
             chain.transfer(tx("USDC",contract=chain.CONTRACTS["USDT"]),"USDC",NOW)

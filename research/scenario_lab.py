@@ -54,7 +54,7 @@ def eligible(now, idea, pulse):
     if trigger=="sampled_large_transfer":
         transfers=pulse.get("large_transfers",{})
         if (transfers.get("state") not in ("observing","partial")
-                or transfers.get("coverage") != "NOT_EXHAUSTIVE_first_page_only_per_contract"
+                or not str(transfers.get("coverage","")).startswith("NOT_EXHAUSTIVE_")
                 or int(transfers.get("new_in_sample",0)) < 1):
             return False,"no_fresh_public_large_transfer_sample"
     else:
