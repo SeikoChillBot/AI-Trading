@@ -52,6 +52,43 @@ def mutations(parent):
                 " pour confronter une hypothèse historique au résultat de sa variante."
             )
             yield field, foundry.normalise(new)
+    # A child may combine the parent's original idea with up to two typed,
+    # independently measurable indicators. No model-generated code.
+    current = parent.get("confirmations", [])
+    if current:
+        reduced = dict(parent)
+        reduced["confirmations"] = current[:-1]
+        reduced["rationale"] = (
+            "Suppression expérimentale d'une confirmation afin de tester l'effet du filtre."
+        )
+        yield "remove_confirmation", foundry.normalise(reduced)
+    if len(current) < foundry.MAX_CONFIRMATIONS:
+        for gate in foundry.CONFIRMATIONS:
+            if gate in current:
+                continue
+            new = dict(parent)
+            new["confirmations"] = sorted([*current, gate])
+            new["rationale"] = (
+                "Composition vérifiable avec un indicateur additionnel à l'entrée "
+                "pour réduire les faux signaux sans présumer du résultat."
+            )
+            try:
+                yield "confirmations", foundry.normalise(new)
+            except ValueError:
+                continue
+    if not current:
+        for gates in (
+            ("ema_uptrend", "rsi_strength"),
+            ("quiet_volatility", "positive_momentum"),
+            ("rsi_oversold", "quiet_volatility"),
+        ):
+            new = dict(parent)
+            new["confirmations"] = list(gates)
+            new["rationale"] = (
+                "Combinaison de deux confirmations indépendantes et mesurables "
+                "sur les bougies précédemment clôturées."
+            )
+            yield "composite_confirmations", foundry.normalise(new)
 
 
 def failure_diagnosis(result):
@@ -91,6 +128,7 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
             tried.add(row["id"])
     history = []
     selected = {}
+    composed = {}
     refreshed = []
     events = []
     issues = {}
@@ -139,6 +177,9 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
                       and last_t - prior_t < opt.SEARCH_EVERY_CLOSED_DAYS * 86400)
             if recent and prior.get("selected_by_asset", {}).get(asset) in known:
                 selected[asset] = prior["selected_by_asset"][asset]
+                composed_id = prior.get("composed_by_asset", {}).get(asset)
+                if composed_id in known:
+                    composed[asset] = composed_id
                 continue
             # One-parameter neighbor exploration; only development folds rank.
             parent_spec = foundry.normalise(parent["spec"])
@@ -153,37 +194,55 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
                 events.append({"asset": asset, "status": "mutation_space_exhausted"})
                 last_search[asset] = last_t
                 continue
-            best = sorted(ranked, key=lambda row: (-row[0], row[1]))[0]
-            _, key, field, spec, fitness = best
-            historical = opt.challenge(bars, spec)
-            record = {
-                "id": key, "asset": asset, "source": "bounded_evolution",
-                "parent_id": parent_id, "changed_dimension": field,
-                "generation": 1 + int(prior.get("generation_by_asset", {}).get(asset, 0)),
-                "spec": spec, "selection_metrics": fitness,
-                "historical_challenge": historical,
-                "parent_failure_reasons": failure_diagnosis(parent),
-                "eligible_for_live_trading": False,
-                "historical_candidate_only": True,
-                "created_at": now.isoformat(),
-                "frozen_at_closed_day": last_t,
-            }
-            known[key] = record
-            tried.add(key)
-            refreshed.append(key)
-            selected[asset] = key
+            ordered = sorted(ranked, key=lambda row: (-row[0], row[1]))
+            best = ordered[0]
+            # Reserve a separate experimental slot for a genuinely composed
+            # idea, even if its development score is lower. This avoids the
+            # classic pitfall of reselecting only the same simple strategy.
+            compound = next((row for row in ordered
+                             if row[3].get("confirmations")), None)
+            for category, candidate in (("selected", best), ("composed", compound)):
+                if candidate is None:
+                    continue
+                _, key, field, spec, fitness = candidate
+                if key not in known:
+                    historical = opt.challenge(bars, spec)
+                    record = {
+                        "id": key, "asset": asset, "source": "bounded_evolution",
+                        "parent_id": parent_id, "changed_dimension": field,
+                        "generation": 1 + int(prior.get("generation_by_asset", {}).get(asset, 0)),
+                        "spec": spec, "selection_metrics": fitness,
+                        "historical_challenge": historical,
+                        "parent_failure_reasons": failure_diagnosis(parent),
+                        "eligible_for_live_trading": False,
+                        "historical_candidate_only": True,
+                        "created_at": now.isoformat(),
+                        "frozen_at_closed_day": last_t,
+                    }
+                    known[key] = record
+                    tried.add(key)
+                    refreshed.append(key)
+                if category == "selected":
+                    selected[asset] = key
+                else:
+                    composed[asset] = key
+                events.append({"asset": asset, "id": key, "parent": parent_id,
+                               "status": "mutation_created",
+                               "tested_variants": len(ranked),
+                               "category": category, "dimension": field})
             last_search[asset] = last_t
-            events.append({"asset": asset, "id": key, "parent": parent_id,
-                           "status": "mutation_created",
-                           "tested_variants": len(ranked), "dimension": field})
         except (ValueError, TypeError, KeyError, OverflowError) as error:
             issues[asset] = str(error)[:75]
             key = prior.get("selected_by_asset", {}).get(asset)
             if key in known:
                 selected[asset] = key
+            compound_id = prior.get("composed_by_asset", {}).get(asset)
+            if compound_id in known:
+                composed[asset] = compound_id
     records = list(known.values())[-MAX_ARCHIVE:]
     ids = {x["id"] for x in records}
     selected = {key: val for key, val in selected.items() if val in ids}
+    composed = {key: val for key, val in composed.items() if val in ids}
     generations = dict(prior.get("generation_by_asset", {})) if isinstance(
         prior.get("generation_by_asset"), dict) else {}
     for item in records:
@@ -192,6 +251,7 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
     state = {
         "schema": 1, "updated_at": now.isoformat(),
         "candidates": records, "selected_by_asset": selected,
+        "composed_by_asset": composed,
         "last_search_closed_day": last_search, "generation_by_asset": generations,
         "real_orders": False, "robot_changes": False,
     }
@@ -200,7 +260,8 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
         "source": "bounded_evolution",
         "real_orders": False, "robot_changes": False,
         "total_mutations": len(records), "new_candidate_ids": refreshed,
-        "selected_by_asset": selected, "candidates": records,
+        "selected_by_asset": selected, "composed_by_asset": composed,
+        "candidates": records,
         "events": events, "issues": issues,
         "lesson": "A mutation addresses observed historical weaknesses, not proof that the weakness is cured.",
         "no_automatic_live_promotion": True,
