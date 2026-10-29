@@ -108,9 +108,9 @@ def observe(now,source,state,get=requests.get):
             continue
     # New discoveries take priority. Existing watches continue when a sample
     # contains no million-unit transfers or a token provider is temporarily down.
-    addresses=list(dict.fromkeys(fresh_candidates+list(retained)))[:MAX_WALLETS]
+    addresses=list(dict.fromkeys(list(retained)+fresh_candidates))[:MAX_WALLETS]
     report={"schema":1,"generated_at":now.isoformat(),
-            "state":"observing" if addresses else "no_recent_addresses",
+            "state":"observing" if addresses else "no_addresses_yet",
             "source":HOST,"discovery_state":source.get("state","unknown"),
             "selection":"public_sample_not_verified_whale_identity",
             "method":"latest_one_page_per_selected_public_address",
@@ -150,7 +150,8 @@ def observe(now,source,state,get=requests.get):
             unique={e["id"]:e for e in valid}
             previous=set(old.get("seen_ids",[])) if old else set()
             # First observation only establishes baseline; no fake activity.
-            new=[] if old is None else [e for k,e in unique.items() if k not in previous]
+            new=[] if old is None else [e for k,e in unique.items()
+                                           if k not in previous and Decimal(e["quantity"])>=MIN_UNITS]
             space=max(0,MAX_REPORTED_NEW-len(report["new_transfers"]))
             report["new_transfers"].extend(new[:space])
             report["tracked_addresses"].append({
@@ -158,10 +159,12 @@ def observe(now,source,state,get=requests.get):
                 "new_count":len(new),"baseline_at":baseline,
                 "last_detected_at":last_detected,
                 "last_polled_at":now.isoformat(),"collection_state":"ok",
+                "monitoring":"active",
                 "discovered_this_scan":bool(discovered)})
             updated[address]={
                 "baseline_at":baseline,"last_detected_at":last_detected,
-                "seen_ids":sorted(previous|set(unique))[-300:],
+                "seen_ids":list(dict.fromkeys((old.get("seen_ids",[]) if old else [])
+                                               +list(unique)))[-MAX_SEEN:],
                 "last_polled_at":now.isoformat()}
         except (requests.RequestException,ValueError,TypeError,KeyError) as exc:
             # Do not discard an established watch when a provider fails.
@@ -171,7 +174,8 @@ def observe(now,source,state,get=requests.get):
                 "sample_count":None,"new_count":0,"baseline_at":baseline,
                 "last_detected_at":last_detected,
                 "last_polled_at":old.get("last_polled_at") if old else None,
-                "collection_state":"unavailable","discovered_this_scan":bool(discovered)})
+                "collection_state":"unavailable","monitoring":"temporarily_unavailable",
+                "discovered_this_scan":bool(discovered)})
             if old:
                 updated[address]=dict(old,last_detected_at=last_detected)
     if len(report["errors"])==len(addresses):
