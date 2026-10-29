@@ -72,6 +72,19 @@ class GuardTests(unittest.TestCase):
                 "path":".github/workflows/pages-build-deployment"} for _ in range(100)]
         self.assertTrue(guard.should_dispatch(NOW,older))
 
+    def test_recent_failure_gets_only_one_delayed_retry(self):
+        failed={**run_age(9,event="workflow_dispatch"),"conclusion":"failure"}
+        self.assertTrue(guard.should_dispatch(NOW,[failed,run_age(280)]))
+        early={**run_age(3,event="workflow_dispatch"),"conclusion":"failure"}
+        self.assertFalse(guard.should_dispatch(NOW,[early]))
+        second={**run_age(1,event="workflow_dispatch"),"conclusion":"failure"}
+        self.assertFalse(guard.should_dispatch(NOW,[second,failed]))
+        active={**run_age(1,event="workflow_dispatch",status="in_progress"),
+                "conclusion":None}
+        self.assertFalse(guard.should_dispatch(NOW,[active,failed]))
+        successful={**run_age(1,event="workflow_dispatch"),"conclusion":"success"}
+        self.assertFalse(guard.should_dispatch(NOW,[successful,failed]))
+
     def test_api_errors_never_dispatch_or_fail_paper(self):
         posts=[]
         def error(*a,**kw):return Response(status=403)
