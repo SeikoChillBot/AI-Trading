@@ -1,23 +1,31 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T16:04:58.123913+00:00",
-  "state": "unavailable",
+  "generated_at": "2026-10-29T18:55:00.754410+00:00",
+  "state": "observing",
   "chain": "base",
   "token": "USDC",
-  "source": "https://base.blockscout.com/api/v2",
+  "source": "https://base-rpc.publicnode.com",
   "contract": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
-  "sampled_count": 0,
-  "large_count": 0,
-  "highlights": [],
-  "error": "public_rpc_unavailable",
+  "sampled_count": 849,
+  "large_count": 1,
+  "highlights": [
+    {
+      "tx_hash": "0x3f2ff6ec03cdccdff443641dd9e4b7f187af914eee19798df8efefca7cf2e37e",
+      "timestamp": null,
+      "block_number": 53255368,
+      "nominal_usd_approx": 5000000.0,
+      "token": "USDC",
+      "trade_inference": "unknown"
+    }
+  ],
+  "error": null,
   "not_exhaustive": true,
   "can_infer_buy_sell": false,
   "real_orders": false,
-  "source_method": "blockscout_explorer_page",
-  "coverage": "one_recent_page_only",
+  "source_method": "public_rpc_logs",
+  "coverage": "last_12_blocks_only",
+  "sampled_blocks": 12,
   "sources_attempted": [
-    "https://base-rpc.publicnode.com (ValueError)",
-    "https://base.nodely.dev (ValueError)",
-    "https://mainnet.base.org (HTTPError)"
+    "https://base-rpc.publicnode.com"
   ]
 }

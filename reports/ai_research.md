@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de placement fictif BTCUSD 7 jours** : Simuler un placement fictif de 20 USD en long spot sans levier sur BTCUSD pendant 7 jours en conditions de marché market_uptrend. Critère d'abandon : Le test sera rejeté si le rendement net est négatif à l'issue des 7 jours de simulation.
-- **ETHUSD — Test de placement fictif ETHUSD 3 jours** : Simuler un placement fictif de 20 USD en long spot sans levier sur ETHUSD pendant 3 jours en conditions de marché market_selloff. Critère d'abandon : Le test sera rejeté si le drawdown dépasse 3 % pendant la période de simulation.
+- **BTCUSD — Test de résistance des coûts de transaction doublés** : Rejouer l'ensemble des signaux historiques et OOS de BTCUSD en appliquant des frais majorés de 100 % sur une fenêtre de 7 jours avec 20 USD fictifs. Critère d'abandon : Si le rendement net moyen reste strictement supérieur à celui de la configuration initiale sous double coût, l'hypothèse de sensibilité est rejetée.
+- **ETHUSD — Simulation de tendance sur 3 jours post-transfert stablecoin** : Observer le comportement de l'actif ETHUSD sur une période de 3 jours consécutifs suite à l'enregistrement de transferts notables de l'échantillon. Critère d'abandon : Si la performance cumulée dépasse le témoin hold de plus de 2 points sur l'horizon testé, l'hypothèse est réfutée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.

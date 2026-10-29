@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T16:05:06.491999+00:00",
+  "generated_at": "2026-10-29T18:55:06.650284+00:00",
   "research_date_utc": "2026-10-29",
-  "review_slot": "2026-10-29T12:00Z",
-  "model_last_called_at": "2026-10-29T13:10:20.091834+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-29T18:00Z",
+  "model_last_called_at": "2026-10-29T18:55:06.650284+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-29T13:10:20.091834+00:00",
+  "last_attempt_at": "2026-10-29T18:55:06.650284+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Observation des laboratoires Seiko au 29 octobre 2026. Les robots hold et les stratégies actives (momentum, reversion, breakout, rsi, ema_cross, bollinger, volatility, scalping) affichent des performances historiques négatives et échouent à de nombreux critères de validation rigoureux. Aucune stratégie n'est robuste et aucune promesse de rendement n'est formulée. Les transferts de stablecoins échantillonnés ne prouvent ni achat ni vente.",
+  "summary": "Analyse critique des données quantitatives Seiko : les robots de la catégorie crypto affichent des rendements nets historiques et hors échantillon majoritairement négatifs après frais, avec des drawdowns importants et un nombre de transactions fermé insuffisant pour valider statistiquement leur robustesse. ETHUSD conserve une moyenne historique positive mais échoue sur le critère de drawdown maximal sous 20 %. Aucune stratégie n'est prouvée robuste. Les transferts de stablecoins et les gros volumes observés constituent des échantillons partiels sans lien causal avéré avec des achats de baleines. Trois expériences falsifiables et des ajustements basés sur les profils de seuil sont proposés en simulation pour étendre la recherche sans modifier le capital ni garantir de rendement.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de placement fictif BTCUSD 7 jours",
-      "hypothesis": "Un rebond court terme suite à une tendance de marché haussière observée le 28 octobre 2026.",
-      "experiment": "Simuler un placement fictif de 20 USD en long spot sans levier sur BTCUSD pendant 7 jours en conditions de marché market_uptrend.",
-      "rejection_rule": "Le test sera rejeté si le rendement net est négatif à l'issue des 7 jours de simulation.",
+      "title": "Test de résistance des coûts de transaction doublés",
+      "hypothesis": "Les rendements nets des stratégies BTCUSD deviennent négatifs ou accentuent leurs pertes en cas de doublement des frais de transaction.",
+      "experiment": "Rejouer l'ensemble des signaux historiques et OOS de BTCUSD en appliquant des frais majorés de 100 % sur une fenêtre de 7 jours avec 20 USD fictifs.",
+      "rejection_rule": "Si le rendement net moyen reste strictement supérieur à celui de la configuration initiale sous double coût, l'hypothèse de sensibilité est rejetée.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -117,10 +117,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Test de placement fictif ETHUSD 3 jours",
-      "hypothesis": "La résistance de l'actif face aux mouvements baissiers récents de 30 jours.",
-      "experiment": "Simuler un placement fictif de 20 USD en long spot sans levier sur ETHUSD pendant 3 jours en conditions de marché market_selloff.",
-      "rejection_rule": "Le test sera rejeté si le drawdown dépasse 3 % pendant la période de simulation.",
+      "title": "Simulation de tendance sur 3 jours post-transfert stablecoin",
+      "hypothesis": "L'apparition d'un échantillon de gros transferts de stablecoins ne corrèle pas positivement avec un mouvement haussier directionnel à 3 jours.",
+      "experiment": "Observer le comportement de l'actif ETHUSD sur une période de 3 jours consécutifs suite à l'enregistrement de transferts notables de l'échantillon.",
+      "rejection_rule": "Si la performance cumulée dépasse le témoin hold de plus de 2 points sur l'horizon testé, l'hypothèse est réfutée.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -129,9 +129,23 @@
       ]
     }
   ],
-  "bot_adjustments": [],
+  "bot_adjustments": [
+    {
+      "strategy": "btc_momentum",
+      "entry_scale": 1.2,
+      "reason": "Ajustement du seuil d'entrée à un niveau plus strict (entry_scale=1.2) pour observer la réduction du nombre de faux signaux en période de volatilité 30d.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "eth_momentum",
+      "entry_scale": 0.8,
+      "reason": "Modification du seuil de déclenchement (entry_scale=0.8) pour tester une réactivité accrue aux variations journalières sur ETHUSD sans modifier l'exposition en capital.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    }
+  ],
   "scenario_proposals": [],
   "desk_notes": [],
+  "strategy_designs": [],
   "experiments_validated": false,
   "live_strategy_changes_enabled": false,
   "real_orders_enabled": false
