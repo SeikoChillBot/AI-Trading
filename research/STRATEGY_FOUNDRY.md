@@ -25,3 +25,22 @@ Le workflow recherche `40935221049` a réussi avec les 7 tests de la stratégie 
 2. Vérifier le premier vrai `strategy_designs` provenant de Gemini, puis son archivage et son suivi séparé ; ne pas confondre idée Gemini et référence quantitative.
 3. Étendre progressivement la grammaire seulement avec source de données, frais, preuve de qualité, tests de non-régression et validation future indépendante.
 4. Quand le nombre de journées accumulées sera significatif, étudier les régimes de marché ; ne pas inventer une corrélation prédictive sur quelques jours.
+
+## Boucle d'auto-optimisation (29/10/2026)
+
+**Mission retenue par Seiko :** AIT recherche de manière autonome de nouvelles configurations, conserve ses échecs et ses résultats, et n'autorise l'idée d'un essai en argent réel qu'après des validations prospectives et un consentement explicite. Le profit ne peut être garanti ni « optimisé jusqu'à réussite » par la seule recherche répétée.
+
+### Modules ajoutés
+- `research/autonomous_optimizer.py` : explore automatiquement chaque semaine de nouveaux jeux de paramètres sur BTC/ETH/SOL, à partir d'une **grille bornée** de logiques déjà définies (tendance, retour à la moyenne, cassure ; fenêtres 10/20/40 jours ; seuils 0,5/1/2 % ; détention 1/3/7 jours). Choisit sur 4 fenêtres anciennes de 60 jours, puis évalue **après sélection** sur 2 fenêtres historiques ultérieures. Cette seconde période est un contrôle chronologique réutilisé, **pas** un test véritablement vierge : les données de marché ont déjà servi à d'autres recherches.
+- Optimisation d'un score qui privilégie le rendement **net après frais**, pénalise la baisse maximale et les pertes avec frais doublés, tient compte du témoin achat-conservation et pénalise le manque de transactions. Aucun mécanisme de « chasse au rendement positif » par falsification de résultats.
+- `reports/autonomous_optimizer.json` / `state/autonomous_optimizer.json` : découvertes datées et candidates figées ; cadence de recherche bornée, pas de nouvelle expérience chaque relance GitHub.
+- `research/strategy_foundry.py` reçoit les meilleures candidates de recherche **dans un laboratoire isolé** et ajoute leurs traces à la mémoire cumulative ; `research/strategy_forward.py` observe uniquement les nouvelles bougies après leur inscription. Gemini reçoit les conclusions compactes de ce moteur dans le contexte de ses prochains appels, sans appel API supplémentaire.
+- `research/manual_live_review.py` : contrôle **humain uniquement**, aucun ordre réel. Il exige des données prospectives suffisantes (au moins 90 nouvelles journées, au moins 10 transactions clôturées), un gain net fictif d'au moins 2 %, un excédent positif face au témoin, un drawdown maximal de 10 %, des tests historiques résistants à des frais doublés et des preuves fraîches. Même s'ils passent, les critères ne donnent qu'un statut de **candidat à l'examen humain**, jamais une autorisation de déposer des fonds.
+- La vraie phase financière nécessitera en plus un lieu d'exécution clairement choisi, ses minimums d'ordres/frais, des essais de réconciliation d'ordres, une limite absolue de perte, un arrêt d'urgence, l'absence de levier et une validation spécifique de l'utilisateur. **Aucune connexion à un échange ni aucun achat réel sont implémentés.**
+- Le tableau de bord `Journal IA` expose les candidats du moteur et la porte de revue humaine sans nouvel onglet. Les 36 robots d'origine, 12 Hold témoins et historiques ne sont pas modifiés par les nouveaux modules.
+- Tests automatisés : `tests/test_autonomous_optimizer.py`, `tests/test_manual_live_review.py`, plus tous les tests précédents. Le workflow `.github/workflows/research.yml` appelle désormais le moteur d'optimisation **avant Gemini**, puis la foundry, le suivi prospectif et enfin le contrôle manuel. Les résultats sont sauvegardés via GitHub Actions.
+
+### Honnêteté et prochaines limites
+- Il reste à vérifier un **nouveau cycle réel** sous le workflow complété et les rapports correspondants. Des commits GitHub réussis ne prouvent pas la réussite de GitHub Actions.
+- Le moteur ne découvre pas encore des logiques sans limites : les règles disponibles restent une grille finie, sans apprentissage neuronal entraîné sur la série financière.
+- Les backtests peuvent être surajustés, surtout si Gemini voit leurs résumés. Une performance prospective robuste et une analyse de qualité d'exécution restent indispensables avant d'envisager le réel.
