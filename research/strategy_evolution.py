@@ -20,6 +20,8 @@ OPTIMIZER = ROOT / "reports/autonomous_optimizer.json"
 KNOWLEDGE = ROOT / "state/strategy_knowledge_base.json"
 STATE = ROOT / "state/strategy_evolution.json"
 REPORT = ROOT / "reports/strategy_evolution.json"
+SCIENTIFIC = ROOT / "state/scientific_memory.json"
+MAX_ATTEMPTED = 3500
 MAX_ARCHIVE = 40
 PARENT_COUNT = 3
 # Controlled range of candidate variants, with immutable specifications.
@@ -108,7 +110,7 @@ def failure_diagnosis(result):
     return failed or ["exploratory_only_no_prospective_validation"]
 
 
-def build(now, bars_by_asset, optimizer, previous, knowledge):
+def build(now, bars_by_asset, optimizer, previous, knowledge, scientific=None):
     source = bars_by_asset if isinstance(bars_by_asset, dict) else {}
     prior = previous if isinstance(previous, dict) else {}
     known = {}
@@ -122,7 +124,11 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
         key = foundry.identifier(spec)
         if candidate.get("id") == key:
             known[key] = candidate
-    tried = set(known)
+    past_attempted = [x for x in prior.get("attempted_ids", [])
+                      if isinstance(x, str) and len(x) == 18]
+    science_seen = scientific.get("seen_spec_ids", []) if isinstance(scientific, dict) else []
+    science_seen = science_seen if isinstance(science_seen, list) else []
+    tried = set(known) | set(past_attempted) | set(science_seen)
     for row in knowledge.get("ideas", []) if isinstance(knowledge, dict) else []:
         if isinstance(row, dict) and isinstance(row.get("id"), str):
             tried.add(row["id"])
@@ -221,6 +227,7 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
                     }
                     known[key] = record
                     tried.add(key)
+                    past_attempted.append(key)
                     refreshed.append(key)
                 if category == "selected":
                     selected[asset] = key
@@ -252,6 +259,7 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
         "schema": 1, "updated_at": now.isoformat(),
         "candidates": records, "selected_by_asset": selected,
         "composed_by_asset": composed,
+        "attempted_ids": list(dict.fromkeys(past_attempted))[-MAX_ATTEMPTED:],
         "last_search_closed_day": last_search, "generation_by_asset": generations,
         "real_orders": False, "robot_changes": False,
     }
@@ -271,7 +279,8 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
 
 def main():
     now = datetime.now(timezone.utc)
-    report, state = build(now, read(CANDLES), read(OPTIMIZER), read(STATE), read(KNOWLEDGE))
+    report, state = build(now, read(CANDLES), read(OPTIMIZER), read(STATE),
+                          read(KNOWLEDGE), read(SCIENTIFIC))
     STATE.parent.mkdir(parents=True, exist_ok=True)
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
