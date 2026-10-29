@@ -267,6 +267,26 @@ if desk_path.exists():
             }
     except (ValueError, KeyError, TypeError):
         pass
+# Dated Gemini/quantitative journal: only source-backed daily summaries.
+brief_path = Path("reports/ai_daily_brief.json")
+data["gemini_desk"]["daily_briefs"] = []
+if brief_path.exists():
+    try:
+        brief = json.loads(brief_path.read_text(encoding="utf-8"))
+        if (brief.get("schema") == 1 and brief.get("real_orders") is False
+                and brief.get("model_authorship_must_be_verified") is True):
+            days = brief.get("days", [])
+            data["gemini_desk"]["daily_briefs"] = [
+                {field: day.get(field) for field in (
+                    "date", "updated_at", "period", "headline", "source",
+                    "gemini_authored_summary", "gemini_status", "research",
+                    "decisions", "conclusions", "next", "counts"
+                )}
+                for day in days[:14] if isinstance(day, dict)
+                and day.get("real_orders") is False
+            ]
+    except (ValueError, TypeError, KeyError):
+        pass
 # Read-only intraday research and transparent operational capability roadmap.
 intraday_path=Path("reports/intraday_research.json")
 data["intraday_study"]={"ready":False}
