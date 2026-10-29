@@ -31,6 +31,20 @@ class ExplanationTests(unittest.TestCase):
         self.assertIn('non confirmé',guide)
         self.assertIn('Aucun', (ROOT/"site/index.html").read_text(encoding="utf8"))
 
+    def test_robot_rule_explanation_matches_real_strategy_families(self):
+        page=(ROOT/"site/index.html").read_text(encoding="utf8")
+        code=(ROOT/"site/lab04-guide.js").read_text(encoding="utf8")
+        self.assertIn('ait-sheet-rule',page)
+        for key in ('momentum','reversion','breakout','rsi','ema_cross',
+                    'bollinger','volatility','scalp_conservative',
+                    'scalp_microtrend','trend20'):
+            if key=="trend20":
+                self.assertIn('20 derniers jours',code)
+            else:
+                self.assertIn(key,code)
+        self.assertIn('Si les conditions ne sont pas réunies',code)
+        self.assertNotIn('fetch(',code)
+
     def test_explanations_read_only_and_source_qualified(self):
         js=(ROOT/"site/lab04-guide.js").read_text(encoding="utf8")
         builder=(ROOT/"build_site.py").read_text(encoding="utf8")
