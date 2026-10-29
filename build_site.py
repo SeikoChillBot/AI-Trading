@@ -143,6 +143,30 @@ if ai_proposals_path.exists():
                 "source": advisory.get("source", "deterministic_fallback"),
                 "summary": str(advisory.get("summary", ""))[:1000],
                 "experiments": advisory.get("experiments", [])[:3],
+                # These are untested signal-threshold hypotheses, NOT changes
+                # to portfolio size or instructions that AI can execute.
+                "bot_adjustments": [
+                    {"strategy":candidate.get("strategy"),
+                     "entry_scale":candidate.get("entry_scale"),
+                     "reason":str(candidate.get("reason", ""))[:240],
+                     "evidence_state":"gemini_hypothesis_unverified"}
+                    for candidate in advisory.get("bot_adjustments", [])[:3]
+                    if isinstance(candidate, dict)
+                    and candidate.get("strategy") in {
+                        "btc_momentum","eth_momentum","sol_momentum",
+                        "btc_reversion","eth_reversion","sol_reversion",
+                        "btc_breakout","btc_rsi","eth_ema_cross",
+                        "sol_bollinger","btc_volatility",
+                        "btc_scalp_momentum","eth_scalp_trailing",
+                        "sol_scalp_microtrend","btc_scalp_conservative",
+                        "aapl_trend20","msft_trend20","spy_trend20",
+                        "qqq_trend20","bnd_trend20","gld_trend20",
+                        "slv_trend20","vnq_trend20","eurusd_trend20"
+                    } and type(candidate.get("entry_scale")) in (int,float)
+                    and candidate.get("entry_scale") in (0.8,1.2)
+                    and advisory.get("source")=="gemini_generate_content"
+                    and advisory.get("state")=="model_reflection_completed"
+                ],
                 "historical": {
                     "status": advisory.get("historical", {}).get("status"),
                     "assets": advisory.get("historical", {}).get("assets", [])[:3],
