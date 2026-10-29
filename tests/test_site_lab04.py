@@ -109,7 +109,7 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn('data-view="analysis"',template)
   self.assertIn('data-view="desk"',template)
   self.assertIn('data-view="explore"',template)
-  self.assertNotIn('id="sheet-return"',template)
+  self.assertNotIn('class="sheet-actions"',template)
   self.assertIn("historyApi.replaceState",app)
   self.assertNotIn("SeikoNavigation",app)
   self.assertIn('id="desk-daily-panel"',template)
