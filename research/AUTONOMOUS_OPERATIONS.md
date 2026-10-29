@@ -37,3 +37,9 @@
 - Rapport GitHub Pages : nouveau badge indiquant la date des derniers relevés crypto et multi, conservateur si l'un manque ou dépasse le seuil de fraîcheur. Une page statique n'est pas un flux direct.
 - Workflow `research.yml` intégré et tests de régression `tests/test_ait_upgrade.py` inclus. La preuve de déploiement effectif et le premier résultat Google sous le nouveau code doivent être vérifiés sur les prochains runs ; **ne jamais confondre un commit de code avec un run publié et réussi**.
 - Préférence utilisateur : notifications e-mail GitHub déjà résolues, **ne pas reconfigurer**. Barre de navigation flottante validée, **ne pas modifier**. Tous les ordres restent fictifs.
+
+## Déclenchement de secours après une absence de recherche (29/10/2026)
+
+GitHub Actions ne garantit pas la ponctualité des événements `schedule`. Le workflow `simulate.yml` (Paper) lance donc en fin d'exécution `research/research_dispatch_guard.py`. Ce dernier demande à l'API GitHub les **100 derniers runs de toute la branche** pour tenir compte du grand nombre de déploiements Pages. Il ne déclenche `workflow_dispatch` du workflow de recherche que lorsque cette fenêtre couvre au moins 165 minutes et **aucun run de recherche récent, en cours ou en attente** n'existe. S'il manque des preuves (token/API/résultats), il ne lance rien et n'interrompt pas le paper trading.
+
+Le workflow garde le cron de recherche toutes les deux heures et n'a **pas** de déclencheur `push`. La capacité `actions: write` du `GITHUB_TOKEN` est réservée à cette reprise conditionnelle. Tests offline `tests/test_research_dispatch_guard.py`. Une absence de rapport Gemini reste un problème même si le Paper est vert ; seule une vraie réponse API `model_reflection_completed` confirme l'IA. Le statut du premier dispatch effectif est à vérifier via les prochains jobs et rapports.
