@@ -1,17 +1,17 @@
-"""Bounded, read-only follow-up of large-transfer addresses from Blockscout.
+"""Persistent read-only follow-up of large Ethereum stablecoin transfer addresses.
 
-These are pseudonymous public addresses, NOT verified whale identities.
-A transfer is not a purchase/sale; observations cover only one recent API page.
-No API key, trade integration or user account access.
+This is a capped watchlist of public pseudonymous addresses detected in a
+bounded Blockscout sample. No owner identity or buy/sell classification.
+Preserve monitoring when the latest sample has no large movement.
 """
 from __future__ import annotations
 import json
 import re
 from datetime import datetime, timezone
-from decimal import InvalidOperation
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 import requests
-from research.large_transfers import HOST, CONTRACTS, transfer
+from research.large_transfers import HOST, CONTRACTS, transfer, MIN_UNITS
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"reports/large_transfer_observations.json"
@@ -20,43 +20,60 @@ OUTPUT=ROOT/"reports/whale_follow.json"
 ADDRESS=re.compile(r"^0x[0-9a-f]{40}$")
 MAX_WALLETS=4
 MAX_PAGE=50
-
+MAX_SEEN=300
+MAX_AGE_DAYS=7
 
 def load(path):
     try:
-        result=json.loads(path.read_text(encoding="utf-8"))
-        return result if isinstance(result,dict) else {}
+        value=json.loads(path.read_text(encoding="utf-8"))
+        return value if isinstance(value,dict) else {}
     except (OSError,ValueError):
         return {}
 
-
-def candidates(source,now):
-    if source.get("state") not in ("observing","partial"):
-        return []
+def recent(value,now,days=MAX_AGE_DAYS):
     try:
-        age=(now-datetime.fromisoformat(source["generated_at"])).total_seconds()
-        if not 0<=age<=3*3600:
-            return []
-    except (KeyError,ValueError,TypeError):
-        return []
-    found=[]
-    for row in source.get("sampled_wallet_flows",[]):
-        address=str(row.get("address","")).lower()
-        if not ADDRESS.fullmatch(address):
-            continue
-        if row.get("identity_verified") is not False:
-            continue
-        if address not in found:
-            found.append(address)
-        if len(found)==MAX_WALLETS:
-            break
-    return found
+        stamp=datetime.fromisoformat(str(value).replace("Z","+00:00"))
+        return stamp.tzinfo is not None and 0 <= (now-stamp).total_seconds() <= days*86400
+    except (ValueError,TypeError,OverflowError):
+        return False
 
+def candidates(source,now,state=None):
+    """Retain selected addresses across quiet samples and bounded outages."""
+    tracked=(state or {}).get("tracked",{})
+    tracked=tracked if isinstance(tracked,dict) else {}
+    chosen=[]
+    # Existing state wins over new market samples. TTL is the time since a
+    # real successful observation, NOT the time since the address had a large move.
+    for address,row in tracked.items():
+        if not isinstance(row,dict):
+            continue
+        key=str(address).lower()
+        last=row.get("last_polled_at") or row.get("baseline_at")
+        if ADDRESS.fullmatch(key) and recent(last,now) and key not in chosen:
+            chosen.append(key)
+        if len(chosen)>=MAX_WALLETS:
+            return chosen
+    if not isinstance(source,dict) or source.get("state") not in ("observing","partial"):
+        return chosen
+    if not recent(source.get("generated_at"),now,1):
+        return chosen
+    rows=source.get("sampled_wallet_flows",[])
+    if not isinstance(rows,list):
+        return chosen
+    for row in rows:
+        if not isinstance(row,dict) or row.get("identity_verified") is not False:
+            continue
+        address=str(row.get("address","")).lower()
+        if ADDRESS.fullmatch(address) and address not in chosen:
+            chosen.append(address)
+        if len(chosen)>=MAX_WALLETS:
+            break
+    return chosen
 
 def fetch_address(address,get=requests.get):
     response=get(HOST+"/addresses/"+address+"/token-transfers",
                  params={"type":"ERC-20"},timeout=15,
-                 headers={"User-Agent":"SeikoWhaleFollow/1.0"})
+                 headers={"User-Agent":"SeikoWhaleFollow/2.0"})
     response.raise_for_status()
     body=response.json()
     if not isinstance(body,dict):
@@ -66,26 +83,30 @@ def fetch_address(address,get=requests.get):
         raise ValueError("Invalid bounded Blockscout transfer page")
     return items
 
-
 def observe(now,source,state,get=requests.get):
-    addresses=candidates(source,now)
-    report={"schema":1,"generated_at":now.isoformat(),
-            "state":"not_configured" if not addresses else "observing",
-            "source":HOST,
-            "method":"latest_one_page_per_selected_public_address",
-            "coverage":"bounded_non_exhaustive_pseudonymous_addresses",
-            "tracked_addresses":[],"new_transfers":[],"errors":{},
-            "max_addresses":MAX_WALLETS,"can_infer_owner":False,
-            "can_infer_trade":False,"real_orders":False}
-    saved=dict(state.get("tracked",{})) if isinstance(state.get("tracked"),dict) else {}
+    old_tracking=state.get("tracked",{}) if isinstance(state,dict) else {}
+    saved=dict(old_tracking) if isinstance(old_tracking,dict) else {}
+    addresses=candidates(source,now,state)
+    report={
+        "schema":1,"generated_at":now.isoformat(),
+        "state":"observing" if addresses else "no_addresses_yet",
+        "source":HOST,"method":"latest_one_page_per_persistent_public_address",
+        "coverage":"latest_50_erc20_records_per_address_not_exhaustive",
+        "tracked_addresses":[],"new_transfers":[],"errors":{},
+        "max_addresses":MAX_WALLETS,"minimum_large_transfer":int(MIN_UNITS),
+        "can_infer_owner":False,"can_infer_trade":False,"real_orders":False,
+        "note":"Retained tracked addresses can have no new large transactions. No owner identity or purchase is inferred."
+    }
     if not addresses:
         return report,state
     for address in addresses:
         old=saved.get(address)
+        if not isinstance(old,dict):
+            old=None
         try:
-            items=fetch_address(address,get)
+            rows=fetch_address(address,get)
             valid=[]
-            for raw in items:
+            for raw in rows:
                 try:
                     if not isinstance(raw,dict):
                         continue
@@ -93,9 +114,8 @@ def observe(now,source,state,get=requests.get):
                     if not isinstance(token_meta,dict):
                         continue
                     contract=str(token_meta.get("address_hash","")).lower()
-                    token=next((symbol for symbol,value in CONTRACTS.items()
-                                if value==contract),None)
-                    if token is None:
+                    token=next((k for k,v in CONTRACTS.items() if v==contract),None)
+                    if not token:
                         continue
                     item=transfer(raw,token,now)
                     if address not in (item["from_address"],item["to_address"]):
@@ -104,42 +124,53 @@ def observe(now,source,state,get=requests.get):
                 except (KeyError,TypeError,ValueError,OverflowError,InvalidOperation):
                     continue
             unique={e["id"]:e for e in valid}
-            previous=set(old.get("seen_ids",[])) if isinstance(old,dict) else set()
-            # Initial address observation is a baseline, not a new whale alert.
-            new=[] if old is None else [e for k,e in unique.items() if k not in previous]
-            report["new_transfers"].extend(new[:8])
+            previous=set(old.get("seen_ids",[])) if old else set()
+            unseen=[item for key,item in unique.items() if key not in previous]
+            # The first page merely establishes a baseline. Only subsequent
+            # transactions >= 1M nominal units create a noteworthy event.
+            significant=[] if old is None else [
+                item for item in unseen if Decimal(item["quantity"])>=MIN_UNITS]
+            report["new_transfers"].extend(significant[:8])
             report["tracked_addresses"].append({
-                "address":address,"verified_identity":False,"sample_count":len(unique),
-                "new_count":len(new),"baseline_at":old.get("baseline_at")
-                if isinstance(old,dict) else now.isoformat()})
+                "address":address,"verified_identity":False,
+                "sample_count":len(unique),"new_count":len(significant),
+                "baseline_at":old.get("baseline_at") if old else now.isoformat(),
+                "last_polled_at":now.isoformat(),"monitoring":"active"})
+            previous_order=old.get("seen_ids",[]) if old else []
+            ordered=list(dict.fromkeys(previous_order+list(unique)))
             saved[address]={
-                "baseline_at":old.get("baseline_at") if isinstance(old,dict) else now.isoformat(),
-                "seen_ids":sorted(previous|set(unique))[-300:],
+                "baseline_at":old.get("baseline_at") if old else now.isoformat(),
+                "seen_ids":ordered[-MAX_SEEN:],
                 "last_polled_at":now.isoformat()}
         except (requests.RequestException,ValueError,TypeError,KeyError) as exc:
             report["errors"][address]=type(exc).__name__
-    # Preserve previously observed address history for reappearance, but bound
-    # size; no private information and no fictitious balances are produced.
+            report["tracked_addresses"].append({
+                "address":address,"verified_identity":False,
+                "sample_count":None,"new_count":0,
+                "baseline_at":old.get("baseline_at") if old else None,
+                "last_polled_at":old.get("last_polled_at") if old else None,
+                "monitoring":"temporarily_unavailable"})
+    # Limit state growth and never turn a provider error into a fake new event.
     saved=dict(list(saved.items())[-16:])
-    if report["errors"] and not report["tracked_addresses"]:
+    successful=sum(x["monitoring"]=="active" for x in report["tracked_addresses"])
+    if successful==0:
         report["state"]="unavailable"
     elif report["errors"]:
         report["state"]="partial"
+    report["new_transfers"]=report["new_transfers"][:8]
     return report,{"schema":1,"tracked":saved}
-
 
 def main():
     now=datetime.now(timezone.utc)
     report,state=observe(now,load(SOURCE),load(STATE))
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     OUTPUT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    if report["state"]!="not_configured":
+    if state:
         STATE.parent.mkdir(parents=True,exist_ok=True)
         STATE.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print("Bounded whale address follow-up:",report["state"],
-          "addresses",len(report["tracked_addresses"]),
-          "new observations",len(report["new_transfers"]))
-
+    print("Whale follow",report["state"],
+          "tracked",len(report["tracked_addresses"]),
+          "new large transfers",len(report["new_transfers"]))
 
 if __name__=="__main__":
     main()
