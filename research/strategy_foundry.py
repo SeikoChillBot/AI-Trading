@@ -27,6 +27,10 @@ LOGICS = ("trend_following", "mean_reversion", "breakout",
 WINDOWS = (10, 20, 40)
 THRESHOLDS = (0.5, 1, 2)
 MAX_HOLD = (1, 3, 7)
+# Optional independent signal gates make auditable multi-indicator combinations.
+CONFIRMATIONS = ("rsi_oversold", "rsi_strength", "ema_uptrend",
+                 "quiet_volatility", "active_volatility", "positive_momentum")
+MAX_CONFIRMATIONS = 2
 CAPITAL = 20.0
 COST = .009  # Hypothetical fee, spread and slippage PER SIDE.
 MAX_IDEAS = 80
@@ -60,16 +64,33 @@ def normalise(raw):
     rationale = raw.get("rationale", "")
     if not isinstance(rationale, str) or not 12 <= len(rationale.strip()) <= 350:
         raise ValueError("missing_bounded_rationale")
-    return {
+    gates = raw.get("confirmations", [])
+    if (not isinstance(gates, list) or len(gates) > MAX_CONFIRMATIONS
+            or any(type(gate) is not str or gate not in CONFIRMATIONS for gate in gates)
+            or len(set(gates)) != len(gates)
+            or {"quiet_volatility", "active_volatility"} <= set(gates)
+            or {"rsi_oversold", "rsi_strength"} <= set(gates)):
+        raise ValueError("invalid_signal_confirmations")
+    spec = {
         "asset": asset, "logic": logic, "lookback_days": window,
         "threshold_pct": float(threshold), "max_hold_days": horizon,
         "rationale": rationale.strip(),
     }
+    if gates:
+        spec["confirmations"] = sorted(gates)
+    return spec
 
 
 def identifier(spec):
     exact = {k: spec[k] for k in
              ("asset", "logic", "lookback_days", "threshold_pct", "max_hold_days")}
+    if spec.get("confirmations"):
+        gates = spec["confirmations"]
+        if (not isinstance(gates, list) or len(gates) > MAX_CONFIRMATIONS
+                or any(g not in CONFIRMATIONS for g in gates)
+                or len(set(gates)) != len(gates)):
+            raise ValueError("invalid_signal_confirmations")
+        exact["confirmations"] = sorted(gates)
     return hashlib.sha256(json.dumps(exact, sort_keys=True).encode()).hexdigest()[:18]
 
 
@@ -118,7 +139,7 @@ def _rsi(closes, i, window):
     return 100. - 100. / (1. + gains / losses)
 
 
-def signal(closes, i, spec, holding, age):
+def _base_signal(closes, i, spec, holding, age):
     """At open(i), inspect only closes through i-1. Never inspect close(i)."""
     w = spec["lookback_days"]
     if i < w + 2 or i > len(closes):
@@ -170,6 +191,41 @@ def signal(closes, i, spec, holding, age):
                         and 50 < rsi < 75) else "WAIT"
     raise ValueError("invalid_strategy_logic")
 
+
+
+def _confirmation_passes(closes, i, spec):
+    """Evaluate composition gates from COMPLETED candles before open(i)."""
+    w = spec["lookback_days"]
+    prior = closes[i-w:i]
+    returns = [prior[k] / prior[k-1] - 1 for k in range(1, len(prior))]
+    avg = sum(returns) / len(returns)
+    volatility = math.sqrt(sum((r - avg) ** 2 for r in returns) / len(returns))
+    for gate in spec.get("confirmations", []):
+        if gate == "rsi_oversold":
+            passed = _rsi(closes, i, w) <= 40
+        elif gate == "rsi_strength":
+            passed = _rsi(closes, i, w) >= 55
+        elif gate == "ema_uptrend":
+            passed = _ema(prior, max(3, w//2)) > _ema(prior, w)
+        elif gate == "quiet_volatility":
+            passed = volatility < .025
+        elif gate == "active_volatility":
+            passed = volatility >= .025
+        elif gate == "positive_momentum":
+            passed = closes[i-1] > closes[i-3]
+        else:
+            raise ValueError("invalid_signal_confirmations")
+        if not passed:
+            return False
+    return True
+
+
+def signal(closes, i, spec, holding, age):
+    """Composable, frozen and auditably point-in-time strategy decision."""
+    action = _base_signal(closes, i, spec, holding, age)
+    if action == "BUY" and not _confirmation_passes(closes, i, spec):
+        return "WAIT"
+    return action
 
 def replay(bars, spec, start, end, fee=COST):
     """Independent forward chronological fold with previous-close decisions.
