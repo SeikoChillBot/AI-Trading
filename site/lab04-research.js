@@ -167,6 +167,26 @@ put('strategy-scientific-status',scientific.ready?
     (failureKeys[0]?.[0]||'aucun')+
     '. Les fréquences ne prouvent pas une cause.':
     'Mémoire scientifique : aucune synthèse confirmée pour le moment.');
+const director=DATA.research_director||{};
+const directorPlans=Array.isArray(director.experiments)?director.experiments:[];
+const currentPlans=directorPlans.filter(p=>p&&p.prospective_status!=='prospectively_contradicted').slice(-3);
+const goalLabel={
+  cost_resilience:'résistance aux frais',
+  trade_frequency:'fréquence des transactions',
+  beat_hold:'comparaison avec Hold',
+  net_return:'rendement net',
+  risk_control:'maîtrise du risque'
+};
+put('strategy-director-status',director.ready?
+  'Agent chercheur : '+Number(director.tracked||0)+' plan(s) actif(s), '+
+  Number(director.model_directed_this_cycle||0)+' nouvel(aux) plan(s) Gemini, '+
+  Number(director.local_fallback_new_experiments||0)+' plan(s) de repli. '+
+  currentPlans.map(p=>String(p.asset||'?')+' : '+
+    (goalLabel[p.goal]||'expérience')+
+    ' ('+(p.source==='gemini_research_director'?'Gemini':'repli local')+
+    ', '+Number(p.prospective_observed_days||0)+' j futurs)').join(' ; ')+
+  '. Aucune validation sans futures données.' :
+  'Agent chercheur : premier plan autonome non encore publié.');
 const competition=DATA.strategy_competition||{};
 put('strategy-competition-status',competition.ready?
     'Compétition fictive sur nouvelles journées : '+
