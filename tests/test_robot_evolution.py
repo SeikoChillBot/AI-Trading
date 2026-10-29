@@ -86,6 +86,25 @@ class RobotEvolutionTests(unittest.TestCase):
         self.assertFalse(no)
         self.assertIn("double_fees_not_loss",blocks)
 
+    def test_future_validation_requires_contiguous_evidence(self):
+        candidate={"created_at":(NOW-timedelta(days=17)).isoformat(),
+                   "lab":"crypto","entry_scale":1.2}
+        evidence={"source":"independent_forward_shadow_v1",
+                  "created_at":candidate["created_at"],
+                  "observed_at":NOW.isoformat(),"entry_scale":1.2,
+                  "ready_for_real_orders":False,"observations":130,
+                  "missed_observations":5,
+                  "control":{"net_return_pct":1,"max_drawdown_pct":10},
+                  "candidate":{"net_return_pct":5,"closed_trades":25,
+                    "stress_net_return_pct":2,"max_drawdown_pct":8}}
+        ok,blocked=evolution.sufficient_prospective(evidence,candidate,NOW)
+        self.assertFalse(ok)
+        self.assertIn("bounded_missing_market_observations",blocked)
+        evidence["missed_observations"]=0
+        evidence["observed_at"]=(NOW+timedelta(hours=1)).isoformat()
+        ok,blocked=evolution.sufficient_prospective(evidence,candidate,NOW)
+        self.assertFalse(ok)
+
     def test_shadow_first_registration_never_replays_old_profit(self):
         candidate={"created_at":NOW.isoformat(),"entry_scale":1.2}
         record=robot_shadow.start(candidate,100)
