@@ -180,7 +180,7 @@ if(host&&wallets){
     format(base.large_count,0)+' transfert(s) d’au moins un million d’USDC. '+
     exactCoverage+' · relevé du '+date(base.generated_at)+
     '. Aucun achat ni propriétaire confirmé.':
-    'Base : les sources publiques ne répondent pas actuellement. Aucun transfert supposé.');
+    'Base : aucun relevé exploitable publié'+(base.generated_at?' depuis le '+date(base.generated_at):'')+'. La nouvelle collecte gratuite doit encore être vérifiée. Aucun transfert supposé.');
   const sample=Array.isArray(base.highlights)?base.highlights:[];
   for(const item of sample.slice(0,4)){
    const h=String(item.tx_hash||'').toLowerCase();
