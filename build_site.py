@@ -200,6 +200,29 @@ if radar_file.exists():
     except (OSError, ValueError, TypeError):
         pass
 
+# Independently tracked addresses: baseline first; no ownership or trade inference.
+follow_file = Path("reports/whale_follow.json")
+if follow_file.exists():
+    try:
+        follow = json.loads(follow_file.read_text(encoding="utf-8"))
+        if follow.get("schema") == 1 and follow.get("real_orders") is False:
+            data["whale_radar"]["follow"] = {
+                "state":follow.get("state"),
+                "generated_at":follow.get("generated_at"),
+                "coverage":follow.get("coverage"),
+                "tracked_addresses":[{k:row.get(k) for k in (
+                    "address","verified_identity","sample_count","new_count","baseline_at")}
+                    for row in follow.get("tracked_addresses",[])[:4] if isinstance(row,dict)],
+                "new_transfers":[{k:row.get(k) for k in (
+                    "tx_hash","token","nominal_usd_approx","timestamp",
+                    "classification","trade_inference")}
+                    for row in follow.get("new_transfers",[])[:8] if isinstance(row,dict)],
+                "error_count":len(follow.get("errors",{})),
+                "can_infer_trade":False, "can_infer_owner":False,
+            }
+    except (OSError,ValueError,TypeError):
+        pass
+
 # Report-only widgets for new market studies and forward-only challengers.
 data["market_pulse"] = {"ready": False}
 pulse_path = Path("reports/market_pulse.json")
