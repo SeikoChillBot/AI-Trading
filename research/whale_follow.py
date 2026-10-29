@@ -57,7 +57,7 @@ def candidates(source,now,state=None):
             return chosen
     if not isinstance(source,dict) or source.get("state") not in ("observing","partial"):
         return chosen
-    if not recent(source.get("generated_at"),now,1):
+    if not recent(source.get("generated_at"),now,3/24):
         return chosen
     rows=source.get("sampled_wallet_flows",[])
     if not isinstance(rows,list):
