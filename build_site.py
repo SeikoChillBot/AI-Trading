@@ -294,6 +294,29 @@ if architect_path.exists():
             }
     except (ValueError, TypeError, KeyError):
         pass
+# Persistent scientific research memory, statistics not causality or prediction.
+science_path = Path("reports/scientific_memory.json")
+data["scientific_memory"] = {"ready": False}
+if science_path.exists():
+    try:
+        science = json.loads(science_path.read_text(encoding="utf-8"))
+        if (science.get("schema") == 1
+                and science.get("state") == "research_memory_recorded"
+                and science.get("real_orders") is False
+                and science.get("robots_modified") is False
+                and science.get("no_promotions") is True
+                and science.get("no_causal_attribution") is True):
+            data["scientific_memory"] = {
+                "ready": True, "generated_at": science.get("generated_at"),
+                "recorded_hypotheses": science.get("recorded_hypotheses", 0),
+                "total_experiment_fingerprints": science.get("total_experiment_fingerprints", 0),
+                "new_revisions": science.get("new_revisions", 0),
+                "failure_patterns": science.get("failure_patterns", {}),
+                "prospective_observed": science.get("prospective_observed", 0),
+                "historical_only_warning": True,
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
 # Machine-readable, non-executable research proposals only (never portfolio inputs).
 ai_proposals_path = Path("reports/ai_research_proposals.json")
 data["ai_review"] = {"ready": False}
