@@ -21,7 +21,8 @@ class Response:
 
 def run_age(minutes, event="schedule", status="completed"):
     created=(NOW - timedelta(minutes=minutes)).isoformat()
-    return {"event":event, "status":status, "created_at":created}
+    return {"event":event, "status":status, "created_at":created,
+            "name":guard.RESEARCH_NAME,"path":".github/workflows/research.yml"}
 
 
 class GuardTests(unittest.TestCase):
@@ -35,7 +36,7 @@ class GuardTests(unittest.TestCase):
     def test_stale_schedules_dispatch_once(self):
         calls=[]
         def get(url,**kw):
-            self.assertIn("/workflows/research.yml/runs",url)
+            self.assertTrue(url.endswith("/actions/runs"))
             self.assertNotIn("dummy-test-secret",str(kw.get("params")))
             return Response({"workflow_runs":[run_age(290),run_age(400)]})
         def post(url,**kw):
@@ -58,6 +59,18 @@ class GuardTests(unittest.TestCase):
             result=guard.check_and_dispatch(NOW,"fake-secret",get,post)
         self.assertIn("skipped",result)
         self.assertFalse(posts)
+
+    def test_many_unrelated_pages_runs_require_a_complete_time_window(self):
+        # With >100 Pages updates inside the threshold, a missing research
+        # run might be hidden on page two: never dispatch blindly.
+        pages=[{**run_age(20), "name":"pages build and deployment",
+                "path":".github/workflows/pages-build-deployment"} for _ in range(100)]
+        self.assertFalse(guard.should_dispatch(NOW,pages))
+        # Once the 100th newest run is older than the threshold, any recent
+        # research run would necessarily have appeared on page one.
+        older=[{**run_age(280), "name":"pages build and deployment",
+                "path":".github/workflows/pages-build-deployment"} for _ in range(100)]
+        self.assertTrue(guard.should_dispatch(NOW,older))
 
     def test_api_errors_never_dispatch_or_fail_paper(self):
         posts=[]
