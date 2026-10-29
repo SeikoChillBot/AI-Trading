@@ -116,6 +116,10 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn('python -m research.daily_brief',workflow)
   self.assertIn('test_daily_brief.py',workflow)
 
+ def test_bottom_tabs_remain_visible(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  self.assertIn('class="bottom-nav"',html)
+
  def test_workflow_publishes_versions(self):
   workflow=(ROOT/".github/workflows/simulate.yml").read_text(encoding="utf8")
   self.assertIn("cp site/lab04-*.js docs/",workflow)
