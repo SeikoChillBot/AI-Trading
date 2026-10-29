@@ -34,11 +34,13 @@ jobs:
           python -m unittest discover -s tests -p 'test_daily_brief.py' -v
           python -m unittest discover -s tests -p 'test_intraday_lab.py' -v
           python -m unittest discover -s tests -p 'test_ops_status.py' -v
+          python -m unittest discover -s tests -p 'test_ait_upgrade.py' -v
       - name: Validate independent market intelligence
         run: |
           python -m py_compile research/market_context.py research/whale_watch.py
           python -m unittest discover -s tests -p 'test_market_intelligence.py' -v
           python -m unittest discover -s tests -p 'test_autonomous_market.py' -v
+          node --check site/lab04-clarity.js
       - name: Collect free research data and optional verified-wallet transfers
         env:
           ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
@@ -46,6 +48,7 @@ jobs:
           python research/market_context.py
           python research/whale_watch.py
           python research/large_transfers.py
+          python -m research.whale_follow
           python -m research.news_watch
       - name: Test historical strategies
         run: python -m unittest discover -s tests -p 'test_historical_research.py' -v && python research/walkforward.py && python research/market_pulse.py
@@ -87,6 +90,7 @@ jobs:
           python build_site.py
           mkdir -p docs
           cp site/dashboard.html docs/index.html
+          cp site/lab04-*.js site/lab04-*.css docs/
       - name: Warn if UI failed; continue publishing research reports
         if: steps.site_validation.outcome != 'success'
         run: echo "::warning::Site validation failed; keeping last published UI while saving research."
@@ -97,9 +101,9 @@ jobs:
           git add reports/autonomous_research.json reports/autonomous_research.md reports/autonomous_research_history.jsonl
           git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json reports/robot_evolution.json reports/ai_placement_experiments.json reports/market_news.json reports/ai_journal.json reports/ai_daily_brief.json
           git add reports/intraday_research.json reports/system_health.json
-          git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/market_pulse.json reports/challenger_incubator.json
+          git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/whale_follow.json reports/market_pulse.json reports/challenger_incubator.json
           git add site/dashboard.html docs/index.html
-          for artifact in state/whale_watch_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json state/ai_daily_brief_state.json state/intraday_paper.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
+          for artifact in state/whale_watch_state.json state/whale_follow_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json state/ai_daily_brief_state.json state/intraday_paper.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
             if [ -f "$artifact" ]; then git add -- "$artifact"; fi
           done
           if ! git diff --cached --quiet; then
