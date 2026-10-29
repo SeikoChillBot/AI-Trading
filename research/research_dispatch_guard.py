@@ -46,6 +46,10 @@ def should_dispatch(now: datetime, rows: object) -> bool:
     if not isinstance(rows, list) or not rows:
         return False
     candidates = [row for row in rows if isinstance(row, dict)]
+    # No complete, timestamped, workflow-specific evidence => fail closed.
+    if not candidates or not all(is_research(row) and parse_utc(row.get("created_at"))
+                                 for row in candidates):
+        return False
     # The API query targets the research workflow only. A full result page of
     # recent runs cannot prove a stale schedule because older research entries
     # may be hidden by pagination; fail closed in this exceptional case.
