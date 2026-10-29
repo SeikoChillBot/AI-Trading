@@ -13,6 +13,7 @@ on:
       - 'research/strategy_evolution.py'
       - 'research/strategy_architect.py'
       - 'research/scientific_memory.py'
+      - 'research/research_director.py'
       - 'research/strategy_competition.py'
       - 'research/strategy_foundry.py'
       - 'research/strategy_forward.py'
@@ -62,6 +63,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_strategy_evolution.py' -v
           python -m unittest discover -s tests -p 'test_strategy_architect.py' -v
           python -m unittest discover -s tests -p 'test_scientific_memory.py' -v
+          python -m unittest discover -s tests -p 'test_research_director.py' -v
           python -m unittest discover -s tests -p 'test_strategy_competition.py' -v
       - name: Validate independent market intelligence
         run: |
@@ -106,6 +108,8 @@ jobs:
           SEIKO_AI_PROVIDER: gemini
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python -m research.ai_reflection
+      - name: Pick falsifiable experiments and freeze research director plans
+        run: python -m research.research_director
       - name: Archive and replay bounded AI-designed strategy hypotheses
         run: python -m research.strategy_foundry
       - name: Observe AI strategy candidates on new daily candles only
@@ -158,6 +162,7 @@ jobs:
           git add reports/strategy_evolution.json state/strategy_evolution.json
           git add reports/strategy_architect.json state/strategy_architect.json
           git add reports/scientific_memory.json state/scientific_memory.json
+          git add reports/research_director.json state/research_director.json
           git add reports/strategy_competition.json state/strategy_competition.json
           git add site/dashboard.html docs/index.html
           for artifact in state/whale_watch_state.json state/whale_follow_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json state/ai_daily_brief_state.json state/intraday_paper.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
