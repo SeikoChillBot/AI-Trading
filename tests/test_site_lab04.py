@@ -81,6 +81,23 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("textContent",script)
   self.assertNotIn("innerHTML",script)
 
+ def test_strategy_navigation_back_and_shared_sheet(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  app=(ROOT/"site/app.js").read_text(encoding="utf8")
+  directory=(ROOT/"site/lab04-directory.js").read_text(encoding="utf8")
+  css=(ROOT/"site/theme.css").read_text(encoding="utf8")
+  self.assertIn('id="sheet-return"',html)
+  self.assertIn('class="strategy-shortcuts"',html)
+  self.assertIn("historyApi.pushState({seikoView:next}",app)
+  self.assertIn("historyApi.pushState({seikoSheet:true",app)
+  self.assertIn("window.addEventListener('popstate'",app)
+  self.assertIn("returnFromSheet",app)
+  self.assertIn("event.key==='Escape'",app)
+  self.assertIn("window.SeikoNavigation.openSheet",directory)
+  self.assertIn("window.SeikoNavigation.navigate('robots')",directory)
+  self.assertNotIn("L.goto('robots')",directory)
+  self.assertIn(".sheet-actions{position:sticky;top:0",css)
+
  def test_workflow_publishes_versions(self):
   workflow=(ROOT/".github/workflows/simulate.yml").read_text(encoding="utf8")
   self.assertIn("cp site/lab04-*.js docs/",workflow)
