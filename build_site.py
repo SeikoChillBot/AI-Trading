@@ -169,6 +169,29 @@ if foundry_path.exists():
             }
     except (ValueError, KeyError, TypeError):
         pass
+# Prospective shadow results for the NEW research specifications only.
+shadow_path = Path("reports/strategy_forward.json")
+data["strategy_forward"] = {"ready": False}
+if shadow_path.exists():
+    try:
+        shadow = json.loads(shadow_path.read_text(encoding="utf-8"))
+        if (shadow.get("schema") == 1 and shadow.get("real_orders") is False
+                and shadow.get("robots_modified") is False):
+            data["strategy_forward"] = {
+                "ready": True, "generated_at": shadow.get("generated_at"),
+                "tracked": shadow.get("tracked", 0),
+                "trials": [
+                    {key: item.get(key) for key in
+                     ("id", "source", "asset", "logic", "observed_days",
+                      "closed_trades", "net_pct", "excess_vs_hold_points",
+                      "max_drawdown_pct", "status", "sufficient_evidence")}
+                    for item in shadow.get("trials", [])[:24]
+                    if isinstance(item, dict) and item.get("sufficient_evidence") is False
+                ],
+                "no_robot_modification": True,
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
 # Machine-readable, non-executable research proposals only (never portfolio inputs).
 ai_proposals_path = Path("reports/ai_research_proposals.json")
 data["ai_review"] = {"ready": False}
