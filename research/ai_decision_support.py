@@ -166,6 +166,7 @@ def safe_context(research, historical):
             "qualification": research.get("qualification", {}),
             "labs": labs, "hypotheses": hypotheses,
             "historical": historical,
+            "strategy_research_memory": research.get("strategy_research_memory", {}),
             "budget_per_strategy_usd": 20,
             "allow_live_trading": False, "allow_live_strategy_changes": False}
 
@@ -260,6 +261,25 @@ def validate_model_ideas(value, assets):
             raise ValueError("Invalid research note")
         notes.append({"category":item["category"],"text":item["text"].strip(),
                       "status":"non_verified_analyst_interpretation"})
+    # Bounded strategy grammar; Gemini supplies parameters, never runnable code.
+    # A missing field is accepted for older cached Gemini responses.
+    from research.strategy_foundry import normalise, identifier
+    designs = value.get("strategy_designs", [])
+    if not isinstance(designs, list) or len(designs) > 2:
+        raise ValueError("Invalid number of strategy designs")
+    valid_designs = []
+    seen_designs = set()
+    for raw in designs:
+        try:
+            spec = normalise(raw)
+        except (TypeError, ValueError) as error:
+            raise ValueError("Strategy outside approved research grammar") from error
+        key = identifier(spec)
+        if key in seen_designs:
+            continue
+        seen_designs.add(key)
+        valid_designs.append(spec)
     return {"summary": value["summary"].strip()[:1000], "experiments": clean,
             "bot_adjustments": bot_adjustments,
-            "scenario_proposals": trials, "desk_notes": notes}
+            "scenario_proposals": trials, "desk_notes": notes,
+            "strategy_designs": valid_designs}
