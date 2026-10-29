@@ -93,7 +93,7 @@ class ForwardTests(unittest.TestCase):
         self.assertEqual(next_result["tracked"], 24)
         self.assertEqual(next_result["archived_trials"], 2)
         self.assertIn(champion, state["tracks"])
-        self.assertIn(specs[-1]["id"], state["tracks"])
+        self.assertIn(specs[25]["id"], state["tracks"])
         self.assertTrue(all(r["status"] == "archived_capacity_rotation"
                             for r in state["archived"]))
         self.assertFalse(next_result["real_orders"])
