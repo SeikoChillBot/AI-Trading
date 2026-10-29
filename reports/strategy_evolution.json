@@ -1,0 +1,232 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-29T20:55:20.374321+00:00",
+  "source": "bounded_evolution",
+  "real_orders": false,
+  "robot_changes": false,
+  "total_mutations": 3,
+  "new_candidate_ids": [
+    "43a92df4809f8f30fe",
+    "56bf169e5e3e751450",
+    "97bc58780a96065b2a"
+  ],
+  "selected_by_asset": {
+    "BTCUSD": "43a92df4809f8f30fe",
+    "ETHUSD": "56bf169e5e3e751450",
+    "SOLUSD": "97bc58780a96065b2a"
+  },
+  "candidates": [
+    {
+      "id": "43a92df4809f8f30fe",
+      "asset": "BTCUSD",
+      "source": "bounded_evolution",
+      "parent_id": "2f2b7e8c605e3a5d03",
+      "changed_dimension": "threshold_pct",
+      "generation": 1,
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Mutation contrôlée de threshold_pct pour confronter une hypothèse historique au résultat de sa variante."
+      },
+      "selection_metrics": {
+        "score": -9.49078,
+        "avg_net_pct": -1.62111,
+        "avg_double_cost_net_pct": -2.44794,
+        "avg_excess_vs_hold_points": 13.34963,
+        "max_drawdown_pct": 6.48444,
+        "closed_trades": 2,
+        "positive_folds": 0,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 0.02241,
+            "double_cost_net_pct": -3.51501,
+            "excess_vs_hold_points": -31.24321,
+            "drawdown_pct": 3.34519,
+            "closed_trades": 2
+          },
+          {
+            "net_pct": -2.23602,
+            "double_cost_net_pct": -3.98036,
+            "excess_vs_hold_points": -4.29307,
+            "drawdown_pct": 2.23908,
+            "closed_trades": 1
+          }
+        ],
+        "net_average_pct": -1.10681,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "parent_failure_reasons": [
+        "development_net_negative",
+        "double_cost_sensitivity",
+        "historical_challenge_negative",
+        "historical_hold_not_beat_both"
+      ],
+      "eligible_for_live_trading": false,
+      "historical_candidate_only": true,
+      "created_at": "2026-10-29T20:55:20.374321+00:00",
+      "frozen_at_closed_day": 1793145600
+    },
+    {
+      "id": "56bf169e5e3e751450",
+      "asset": "ETHUSD",
+      "source": "bounded_evolution",
+      "parent_id": "e921c860eb3b6e24a0",
+      "changed_dimension": "lookback_days",
+      "generation": 1,
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Mutation contrôlée de lookback_days pour confronter une hypothèse historique au résultat de sa variante."
+      },
+      "selection_metrics": {
+        "score": -9.3527,
+        "avg_net_pct": -1.91302,
+        "avg_double_cost_net_pct": -2.72952,
+        "avg_excess_vs_hold_points": 18.05593,
+        "max_drawdown_pct": 7.65209,
+        "closed_trades": 2,
+        "positive_folds": 0,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": -4.44615,
+            "double_cost_net_pct": -9.47014,
+            "excess_vs_hold_points": -58.19549,
+            "drawdown_pct": 5.43679,
+            "closed_trades": 3
+          },
+          {
+            "net_pct": -3.54318,
+            "double_cost_net_pct": -6.9545,
+            "excess_vs_hold_points": 2.24471,
+            "drawdown_pct": 3.55158,
+            "closed_trades": 2
+          }
+        ],
+        "net_average_pct": -3.99467,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "parent_failure_reasons": [
+        "development_net_negative",
+        "double_cost_sensitivity",
+        "historical_challenge_negative",
+        "historical_hold_not_beat_both"
+      ],
+      "eligible_for_live_trading": false,
+      "historical_candidate_only": true,
+      "created_at": "2026-10-29T20:55:20.374321+00:00",
+      "frozen_at_closed_day": 1793145600
+    },
+    {
+      "id": "97bc58780a96065b2a",
+      "asset": "SOLUSD",
+      "source": "bounded_evolution",
+      "parent_id": "253095b8a9544ff8df",
+      "changed_dimension": "threshold_pct",
+      "generation": 1,
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Mutation contrôlée de threshold_pct pour confronter une hypothèse historique au résultat de sa variante."
+      },
+      "selection_metrics": {
+        "score": -1.45472,
+        "avg_net_pct": -1.4384,
+        "avg_double_cost_net_pct": -3.18261,
+        "avg_excess_vs_hold_points": 19.92429,
+        "max_drawdown_pct": 3.36643,
+        "closed_trades": 4,
+        "positive_folds": 0,
+        "beating_hold_folds": 4,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 6.0375,
+            "double_cost_net_pct": -1.33017,
+            "excess_vs_hold_points": -34.952,
+            "drawdown_pct": 1.74351,
+            "closed_trades": 4
+          },
+          {
+            "net_pct": -7.4672,
+            "double_cost_net_pct": -12.33235,
+            "excess_vs_hold_points": -2.62388,
+            "drawdown_pct": 7.4672,
+            "closed_trades": 3
+          }
+        ],
+        "net_average_pct": -0.71485,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "parent_failure_reasons": [
+        "development_net_negative",
+        "double_cost_sensitivity",
+        "historical_challenge_negative",
+        "historical_hold_not_beat_both"
+      ],
+      "eligible_for_live_trading": false,
+      "historical_candidate_only": true,
+      "created_at": "2026-10-29T20:55:20.374321+00:00",
+      "frozen_at_closed_day": 1793145600
+    }
+  ],
+  "events": [
+    {
+      "asset": "BTCUSD",
+      "id": "43a92df4809f8f30fe",
+      "parent": "2f2b7e8c605e3a5d03",
+      "status": "mutation_created",
+      "tested_variants": 12,
+      "dimension": "threshold_pct"
+    },
+    {
+      "asset": "ETHUSD",
+      "id": "56bf169e5e3e751450",
+      "parent": "e921c860eb3b6e24a0",
+      "status": "mutation_created",
+      "tested_variants": 12,
+      "dimension": "lookback_days"
+    },
+    {
+      "asset": "SOLUSD",
+      "id": "97bc58780a96065b2a",
+      "parent": "253095b8a9544ff8df",
+      "status": "mutation_created",
+      "tested_variants": 12,
+      "dimension": "threshold_pct"
+    }
+  ],
+  "issues": {},
+  "lesson": "A mutation addresses observed historical weaknesses, not proof that the weakness is cured.",
+  "no_automatic_live_promotion": true
+}
