@@ -111,7 +111,7 @@ function updateHoldings(){
  const L=window.SeikoV4;if(!L)return;
  const norm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
   .replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
- const key=norm(name.textContent);
+ const key=name.dataset.strategy||norm(name.textContent);
  const category=String($('sheet-category')?.textContent||'').toLowerCase();
  const rows=category.includes('multi')?L.mr:L.cr;
  let r=rows.find(x=>x.strategy===key);
@@ -169,6 +169,25 @@ if(host&&wallets){
  }
  if(!host.children.length)tile(host,'Aucun gros transfert confirmé dans l’échantillon',
   'Les données sont absentes ou aucun transfert ne franchit le seuil nominal de 1 million.');
+ const base=D.base_radar||{},baseBox=$('base-usdc-list');
+ if(baseBox){
+  baseBox.replaceChildren();
+  put('base-usdc-status',base.ready?
+    'Base : '+format(base.sampled_count,0)+' transferts USDC examinés · '+
+    format(base.large_count,0)+' transfert(s) d’au moins un million d’USDC dans cet échantillon · '+
+    date(base.generated_at)+'. Aucun achat ni propriétaire confirmé.':
+    'Base : source momentanément indisponible ou pas encore collectée. Aucun transfert supposé.');
+  const sample=Array.isArray(base.highlights)?base.highlights:[];
+  for(const item of sample.slice(0,4)){
+   const h=String(item.tx_hash||'').toLowerCase();
+   if(!/^0x[0-9a-f]{64}$/.test(h))continue;
+   tile(baseBox,'USDC sur Base · '+format(item.nominal_usd_approx,0),
+        date(item.timestamp)+' · transfert public observé, non une transaction d’achat vérifiée.',
+        'https://base.blockscout.com/tx/'+h,'Voir sur Blockscout Base');
+  }
+  if(!baseBox.children.length)tile(baseBox,'Pas de gros mouvement confirmé',
+    'Ce relevé limité ne prouve pas l’absence de mouvements ailleurs sur Base.');
+ }
  for(const flow of (radar.sampled_wallet_flows||[]).slice(0,10)){
   const address=String(flow.address||'').toLowerCase();
   if(!addressOk(address))continue;
@@ -185,13 +204,13 @@ if(host&&wallets){
   followBox.replaceChildren();
   const active=Array.isArray(follow.tracked_addresses)?follow.tracked_addresses:[];
   const events=Array.isArray(follow.new_transfers)?follow.new_transfers:[];
-  put('whale-radar-follow-status',follow.state==='observing'||follow.state==='partial'?
-    active.length+' adresse(s) observée(s) séparément sur une page de transferts récents · '+
-    date(follow.generated_at)+
-    (follow.error_count?' · '+follow.error_count+' erreur(s) de collecte':'')+
-    '. Premier relevé = référence, jamais nouvelle alerte.':
-    'Suivi d’adresses '+(follow.state||'non disponible')+
-    ' ; aucune transaction ou identité supposée.');
+  const followReadable=(follow.state==='observing'||follow.state==='partial')?
+   active.length+' adresse(s) suivie(s). Sans nouvelle grosse transaction, elles restent surveillées.':
+   follow.state==='no_addresses_yet'?'Aucune nouvelle adresse repérée : le radar continue.':
+   follow.state==='unavailable'?'Source indisponible : les adresses déjà enregistrées sont conservées.':
+   'Premiers relevés en attente.';
+  put('whale-radar-follow-status',followReadable);
+  /* previous display intentionally superseded */
   for(const entry of active.slice(0,4)){
    const a=String(entry.address||'').toLowerCase();if(!addressOk(a))continue;
    tile(followBox,a.slice(0,8)+'…'+a.slice(-6),
