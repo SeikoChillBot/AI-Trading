@@ -22,6 +22,8 @@ KNOWLEDGE = ROOT / "state/strategy_knowledge_base.json"
 EVOLUTION = ROOT / "reports/strategy_evolution.json"
 STATE = ROOT / "state/strategy_architect.json"
 REPORT = ROOT / "reports/strategy_architect.json"
+SCIENTIFIC = ROOT / "state/scientific_memory.json"
+MAX_ATTEMPTED = 3500
 ARCHIVE_LIMIT = 90
 NEW_PER_ASSET = 2
 SEARCH_EVERY_CLOSED_DAYS = 7
@@ -117,7 +119,7 @@ def verified_parents(knowledge, asset):
     ))[:10]
 
 
-def build(now, candles, knowledge, previous):
+def build(now, candles, knowledge, previous, scientific=None):
     prior = previous if isinstance(previous, dict) else {}
     recent = prior.get("candidates", [])
     remembered = {}
@@ -130,7 +132,11 @@ def build(now, candles, knowledge, previous):
                 remembered[row["id"]] = row
         except (ValueError, TypeError, KeyError):
             continue
-    tried = set(remembered)
+    past_attempted = [x for x in prior.get("attempted_ids", [])
+                      if isinstance(x, str) and len(x) == 18]
+    science_seen = scientific.get("seen_spec_ids", []) if isinstance(scientific, dict) else []
+    science_seen = science_seen if isinstance(science_seen, list) else []
+    tried = set(remembered) | set(past_attempted) | set(science_seen)
     for row in knowledge.get("ideas", []) if isinstance(knowledge, dict) else []:
         if isinstance(row, dict) and isinstance(row.get("id"), str):
             tried.add(row["id"])
@@ -192,6 +198,7 @@ def build(now, candles, knowledge, previous):
                         "created_at": now.isoformat(),
                     }
                     new.append(key)
+                    past_attempted.append(key)
                 active[asset].append(key)
             last_search[asset] = last_t
             findings.append({"asset": asset, "status": "experimental_crossover_created",
@@ -209,6 +216,7 @@ def build(now, candles, knowledge, previous):
               for asset, keys in active.items()}
     state = {"schema": 1, "updated_at": now.isoformat(),
              "candidates": archive, "selected_by_asset": active,
+             "attempted_ids": list(dict.fromkeys(past_attempted))[-MAX_ATTEMPTED:],
              "last_search_closed_day": last_search,
              "real_orders": False, "robot_changes": False}
     report = {"schema": 1, "generated_at": now.isoformat(),
@@ -224,7 +232,8 @@ def build(now, candles, knowledge, previous):
 
 def main():
     now = datetime.now(timezone.utc)
-    report, state = build(now, read(CANDLES), read(KNOWLEDGE), read(STATE))
+    report, state = build(now, read(CANDLES), read(KNOWLEDGE),
+                          read(STATE), read(SCIENTIFIC))
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     STATE.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
