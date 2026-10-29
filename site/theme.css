@@ -152,8 +152,8 @@
 .strategy-shortcuts button{border:1px solid #40594e;border-radius:12px;background:#1b302e;color:#dff1e0;padding:11px 13px;font-size:12px;font-weight:750}
 .strategy-shortcuts button:last-child{color:var(--lime)}
 .robot-sheet{overscroll-behavior:contain}
-.sheet-actions{position:sticky;top:-50px;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:-50px -30px 22px;padding:17px 24px 12px;background:#141e29f4;backdrop-filter:blur(12px);border-bottom:1px solid #364c57}
+.sheet-actions{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:-50px -30px 22px;padding:17px 24px 12px;background:#141e29f4;backdrop-filter:blur(12px);border-bottom:1px solid #364c57}
 .sheet-return{min-height:42px;border:1px solid #4c6959;border-radius:11px;background:#233c34;color:#def5db;padding:10px 14px;font-size:12px;font-weight:800}
 .sheet-actions .close-sheet{position:static;flex:0 0 42px;width:42px;height:42px}
-@media(max-width:800px){.sheet-actions{top:-40px;margin:-40px -22px 20px;padding:14px 19px 10px}.robot-sheet{padding-bottom:max(55px,env(safe-area-inset-bottom))}}
+@media(max-width:800px){.sheet-actions{top:0;margin:-40px -22px 20px;padding:14px 19px 10px}.robot-sheet{padding-bottom:max(55px,env(safe-area-inset-bottom))}}
 @media(max-width:400px){.strategy-shortcuts button{padding:9px;font-size:11px}.sheet-return{padding:9px 10px;font-size:11px}}
