@@ -182,7 +182,9 @@ if radar_file.exists():
                     "token", "quantity", "nominal_usd_approx", "timestamp", "tx_hash",
                     "classification", "owner_identity", "trade_inference")})
             data["whale_radar"] = {
-                "ready": radar.get("state") in ("observing", "partial"),
+                "ready": (radar.get("state") in ("observing", "partial")
+                           and isinstance(radar.get("sampled_wallet_flows"), list)
+                           and isinstance(radar.get("sampled_wallets_count"), int)),
                 "generated_at":radar.get("generated_at"),
                 "state":radar.get("state"),
                 "source":radar.get("source"),
