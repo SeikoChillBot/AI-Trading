@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style><link rel="stylesheet" href="./lab04-overview.css?v=4"><link rel="stylesheet" href="./lab04-analysis.css?v=4.2"><link rel="stylesheet" href="./lab04-markets.css?v=4"><link rel="stylesheet" href="./lab04-clarity.css?v=5"><link rel="stylesheet" href="./lab04-simple.css?v=6"></head>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style><link rel="stylesheet" href="./lab04-overview.css?v=4"><link rel="stylesheet" href="./lab04-analysis.css?v=4.2"><link rel="stylesheet" href="./lab04-markets.css?v=4"><link rel="stylesheet" href="./lab04-clarity.css?v=5"><link rel="stylesheet" href="./lab04-simple.css?v=6"><link rel="stylesheet" href="./lab04-guide.css?v=7"></head>
 <body><div class="app-shell" id="app">
 <header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><span class="release-tag" aria-label="Version de l’interface">AIT · SIMULATION</span><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
 <div class="page-heading"><span class="eyebrow" id="page-eyebrow">PAPER TRADING · LABORATOIRE</span><h1 id="page-title">Vue d’ensemble<span class="title-period">.</span></h1><p id="page-subtitle">Les résultats de votre expérience, au même endroit.</p></div>
@@ -18,6 +18,22 @@
 <section class="ait-beginner-note"><strong>Tu regardes quoi ici ?</strong>
 <p>36 robots testent des idées avec de l’argent fictif : 20 $ chacun, soit 720 $ au total. Les gains et pertes affichés sont simulés, pas de l’argent à retirer.</p>
 <details><summary>Comprendre capital, position et rendement</summary><p><b>Capital</b> : valeur actuelle de la mise de départ. <b>Position</b> : ce que le robot détient. <b>Rendement</b> : évolution en pourcentage depuis le début.</p></details></section>
+<section class="ait-journey" aria-label="Comment fonctionne ce laboratoire ?">
+ <div class="ait-journey-heading"><strong>Comment ça fonctionne, en une minute</strong><span>Tout est fictif</span></div>
+ <div class="ait-step-track" aria-label="Étapes de fonctionnement">
+  <span>1. Observer les prix</span><span>2. Simuler les décisions</span><span>3. Mesurer les résultats</span><span>4. Tester les idées de l'IA</span>
+ </div>
+ <details><summary>Comprendre chaque étape, avec des exemples</summary>
+  <ol class="ait-journey-list">
+   <li><strong>Les marchés fournissent des prix.</strong> Par exemple, le prix observé d'un bitcoin. Si une source ne répond pas, nous ne fabriquons pas de prix.</li>
+   <li><strong>Chaque robot suit sa propre règle.</strong> L'un conserve son placement, un autre cherche une hausse de prix, un troisième attend une baisse. Il peut acheter, vendre ou ne rien faire.</li>
+   <li><strong>Chaque décision est simulée.</strong> Un achat virtuel utilise une partie des 20 $ du robot, avec des frais estimés. Rien n'est envoyé à une banque ou à une plateforme de trading.</li>
+   <li><strong>Le site suit ce qu'il reste.</strong> Valeur du placement + argent non investi = valeur totale estimée du robot. La courbe montre l'évolution de cette valeur.</li>
+   <li><strong>Gemini propose des expériences.</strong> Son avis ne prouve pas qu'une stratégie fonctionne. Une autre partie du programme vérifie les résultats sur de nouvelles données, les frais et les baisses possibles.</li>
+   <li><strong>Les changements sont bloqués tant que les preuves manquent.</strong> Les robots de référence ne sont jamais modifiés et aucun ordre réel n'est possible.</li>
+  </ol>
+ </details>
+</section>
 <div class="lab-overview">
  <div class="lab-overview-top"><div><span class="eyebrow">SIMULATIONS · SANS ARGENT RÉEL</span><h2>Deux équipes de robots.<br><span>Des essais sans argent réel.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
  <p>Deux groupes indépendants de 18 robots. Clique sur un groupe pour voir sa valeur actuelle, sa hausse ou sa baisse. Les deux historiques ne sont pas mélangés.</p>
@@ -48,6 +64,7 @@
 <div class="section-header"><div><span class="eyebrow">FOCUS CRYPTO</span><h2>À suivre dans le labo</h2></div><button class="text-action" id="open-all-robots">Tous les robots <span>↗</span></button></div><div class="highlights" id="highlights"></div>
 <div class="notice"><div class="notice-badge">i</div><p><strong>Une expérience, pas un conseil d’investissement.</strong> La crypto utilise des carnets Kraken simulés ; les autres marchés utilisent des cotations ou des références avec des coûts hypothétiques. Aucun ordre réel.</p></div></section>
 <section id="view-robots" class="view" aria-label="Tous les robots" hidden>
+<section class="ait-page-explain"><strong>Comment lire les robots ?</strong><p>Chaque ligne correspond à un robot avec sa propre mise de 20 $ fictifs. <b>Valeur</b> : combien vaudrait son argent actuellement. <b>Variation</b> : ce qu'il a gagné ou perdu depuis le départ. Ouvre une fiche pour voir ses décisions et ce qu'il possède.</p></section>
 <div class="robot-lab-switch" role="group" aria-label="Univers des stratégies">
  <button type="button" data-robot-lab="all" class="is-active" aria-pressed="true"><span>Tous</span><small id="switch-all-count">36</small></button>
  <button type="button" data-robot-lab="crypto" aria-pressed="false"><span>Crypto</span><small>18</small></button>
@@ -58,6 +75,7 @@
 <div class="filter-list" id="robot-filters" role="group" aria-label="Filtrer les robots"><button data-filter="all" class="is-active">Tous</button><button data-filter="positive">En hausse</button><button data-filter="negative">En baisse</button><button data-filter="inactive">Sans opération</button></div><div class="asset-filter-bar" id="crypto-asset-filters" role="group" aria-label="Filtrer par cryptomonnaie"><span>ACTIF</span><button data-coin="all" class="is-active">Tous</button><button data-coin="BTC">₿ BTC</button><button data-coin="ETH">Ξ ETH</button><button data-coin="SOL">◎ SOL</button></div>
 <div class="list-caption"><span id="robots-count">— stratégies</span><span>VALEUR / VARIATION</span></div><div id="robot-list" class="robot-list"></div></section>
 <section id="view-analysis" class="view" aria-label="Analyse" hidden>
+<section class="ait-page-explain"><strong>À quoi sert cette page ?</strong><p>Le laboratoire compare les robots, observe les gros transferts publics et vérifie si de nouvelles idées méritent d'être testées. <b>« En test » ne signifie pas « rentable ».</b> Les chiffres compliqués restent consultables plus bas, si tu veux aller plus loin.</p><p class="ait-dynamic" id="ait-proof-state">Lecture des résultats de validation…</p></section>
 <section class="research-panel" aria-labelledby="research-title">
  <div class="research-panel-head"><div>
   <span class="eyebrow">OBSERVATION AUTOMATIQUE</span>
@@ -202,7 +220,8 @@
 <article class="surface analysis-card"><span class="eyebrow">PROTOCOLE D’EXPÉRIENCE</span><h2>Comment lire nos chiffres</h2><div class="method-list"><div><span>01</span><p><strong id="initial-per-robot">20 $ fictifs par robot.</strong> Tous partent du même montant initial, indépendamment.</p></div><div><span>02</span><p><strong>Coûts intégrés.</strong> Les frais et les coûts estimés dépendent du marché : 0,8 % taker pour le modèle crypto V2 ; modèle indicatif distinct pour les titres.</p></div><div><span>03</span><p><strong>Simulations distinctes.</strong> Les carnets Kraken sont observés après signal ; les prix actions/ETF et taux BCE ne garantissent aucune exécution réelle.</p></div><div><span>04</span><p><strong>Pas de conclusion hâtive.</strong> Quelques heures ou jours ne prouvent pas qu'un robot est rentable.</p></div></div></article></details></section>
 
 <section id="view-explore" class="view" aria-label="Explorer les marchés" hidden>
-  <div class="market-intro">
+  <section class="ait-page-explain"><strong>Pourquoi observer les marchés ?</strong><p>Les robots ont besoin de prix pour prendre leurs décisions fictives. Ici tu vois ce qu'ils suivent. Un prix affiché peut être retardé ou indicatif ; cela ne signifie pas qu'on pourrait réellement acheter à ce prix.</p><details><summary>Qu'est-ce qu'une action, un ETF ou une devise ?</summary><p><b>Action :</b> petite part d'une entreprise. <b>ETF :</b> fonds qui réunit plusieurs titres. <b>Devise :</b> monnaie, par exemple l'euro face au dollar. <b>Crypto :</b> actif numérique comme le bitcoin. Tous ces placements peuvent perdre de la valeur.</p></details></section>
+<div class="market-intro">
     <span class="eyebrow">MARCHÉS ACTIFS / PROSPECTION</span>
     <h2>Les marchés,<br>en clair<span class="title-period">.</span></h2>
     <p>Neuf instruments suivis dans une expérience séparée, puis treize univers supplémentaires à étudier. Sources, qualité des prix et limites sont détaillées sans embellir les résultats.</p>
@@ -255,6 +274,7 @@
 </main>
 <footer class="site-footer">SEIKO TRADING LAB <span>·</span> LAB / 04 <span>·</span> Capital et ordres fictifs <span>·</span> <span id="footer-update">—</span></footer></div>
 <section id="view-desk" class="view" aria-label="Journal de Gemini et actualités de marché" hidden>
+ <section class="ait-page-explain"><strong>Ce que fait réellement Gemini</strong><p>Gemini lit des résultats déjà collectés et suggère des essais. <b>Il ne passe pas d'ordres et ne modifie pas directement les robots.</b> Le système teste ensuite ses idées séparément. Ce journal distingue les avis de Gemini, les calculs statistiques et les résultats réellement observés.</p><div class="ait-proof-grid" id="ait-gemini-proof" role="status">Vérification des propositions et des résultats…</div><details><summary>Comment savoir si une idée est bonne ?</summary><p>Une bonne idée doit gagner face à la version actuelle sur de <b>nouvelles observations</b>, rester acceptable lorsque les frais augmentent, et ne pas provoquer de baisse trop forte. Pour l'instant, aucune amélioration n'a franchi tous ces contrôles.</p></details></section>
  <section class="research-panel" id="gemini-desk-panel">
   <div class="research-panel-head"><div>
    <span class="eyebrow">ANALYSTE AUTONOME · RECHERCHE FICTIVE</span>
@@ -320,6 +340,11 @@
  <div id="sheet-chart" class="sheet-chart"></div><p class="micro-note" id="sheet-chart-context">Dates et observations en préparation.</p>
  <p class="micro-note" id="sheet-chart-stats">Comparaison en cours.</p></div><details class="lab-advanced sheet-technical"><summary>Frais, opérations et autres détails techniques</summary><div class="sheet-metrics"><div><span>ACTIF</span><strong id="sheet-asset">—</strong></div><div><span>INTERVALLE</span><strong id="sheet-timeframe">—</strong></div><div><span>OPÉRATIONS</span><strong id="sheet-trades">—</strong></div><div><span>FRAIS SIMULÉS</span><strong id="sheet-fees">—</strong></div></div><div class="sheet-extra"><div><span>BAISSE MAX. OBSERVÉE</span><strong id="sheet-drawdown">—</strong></div><div><span>ÉCART AVEC LA CONSERVATION SIMPLE</span><strong id="sheet-benchmark">—</strong></div><p id="sheet-benchmark-note">Comparaison indicative entre stratégies différentes.</p></div>
 
-</details><div class="strategy-description"><span class="eyebrow">Ce que fait ce robot</span><p id="sheet-description">—</p></div></section></div>
+</details><div class="strategy-description"><span class="eyebrow">Ce que fait ce robot</span><p id="sheet-description">—</p></div>
+ <section class="ait-sheet-activity"><h3>Ses dernières décisions</h3>
+  <p id="ait-sheet-activity-status">Vérification de son historique des opérations…</p>
+  <div id="ait-sheet-activity-list" class="ait-activity-list"></div>
+  <details><summary>Pourquoi le robot peut aussi ne rien faire ?</summary><p>Chaque stratégie attend certaines conditions de prix. Si elles ne sont pas réunies, ou si les informations sont insuffisantes, le robot peut conserver son argent disponible ou son placement. Ce n'est pas nécessairement une panne.</p></details>
+ </section></section></div>
 <script>const DATA=/*__DATA__*/{"updated":"En attente du premier relevé","rows":[],"history":[]};</script><script>/*__JS__*/</script>
-<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script><script src="./lab04-desk.js?v=4.8" defer></script><script src="./lab04-ops.js?v=1" defer></script><script src="./lab04-clarity.js?v=5" defer></script><script src="./lab04-simple.js?v=6" defer></script></body></html>
+<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script><script src="./lab04-desk.js?v=4.8" defer></script><script src="./lab04-ops.js?v=1" defer></script><script src="./lab04-clarity.js?v=5" defer></script><script src="./lab04-simple.js?v=6" defer></script><script src="./lab04-guide.js?v=7" defer></script></body></html>
