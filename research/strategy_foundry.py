@@ -22,6 +22,7 @@ MARKDOWN = ROOT / "reports/strategy_foundry.md"
 OPTIMIZER = ROOT / "reports/autonomous_optimizer.json"
 EVOLUTION = ROOT / "reports/strategy_evolution.json"
 ARCHITECT = ROOT / "reports/strategy_architect.json"
+DIRECTOR = ROOT / "reports/research_director.json"
 ASSETS = ("BTCUSD", "ETHUSD", "SOLUSD")
 LOGICS = ("trend_following", "mean_reversion", "breakout",
           "ema_trend", "rsi_reversal", "volatility_gate", "dual_confirmation")
@@ -367,7 +368,7 @@ def model_memory(ledger):
             "instruction": "Learn from failures; do not retest the same parameters just to claim success."}
 
 
-def build(now, proposals, candles, previous, optimizer=None, evolution=None, architect=None):
+def build(now, proposals, candles, previous, optimizer=None, evolution=None, architect=None, director=None):
     ideas = [dict(x) for x in previous.get("ideas", [])
              if isinstance(x, dict) and isinstance(x.get("spec"), dict)][-MAX_IDEAS:]
     existing = {i.get("id"): i for i in ideas}
@@ -462,6 +463,35 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
                         except (ValueError, TypeError, KeyError):
                             pass
                         break
+    # Director plans are declarative, frozen and separately attributed to
+    # Gemini or the explicitly named local fallback. Never execute model text.
+    if (isinstance(director, dict) and director.get("schema") == 1
+            and director.get("source") == "falsifiable_research_director"
+            and director.get("real_orders") is False
+            and director.get("robot_changes") is False
+            and director.get("no_automatic_robot_promotion") is True):
+        active = director.get("active_by_asset", {})
+        records = director.get("experiments", [])
+        if isinstance(active, dict) and isinstance(records, list):
+            for asset in ASSETS:
+                wanted = active.get(asset)
+                for item in records[-100:]:
+                    if (not isinstance(item, dict) or item.get("id") != wanted
+                            or item.get("asset") != asset
+                            or item.get("source") not in (
+                                "gemini_research_director",
+                                "bounded_local_research_director")
+                            or item.get("historical_data_not_independent_validation") is not True
+                            or item.get("real_orders") is not False
+                            or item.get("robots_modified") is not False):
+                        continue
+                    try:
+                        spec = normalise(item["spec"])
+                        if identifier(spec) == wanted and spec["asset"] == asset:
+                            submissions.append((spec, item["source"]))
+                    except (TypeError, ValueError, KeyError):
+                        pass
+                    break
     submissions += [(x, "deterministic_reference") for x in seed_specs()]
     for raw, origin in submissions:
         try:
@@ -517,6 +547,8 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
         "auto_optimized_hypotheses": sum(x.get("source") == "autonomous_grid_search" for x in ideas),
         "evolved_hypotheses": sum(x.get("source") == "bounded_evolution" for x in ideas),
         "crossed_hypotheses": sum(x.get("source") == "autonomous_crossover" for x in ideas),
+        "director_hypotheses": sum(x.get("source") in ("gemini_research_director",
+                               "bounded_local_research_director") for x in ideas),
         "tested_historically": sum(isinstance(x.get("latest_result"), dict) for x in ideas),
         "events": events, "recent_ideas": [{
             "id": x.get("id"), "source": x.get("source"),
@@ -532,7 +564,7 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
 
 def main():
     now = datetime.now(timezone.utc)
-    ledger, report = build(now, read(PROPOSALS), read(CANDLES), read(MEMORY), read(OPTIMIZER), read(EVOLUTION), read(ARCHITECT))
+    ledger, report = build(now, read(PROPOSALS), read(CANDLES), read(MEMORY), read(OPTIMIZER), read(EVOLUTION), read(ARCHITECT), read(DIRECTOR))
     MEMORY.parent.mkdir(parents=True, exist_ok=True)
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     MEMORY.write_text(json.dumps(ledger, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
