@@ -120,6 +120,23 @@ class MobileDashboardTests(unittest.TestCase):
   html=(ROOT/"site/index.html").read_text(encoding="utf8")
   self.assertIn('class="bottom-nav"',html)
 
+ def test_beginner_first_mode_is_complete_without_navigation_changes(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  js=(ROOT/"site/lab04-simple.js").read_text(encoding="utf8")
+  css=(ROOT/"site/lab04-simple.css").read_text(encoding="utf8")
+  self.assertIn('lab04-simple.js?v=6',html)
+  self.assertIn('lab04-simple.css?v=6',html)
+  self.assertIn('ait-beginner-note',html)
+  self.assertIn('Comprendre capital, position et rendement',html)
+  self.assertIn('class="lab-advanced"',html)
+  self.assertEqual(html.count("<details"),html.count("</details>"))
+  for tab in ("home","robots","analysis","explore","desk"):
+   self.assertIn('data-view="'+tab+'"',html)
+  self.assertIn("ait-beginner-snapshot",js)
+  self.assertIn("money", (ROOT/"site/lab04-clarity.js").read_text(encoding="utf8"))
+  self.assertIn("ait-summary-grid",css)
+  self.assertNotIn("innerHTML",js)
+
  def test_workflow_publishes_versions(self):
   workflow=(ROOT/".github/workflows/simulate.yml").read_text(encoding="utf8")
   self.assertIn("cp site/lab04-*.js docs/",workflow)
