@@ -146,7 +146,7 @@ if foundry_path.exists():
                 if (not isinstance(spec, dict) or not isinstance(result, dict)
                         or spec.get("asset") not in ("BTCUSD", "ETHUSD", "SOLUSD")
                         or spec.get("logic") not in
-                        ("trend_following", "mean_reversion", "breakout")):
+                        ("trend_following", "mean_reversion", "breakout", "ema_trend", "rsi_reversal", "volatility_gate", "dual_confirmation")):
                     continue
                 ideas.append({
                     "id": str(item.get("id", ""))[:18],
@@ -224,6 +224,45 @@ if live_review_path.exists():
                 "tracked_research_candidates": gate.get("tracked_research_candidates", 0),
                 "eligible_for_human_review": gate.get("eligible_for_human_review", 0),
                 "real_trading_enabled": False,
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
+# Experimental mutations and prospective paper league remain read-only.
+evolution_path = Path("reports/strategy_evolution.json")
+data["strategy_evolution"] = {"ready": False}
+if evolution_path.exists():
+    try:
+        evolution = json.loads(evolution_path.read_text(encoding="utf-8"))
+        if (evolution.get("schema") == 1 and evolution.get("source") == "bounded_evolution"
+                and evolution.get("real_orders") is False
+                and evolution.get("robot_changes") is False):
+            data["strategy_evolution"] = {
+                "ready": True, "generated_at": evolution.get("generated_at"),
+                "total_mutations": evolution.get("total_mutations", 0),
+                "new_mutations": len(evolution.get("new_candidate_ids", [])),
+                "issues": evolution.get("issues", {}),
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
+league_path = Path("reports/strategy_competition.json")
+data["strategy_competition"] = {"ready": False}
+if league_path.exists():
+    try:
+        league = json.loads(league_path.read_text(encoding="utf-8"))
+        if (league.get("schema") == 1 and league.get("real_orders") is False
+                and league.get("robots_modified") is False):
+            data["strategy_competition"] = {
+                "ready": True, "generated_at": league.get("generated_at"),
+                "tracked": league.get("tracked", 0),
+                "paper_champions": league.get("paper_champions", 0),
+                "qualifying_candidates": league.get("qualifying_candidates", 0),
+                "ranked": [
+                    {k: row.get(k) for k in ("asset", "logic", "source",
+                         "observed_days", "net_pct", "excess_vs_hold_points",
+                         "drawdown_pct", "stage")}
+                    for row in league.get("ranked", [])[:12] if isinstance(row, dict)
+                ],
+                "no_robot_changes": True,
             }
     except (ValueError, TypeError, KeyError):
         pass
