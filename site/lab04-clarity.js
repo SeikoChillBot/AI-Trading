@@ -106,5 +106,33 @@ if(host&&wallets){
    'https://eth.blockscout.com/address/'+address,'Consulter l’adresse sur Blockscout');
  }
  if(!wallets.children.length)tile(wallets,'Aucune adresse exploitable','Identités non vérifiées. Aucun wallet attribué à une baleine.');
+ const follow=radar.follow||{},followBox=$('whale-radar-follow-list');
+ if(followBox){
+  followBox.replaceChildren();
+  const active=Array.isArray(follow.tracked_addresses)?follow.tracked_addresses:[];
+  const events=Array.isArray(follow.new_transfers)?follow.new_transfers:[];
+  put('whale-radar-follow-status',follow.state==='observing'||follow.state==='partial'?
+    active.length+' adresse(s) observée(s) séparément sur une page de transferts récents · '+
+    date(follow.generated_at)+
+    (follow.error_count?' · '+follow.error_count+' erreur(s) de collecte':'')+
+    '. Premier relevé = référence, jamais nouvelle alerte.':
+    'Suivi d’adresses '+(follow.state||'non disponible')+
+    ' ; aucune transaction ou identité supposée.');
+  for(const entry of active.slice(0,4)){
+   const a=String(entry.address||'').toLowerCase();if(!addressOk(a))continue;
+   tile(followBox,a.slice(0,8)+'…'+a.slice(-6),
+     format(entry.sample_count,0)+' transferts USDC/USDT validés dans la page examinée · '+
+     format(entry.new_count,0)+' nouveau(x) depuis la première observation de cette adresse.',
+     'https://eth.blockscout.com/address/'+a,'Ouvrir l’historique public');
+  }
+  for(const e of events.slice(0,5)){
+   const h=String(e.tx_hash||'').toLowerCase();if(!txOk(h))continue;
+   tile(followBox,'Nouveau transfert observé · '+String(e.token||'ERC-20'),
+    date(e.timestamp)+' · '+format(e.nominal_usd_approx,0)+
+    ' unités nominales ; ni achat ni propriétaire vérifié.',
+    'https://eth.blockscout.com/tx/'+h,'Voir la transaction');
+  }
+  if(!followBox.children.length)tile(followBox,'Suivi non confirmé','Les adresses seront affichées seulement après une collecte valide.');
+ }
 }
 })();
