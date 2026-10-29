@@ -7,8 +7,13 @@ let scope='all',search='',sort='return',state='all',asset='all',opened=null;
 // Friendly labels are presentation-only. Strategy IDs remain unchanged for every
 // calculation, history lookup, stored paper order and experiment.
 function shortName(r){
- const code=r.strategy||'',asset=String(r.asset||'').replace(/USD$/,'');
+ const code=r.strategy||'',raw=String(r.asset||'');
+ const asset=raw==='EURUSD'?'EUR/USD':raw.replace(/USDT?$/,'');
  if(code.endsWith('_hold'))return asset+' · Conserver';
+ if(code.includes('scalp_conservative'))return asset+' · Opérations rapides prudentes';
+ if(code.includes('scalp_momentum'))return asset+' · Opérations rapides en tendance';
+ if(code.includes('scalp_trailing'))return asset+' · Opérations rapides avec vente protectrice';
+ if(code.includes('scalp_microtrend'))return asset+' · Opérations rapides sur petites tendances';
  if(code.includes('scalp'))return asset+' · Achats et ventes rapides';
  if(code.includes('reversion'))return asset+' · Retour à la moyenne';
  if(code.includes('breakout'))return asset+' · Détecter une cassure';
