@@ -66,5 +66,36 @@ class Tests(unittest.TestCase):
         self.assertIsNone(report["highlights"][0]["timestamp"])
         self.assertFalse(report["can_infer_buy_sell"])
 
+    def test_scheduled_mode_uses_free_rpc_without_paid_explorer(self):
+        errors=[]
+        class RpcReply:
+            def __init__(self,data=None,status=200):
+                self.data=data
+                self.status=status
+            def raise_for_status(self):
+                if self.status>=400:raise base.requests.HTTPError("blocked")
+            def json(self):return {"jsonrpc":"2.0","id":1,"result":self.data}
+        def rpc(url,**kw):
+            errors.append((url,kw["json"]["method"]))
+            if url==base.RPC_HOSTS[0]:return RpcReply(status=429)
+            if kw["json"]["method"]=="eth_blockNumber":return RpcReply(hex(1100))
+            return RpcReply([])
+        def no_explorer(*a,**kw):raise AssertionError("Paid explorer must not be called")
+        result=base.build(NOW,get=no_explorer,post=rpc,prefer_rpc=True)
+        self.assertEqual(result["state"],"observing")
+        self.assertEqual(result["source"],base.RPC_HOSTS[1])
+        self.assertEqual(result["sampled_count"],0)
+        self.assertEqual(result["large_count"],0)
+        self.assertIn("public_rpc_logs",result["source_method"])
+        self.assertTrue(all(url!=base.HOST for url,method in errors))
+
+    def test_scheduled_mode_reports_all_endpoint_failures_without_fake_transfers(self):
+        def blocked(*args,**kwargs):
+            raise base.requests.HTTPError("rate limited")
+        report=base.build(NOW,get=blocked,post=blocked,prefer_rpc=True)
+        self.assertEqual(report["state"],"unavailable")
+        self.assertEqual(report["large_count"],0)
+        self.assertEqual(len(report["sources_attempted"]),len(base.RPC_HOSTS))
+
 if __name__=="__main__":
     unittest.main()
