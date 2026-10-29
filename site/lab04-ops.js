@@ -34,10 +34,13 @@ if(roadmap){
   if(!alerts.length)tile(problems,'Aucune alerte issue du dernier contrôle',
                          'Un workflow ou une source peut néanmoins échouer ultérieurement.');
   for(const alert of alerts)tile(problems,'Signalement',String(alert));
-  for(const [name,run] of Object.entries(operations.workflows||{}))
+  const workflowList=operations.workflows?.workflows||operations.workflows||{};
+  for(const [name,run] of Object.entries(workflowList)){
+   if(!run||typeof run!=='object')continue;
    tile(problems,(run.state==='healthy'?'Dernier cycle réussi':'Dernier cycle à examiner')+
         ' · '+name,'Run #'+String(run.run_id||'inconnu'),
         'Résultat : '+(run.last_result||'indisponible'));
+  }
  }
 }
 const hour=DATA.intraday_study||{};
