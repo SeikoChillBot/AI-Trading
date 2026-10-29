@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T08:54:46.508945+00:00",
+  "generated_at": "2026-10-29T11:44:52.464135+00:00",
   "state": "unavailable",
   "chain": "base",
   "token": "USDC",
@@ -9,8 +9,15 @@
   "sampled_count": 0,
   "large_count": 0,
   "highlights": [],
-  "error": "HTTPError",
+  "error": "public_rpc_unavailable",
   "not_exhaustive": true,
   "can_infer_buy_sell": false,
-  "real_orders": false
+  "real_orders": false,
+  "source_method": "blockscout_explorer_page",
+  "coverage": "one_recent_page_only",
+  "sources_attempted": [
+    "https://base-rpc.publicnode.com (ValueError)",
+    "https://base.nodely.dev (ValueError)",
+    "https://mainnet.base.org (HTTPError)"
+  ]
 }
