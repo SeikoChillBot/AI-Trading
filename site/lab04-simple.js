@@ -59,7 +59,18 @@ if(parent && !el('ait-beginner-snapshot')){
    card.append(div('small','',name),div('strong','',value),div('p','',desc));
    grid.append(card);
  }
- section.append(grid,div('p','ait-simple-caption',
+ const pulse=D.market_pulse||{};
+ const marketLine=div('p','ait-simple-caption');
+ const moves=['BTCUSD','ETHUSD','SOLUSD'].map(asset=>{
+  const info=pulse.assets?.[asset];
+  if(!info||!Number.isFinite(Number(info.change_7d_pct)))return null;
+  const n=Number(info.change_7d_pct);
+  return asset.slice(0,3)+' '+(n>0?'+':'')+n.toFixed(1)+' %';
+ }).filter(Boolean);
+ marketLine.textContent=moves.length?'Évolution des cryptos sur 7 jours : '+moves.join(' · ')+
+  '. Ce sont des observations passées, pas des prévisions.':
+  'Dernières évolutions des cryptos : données en cours de vérification.';
+ section.append(grid,marketLine,div('p','ait-simple-caption',
   'Tous les montants sont fictifs et les résultats ne prouvent pas une rentabilité future.'));
  const metrics=parent.querySelector('.research-panel-metrics');
  if(metrics)parent.insertBefore(section,metrics);else parent.append(section);
