@@ -155,6 +155,7 @@ if foundry_path.exists():
                     "lookback_days": spec.get("lookback_days"),
                     "threshold_pct": spec.get("threshold_pct"),
                     "max_hold_days": spec.get("max_hold_days"),
+                    "confirmations": spec.get("confirmations", []),
                     "avg_net_pct": result.get("average_net_pct"),
                     "folds_beating_hold": result.get("folds_beating_hold"),
                     "closed_trades": result.get("closed_trades"),
@@ -164,6 +165,7 @@ if foundry_path.exists():
                 "ready": True, "generated_at": foundry.get("generated_at"),
                 "total_hypotheses": foundry.get("total_hypotheses", 0),
                 "gemini_hypotheses": foundry.get("gemini_hypotheses", 0),
+                "crossed_hypotheses": foundry.get("crossed_hypotheses", 0),
                 "tested_historically": foundry.get("tested_historically", 0),
                 "ideas": ideas, "live_robots_changed": False,
             }
@@ -263,6 +265,32 @@ if league_path.exists():
                     for row in league.get("ranked", [])[:12] if isinstance(row, dict)
                 ],
                 "no_robot_changes": True,
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
+# Research-only crossover proposals and point-in-time descriptive regimes.
+architect_path = Path("reports/strategy_architect.json")
+data["strategy_architect"] = {"ready": False}
+if architect_path.exists():
+    try:
+        architecture = json.loads(architect_path.read_text(encoding="utf-8"))
+        if (architecture.get("schema") == 1
+                and architecture.get("source") == "autonomous_crossover"
+                and architecture.get("real_orders") is False
+                and architecture.get("robot_changes") is False
+                and architecture.get("reused_history_not_independent_evidence") is True):
+            data["strategy_architect"] = {
+                "ready": True, "generated_at": architecture.get("generated_at"),
+                "archived_candidates": architecture.get("archived_candidates", 0),
+                "new_candidates": len(architecture.get("new_candidate_ids", [])),
+                "observed_price_regimes": {
+                    asset: {
+                        "trend": value.get("trend"),
+                        "volatility_regime": value.get("volatility_regime")}
+                    for asset, value in architecture.get("observed_price_regimes", {}).items()
+                    if asset in ("BTCUSD", "ETHUSD", "SOLUSD") and isinstance(value, dict)
+                },
+                "historical_only": True,
             }
     except (ValueError, TypeError, KeyError):
         pass
