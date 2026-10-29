@@ -93,6 +93,42 @@ function reasonLabel(row){
  if(/non ex.cut|estimated|estim.e/i.test(reason))return 'Prix et coûts estimés : aucune transaction réelle.';
  return 'La règle automatique du robot a produit cette décision. Les détails techniques restent dans les données de simulation.';
 }
+function explainRule(strategy,multi,robot){
+ const interval=Number(robot?.timeframe_min);
+ const period=multi?'la clôture de chaque journée de marché':
+  'des périodes de prix terminées'+(Number.isFinite(interval)&&interval>0?
+  ' de '+interval+' minute(s)':'');
+ const rules={
+  momentum:'Acheter si le prix dépasse sa moyenne des 20 dernières périodes d’environ 0,3 %. Vendre si le prix passe environ 0,3 % sous cette moyenne.',
+  reversion:'Acheter si le prix descend d’au moins 1 % sous la moyenne des 20 dernières périodes. Vendre lorsqu’il remonte au moins 0,5 % au-dessus.',
+  breakout:'Acheter quand le prix dépasse le plus haut des 20 périodes précédentes. Vendre lorsqu’il descend sous le plus bas des 10 précédentes.',
+  rsi:'Acheter quand un indicateur de hausse et baisse, appelé RSI, descend sous 35 ; vendre lorsqu’il dépasse 60. Cet indicateur ne prévoit pas l’avenir.',
+  ema_cross:'Comparer deux moyennes qui réagissent au prix : une rapide de 9 périodes et une plus lente de 21. Acheter si la rapide passe assez au-dessus, vendre quand elle passe en dessous.',
+  bollinger:'Acheter si le prix tombe beaucoup plus bas que sa zone habituelle des 20 dernières périodes. Vendre lorsqu’il remonte au-dessus de la moyenne.',
+  volatility:'Acheter si le prix dépasse ses récents sommets et que les variations ont été suffisamment fortes. Vendre lorsqu’il repasse sous la moyenne.',
+  scalp_momentum:'Acheter après une montée de plus de 0,4 % sur trois périodes, si le prix dépasse également sa moyenne. Vendre s’il perd environ 0,4 % depuis son dernier sommet.',
+  scalp_trailing:'Acheter après une montée de plus de 0,5 % sur trois périodes, si le prix dépasse sa moyenne. Vendre s’il perd environ 0,6 % depuis le dernier sommet.',
+  scalp_microtrend:'Acheter si les trois dernières périodes montent et que le prix dépasse la moyenne de plus de 0,3 %. Vendre si la hausse s’inverse ou si le prix recule de 0,5 % depuis son sommet.',
+  scalp_conservative:'Acheter seulement après une montée de plus de 0,8 % sur trois périodes et si le prix dépasse assez sa moyenne. Vendre s’il perd environ 0,8 % depuis son sommet.'
+ };
+ let body;
+ if(strategy.endsWith('_hold')){
+  body='Acheter une première fois dès que le marché et les prix le permettent, puis conserver cet actif pour servir de comparaison. Pas d’aller-retour à chaque petite variation.';
+ }else if(multi){
+  body='Observer les 20 derniers jours de prix terminés. Acheter si le dernier prix clôturé est au moins 0,5 % au-dessus de sa moyenne ; vendre s’il descend au moins 0,5 % en dessous. L’achat fictif attend une cotation éligible : certains marchés sont fermés le soir ou le week-end.';
+ }else{
+  const mode=strategy.replace(/^[a-z]+_/,'');
+  body=rules[mode]||'Appliquer la règle algorithmique prévue pour ce robot : sa fiche suit les achats et les ventes réellement simulés.';
+ }
+ const entry=(Array.isArray(evolution.robots)?evolution.robots:[])
+  .find(x=>x.strategy===strategy);
+ const scale=Number(entry?.current_entry_scale);
+ const adjustment=Number.isFinite(scale)&&scale!==1?
+  ' Un ajustement approuvé du seuil est actif ; les pourcentages indiqués ci-dessus sont ceux du réglage de référence.':
+  '';
+ return 'Le robot observe '+period+'. '+body+adjustment+
+  ' Si les conditions ne sont pas réunies, il attend sans inventer d’opération.';
+}
 function renderActivity(){
  if(!sheet||sheet.hidden||!title||!actions)return;
  const strategy=title.dataset.strategy;
@@ -102,6 +138,7 @@ function renderActivity(){
   .filter(e=>e&&e.strategy===strategy)
   .sort((a,b)=>Date.parse(b.observed_at||'')-Date.parse(a.observed_at||''));
  const bot=(multi?D.multi_asset?.rows:D.rows||[])?.find(r=>r.strategy===strategy);
+ put('ait-sheet-rule',explainRule(strategy,multi,bot));
  actions.replaceChildren();
  const units=Number(bot?.units),cash=Number(bot?.cash_usd);
  const position=Number.isFinite(units)?(units>0?
