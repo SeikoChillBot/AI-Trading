@@ -4,7 +4,7 @@
 const $=id=>document.getElementById(id);
 const D=window.DATA||(typeof DATA==='object'?DATA:{});
 const put=(id,value)=>{const el=$(id);if(el)el.textContent=String(value)};
-const date=t=>{const n=Date.parse(t||'');return Number.isFinite(n)?
+const date=t=>{const n=typeof t==='number'?t:Date.parse(t||'');return Number.isFinite(n)?
  new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(n)):'date inconnue'};
 const format=(v,max=2)=>{const n=Number(v);return Number.isFinite(n)?
  n.toLocaleString('fr-FR',{minimumFractionDigits:0,maximumFractionDigits:max}):'—'};
