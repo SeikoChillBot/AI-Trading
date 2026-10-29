@@ -22,6 +22,23 @@ class Tests(unittest.TestCase):
         out=ops.workflows(get=lambda *a,**k:R())
         self.assertEqual(out["workflows"]["Paper trading"]["state"],"healthy")
         self.assertEqual(out["workflows"]["Paper trading"]["run_id"],23)
+    def test_newer_running_recovery_suppresses_stale_failed_run(self):
+        class Recovery:
+            def raise_for_status(self):pass
+            def json(self):
+                return {"workflow_runs":[
+                  {"name":"Seiko research — guarded automatic analysis",
+                   "status":"completed","conclusion":"failure",
+                   "id":11,"created_at":"2026-10-29T08:44:26Z"},
+                  {"name":"Seiko research — guarded automatic analysis",
+                   "status":"in_progress","conclusion":None,
+                   "id":12,"created_at":"2026-10-29T08:54:26Z"}
+                ]}
+        result=ops.workflows(get=lambda *a,**k:Recovery())
+        latest=result["workflows"]["Seiko research — guarded automatic analysis"]
+        self.assertEqual(latest["state"],"running")
+        self.assertEqual(latest["run_id"],12)
+
     def test_status_is_honest_about_partial_whale_monitor(self):
         data={
           "evolution":{"counts":{"tracked":36,"testing":3,"activated":0}},
