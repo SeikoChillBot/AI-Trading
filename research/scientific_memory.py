@@ -36,6 +36,46 @@ def _numeric(value):
     return round(float(value), 5) if -100000 < value < 100000 else None
 
 
+def research_agenda(counts, population):
+    """Formulate competing, falsifiable NEXT studies from failures.
+
+    A failed historical criterion is evidence about these historical tests,
+    NOT a diagnosis of causal market behavior. Recommended experiments remain
+    speculative until independent forward-paper comparisons accumulate.
+    """
+    proposals = [
+        ("positive_with_double_costs", "cost_sensitivity",
+         "Tester moins d'ordres et des confirmations de volatilité, mais surveiller une perte de signaux utiles.",
+         "Comparer les règles simples et composées avec frais normaux/doublés sur des bougies futures."),
+        ("enough_closed_trades", "trade_density",
+         "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
+         "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais."),
+        ("positive_average_net", "net_return",
+         "Comparer familles de tendance, retour vers moyenne et abstention sans sélectionner sur le contrôle historique.",
+         "Conserver seulement les améliorations positives après frais sur de nouvelles journées distinctes."),
+        ("beats_hold_in_most_folds", "hold_comparison",
+         "Tester si un signal ajoute de la valeur au simple achat-conservation sur les mêmes dates.",
+         "Rejeter la supériorité si le différentiel futur au témoin Hold n'est pas positif."),
+        ("drawdown_under_20_pct", "drawdown",
+         "Tester des confirmations prudentes et leur coût d'opportunité sans attribuer une cause aux pertes.",
+         "Rejeter si le drawdown fictif prospectif excède le seuil ou si le gain net se détériore."),
+    ]
+    result = []
+    for check, category, hypothesis, rejection in proposals:
+        failures = int(counts.get(check, 0))
+        if failures == 0:
+            continue
+        result.append({
+            "category": category, "failed_historical_checks": failures,
+            "historical_population": population,
+            "hypothesis_to_falsify": hypothesis,
+            "experiment": rejection,
+            "independent_future_data_required": True,
+            "causal_proof": False,
+        })
+    return sorted(result, key=lambda row: (-row["failed_historical_checks"], row["category"]))[:4]
+
+
 def build(now, knowledge, forward, previous):
     prior = previous if isinstance(previous, dict) else {}
     retained = prior.get("lessons", [])
@@ -156,6 +196,7 @@ def build(now, knowledge, forward, previous):
         "total_experiment_fingerprints": len(all_ids),
         "new_revisions": new_revisions,
         "failure_patterns": dict(counts.most_common(10)),
+        "research_agenda": research_agenda(counts, len(kept)),
         "tested_logic_families": by_logic,
         "prospective_observed": sum(bool(x.get("latest_prospective", {}).get("observed_days"))
                                     for x in kept),
@@ -184,6 +225,7 @@ def model_memory(report):
         "hypotheses_remembered": report.get("recorded_hypotheses", 0),
         "failure_counts_not_explanations": report.get("failure_patterns", {}),
         "recent_lessons": report.get("recent_lessons", [])[-8:],
+        "priority_falsifiable_experiments": report.get("research_agenda", [])[:4],
         "study_rule": "Choose testable alternatives, never treat repeated historical fits as future proof.",
     }
 
