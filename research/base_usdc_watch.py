@@ -1,7 +1,8 @@
-"""Read-only, bounded Base native USDC Blockscout observations.
-Native USDC on Base contract documented by Circle:
-https://www.circle.com/blog/usdc-now-available-natively-on-base
-This is a public transfer sample, not a verified purchase or wallet identity.
+"""Read-only, bounded Base USDC transfers from public Ethereum-compatible sources.
+Circle source: https://www.circle.com/blog/usdc-now-available-natively-on-base
+Try Blockscout first; if it denies anonymous access, sample only 12 recent
+blocks via Base public JSON-RPC. No API fee or key; rate limits may interrupt.
+This is not continuous surveillance, a purchase, or a wallet identification.
 """
 from __future__ import annotations
 import json
