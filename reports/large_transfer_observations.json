@@ -1,51 +1,24 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T00:02:30.816385+00:00",
+  "generated_at": "2026-10-29T00:03:31.692658+00:00",
   "source": "https://eth.blockscout.com/api/v2",
   "chain": "ethereum",
   "state": "observing",
   "method": "sample_latest_public_token_transfers",
-  "coverage": "NOT_EXHAUSTIVE_first_page_only_per_contract",
+  "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
+  "max_pages_per_token": 3,
   "minimum_nominal_usd": 1000000,
   "sampled_records": {
-    "USDC": 50,
-    "USDT": 50
+    "USDC": 150,
+    "USDT": 150
   },
   "validated_records": {
-    "USDC": 50,
-    "USDT": 50
+    "USDC": 145,
+    "USDT": 135
   },
-  "large_transfers_observed": 1,
-  "large_transfers_new": [
-    {
-      "id": "8acf8eb8bec3723e1b10b263b3da0965b66568b3edc3fc8f00917c46245aab03",
-      "token": "USDT",
-      "quantity": "3499023.194603",
-      "nominal_usd_approx": 3499023.194603,
-      "timestamp": "2026-10-29T00:02:23+00:00",
-      "tx_hash": "0x8578cab879555dd433aeb7a90cc9b6bb26458fc0e1dfdf31810ebca160bdbd1c",
-      "from_address": "0x83afac4bfa38faf38dd109fe508be5a52cebfe2b",
-      "to_address": "0x8cd2d7d1654ef88c326ff2cfcd05f2e0742dbaf2",
-      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
-      "owner_identity": "unknown",
-      "trade_inference": "unknown"
-    }
-  ],
-  "sample_highlights": [
-    {
-      "id": "8acf8eb8bec3723e1b10b263b3da0965b66568b3edc3fc8f00917c46245aab03",
-      "token": "USDT",
-      "quantity": "3499023.194603",
-      "nominal_usd_approx": 3499023.194603,
-      "timestamp": "2026-10-29T00:02:23+00:00",
-      "tx_hash": "0x8578cab879555dd433aeb7a90cc9b6bb26458fc0e1dfdf31810ebca160bdbd1c",
-      "from_address": "0x83afac4bfa38faf38dd109fe508be5a52cebfe2b",
-      "to_address": "0x8cd2d7d1654ef88c326ff2cfcd05f2e0742dbaf2",
-      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
-      "owner_identity": "unknown",
-      "trade_inference": "unknown"
-    }
-  ],
+  "large_transfers_observed": 0,
+  "large_transfers_new": [],
+  "sample_highlights": [],
   "errors": {},
   "buy_sell_inference": false,
   "real_trades": false,
