@@ -169,6 +169,25 @@ if(host&&wallets){
  }
  if(!host.children.length)tile(host,'Aucun gros transfert confirmé dans l’échantillon',
   'Les données sont absentes ou aucun transfert ne franchit le seuil nominal de 1 million.');
+ const base=D.base_radar||{},baseBox=$('base-usdc-list');
+ if(baseBox){
+  baseBox.replaceChildren();
+  put('base-usdc-status',base.ready?
+    'Base : '+format(base.sampled_count,0)+' transferts USDC examinés · '+
+    format(base.large_count,0)+' transfert(s) d’au moins un million d’USDC dans cet échantillon · '+
+    date(base.generated_at)+'. Aucun achat ni propriétaire confirmé.':
+    'Base : source momentanément indisponible ou pas encore collectée. Aucun transfert supposé.');
+  const sample=Array.isArray(base.highlights)?base.highlights:[];
+  for(const item of sample.slice(0,4)){
+   const h=String(item.tx_hash||'').toLowerCase();
+   if(!/^0x[0-9a-f]{64}$/.test(h))continue;
+   tile(baseBox,'USDC sur Base · '+format(item.nominal_usd_approx,0),
+        date(item.timestamp)+' · transfert public observé, non une transaction d’achat vérifiée.',
+        'https://base.blockscout.com/tx/'+h,'Voir sur Blockscout Base');
+  }
+  if(!baseBox.children.length)tile(baseBox,'Pas de gros mouvement confirmé',
+    'Ce relevé limité ne prouve pas l’absence de mouvements ailleurs sur Base.');
+ }
  for(const flow of (radar.sampled_wallet_flows||[]).slice(0,10)){
   const address=String(flow.address||'').toLowerCase();
   if(!addressOk(address))continue;
