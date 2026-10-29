@@ -87,6 +87,10 @@ def build(now, reports, actions):
                       if type(v) in (int,float) and 0<=v<=150)
     tracked=follow.get("tracked_addresses",[])
     if not isinstance(tracked,list):tracked=[]
+    follow_state=follow.get("state","unknown")
+    follow_ok=check_fresh("Adresses suivies",follow,6) and follow_state in ("observing","partial")
+    if follow_state=="unavailable":
+        errors.append("Le fournisseur de suivi des adresses est indisponible ; dernières adresses préservées")
     for name,item in actions.get("workflows",{}).items():
         if item.get("state")=="failure":
             errors.append("Échec récent du workflow "+name+" (#"+str(item.get("run_id"))+")")
@@ -100,7 +104,8 @@ def build(now, reports, actions):
          "detail":str(experiment.get("active",0))+" expériences en cours, jusqu'à 12 simultanées, au maximum 4 nouvelles par cycle."},
         {"id":"hourly","title":"Marchés et backtests horaires","status":"active" if hourly_ok else "degraded",
          "detail":str(oos)+" actifs avec études Kraken 60 minutes et candidat prospectif distinct."},
-        {"id":"whales","title":"Surveillance des gros mouvements","status":"partial",
+        {"id":"whales","title":"Surveillance des gros mouvements",
+         "status":"active" if follow_ok and transfers.get("state")=="observing" else "partial",
          "detail":str(sampled_total)+
                   " transferts publics échantillonnés USDC/USDT ; "+
                   str(len(tracked))+
