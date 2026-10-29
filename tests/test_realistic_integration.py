@@ -21,7 +21,7 @@ class WorkflowTests(unittest.TestCase):
                 patch.object(sim,"fetch_candles",side_effect=lambda s,i: [(1700000000000-(40-n)*i*60000,100.0) for n in range(40)]),
                 patch.object(sim,"pair_metadata",return_value={s:dict(META) for s in sim.PAIRS}),
                 patch.object(sim,"orderbook",return_value=dict(BOOK)),
-                patch.object(sim,"decide",side_effect=lambda mode,prices,holding,p: "buy" if mode=="hold" else "wait")
+                patch.object(sim,"decide",side_effect=lambda mode,prices,holding,p,scale: "buy" if mode=="hold" else "wait")
             ])
             import contextlib
             with contextlib.ExitStack() as stack:

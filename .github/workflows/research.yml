@@ -2,36 +2,6 @@ name: Seiko research — guarded automatic analysis
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'research/auto_research.py'
-      - 'research/market_context.py'
-      - 'research/whale_watch.py'
-      - 'research/whale_watchlist.json'
-      - 'tests/test_market_intelligence.py'
-      - 'research/ai_reflection.py'
-      - 'research/intraday_lab.py'
-      - 'research/ops_status.py'
-      - 'tests/test_intraday_lab.py'
-      - 'tests/test_ops_status.py'
-      - 'research/news_watch.py'
-      - 'research/scenario_lab.py'
-      - 'research/ai_notebook.py'
-      - 'tests/test_ai_notebook.py'
-      - 'research/robot_evolution.py'
-      - 'research/robot_tuning.py'
-      - 'research/robot_shadow.py'
-      - 'tests/test_robot_evolution.py'
-      - 'research/large_transfers.py'
-      - 'research/market_pulse.py'
-      - 'research/challenger_incubator.py'
-      - 'tests/test_challenger_incubator.py'
-      - 'tests/test_autonomous_market.py'
-      - 'research/ai_decision_support.py'
-      - 'tests/test_ai_decision_support.py'
-      - 'tests/test_research_automation.py'
-      - '.github/workflows/research.yml'
   schedule:
     - cron: '17 */2 * * *'
 

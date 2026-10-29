@@ -1,15 +1,5 @@
 name: Paper trading
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'multi_asset_sim.py'
-      - 'tests/test_multi_asset_sim.py'
-      - 'site/index.html'
-      - 'site/lab04-*.js'
-      - 'site/lab04-*.css'
-      - 'tests/test_site_lab04.py'
-      - '.github/workflows/simulate.yml'
   schedule:
     - cron: '3,8,13,18,23,28,33,38,43,48,53,58 * * * *'
   workflow_dispatch:
@@ -29,17 +19,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Avoid duplicate ChillBot and scheduled triggers
+        id: cycle
+        run: python -m research.paper_cycle_guard
+      - name: Test duplicate-cycle guard
+        if: steps.cycle.outputs.run == 'true'
+        run: python -m unittest discover -s tests -p 'test_paper_cycle_guard.py' -v
       - run: pip install -r requirements.txt
+        if: steps.cycle.outputs.run == 'true'
       - name: Validate multi-market research catalog
+        if: steps.cycle.outputs.run == 'true'
         run: python -m unittest discover -s tests -p 'test_market_catalog.py' -v
       - run: python bot.py
+        if: steps.cycle.outputs.run == 'true'
       - name: Validate and run independent realistic paper-trading engine
+        if: steps.cycle.outputs.run == 'true'
+        id: realistic_engine
         run: |
           python -m unittest discover -s tests -p 'test_realistic_*.py' -v
           python realistic_sim.py
           python analyze_realistic.py
         continue-on-error: true
       - name: Validate and run independent multi-market paper simulator
+        if: steps.cycle.outputs.run == 'true'
+        id: multi_engine
         run: |
           mkdir -p reports
           set -e -o pipefail
@@ -50,27 +53,35 @@ jobs:
             python analyze_multi_asset.py
           } 2>&1 | tee reports/multi_asset_diagnostic.log
         continue-on-error: true
+      - name: Report engine diagnostic without hiding a stale portfolio
+        if: steps.cycle.outputs.run == 'true'
+        run: |
+          if [ '${{ steps.realistic_engine.outcome }}' != 'success' ]; then echo '::warning::Realistic simulation FAILED; dashboard must show older realistic update time.'; fi
+          if [ '${{ steps.multi_engine.outcome }}' != 'success' ]; then echo '::warning::Multi-asset simulation FAILED; dashboard must show older multi-asset update time.'; fi
       - name: Validate Lab 04 web interface
+        if: steps.cycle.outputs.run == 'true'
         id: site_validation
         continue-on-error: true
         run: |
           python -m unittest discover -s tests -p 'test_site_lab04.py' -v
           for f in site/lab04-*.js; do node --check "$f"; done
       - name: Warn if UI check failed
-        if: steps.site_validation.outcome != 'success'
+        if: steps.cycle.outputs.run == 'true' && steps.site_validation.outcome != 'success'
         run: echo "::warning::Site invalid; preserve last site and continue saving simulated portfolios."
       - run: python dashboard.py
+        if: steps.cycle.outputs.run == 'true'
       - name: Build site only when validated
-        if: steps.site_validation.outcome == 'success'
+        if: steps.cycle.outputs.run == 'true' && steps.site_validation.outcome == 'success'
         run: python build_site.py
       - name: Prepare GitHub Pages dashboard
-        if: steps.site_validation.outcome == 'success'
+        if: steps.cycle.outputs.run == 'true' && steps.site_validation.outcome == 'success'
         run: |
           mkdir -p docs
           cp site/dashboard.html docs/index.html
           cp site/lab04-*.css docs/
           cp site/lab04-*.js docs/
       - name: Save paper portfolios
+        if: steps.cycle.outputs.run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
