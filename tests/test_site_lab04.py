@@ -1,6 +1,7 @@
 """Regressions for Seiko Lab 04 static dashboard assembly."""
 import unittest
 from test_novice_ui import UIChecks  # also exercises the simple site in the existing CI run
+from test_ait_explanation import ExplanationTests
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
