@@ -58,7 +58,10 @@ def fetch_address(address,get=requests.get):
                  params={"type":"ERC-20"},timeout=15,
                  headers={"User-Agent":"SeikoWhaleFollow/1.0"})
     response.raise_for_status()
-    items=response.json().get("items")
+    body=response.json()
+    if not isinstance(body,dict):
+        raise ValueError("Unexpected Blockscout response")
+    items=body.get("items")
     if not isinstance(items,list) or len(items)>MAX_PAGE:
         raise ValueError("Invalid bounded Blockscout transfer page")
     return items
@@ -84,7 +87,12 @@ def observe(now,source,state,get=requests.get):
             valid=[]
             for raw in items:
                 try:
-                    contract=str(raw.get("token",{}).get("address_hash","")).lower()
+                    if not isinstance(raw,dict):
+                        continue
+                    token_meta=raw.get("token") or {}
+                    if not isinstance(token_meta,dict):
+                        continue
+                    contract=str(token_meta.get("address_hash","")).lower()
                     token=next((symbol for symbol,value in CONTRACTS.items()
                                 if value==contract),None)
                     if token is None:
