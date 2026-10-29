@@ -46,6 +46,17 @@ def workflows(get=requests.get, token=None):
                 result[name]={"state":"unknown","reason":"No completed run in recent GitHub history"}
                 continue
             latest=max(finished,key=lambda x:x.get("created_at",""))
+            active=[x for x in runs if x.get("name")==name and
+                    x.get("status") in ("queued","in_progress","waiting")]
+            if active:
+                current=max(active,key=lambda x:x.get("created_at",""))
+                if current.get("created_at","")>latest.get("created_at",""):
+                    result[name]={"state":"running",
+                                  "run_id":current.get("id"),
+                                  "last_created_at":current.get("created_at"),
+                                  "url":current.get("html_url"),
+                                  "previous_completed_result":latest.get("conclusion")}
+                    continue
             result[name]={
                 "state":"healthy" if latest["conclusion"]=="success" else "failure",
                 "run_id":latest.get("id"),"last_created_at":latest.get("created_at"),
