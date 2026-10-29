@@ -1,6 +1,10 @@
 # Seiko Trading Lab — laboratoire de trading fictif
 
-**18 robots expérimentaux**, chacun doté de 20 USD fictifs au démarrage. Aucune transaction réelle, aucune clé API privée, aucune garantie de rendement.
+**36 robots expérimentaux**, chacun doté de 20 USD fictifs au démarrage : 18 stratégies crypto et 18 stratégies multi-actifs. Deux expériences indépendantes, aux cours et historiques distincts. Aucune transaction réelle, aucun courtier connecté, aucune garantie de rendement.
+
+Le tableau de bord présente les **montants fictifs réellement détenus par robot** (liquidités, unités, valeur estimée), leur courbe historique filtrable, et la fraîcheur des dernières publications. Le **radar de gros transferts** échantillonne USDC/USDT sur Ethereum et suit jusqu'à quatre adresses publiques détectées ; cela ne prouve ni l'identité d'une baleine ni un achat/une vente. Gemini est une analyse externe facultative, dont chaque réponse est distinguée des statistiques automatiques.
+
+> Les anciennes sections ci-dessous décrivent en détail la première expérience historique V1 crypto. Les rapports actuels V2 et multi-actifs ne sont pas interchangeables.
 
 **[Ouvrir le tableau de bord](https://seikochillbot.github.io/AI-Trading/)** · [Résultats bruts](reports/latest.csv) · [Historique](reports/history.csv) · [Plan V2](V2_PLAN.md)
 
