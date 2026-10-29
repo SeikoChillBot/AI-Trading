@@ -70,6 +70,22 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("federalreserve.gov",script)
   self.assertNotIn("innerHTML",script)
 
+ def test_persistent_strategy_foundry_is_visible_and_read_only(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  builder=(ROOT/"build_site.py").read_text(encoding="utf8")
+  js=(ROOT/"site/lab04-research.js").read_text(encoding="utf8")
+  workflow=(ROOT/".github/workflows/research.yml").read_text(encoding="utf8")
+  self.assertIn('id="strategy-foundry-panel"',html)
+  self.assertIn('id="strategy-foundry-ideas"',html)
+  self.assertIn('lab04-research.js?v=4.6',html)
+  self.assertIn('data["strategy_foundry"]',builder)
+  self.assertIn('const foundry=DATA.strategy_foundry||{}',js)
+  self.assertIn('textContent',js)
+  self.assertNotIn('innerHTML',js)
+  self.assertIn('python -m research.strategy_foundry',workflow)
+  for tab in ("home","robots","analysis","explore","desk"):
+   self.assertIn('data-view="'+tab+'"',html)
+
  def test_operational_roadmap_and_hourly_studies(self):
   html=(ROOT/"site/index.html").read_text(encoding="utf8")
   builder=(ROOT/"build_site.py").read_text(encoding="utf8")
