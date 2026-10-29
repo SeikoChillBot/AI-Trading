@@ -19,6 +19,7 @@ CANDLES = ROOT / "reports/challenger_candles.json"
 MEMORY = ROOT / "state/strategy_knowledge_base.json"
 REPORT = ROOT / "reports/strategy_foundry.json"
 MARKDOWN = ROOT / "reports/strategy_foundry.md"
+OPTIMIZER = ROOT / "reports/autonomous_optimizer.json"
 ASSETS = ("BTCUSD", "ETHUSD", "SOLUSD")
 LOGICS = ("trend_following", "mean_reversion", "breakout")
 WINDOWS = (10, 20, 40)
@@ -251,7 +252,7 @@ def model_memory(ledger):
             "instruction": "Learn from failures; do not retest the same parameters just to claim success."}
 
 
-def build(now, proposals, candles, previous):
+def build(now, proposals, candles, previous, optimizer=None):
     ideas = [dict(x) for x in previous.get("ideas", [])
              if isinstance(x, dict) and isinstance(x.get("spec"), dict)][-MAX_IDEAS:]
     existing = {i.get("id"): i for i in ideas}
@@ -263,6 +264,32 @@ def build(now, proposals, candles, previous):
     if not isinstance(generated, list):
         generated = []
     submissions = [(x, "gemini_structured_hypothesis") for x in generated[:2]]
+    # Adaptive, deterministic search also contributes paper-only specifications.
+    # Historical optimization provenance must not be relabelled as Gemini.
+    if (isinstance(optimizer, dict)
+            and optimizer.get("schema") == 1
+            and optimizer.get("source") == "autonomous_grid_search"
+            and optimizer.get("real_orders") is False
+            and optimizer.get("robot_changes") is False):
+        best = optimizer.get("latest_by_asset", {})
+        pool = optimizer.get("candidates", [])
+        pool = pool if isinstance(pool, list) else []
+        best = best if isinstance(best, dict) else {}
+        for asset in ASSETS:
+            identifier_value = best.get(asset)
+            for item in pool[-MAX_IDEAS:]:
+                if (isinstance(item, dict) and item.get("id") == identifier_value
+                        and item.get("source") == "autonomous_grid_search"
+                        and item.get("historical_candidate_only") is True
+                        and item.get("eligible_for_live_trading") is False):
+                    raw = item.get("spec")
+                    try:
+                        valid = normalise(raw)
+                        if valid["asset"] == asset and identifier(valid) == identifier_value:
+                            submissions.append((valid, "autonomous_grid_search"))
+                    except (ValueError, TypeError, KeyError):
+                        pass
+                    break
     submissions += [(x, "deterministic_reference") for x in seed_specs()]
     for raw, origin in submissions:
         try:
@@ -315,6 +342,7 @@ def build(now, proposals, candles, previous):
         "schema": 1, "generated_at": now.isoformat(),
         "total_hypotheses": len(ideas),
         "gemini_hypotheses": sum(x.get("source") == "gemini_structured_hypothesis" for x in ideas),
+        "auto_optimized_hypotheses": sum(x.get("source") == "autonomous_grid_search" for x in ideas),
         "tested_historically": sum(isinstance(x.get("latest_result"), dict) for x in ideas),
         "events": events, "recent_ideas": [{
             "id": x.get("id"), "source": x.get("source"),
@@ -330,7 +358,7 @@ def build(now, proposals, candles, previous):
 
 def main():
     now = datetime.now(timezone.utc)
-    ledger, report = build(now, read(PROPOSALS), read(CANDLES), read(MEMORY))
+    ledger, report = build(now, read(PROPOSALS), read(CANDLES), read(MEMORY), read(OPTIMIZER))
     MEMORY.parent.mkdir(parents=True, exist_ok=True)
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     MEMORY.write_text(json.dumps(ledger, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
