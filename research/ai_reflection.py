@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 import requests
@@ -316,9 +316,24 @@ def main():
                       and prior.get("provider") == provider
                       and prior.get("state") in ("model_reflection_completed",
                                                 "model_reflection_failed"))
-    model_last_called_at = None
+    model_last_called_at = prior.get("model_last_called_at") if cached_attempt else None
     used_cache = False
     last_http_status = prior.get("last_http_status") if cached_attempt else None
+    error_type = prior.get("error_type") if cached_attempt else None
+    error_code = prior.get("error_code") if cached_attempt else None
+    last_attempt_at = prior.get("last_attempt_at") if cached_attempt else None
+    attempts_in_slot = int(prior.get("attempts_in_slot") or 0) if cached_attempt else 0
+    # A failed call is never silently treated as success. Allow at most one
+    # automatic recovery attempt after 90 minutes, while respecting fatal errors.
+    # 401/403/404 require configuration; 429 quota must not be retried in-slot.
+    unretryable = last_http_status in (401, 403, 404, 429)
+    try:
+        last_attempt = datetime.fromisoformat(str(last_attempt_at).replace("Z", "+00:00"))
+        retry_due = now - last_attempt >= timedelta(minutes=90)
+    except (ValueError, TypeError):
+        retry_due = True
+    failed_retry = (cached_attempt and prior.get("state") == "model_reflection_failed"
+                    and attempts_in_slot < 2 and retry_due and not unretryable)
     if model_ready and historical["assets"]:
         if (cached_attempt and prior.get("state") == "model_reflection_completed"
                 and cached.get("source") == provider_source
@@ -331,11 +346,15 @@ def main():
             scenario_proposals = cached.get("scenario_proposals", [])
             desk_notes = cached.get("desk_notes", [])
             summary = str(cached.get("summary", ""))[:1000]
-        elif cached_attempt:
+        elif cached_attempt and not failed_retry:
             state = "model_reflection_failed"
             used_cache = True
             summary = "Tentative IA déjà effectuée dans ce créneau de six heures ; repli statistique."
         else:
+            attempts_in_slot += 1
+            last_attempt_at = now.isoformat()
+            error_type = None
+            error_code = None
             try:
                 result = (run_gemini(api_key, research, historical) if provider == "gemini"
                           else run(api_key, model, research, historical))
@@ -345,6 +364,8 @@ def main():
                 desk_notes = result.get("desk_notes", [])
                 summary = result["summary"]
                 state = "model_reflection_completed"
+                error_type = None
+                error_code = None
                 last_http_status = None
                 model_last_called_at = now.isoformat()
             except (requests.RequestException, ValueError, KeyError, TypeError) as error:
@@ -352,6 +373,14 @@ def main():
                 http_response = getattr(error, "response", None)
                 code = getattr(http_response, "status_code", None)
                 last_http_status = code if type(code) is int and 100 <= code <= 599 else None
+                error_type = type(error).__name__[:60]
+                # Only Google's categorical error status is public; never log
+                # response text, headers, request payloads, project IDs or keys.
+                try:
+                    google_status = http_response.json().get("error", {}).get("status")
+                    error_code = str(google_status)[:60] if google_status else None
+                except (AttributeError, ValueError, TypeError):
+                    error_code = None
                 category = ("quota API probablement atteint" if last_http_status == 429
                             else "schéma API refusé" if last_http_status == 400
                             else "authentification API refusée" if last_http_status in (401,403)
@@ -368,6 +397,8 @@ def main():
         "research_date_utc": now.date().isoformat(),
         "review_slot": review_slot, "model_last_called_at": model_last_called_at,
         "used_cache": used_cache, "last_http_status": last_http_status,
+        "error_type": error_type, "error_code": error_code,
+        "attempts_in_slot": attempts_in_slot, "last_attempt_at": last_attempt_at,
         "source": provider_source if state == "model_reflection_completed" else "deterministic_fallback",
         "state": state, "provider": provider, "summary": summary, "historical": historical,
         "experiments": proposals[:3],
@@ -384,12 +415,16 @@ def main():
         "generated_at": now.isoformat(), "research_date_utc": now.date().isoformat(),
         "review_slot": review_slot, "model_last_called_at": model_last_called_at,
         "used_cache": used_cache, "last_http_status": last_http_status,
+        "error_type": error_type, "error_code": error_code,
+        "attempts_in_slot": attempts_in_slot, "last_attempt_at": last_attempt_at,
         "state": state, "provider": provider, "model_configured": bool(model),
         "api_key_available": bool(api_key), "research_report_available": bool(research),
         "historical_evidence_available": bool(historical["assets"]),
         "automatic_promotion_enabled": False, "real_orders_enabled": False,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print("Read-only AI research:", state, "historical assets", len(historical["assets"]))
+    print("Read-only AI research:", state, "historical assets", len(historical["assets"]),
+          "http_status", last_http_status, "error_type", error_type, "error_code", error_code,
+          "attempts_in_slot", attempts_in_slot)
 
 
 if __name__ == "__main__":
