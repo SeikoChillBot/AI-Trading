@@ -31,7 +31,7 @@ const dailyDate=get('desk-daily-date'),dailyContent=get('desk-daily-content');
 if(dailyDate&&dailyContent){
  dailyDate.replaceChildren();
  for(const day of dailyDays){
-  if(!day||!/^\\d{4}-\\d{2}-\\d{2}$/.test(day.date||''))continue;
+  if(!day||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(day.date||''))continue;
   const option=document.createElement('option');
   option.value=day.date;
   const date=new Date(day.date+'T12:00:00');
@@ -63,7 +63,7 @@ if(dailyDate&&dailyContent){
   ];
   for(const [heading,items] of sections){
    if(!Array.isArray(items)||!items.length)continue;
-   const text=items.filter(x=>typeof x==='string').map(x=>'• '+x).join('\\n');
+   const text=items.filter(x=>typeof x==='string').map(x=>'• '+x).join('  •  ');
    card(dailyContent,heading,text);
   }
   if(typeof day.next==='string')card(dailyContent,'Suite du programme',day.next,
