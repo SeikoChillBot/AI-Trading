@@ -82,6 +82,7 @@ if(foundryList){
   put('strategy-foundry-summary',
       Number(foundry.total_hypotheses||0)+' hypothèse(s) mémorisée(s) · '+
       Number(foundry.gemini_hypotheses||0)+' de Gemini · '+
+      Number(foundry.crossed_hypotheses||0)+' croisements créatifs · '+
       Number(foundry.tested_historically||0)+' comparaison(s) historiques. Aucun robot modifié.');
   const titles={trend_following:'Suivi de tendance',
                 mean_reversion:'Recherche de rebond',
@@ -96,12 +97,15 @@ if(foundryList){
    heading.textContent=(item.asset||'Marché')+' · '+(titles[item.logic]||'Logique expérimentale')+
         ' · '+(item.source==='gemini_structured_hypothesis'?'Proposition Gemini':
           item.source==='bounded_evolution'?'Mutation autonome':
+          item.source==='autonomous_crossover'?'Croisement expérimental':
           item.source==='autonomous_grid_search'?'Recherche quantitative':
           'Référence statistique');
    const rule=document.createElement('p');
    rule.textContent='Observation '+String(item.lookback_days||'?')+' jours · seuil '+
         String(item.threshold_pct??'?')+' % · conservation maximum '+
-        String(item.max_hold_days||'?')+' jours.';
+        String(item.max_hold_days||'?')+' jours.'+
+        (Array.isArray(item.confirmations)&&item.confirmations.length?
+         ' Confirmations : '+item.confirmations.join(' + ')+'.':'');
    const outcome=document.createElement('small');
    const gain=Number(item.avg_net_pct);
    outcome.textContent=Number.isFinite(gain)&&item.avg_net_pct!=null?
@@ -146,6 +150,12 @@ put('strategy-evolution-status',strategyEvolution.ready?
     ' mutation(s) archivées, '+Number(strategyEvolution.new_mutations||0)+
     ' nouvelle(s) dans ce cycle. Les liens avec les stratégies parentes sont conservés.':
     'Évolution autonome : premier cycle non encore confirmé.');
+const architect=DATA.strategy_architect||{};
+put('strategy-architect-status',architect.ready?
+    'Recombinaison créative : '+Number(architect.archived_candidates||0)+
+    ' expériences mémorisées, '+Number(architect.new_candidates||0)+
+    ' nouvelles. Les régimes sont descriptifs et ne prédisent pas les cours.':
+    'Recombinaison créative : premier relevé non encore confirmé.');
 const competition=DATA.strategy_competition||{};
 put('strategy-competition-status',competition.ready?
     'Compétition fictive sur nouvelles journées : '+
