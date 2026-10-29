@@ -1,0 +1,187 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-29T19:23:35.770539+00:00",
+  "source": "autonomous_grid_search",
+  "real_orders": false,
+  "robot_changes": false,
+  "selection_uses_future_challenge_data": false,
+  "candidate_count": 3,
+  "new_candidate_ids": [
+    "2f2b7e8c605e3a5d03",
+    "e921c860eb3b6e24a0",
+    "253095b8a9544ff8df"
+  ],
+  "latest_by_asset": {
+    "BTCUSD": "2f2b7e8c605e3a5d03",
+    "ETHUSD": "e921c860eb3b6e24a0",
+    "SOLUSD": "253095b8a9544ff8df"
+  },
+  "candidates": [
+    {
+      "id": "2f2b7e8c605e3a5d03",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "selection_metrics": {
+        "score": -6.9279,
+        "avg_net_pct": -2.17648,
+        "avg_double_cost_net_pct": -4.27421,
+        "avg_excess_vs_hold_points": 12.79426,
+        "max_drawdown_pct": 8.0598,
+        "closed_trades": 5,
+        "positive_folds": 0,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": -4.72881,
+            "double_cost_net_pct": -9.73794,
+            "excess_vs_hold_points": -35.99443,
+            "drawdown_pct": 7.93632,
+            "closed_trades": 3
+          },
+          {
+            "net_pct": -5.86985,
+            "double_cost_net_pct": -9.19888,
+            "excess_vs_hold_points": -7.9269,
+            "drawdown_pct": 5.8728,
+            "closed_trades": 2
+          }
+        ],
+        "net_average_pct": -5.29933,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "grid_evaluated": 81,
+      "frozen_at_closed_day": 1793145600,
+      "source": "autonomous_grid_search",
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "eligible_for_robot_promotion": false,
+      "prospective_data_required": true,
+      "created_at": "2026-10-29T19:23:35.770539+00:00"
+    },
+    {
+      "id": "e921c860eb3b6e24a0",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "selection_metrics": {
+        "score": -5.76238,
+        "avg_net_pct": -2.00042,
+        "avg_double_cost_net_pct": -4.50646,
+        "avg_excess_vs_hold_points": 17.96853,
+        "max_drawdown_pct": 8.13239,
+        "closed_trades": 6,
+        "positive_folds": 1,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": -4.44615,
+            "double_cost_net_pct": -9.47014,
+            "excess_vs_hold_points": -58.19549,
+            "drawdown_pct": 5.43679,
+            "closed_trades": 3
+          },
+          {
+            "net_pct": -3.54318,
+            "double_cost_net_pct": -6.9545,
+            "excess_vs_hold_points": 2.24471,
+            "drawdown_pct": 3.55158,
+            "closed_trades": 2
+          }
+        ],
+        "net_average_pct": -3.99467,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "grid_evaluated": 81,
+      "frozen_at_closed_day": 1793145600,
+      "source": "autonomous_grid_search",
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "eligible_for_robot_promotion": false,
+      "prospective_data_required": true,
+      "created_at": "2026-10-29T19:23:35.770539+00:00"
+    },
+    {
+      "id": "253095b8a9544ff8df",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "selection_metrics": {
+        "score": -1.45472,
+        "avg_net_pct": -1.4384,
+        "avg_double_cost_net_pct": -3.18261,
+        "avg_excess_vs_hold_points": 19.92429,
+        "max_drawdown_pct": 3.36643,
+        "closed_trades": 4,
+        "positive_folds": 0,
+        "beating_hold_folds": 4,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": -0.20384,
+            "double_cost_net_pct": -7.13785,
+            "excess_vs_hold_points": -41.19334,
+            "drawdown_pct": 5.81704,
+            "closed_trades": 4
+          },
+          {
+            "net_pct": -7.4672,
+            "double_cost_net_pct": -12.33235,
+            "excess_vs_hold_points": -2.62388,
+            "drawdown_pct": 7.4672,
+            "closed_trades": 3
+          }
+        ],
+        "net_average_pct": -3.83552,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "grid_evaluated": 81,
+      "frozen_at_closed_day": 1793145600,
+      "source": "autonomous_grid_search",
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "eligible_for_robot_promotion": false,
+      "prospective_data_required": true,
+      "created_at": "2026-10-29T19:23:35.770539+00:00"
+    }
+  ],
+  "issues": {},
+  "research_goal": "maximize_risk_adjusted_net_return_not_win_rate",
+  "next_stage": "independent_future_paper_trials_only",
+  "warning": "Multiple comparisons and reused history can overfit; no guaranteed profits or live eligibility."
+}

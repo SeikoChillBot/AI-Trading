@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "updated_at": "2026-10-29T19:23:36.280904+00:00",
+  "tracks": {
+    "5191e3b657d1819654": {
+      "id": "5191e3b657d1819654",
+      "source": "deterministic_reference",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "trend_following",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Référence quantitative figée pour comparer cette logique au témoin Hold."
+      },
+      "started_at": "2026-10-29T19:23:36.280904+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "0a96651dc89ea61036": {
+      "id": "0a96651dc89ea61036",
+      "source": "deterministic_reference",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Référence quantitative figée pour comparer cette logique au témoin Hold."
+      },
+      "started_at": "2026-10-29T19:23:36.280904+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "0cafd059c30c6a3924": {
+      "id": "0cafd059c30c6a3924",
+      "source": "deterministic_reference",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Référence quantitative figée pour comparer cette logique au témoin Hold."
+      },
+      "started_at": "2026-10-29T19:23:36.280904+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "2f2b7e8c605e3a5d03": {
+      "id": "2f2b7e8c605e3a5d03",
+      "source": "autonomous_grid_search",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "started_at": "2026-10-29T19:23:36.280904+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "e921c860eb3b6e24a0": {
+      "id": "e921c860eb3b6e24a0",
+      "source": "autonomous_grid_search",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "started_at": "2026-10-29T19:23:36.280904+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "253095b8a9544ff8df": {
+      "id": "253095b8a9544ff8df",
+      "source": "autonomous_grid_search",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "started_at": "2026-10-29T19:23:36.280904+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    }
+  },
+  "real_orders": false
+}
