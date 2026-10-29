@@ -36,7 +36,7 @@ class GuardTests(unittest.TestCase):
     def test_stale_schedules_dispatch_once(self):
         calls=[]
         def get(url,**kw):
-            self.assertTrue(url.endswith("/actions/runs"))
+            self.assertTrue(url.endswith("/actions/workflows/research.yml/runs"))
             self.assertNotIn("dummy-test-secret",str(kw.get("params")))
             return Response({"workflow_runs":[run_age(290),run_age(400)]})
         def post(url,**kw):
@@ -60,17 +60,35 @@ class GuardTests(unittest.TestCase):
         self.assertIn("skipped",result)
         self.assertFalse(posts)
 
-    def test_many_unrelated_pages_runs_require_a_complete_time_window(self):
-        # With >100 Pages updates inside the threshold, a missing research
-        # run might be hidden on page two: never dispatch blindly.
-        pages=[{**run_age(20), "name":"pages build and deployment",
-                "path":".github/workflows/pages-build-deployment"} for _ in range(100)]
-        self.assertFalse(guard.should_dispatch(NOW,pages))
-        # Once the 100th newest run is older than the threshold, any recent
-        # research run would necessarily have appeared on page one.
-        older=[{**run_age(280), "name":"pages build and deployment",
-                "path":".github/workflows/pages-build-deployment"} for _ in range(100)]
-        self.assertTrue(guard.should_dispatch(NOW,older))
+    def test_recent_workflow_scoped_runs_do_not_starve_under_pages_spam(self):
+        # A workflow-scoped query sees only research jobs, not hundreds of Pages.
+        self.assertTrue(guard.should_dispatch(NOW,[run_age(280),run_age(400)]))
+        self.assertFalse(guard.should_dispatch(NOW,[run_age(20,event="push")]))
+        # Even with pagination the watchdog fails closed, never dispatches twice.
+        many=[run_age(1) for _ in range(100)]
+        self.assertFalse(guard.should_dispatch(NOW,many))
+        def get(url,**kw):
+            self.assertIn("/workflows/research.yml/runs",url)
+            return Response({"workflow_runs":[run_age(280),run_age(400)]})
+        posts=[]
+        def post(*args,**kw):
+            posts.append(kw["json"])
+            return Response({},204)
+        with patch.dict(os.environ,{"GITHUB_REPOSITORY":guard.OWNER_REPO}):
+            result=guard.check_and_dispatch(NOW,"test-opaque",get,post)
+        self.assertIn("dispatched",result)
+        self.assertEqual(posts,[{"ref":"main"}])
+
+    def test_unexpected_broad_history_scope_fails_closed(self):
+        def get(url,**kw):
+            return Response({"workflow_runs":[
+                {**run_age(300),"name":"pages build and deployment",
+                 "path":".github/workflows/pages-build-deployment"}]})
+        def post(*args,**kw):
+            self.fail("Must not dispatch using unrelated Pages metadata")
+        with patch.dict(os.environ,{"GITHUB_REPOSITORY":guard.OWNER_REPO}):
+            result=guard.check_and_dispatch(NOW,"test-opaque",get,post)
+        self.assertIn("skipped",result)
 
     def test_recent_failure_gets_only_one_delayed_retry(self):
         failed={**run_age(9,event="workflow_dispatch"),"conclusion":"failure"}
