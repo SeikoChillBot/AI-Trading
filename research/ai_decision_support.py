@@ -169,6 +169,8 @@ def safe_context(research, historical):
             "strategy_research_memory": research.get("strategy_research_memory", {}),
             "market_knowledge_memory": research.get("market_knowledge_memory", {}),
             "independent_optimizer_memory": research.get("independent_optimizer_memory", {}),
+            "mutation_memory": research.get("mutation_memory", {}),
+            "paper_league_memory": research.get("paper_league_memory", {}),
             "budget_per_strategy_usd": 20,
             "allow_live_trading": False, "allow_live_strategy_changes": False}
 
