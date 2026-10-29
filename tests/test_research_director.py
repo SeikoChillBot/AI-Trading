@@ -100,6 +100,7 @@ class ResearchDirectorTests(unittest.TestCase):
         _,state=self.go()
         btc=next(x for x in state["experiments"] if x["asset"]=="BTCUSD")
         rec={"id":btc["id"], "spec":btc["spec"],
+             "last_t":btc["closed_day_at_registration"]+90*86400,
              "status":"observing_paper_only","observed_days":89,
              "closed_trades":100, "net_pct":-100,
              "excess_vs_hold_points":-1,"max_drawdown_pct":50}
@@ -107,6 +108,10 @@ class ResearchDirectorTests(unittest.TestCase):
                          "awaiting_prospective_data")
         rec["observed_days"]=90
         rec["closed_trades"]=10
+        rec["last_t"]=btc["closed_day_at_registration"]+5*86400
+        self.assertEqual(director.prospective_status(btc,{"tracks":{btc["id"]:rec}})[0],
+                         "awaiting_prospective_data")
+        rec["last_t"]=btc["closed_day_at_registration"]+90*86400
         self.assertEqual(director.prospective_status(btc,{"tracks":{btc["id"]:rec}})[0],
                          "prospectively_contradicted")
         rec["net_pct"]=10
