@@ -1,0 +1,38 @@
+name: AIT — independent research uptime watchdog
+
+on:
+  workflow_dispatch:
+  # Fallback independent of paper-trading: never dispatch a duplicate research run.
+  schedule:
+    - cron: '43 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/research-uptime.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: ait-research-uptime
+  cancel-in-progress: false
+
+jobs:
+  research-uptime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install watchdog dependency
+        run: pip install requests
+      - name: Verify stale-cycle and duplicate-dispatch protections
+        run: python -m unittest discover -s tests -p 'test_research_dispatch_guard.py' -v
+      - name: Recover research only if stale
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python -m research.research_dispatch_guard
