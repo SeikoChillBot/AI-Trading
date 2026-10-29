@@ -26,11 +26,11 @@ jobs:
       - name: Test duplicate-cycle guard
         if: steps.cycle.outputs.run == 'true'
         run: python -m unittest discover -s tests -p 'test_paper_cycle_guard.py' -v
+      - run: pip install -r requirements.txt
+        if: steps.cycle.outputs.run == 'true'
       - name: Test missed research schedule safeguard
         if: steps.cycle.outputs.run == 'true'
         run: python -m unittest discover -s tests -p 'test_research_dispatch_guard.py' -v
-      - run: pip install -r requirements.txt
-        if: steps.cycle.outputs.run == 'true'
       - name: Validate multi-market research catalog
         if: steps.cycle.outputs.run == 'true'
         run: python -m unittest discover -s tests -p 'test_market_catalog.py' -v
