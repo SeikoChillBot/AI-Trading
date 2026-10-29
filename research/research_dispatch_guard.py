@@ -18,6 +18,7 @@ API = ROOT_API + "/workflows/research.yml"
 RUNS_API = ROOT_API + "/runs"
 RESEARCH_NAME = "Seiko research — guarded automatic analysis"
 MAX_AGE_SECONDS = 165 * 60  # research normally every 120 minutes, with GitHub cron jitter
+RECOVERY_WAIT_SECONDS = 8 * 60  # failed run; wait for source correction to land
 
 
 def parse_utc(value: object) -> Optional[datetime]:
@@ -58,10 +59,26 @@ def should_dispatch(now: datetime, rows: object) -> bool:
         return False
     research = [row for row in candidates if is_research(row)
                 and row.get("event") in ("schedule", "workflow_dispatch")]
+    recent=[]
     for row in research:
         created = parse_utc(row.get("created_at"))
         if created is not None and -60 <= (now-created).total_seconds() < MAX_AGE_SECONDS:
-            return False
+            recent.append((created,row))
+    if recent:
+        recent.sort(key=lambda p:p[0],reverse=True)
+        latest_t,latest=recent[0]
+        failures=[r for _,r in recent
+                  if r.get("status")=="completed" and r.get("conclusion")=="failure"]
+        # Exactly one recent failed run may be re-dispatched once after
+        # a cooling-off period. A second failed run suppresses repeated
+        # retries until the ordinary stale-cycle threshold. Do not retry
+        # queued, running, successful or unknown-conclusion executions.
+        if (len(failures)==1 and len(recent)==1
+                and latest.get("status")=="completed"
+                and latest.get("conclusion")=="failure"
+                and (now-latest_t).total_seconds()>=RECOVERY_WAIT_SECONDS):
+            return True
+        return False
     return True
 
 
