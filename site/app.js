@@ -172,8 +172,44 @@ function renderAnalysis(){const wins=rows.filter(r=>r.return_pct>0).length,losse
 function openSheet(r){sheetRobot=r;const coin=coinFor(r.asset),v=r.capital_usd-START;
  $('sheet-coin').className='coin-icon '+coinClass(coin);$('sheet-coin').textContent=symbol(coin);setText('sheet-name',nameFor(r.strategy));setText('sheet-category',info(r)[0]);setText('sheet-capital',money(r.capital_usd));setText('sheet-return',percentage(r.return_pct));$('sheet-return').className=polarity(r.return_pct);setText('sheet-asset',coin);setText('sheet-timeframe',r.timeframe_min+' min');setText('sheet-trades',r.trades.toLocaleString('fr-FR'));setText('sheet-fees',money(r.fees_usd,3));setText('sheet-description',info(r)[1]);renderSheetExtras(r);
  const points=series.map(s=>({v:s.values.get(r.strategy)??START,t:s.t,label:s.label}));lineChart($('sheet-chart'),points,{compact:true,tone:v});window.SeikoNavigation.openSheet(document.activeElement);}
-function closeSheet(){$('robot-sheet').hidden=true;document.body.style.overflow='';sheetRobot=null;if(previouslyFocused&&previouslyFocused.focus)previouslyFocused.focus();}
-$('close-sheet').addEventListener('click',closeSheet);$('sheet-backdrop').addEventListener('click',closeSheet);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetRobot)closeSheet();if(e.key==='Tab'&&sheetRobot){const targets=[$('close-sheet')];if(!targets.includes(document.activeElement)){$('close-sheet').focus();e.preventDefault();}}});
+function isSheetOpen(){return !$('robot-sheet').hidden}
+function showSheet(trigger){
+ if(isSheetOpen())return;
+ previouslyFocused=trigger||document.activeElement;
+ $('robot-sheet').hidden=false;
+ $('robot-sheet').querySelector('.robot-sheet').scrollTop=0;
+ document.body.style.overflow='hidden';
+ historyApi.pushState({seikoSheet:true,seikoView:view},'',location.href);
+ $('sheet-return').focus();
+}
+function dismissSheet(fromHistory=false){
+ if(!isSheetOpen())return;
+ $('robot-sheet').hidden=true;document.body.style.overflow='';sheetRobot=null;
+ const target=previouslyFocused;previouslyFocused=null;
+ if(target&&target.isConnected&&target.focus)target.focus({preventScroll:true});
+ if(!fromHistory&&historyApi.state?.seikoSheet)historyApi.back();
+}
+window.SeikoNavigation={openSheet:showSheet,closeSheet:()=>dismissSheet(false),
+ isSheetOpen,navigate:target=>{if(isSheetOpen())dismissSheet(false);toView(target,true)}};
+window.addEventListener('popstate',()=>{
+ if(isSheetOpen()){dismissSheet(true);return;}
+ toView(location.hash.substring(1)||'home',false);
+});
+$('close-sheet').addEventListener('click',()=>dismissSheet());
+$('sheet-return').addEventListener('click',()=>dismissSheet());
+$('sheet-backdrop').addEventListener('click',()=>dismissSheet());
+document.addEventListener('keydown',event=>{
+ if(!isSheetOpen())return;
+ if(event.key==='Escape'){event.preventDefault();dismissSheet();return}
+ if(event.key!=='Tab')return;
+ const elements=[...$('robot-sheet').querySelectorAll('button:not([disabled]),a[href]')];
+ if(!elements.length)return;
+ if(event.shiftKey&&document.activeElement===elements[0]){
+  event.preventDefault();elements[elements.length-1].focus();
+ }else if(!event.shiftKey&&document.activeElement===elements[elements.length-1]){
+  event.preventDefault();elements[0].focus();
+ }
+});
 /* Seiko Trading Lab — provenance, research diagnostics, and accessible exports. */
 const labEpoch=Date.parse(DATA.launched_at||'2026-10-28T06:36:00Z');
 const msDay=86400000;
