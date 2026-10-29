@@ -226,6 +226,22 @@ if follow_file.exists():
     except (OSError,ValueError,TypeError):
         pass
 
+# Separate public Base/USDC transfer sample; not verified exchange activity.
+data["base_radar"]={"ready":False}
+base_file=Path("reports/base_usdc_observations.json")
+if base_file.exists():
+    try:
+        item=json.loads(base_file.read_text(encoding="utf-8"))
+        if item.get("schema")==1 and item.get("real_orders") is False and item.get("chain")=="base":
+            data["base_radar"]={"ready":item.get("state")=="observing",
+                "state":item.get("state"),"generated_at":item.get("generated_at"),
+                "sampled_count":item.get("sampled_count",0),
+                "large_count":item.get("large_count",0),
+                "highlights":item.get("highlights",[])[:4],
+                "not_exhaustive":True,"verified_trades":False}
+    except (OSError,ValueError,TypeError):
+        pass
+
 # Report-only widgets for new market studies and forward-only challengers.
 data["market_pulse"] = {"ready": False}
 pulse_path = Path("reports/market_pulse.json")
