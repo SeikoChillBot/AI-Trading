@@ -126,6 +126,21 @@ def safe_context(research, historical):
             for k in ("state", "coverage", "sampled_records", "large_transfers_observed",
                       "new_in_sample", "largest_nominal_usd")},
     }
+    raw_hourly = research.get("hourly_research", {})
+    raw_hourly = raw_hourly if isinstance(raw_hourly,dict) else {}
+    hourly_assets = raw_hourly.get("assets", {})
+    hourly_assets = hourly_assets if isinstance(hourly_assets,dict) else {}
+    hourly = {
+        "generated_at":raw_hourly.get("generated_at"),
+        "status":raw_hourly.get("status"),
+        "assets":{asset:{
+            "historical_oos_avg_net_pct":info.get("historical_study",{}).get("avg_net_return_pct"),
+            "oos_excess_vs_hold_points":info.get("historical_study",{}).get("avg_excess_vs_hold"),
+            "worst_oos_drawdown_pct":info.get("historical_study",{}).get("max_drawdown_pct"),
+            "forward_paper_observations":info.get("paper_forward",{}).get("observations"),
+            "forward_paper_net_pct":info.get("paper_forward",{}).get("net_return_pct"),
+        } for asset,info in hourly_assets.items() if asset in ASSETS and isinstance(info,dict)},
+    }
     bot_reviews = []
     for lab in ("crypto", "multi"):
         for robot in research.get("labs", {}).get(lab, {}).get("strategies", []):
@@ -146,7 +161,8 @@ def safe_context(research, historical):
             if isinstance(article, dict) and article.get("source") in ("Fed", "BCE", "CoinDesk"):
                 highlights.append({k:article.get(k) for k in
                                    ("source","category","title","published_at")})
-    return {"news_headlines_unverified": highlights, "robot_reviews": bot_reviews[:36], "market_pulse": pulse, "research_date_utc": research.get("research_date_utc"),
+    return {"hourly_oos_and_forward_paper":hourly,
+            "news_headlines_unverified": highlights, "robot_reviews": bot_reviews[:36], "market_pulse": pulse, "research_date_utc": research.get("research_date_utc"),
             "qualification": research.get("qualification", {}),
             "labs": labs, "hypotheses": hypotheses,
             "historical": historical,
