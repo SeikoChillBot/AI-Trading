@@ -21,9 +21,10 @@ REPORT = ROOT / "reports/strategy_foundry.json"
 MARKDOWN = ROOT / "reports/strategy_foundry.md"
 OPTIMIZER = ROOT / "reports/autonomous_optimizer.json"
 ASSETS = ("BTCUSD", "ETHUSD", "SOLUSD")
-LOGICS = ("trend_following", "mean_reversion", "breakout")
+LOGICS = ("trend_following", "mean_reversion", "breakout",
+          "ema_trend", "rsi_reversal", "volatility_gate", "dual_confirmation")
 WINDOWS = (10, 20, 40)
-THRESHOLDS = (0.005, 0.01, 0.02)
+THRESHOLDS = (0.5, 1, 2)
 MAX_HOLD = (1, 3, 7)
 CAPITAL = 20.0
 COST = .009  # Hypothetical fee, spread and slippage PER SIDE.
@@ -95,25 +96,77 @@ def validate_bars(bars, now):
         raise ValueError("stale_daily_data")
 
 
+def _ema(values, period):
+    """Finite EMA on CLOSED observations only, without external libraries."""
+    factor = 2 / (period + 1)
+    value = float(values[0])
+    for close in values[1:]:
+        value += factor * (float(close) - value)
+    return value
+
+
+def _rsi(closes, i, window):
+    """RSI available when deciding at next open, no current candle."""
+    differences = [closes[k] - closes[k - 1] for k in range(i - window, i)]
+    gains = sum(max(0., d) for d in differences) / window
+    losses = sum(max(0., -d) for d in differences) / window
+    if gains == 0 and losses == 0:
+        return 50.
+    if losses == 0:
+        return 100.
+    return 100. - 100. / (1. + gains / losses)
+
+
 def signal(closes, i, spec, holding, age):
-    """At open(i), may inspect closes only through i-1."""
+    """At open(i), inspect only closes through i-1. Never inspect close(i)."""
     w = spec["lookback_days"]
+    if i < w + 2 or i > len(closes):
+        raise ValueError("insufficient_prior_closed_candles")
     before = closes[i - w:i]
     last = before[-1]
     average = sum(before) / w
     band = spec["threshold_pct"] / 100.
+    logic = spec["logic"]
+    if logic in ("ema_trend", "dual_confirmation", "rsi_reversal", "volatility_gate"):
+        # Only past closes; indicators must share the same temporal cutoff.
+        ema_slow = _ema(before, w)
+        ema_fast = _ema(before, max(3, w // 2))
+        rsi = _rsi(closes, i, w)
+        changes = [(closes[j] / closes[j - 1] - 1)
+                   for j in range(i - w + 1, i)]
+        volatility = math.sqrt(sum((v - sum(changes) / len(changes)) ** 2
+                                   for v in changes) / len(changes))
     if holding:
         if age >= spec["max_hold_days"]:
             return "SELL"
-        if spec["logic"] == "mean_reversion":
+        if logic == "mean_reversion":
             return "SELL" if last >= average else "WAIT"
+        if logic == "rsi_reversal":
+            return "SELL" if rsi >= 50. + spec["threshold_pct"] * 4 else "WAIT"
+        if logic == "ema_trend":
+            return "SELL" if ema_fast < ema_slow or last < ema_slow else "WAIT"
+        if logic == "dual_confirmation":
+            return "SELL" if rsi < 45 or last < average else "WAIT"
         return "SELL" if last < average else "WAIT"
-    if spec["logic"] == "trend_following":
+    if logic == "trend_following":
         return "BUY" if last > average * (1 + band) and last > closes[i - 2] else "WAIT"
-    if spec["logic"] == "mean_reversion":
+    if logic == "mean_reversion":
         return "BUY" if last < average * (1 - band) else "WAIT"
-    prior_high = max(closes[i - w - 1:i - 1])
-    return "BUY" if last > prior_high * (1 + band) else "WAIT"
+    if logic == "breakout":
+        prior_high = max(closes[i - w - 1:i - 1])
+        return "BUY" if last > prior_high * (1 + band) else "WAIT"
+    if logic == "ema_trend":
+        return "BUY" if ema_fast > ema_slow * (1 + band) and last > closes[i - 2] else "WAIT"
+    if logic == "rsi_reversal":
+        return "BUY" if rsi < 30. + spec["threshold_pct"] * 5 and last < average else "WAIT"
+    if logic == "volatility_gate":
+        return "BUY" if (last > average * (1 + band)
+                        and volatility < 0.015 + band) else "WAIT"
+    if logic == "dual_confirmation":
+        return "BUY" if (last > average * (1 + band)
+                        and ema_fast > ema_slow
+                        and 50 < rsi < 75) else "WAIT"
+    raise ValueError("invalid_strategy_logic")
 
 
 def replay(bars, spec, start, end, fee=COST):
