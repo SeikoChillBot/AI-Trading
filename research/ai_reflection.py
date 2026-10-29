@@ -17,6 +17,7 @@ from research.ai_decision_support import (
 )
 from research.strategy_foundry import model_memory, MEMORY as STRATEGY_MEMORY
 from research.market_knowledge import model_memory as market_memory, OUTPUT as MARKET_MEMORY
+from research.autonomous_optimizer import REPORT as OPTIMIZER_REPORT
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "autonomous_research.json"
@@ -78,6 +79,11 @@ INSTRUCTIONS = (
     "Un transfert de stablecoins ne prouve jamais l'achat d'une baleine. "
     "Tu es aussi inventeur de stratégies, pas seulement commentateur des 36 robots. "
     "Lis la mémoire scientifique des hypothèses déjà testées dans le contexte. "
+    "Une recherche quantitative indépendante explore des règles sur les périodes "
+    "antérieures : ses scores de développement et ses périodes historiques de "
+    "contrôle sont des indices de recherche, PAS des profits garantis. "
+    "Utilise ces découvertes pour expliquer ce qui échoue et proposer des "
+    "hypothèses alternatives testables, sans reformuler un score positif en preuve. "
     "Utilise aussi les observations datées de marché (sentiment, prix, risque) : "
     "un historique court n'est PAS une preuve de corrélation causale ou de gain futur. "
     "Propose jusqu'à DEUX strategy_designs de nouvelles logiques sur BTCUSD,ETHUSD,SOLUSD : "
@@ -383,6 +389,34 @@ def main():
     research = read_json(REPORT)
     research["strategy_research_memory"] = model_memory(read_json(STRATEGY_MEMORY))
     research["market_knowledge_memory"] = market_memory(read_json(MARKET_MEMORY))
+    optimizer = read_json(OPTIMIZER_REPORT)
+    if (optimizer.get("schema") == 1
+            and optimizer.get("source") == "autonomous_grid_search"
+            and optimizer.get("real_orders") is False):
+        top = []
+        for item in optimizer.get("candidates", [])[-9:]:
+            if not isinstance(item, dict):
+                continue
+            spec = item.get("spec", {})
+            metrics = item.get("selection_metrics", {})
+            check = item.get("historical_challenge", {})
+            if not all(isinstance(x, dict) for x in (spec, metrics, check)):
+                continue
+            top.append({
+                "asset": spec.get("asset"), "logic": spec.get("logic"),
+                "lookback_days": spec.get("lookback_days"),
+                "threshold_pct": spec.get("threshold_pct"),
+                "max_hold_days": spec.get("max_hold_days"),
+                "development_net_pct": metrics.get("avg_net_pct"),
+                "development_score": metrics.get("score"),
+                "historical_challenge_net_pct": check.get("net_average_pct"),
+                "historical_challenge_positive_double_costs": check.get("positive_double_costs"),
+                "not_pristine_oos": True,
+            })
+        research["independent_optimizer_memory"] = {
+            "recent_frozen_search_candidates": top[-6:],
+            "never_implies_future_profit": True,
+        }
     historical = summarize_challengers(read_json(WALK), now)
     configured = os.environ.get("SEIKO_AI_ENABLED") == "1"
     # A provider must be explicitly activated; Gemini free model is preferred.
