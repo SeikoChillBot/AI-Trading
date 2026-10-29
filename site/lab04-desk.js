@@ -24,6 +24,54 @@ put('desk-last-report',d.ready?
  ' · Dernier journal : '+stamp(d.generated_at)+
  ' · Modèle : '+(d.model||'non renseigné') :
  'Le journal autonome n’a pas encore été publié.');
+// Daily dated journal: explicitly distinguishes a genuine Gemini reply from
+// deterministic research records. Historical days remain selectable.
+const dailyDays=Array.isArray(d.daily_briefs)?d.daily_briefs:[];
+const dailyDate=get('desk-daily-date'),dailyContent=get('desk-daily-content');
+if(dailyDate&&dailyContent){
+ dailyDate.replaceChildren();
+ for(const day of dailyDays){
+  if(!day||!/^\\d{4}-\\d{2}-\\d{2}$/.test(day.date||''))continue;
+  const option=document.createElement('option');
+  option.value=day.date;
+  const date=new Date(day.date+'T12:00:00');
+  option.textContent=Number.isFinite(date.getTime())?
+   new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'long',year:'numeric'}).format(date):
+   day.date;
+  dailyDate.append(option);
+ }
+ const renderDaily=()=>{
+  dailyContent.replaceChildren();
+  const day=dailyDays.find(v=>v&&v.date===dailyDate.value);
+  if(!day){
+   put('desk-daily-status','Le premier bilan quotidien sera créé lors du prochain cycle de recherche.');
+   empty(dailyContent,'Aucun bilan horodaté encore enregistré. Les notes ci-dessous restent accessibles.');
+   return;
+  }
+  put('desk-daily-status',(day.period==='in_progress'?'Journée en cours':'Journée archivée')+
+   ' · Relevé '+stamp(day.updated_at)+
+   (day.gemini_authored_summary?' · Synthèse Gemini authentifiée':
+   ' · Synthèse du laboratoire (aucune réponse Gemini vérifiée)'));
+  if(day.gemini_authored_summary){
+   card(dailyContent,'Compte rendu de Gemini',String(day.gemini_authored_summary),
+        'Réponse du modèle enregistrée dans le journal');
+  }
+  const sections=[
+   ['Recherches effectuées',day.research],
+   ['Décisions et expérimentations',day.decisions],
+   ['Conclusions du jour',day.conclusions]
+  ];
+  for(const [heading,items] of sections){
+   if(!Array.isArray(items)||!items.length)continue;
+   const text=items.filter(x=>typeof x==='string').map(x=>'• '+x).join('\\n');
+   card(dailyContent,heading,text);
+  }
+  if(typeof day.next==='string')card(dailyContent,'Suite du programme',day.next,
+    'Décisions limitées au trading fictif et aux sources observées');
+ };
+ dailyDate.addEventListener('change',renderDaily);
+ renderDaily();
+}
 const stats=d.stats||{};
 put('desk-bots',d.ready?Number(stats.tracked||0):'—');
 put('desk-tests',d.ready?Number(stats.testing||0):'—');
