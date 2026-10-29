@@ -124,9 +124,11 @@ if(pulseBox){
   const title=document.createElement('strong');title.textContent=asset+' · cours clôturé '+(info.last_closed_day_utc||'date inconnue');
   const stats=document.createElement('p');
   const fmt=n=>Number.isFinite(Number(n))?Number(n).toFixed(2)+' %':'—';
-  stats.textContent='1 jour '+fmt(info.change_1d_pct)+' · 7 jours '+fmt(info.change_7d_pct)+
-   ' · 30 jours '+fmt(info.change_30d_pct)+
-   ' · volatilité annualisée estimée '+fmt(info.realized_volatility_30d_annualized_pct);
+  const week=Number(info.change_7d_pct);
+  const trend=Number.isFinite(week)?(week>0?'hausse':week<0?'baisse':'stable'):'évolution inconnue';
+  stats.textContent='Sur les 7 derniers jours : '+fmt(info.change_7d_pct)+
+    ' ('+trend+') · sur 30 jours : '+fmt(info.change_30d_pct)+
+    '. Ces chiffres décrivent le passé, pas la semaine prochaine.';
   card.append(title,stats);pulseBox.append(card);
  }
  const sample=pulse.large_transfers||{};
@@ -182,8 +184,8 @@ if(evolList){
  put('evolution-testing',String(counts.testing||0));
  put('evolution-activated',String(counts.activated||0));
  put('evolution-summary',evolution.ready?
-  'Chaque robot conserve son historique. Gemini propose des réglages limités, mesurés puis éventuellement activés après validation hors échantillon.':
-  'Journal individuel en attente du premier cycle de recherche. Aucun réglage automatique présumé.');
+  'Les robots cherchent des améliorations, mais aucune idée n’est appliquée sans avoir montré de meilleurs résultats sur de nouvelles données, frais compris.':
+  'Le suivi des améliorations est en attente. Aucune modification supposée.');
  const filter=get('evolution-filter');
  const renderEvol=()=>{
    const selected=filter?.value||'all';
