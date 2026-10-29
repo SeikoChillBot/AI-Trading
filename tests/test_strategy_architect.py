@@ -58,9 +58,11 @@ class ArchitectTests(unittest.TestCase):
         market = {asset: bars() for asset in foundry.ASSETS}
         first, _ = architect.build(NOW, market, memory(), {})
         altered = {asset: [dict(bar) for bar in bars()] for asset in foundry.ASSETS}
-        for item in altered["BTCUSD"][-120:]:
-            item["open"] *= 1.3
-            item["close"] *= .5
+        for index, item in enumerate(altered["BTCUSD"][-120:]):
+            # Changing the slope rather than scaling every price identically
+            # changes trailing returns while leaving development folds intact.
+            item["open"] *= (1 + index / 300)
+            item["close"] *= (1 + index / 300)
         second, _ = architect.build(NOW, altered, memory(), {})
         self.assertEqual(first["selected_by_asset"]["BTCUSD"],
                          second["selected_by_asset"]["BTCUSD"])
