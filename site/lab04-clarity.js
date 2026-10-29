@@ -185,13 +185,13 @@ if(host&&wallets){
   followBox.replaceChildren();
   const active=Array.isArray(follow.tracked_addresses)?follow.tracked_addresses:[];
   const events=Array.isArray(follow.new_transfers)?follow.new_transfers:[];
-  put('whale-radar-follow-status',follow.state==='observing'||follow.state==='partial'?
-    active.length+' adresse(s) observée(s) séparément sur une page de transferts récents · '+
-    date(follow.generated_at)+
-    (follow.error_count?' · '+follow.error_count+' erreur(s) de collecte':'')+
-    '. Premier relevé = référence, jamais nouvelle alerte.':
-    'Suivi d’adresses '+(follow.state||'non disponible')+
-    ' ; aucune transaction ou identité supposée.');
+  const followReadable=(follow.state==='observing'||follow.state==='partial')?
+   active.length+' adresse(s) suivie(s). Sans nouvelle grosse transaction, elles restent surveillées.':
+   follow.state==='no_addresses_yet'?'Aucune nouvelle adresse repérée : le radar continue.':
+   follow.state==='unavailable'?'Source indisponible : les adresses déjà enregistrées sont conservées.':
+   'Premiers relevés en attente.';
+  put('whale-radar-follow-status',followReadable);
+  /* previous display intentionally superseded */
   for(const entry of active.slice(0,4)){
    const a=String(entry.address||'').toLowerCase();if(!addressOk(a))continue;
    tile(followBox,a.slice(0,8)+'…'+a.slice(-6),
