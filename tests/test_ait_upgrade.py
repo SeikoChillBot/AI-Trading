@@ -62,6 +62,47 @@ class RadarTests(unittest.TestCase):
         self.assertEqual(len(again["new_transfers"]),1)
         self.assertEqual(again["new_transfers"][0]["trade_inference"],"unknown")
 
+    def test_retains_existing_addresses_when_latest_sample_is_quiet(self):
+        old={"schema":1,"tracked":{ADDR1:{
+            "baseline_at":(NOW-timedelta(days=1)).isoformat(),
+            "last_polled_at":(NOW-timedelta(hours=2)).isoformat(),
+            "seen_ids":[]}}}
+        quiet={"state":"partial","generated_at":NOW.isoformat(),
+               "sampled_wallet_flows":[]}
+        report,state=follow.observe(NOW,quiet,old,
+                                    lambda url,**kw:Response([sample_transfer()]))
+        self.assertEqual(report["state"],"observing")
+        self.assertEqual(len(report["tracked_addresses"]),1)
+        self.assertEqual(report["tracked_addresses"][0]["address"],ADDR1)
+        self.assertEqual(len(report["new_transfers"]),1)
+        self.assertTrue(state["tracked"][ADDR1]["seen_ids"])
+
+    def test_ordinary_small_transfer_not_marked_as_whale_alert(self):
+        seen={"schema":1,"tracked":{ADDR1:{
+            "baseline_at":NOW.isoformat(),
+            "last_polled_at":NOW.isoformat(),
+            "seen_ids":[]}}}
+        small=sample_transfer()
+        small["total"]["value"]="200000000"
+        report,_=follow.observe(NOW,{"state":"partial",
+                                  "generated_at":NOW.isoformat(),
+                                  "sampled_wallet_flows":[]},seen,
+                                  lambda url,**kw:Response([small]))
+        self.assertEqual(report["tracked_addresses"][0]["new_count"],0)
+        self.assertEqual(report["new_transfers"],[])
+
+    def test_temporary_blockscout_error_keeps_previous_address(self):
+        old={"schema":1,"tracked":{ADDR1:{
+            "baseline_at":NOW.isoformat(),
+            "last_polled_at":NOW.isoformat(),
+            "seen_ids":["a"]}}}
+        def broken(*args,**kwargs):
+            raise follow.requests.ConnectionError("offline")
+        report,state=follow.observe(NOW,{},old,broken)
+        self.assertEqual(report["state"],"unavailable")
+        self.assertEqual(report["tracked_addresses"][0]["monitoring"],"temporarily_unavailable")
+        self.assertEqual(state["tracked"][ADDR1]["seen_ids"],["a"])
+
     def test_stale_sample_prevents_address_follow(self):
         source={"state":"observing","generated_at":(NOW-timedelta(hours=5)).isoformat(),
                 "sampled_wallet_flows":[{"address":ADDR1,"identity_verified":False}]}
