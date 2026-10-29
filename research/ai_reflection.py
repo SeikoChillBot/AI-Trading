@@ -254,7 +254,12 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
                                  "Content-Type":"application/json"},
             json=simple, timeout=50)
         response.raise_for_status()
-    results = response.json().get("candidates", [])
+    response_data = response.json()
+    if not isinstance(response_data, dict):
+        raise GeminiResponseError("invalid_api_response")
+    results = response_data.get("candidates") or []
+    if not isinstance(results, list):
+        raise GeminiResponseError("invalid_candidate_list")
     if not results:
         raise GeminiResponseError("no_candidate")
     finish_reason = str(results[0].get("finishReason", "missing"))
@@ -385,7 +390,7 @@ def main():
                 error_code = None
                 last_http_status = None
                 model_last_called_at = now.isoformat()
-            except (requests.RequestException, ValueError, KeyError, TypeError) as error:
+            except (requests.RequestException, ValueError, KeyError, TypeError, AttributeError) as error:
                 state = "model_reflection_failed"
                 http_response = getattr(error, "response", None)
                 code = getattr(http_response, "status_code", None)
