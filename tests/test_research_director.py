@@ -53,7 +53,8 @@ class ResearchDirectorTests(unittest.TestCase):
     def go(self, proposals=None, previous=None, forward=None,
            knowledge=None, science_state=None, now=NOW):
         return director.build(now, candles(), science(), science_state or {
-            "seen_spec_ids":[],"real_orders":False}, proposals or {},
+            "seen_spec_ids":[],"real_orders":False,
+            "robots_modified":False}, proposals or {},
             knowledge or {"ideas":[]}, forward or {}, previous or {})
 
     def test_gemini_proposal_is_explicit_and_frozen_before_paper(self):
@@ -116,6 +117,17 @@ class ResearchDirectorTests(unittest.TestCase):
         rec["spec"]={**btc["spec"],"threshold_pct":2}
         self.assertEqual(director.prospective_status(btc,{"tracks":{btc["id"]:rec}})[0],
                          "invalid_forward_provenance")
+
+    def test_unverified_scientific_memory_cannot_launch_new_experiments(self):
+        report, state = self.go(science_state={"seen_spec_ids":[],
+                                              "real_orders":True,
+                                              "robots_modified":False})
+        self.assertEqual(report["tracked"],0)
+        self.assertEqual(len(report["issues"]),3)
+        self.assertTrue(all(v=="unverified_scientific_evidence"
+                            for v in report["issues"].values()))
+        self.assertEqual(state["experiments"],[])
+        self.assertFalse(report["real_orders"])
 
     def test_validated_model_plan_is_kept_separate_from_bot_adjustments(self):
         validated=decisions.validate_model_ideas({
