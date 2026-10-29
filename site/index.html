@@ -39,6 +39,7 @@
   <dt>Gain, perte, variation ou rendement</dt><dd>Différence depuis les 20 $ fictifs de départ, exprimée en dollars ou en pourcentage. Rien n'est retirable.</dd>
   <dt>Liquidités</dt><dd>Part de l'argent fictif qui n'est pas investie dans un actif à ce moment.</dd>
   <dt>Position et unités</dt><dd>Ce que le robot possède virtuellement et sa quantité ; une fraction de bitcoin peut être minuscule.</dd>
+  <dt>Période de prix ou bougie</dt><dd>Une période de prix déjà terminée, par exemple une heure. Le robot évite de décider sur une période encore en cours.</dd>
   <dt>Frais, spread et glissement</dt><dd>Coûts simulés : commissions, écart entre prix pour acheter et vendre, et différence possible lors d'une exécution.</dd>
   <dt>Robot témoin</dt><dd>Robot qui conserve simplement son actif pour servir de point de comparaison.</dd>
   <dt>Variante en test</dt><dd>Autre version de la stratégie essayée séparément sur de nouveaux prix, sans changer le robot.</dd>
@@ -360,7 +361,11 @@
  <div id="sheet-chart" class="sheet-chart"></div><p class="micro-note" id="sheet-chart-context">Dates et observations en préparation.</p>
  <p class="micro-note" id="sheet-chart-stats">Comparaison en cours.</p></div><details class="lab-advanced sheet-technical"><summary>Frais, opérations et autres détails techniques</summary><div class="sheet-metrics"><div><span>ACTIF</span><strong id="sheet-asset">—</strong></div><div><span>INTERVALLE</span><strong id="sheet-timeframe">—</strong></div><div><span>OPÉRATIONS</span><strong id="sheet-trades">—</strong></div><div><span>FRAIS SIMULÉS</span><strong id="sheet-fees">—</strong></div></div><div class="sheet-extra"><div><span>BAISSE MAX. OBSERVÉE</span><strong id="sheet-drawdown">—</strong></div><div><span>ÉCART AVEC LA CONSERVATION SIMPLE</span><strong id="sheet-benchmark">—</strong></div><p id="sheet-benchmark-note">Comparaison indicative entre stratégies différentes.</p></div>
 
-</details><div class="strategy-description"><span class="eyebrow">Ce que fait ce robot</span><p id="sheet-description">—</p></div>
+</details><div class="strategy-description"><span class="eyebrow">Ce que fait ce robot</span><p id="sheet-description">—</p>
+ <details class="ait-rule-details"><summary>Comment décide-t-il précisément quand acheter ou vendre ?</summary>
+ <p id="ait-sheet-rule">Lecture de sa règle en cours…</p>
+ <p>Le programme n’examine que des périodes de prix terminées. Les frais, les liquidités et la disponibilité de prix fiables peuvent empêcher un ordre fictif.</p></details>
+ </div>
  <section class="ait-sheet-activity"><h3>Ses dernières décisions</h3>
   <p id="ait-sheet-activity-status">Vérification de son historique des opérations…</p>
   <div id="ait-sheet-activity-list" class="ait-activity-list"></div>
