@@ -163,6 +163,8 @@ def build(now, research, ideas, shadow, state, active):
                 "from_scale":candidate["from_scale"],
                 "evidence":"reports/robot_shadow_observations.json",
                 "promoted_observations":int(evidence["observations"]),
+                "promoted_candidate_return_pct":float(evidence["candidate"]["net_return_pct"]),
+                "promoted_control_return_pct":float(evidence["control"]["net_return_pct"]),
                 "reason":"Net after costs, fee stress and max drawdown gates passed",
             }
             candidate["status"] = "automatically_promoted_paper_only"
@@ -183,11 +185,14 @@ def build(now, research, ideas, shadow, state, active):
             active_days = (now-datetime.fromisoformat(active_profile["approved_at"])).total_seconds()/86400
             future_samples = int(evidence.get("observations",0))
             baseline=active_profile.get("promoted_observations")
-            if baseline is None:
-                # Legacy promoted profiles lack a post-approval baseline.
-                # Record it now rather than applying a rollback on PRE-approval
-                # observations or historic performance.
+            if (baseline is None
+                    or "promoted_candidate_return_pct" not in active_profile
+                    or "promoted_control_return_pct" not in active_profile):
+                # Legacy promotion: capture current values as the post-approval
+                # comparison start, never infer earlier gains/losses.
                 active_profile["promoted_observations"]=future_samples
+                active_profile["promoted_candidate_return_pct"]=float(evidence["candidate"]["net_return_pct"])
+                active_profile["promoted_control_return_pct"]=float(evidence["control"]["net_return_pct"])
                 continue
             new_samples=future_samples-int(baseline)
             updated=datetime.fromisoformat(evidence["observed_at"])
@@ -201,7 +206,14 @@ def build(now, research, ideas, shadow, state, active):
                 continue
             p = evidence["candidate"]
             control = evidence["control"]
-            loss_vs_control = float(p["net_return_pct"]) - float(control["net_return_pct"])
+            # Only performance CHANGE since approval matters. Historic
+            # cumulative gaps from the candidate's initial enrollment must
+            # never trigger a rollback of a newly approved paper setting.
+            after_candidate=(float(p["net_return_pct"])-
+                             float(active_profile["promoted_candidate_return_pct"]))
+            after_control=(float(control["net_return_pct"])-
+                           float(active_profile["promoted_control_return_pct"]))
+            loss_vs_control=after_candidate-after_control
             dd = float(p["max_drawdown_pct"])
             if loss_vs_control <= -4 or dd >= 25:
                 profiles.pop(name, None)
