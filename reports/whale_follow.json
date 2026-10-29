@@ -1,14 +1,42 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T05:54:44.785842+00:00",
-  "state": "not_configured",
+  "generated_at": "2026-10-29T08:54:46.703120+00:00",
+  "state": "observing",
   "source": "https://eth.blockscout.com/api/v2",
+  "discovery_state": "observing",
+  "selection": "public_sample_not_verified_whale_identity",
   "method": "latest_one_page_per_selected_public_address",
   "coverage": "bounded_non_exhaustive_pseudonymous_addresses",
-  "tracked_addresses": [],
+  "tracked_addresses": [
+    {
+      "address": "0x152a29aefe3339c7f0bbf62d9091ec8b3fc5197f",
+      "verified_identity": false,
+      "sample_count": 20,
+      "new_count": 0,
+      "baseline_at": "2026-10-29T04:44:48.618373+00:00",
+      "last_detected_at": "2026-10-29T04:44:48.618373+00:00",
+      "last_polled_at": "2026-10-29T08:54:46.703120+00:00",
+      "collection_state": "ok",
+      "monitoring": "active",
+      "discovered_this_scan": false
+    },
+    {
+      "address": "0x0668c9bf6a6936b9eb5a19f61c663070beff2f9b",
+      "verified_identity": false,
+      "sample_count": 50,
+      "new_count": 0,
+      "baseline_at": "2026-10-29T04:44:48.618373+00:00",
+      "last_detected_at": "2026-10-29T04:44:48.618373+00:00",
+      "last_polled_at": "2026-10-29T08:54:46.703120+00:00",
+      "collection_state": "ok",
+      "monitoring": "active",
+      "discovered_this_scan": false
+    }
+  ],
   "new_transfers": [],
   "errors": {},
   "max_addresses": 4,
+  "retention_days": 7,
   "can_infer_owner": false,
   "can_infer_trade": false,
   "real_orders": false

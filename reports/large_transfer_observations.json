@@ -1,20 +1,20 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T05:54:40.574746+00:00",
+  "generated_at": "2026-10-29T08:54:40.583254+00:00",
   "source": "https://eth.blockscout.com/api/v2",
   "chain": "ethereum",
-  "state": "partial",
+  "state": "observing",
   "method": "sample_latest_public_token_transfers",
   "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
   "max_pages_per_token": 3,
   "minimum_nominal_usd": 1000000,
   "sampled_records": {
     "USDC": 150,
-    "USDT": 50
+    "USDT": 150
   },
   "validated_records": {
-    "USDC": 144,
-    "USDT": 46
+    "USDC": 147,
+    "USDT": 150
   },
   "large_transfers_observed": 0,
   "large_transfers_new": [],
@@ -22,9 +22,7 @@
   "sampled_wallet_flows": [],
   "sampled_wallets_count": 0,
   "new_event_count": 0,
-  "errors": {
-    "USDT": "HTTPError: 500 Server Error: Internal Server Error for url: https://eth.blockscout.com/api/v2/tokens/0xdac17f958d2ee523a2206206994597c13d831e"
-  },
+  "errors": {},
   "buy_sell_inference": false,
   "real_trades": false,
   "warning": "Large stablecoin transfers may be exchange movements, mint/redemption, custody or bridges; not proof of a whale purchase."

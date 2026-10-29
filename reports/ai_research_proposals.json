@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T05:54:48.431570+00:00",
+  "generated_at": "2026-10-29T08:54:51.127374+00:00",
   "research_date_utc": "2026-10-29",
-  "review_slot": "2026-10-29T00:00Z",
-  "model_last_called_at": "2026-10-29T04:44:53.571777+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-29T06:00Z",
+  "model_last_called_at": "2026-10-29T08:54:51.127374+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-29T04:44:53.571777+00:00",
+  "last_attempt_at": "2026-10-29T08:54:51.127374+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse quantitative critique du laboratoire Seiko au 29-10-2026. L'historique des robots reste trop court (moins de 14 jours pour la crypto) et aucun actif ne satisfait l'ensemble des critères de robustesse. Les performances OOS sur les challengers BTC, ETH et SOL montrent des rendements nets négatifs ou des drawdowns excessifs après frais. La récurrence des tests sur les mêmes holdouts surestime la performance. Aucune stratégie n'est déclarée robuste et aucune promesse de rendement n'est formulée.",
+  "summary": "Analyse critique des données quantitatives Seiko montrant des performances nettes négatives sur les robots crypto et multi-actifs, avec des historiques inférieurs au seuil requis de 14 ou 30 jours et aucun robot prêt pour la revue humaine ou la production.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés sur BTC",
-      "hypothesis": "Doubler les frais de transaction détériore l'espérance de gain des stratégies de momentum sur BTC.",
-      "experiment": "Rejouer l'ensemble des historiques OOS en appliquant des frais de transaction multipliés par 2 sur les robots BTC sans modifier les fenêtres.",
-      "rejection_rule": "Si le rendement net moyen reste positif après doublement des frais, l'hypothèse de sensibilité est rejetée.",
+      "title": "Test de résistance aux frais doublés",
+      "hypothesis": "Doubler les frais de transaction supprime le peu de rentabilité résiduelle des stratégies de momentum sur BTCUSD.",
+      "experiment": "Rejouer les signaux de btc_momentum avec des frais augmentés de 100 pour cent sur des données journalières historiques non utilisées.",
+      "rejection_rule": "Rejeter l'hypothèse si la perte nette moyenne reste inférieure à 2 pour cent sur la période.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -117,10 +117,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Validation prospective post-drawdown sur ETH",
-      "hypothesis": "Les drawdowns historiques observés sur ETH sous-estiment la volatilité réelle en période de forte baisse macroéconomique.",
-      "experiment": "Collecter 30 nouvelles observations de forward paper trading sans réajuster les paramètres et mesurer l'apparition de nouveaux drawdowns maximaux.",
-      "rejection_rule": "Si le nouveau drawdown maximal reste inférieur au pire drawdown historique sans dépassement, l'hypothèse est rejetée.",
+      "title": "Robustesse des seuils de repli",
+      "hypothesis": "Les performances de eth_reversion dépendent excessivement du choix de la fenêtre d'observation initiale.",
+      "experiment": "Évaluer eth_reversion sur trois fenêtres OOS disjointes de 30 jours en enregistrant le drawdown maximal.",
+      "rejection_rule": "Rejeter l'hypothèse si le drawdown reste strictement inférieur à 3 pour cent sur toutes les fenêtres.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -131,21 +131,21 @@
   ],
   "bot_adjustments": [
     {
-      "strategy": "btc_momentum",
+      "strategy": "btc_reversion",
       "entry_scale": 1.2,
-      "reason": "Réduction de l'exposition face aux performances OOS négatives et aux signaux de repli macroéconomique.",
+      "reason": "Réduction de l'exposition au vu d'un historique trop court et d'une performance OOS négative.",
       "evidence_state": "gemini_hypothesis_unverified"
     },
     {
-      "strategy": "eth_momentum",
+      "strategy": "eth_ema_cross",
       "entry_scale": 1.2,
-      "reason": "Limitation du risque de drawdown excessif observé sur les folds historiques de l'actif ETHUSD.",
+      "reason": "Prudence face aux alertes de vulnérabilité technique et de drawdowns non validés.",
       "evidence_state": "gemini_hypothesis_unverified"
     },
     {
       "strategy": "sol_momentum",
-      "entry_scale": 0.8,
-      "reason": "Adaptation rapide aux variations de liquidité et aux transferts importants observés sur Solana sans modifier les règles de base.",
+      "entry_scale": 1.2,
+      "reason": "Limitation des risques suite à la volatilité annualisée élevée et aux pertes OOS sur Solana.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],

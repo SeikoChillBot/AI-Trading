@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés sur BTC** : Rejouer l'ensemble des historiques OOS en appliquant des frais de transaction multipliés par 2 sur les robots BTC sans modifier les fenêtres. Critère d'abandon : Si le rendement net moyen reste positif après doublement des frais, l'hypothèse de sensibilité est rejetée.
-- **ETHUSD — Validation prospective post-drawdown sur ETH** : Collecter 30 nouvelles observations de forward paper trading sans réajuster les paramètres et mesurer l'apparition de nouveaux drawdowns maximaux. Critère d'abandon : Si le nouveau drawdown maximal reste inférieur au pire drawdown historique sans dépassement, l'hypothèse est rejetée.
+- **BTCUSD — Test de résistance aux frais doublés** : Rejouer les signaux de btc_momentum avec des frais augmentés de 100 pour cent sur des données journalières historiques non utilisées. Critère d'abandon : Rejeter l'hypothèse si la perte nette moyenne reste inférieure à 2 pour cent sur la période.
+- **ETHUSD — Robustesse des seuils de repli** : Évaluer eth_reversion sur trois fenêtres OOS disjointes de 30 jours en enregistrant le drawdown maximal. Critère d'abandon : Rejeter l'hypothèse si le drawdown reste strictement inférieur à 3 pour cent sur toutes les fenêtres.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
