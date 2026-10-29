@@ -1,0 +1,36 @@
+/* AIT / 07: teach the workflow first, keep forensic details optional. */
+.ait-journey,.ait-page-explain{border:1px solid #466b58;border-radius:15px;background:#192e2b;padding:16px 18px;margin:0 0 17px;color:#dfede8}
+.ait-journey-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ait-journey-heading strong,.ait-page-explain>strong{font-size:15px;letter-spacing:-.01em}
+.ait-journey-heading span{font-size:10px;color:#bce9b6;background:#2b4733;border-radius:9px;padding:5px 9px}
+.ait-step-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:14px 0}
+.ait-step-track span{font-size:11px;font-weight:700;line-height:1.5;color:#e4f4e7;background:#243d38;border:1px solid #47695c;border-radius:10px;padding:10px;min-width:0}
+.ait-journey details,.ait-page-explain details,.ait-sheet-activity details{margin-top:12px}
+.ait-journey summary,.ait-page-explain summary,.ait-sheet-activity summary{cursor:pointer;padding:9px 0;color:#c5ecad;font-size:12px;font-weight:700}
+.ait-journey summary:focus-visible,.ait-page-explain summary:focus-visible,.ait-sheet-activity summary:focus-visible{outline:2px solid #b9f477;outline-offset:3px}
+.ait-journey-list{padding-left:21px;margin:10px 0 0}
+.ait-journey-list li{font-size:12px;line-height:1.65;margin-bottom:11px;color:#c1d7d0}
+.ait-journey-list strong{color:#e9f6ee}
+.ait-page-explain p{font-size:12px;line-height:1.7;color:#bbd0c8;margin:8px 0 0}
+.ait-page-explain b{color:#e1f3e7}
+.ait-page-explain .ait-dynamic{padding:8px 11px;border-left:3px solid #90c582;color:#e4f0d8;background:#21372f}
+.ait-proof-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.ait-proof-cell{border:1px solid #4e6e5e;border-radius:11px;padding:13px;background:#253934;min-width:0}
+.ait-proof-cell small{display:block;font-size:10px;color:#aacbbc}
+.ait-proof-cell strong{font-size:15px;display:block;margin:8px 0 4px;color:#f0faec;overflow-wrap:anywhere}
+.ait-proof-cell p{font-size:11px;line-height:1.55;margin:0;color:#c1d5c9}
+.ait-sheet-activity{border:1px solid #3f5b51;border-radius:12px;padding:15px;margin-top:17px;background:#192e30}
+.ait-sheet-activity h3{font-size:16px;color:#e8f7ee;margin:0 0 6px}
+.ait-sheet-activity>p{font-size:12px;line-height:1.6;margin:7px 0 12px;color:#bfd4cc}
+.ait-activity-list{display:grid;gap:8px}
+.ait-activity-item{padding:11px 12px;border-radius:9px;border:1px solid #385851;background:#203737}
+.ait-activity-item strong{display:block;font-size:12px;color:#eef9ed}
+.ait-activity-item p{font-size:11px;line-height:1.6;color:#c2d5cf;margin:7px 0}
+.ait-activity-item small{display:block;font-size:10px;color:#9fc5b5;line-height:1.5}
+@media(max-width:700px){
+ .ait-step-track{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ait-proof-grid{grid-template-columns:1fr}
+ .ait-journey,.ait-page-explain{padding:13px 14px}
+ .ait-proof-cell{padding:11px}
+ .ait-step-track span{padding:9px}
+}
