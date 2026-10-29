@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style><link rel="stylesheet" href="./lab04-overview.css?v=4"><link rel="stylesheet" href="./lab04-analysis.css?v=4.2"><link rel="stylesheet" href="./lab04-markets.css?v=4"><link rel="stylesheet" href="./lab04-clarity.css?v=5"></head>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style><link rel="stylesheet" href="./lab04-overview.css?v=4"><link rel="stylesheet" href="./lab04-analysis.css?v=4.2"><link rel="stylesheet" href="./lab04-markets.css?v=4"><link rel="stylesheet" href="./lab04-clarity.css?v=5"><link rel="stylesheet" href="./lab04-simple.css?v=6"></head>
 <body><div class="app-shell" id="app">
-<header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><span class="release-tag" aria-label="Version de l’interface">LAB / 04</span><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
+<header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><span class="release-tag" aria-label="Version de l’interface">AIT · SIMULATION</span><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
 <div class="page-heading"><span class="eyebrow" id="page-eyebrow">PAPER TRADING · LABORATOIRE</span><h1 id="page-title">Vue d’ensemble<span class="title-period">.</span></h1><p id="page-subtitle">Les résultats de votre expérience, au même endroit.</p></div>
 <div class="display-currency" aria-label="Devise d'affichage">
   <div class="display-currency-controls"><span class="display-currency-label">DEVISE D’AFFICHAGE</span>
@@ -15,18 +15,21 @@
 <main>
 <section id="view-home" class="view is-visible" aria-label="Tableau de bord des expériences">
 <section class="lab-freshness" aria-label="Fraîcheur des relevés"><div><strong>Dernières données publiées</strong><p id="lab-freshness-detail">Vérification de la dernière publication…</p></div><div class="lab-freshness-actions"><span id="lab-freshness-badge">Vérification</span><button id="lab-refresh" type="button" title="Recharger les derniers relevés publiés">Actualiser</button></div></section>
+<section class="ait-beginner-note"><strong>Tu regardes quoi ici ?</strong>
+<p>36 robots testent des idées avec de l’argent fictif : 20 $ chacun, soit 720 $ au total. Les gains et pertes affichés sont simulés, pas de l’argent à retirer.</p>
+<details><summary>Comprendre capital, position et rendement</summary><p><b>Capital</b> : valeur actuelle de la mise de départ. <b>Position</b> : ce que le robot détient. <b>Rendement</b> : évolution en pourcentage depuis le début.</p></details></section>
 <div class="lab-overview">
- <div class="lab-overview-top"><div><span class="eyebrow">PANORAMA / SIMULATIONS</span><h2>Deux laboratoires.<br><span>Une même ambition.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
+ <div class="lab-overview-top"><div><span class="eyebrow">PANORAMA / SIMULATIONS</span><h2>Deux équipes de robots.<br><span>Des essais sans argent réel.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
  <p>Les deux expériences utilisent 20 $ fictifs par robot, mais leurs dates de départ, marchés et coûts sont différents : leurs historiques restent séparés.</p>
  <div class="lab-tiles" role="group" aria-label="Sélectionner un portefeuille">
   <button class="lab-tile is-selected" type="button" data-lab="crypto" aria-pressed="true">
-   <span class="lab-tile-top"><span class="lab-tile-glyph">₿</span><span class="lab-tile-status">KRAKEN · SPOT</span></span>
+   <span class="lab-tile-top"><span class="lab-tile-glyph">₿</span><span class="lab-tile-status">CRYPTO · SIMULATION</span></span>
    <span class="lab-tile-name">Crypto <small>18 stratégies · 20 $ / robot</small></span>
    <span class="lab-tile-value" id="overview-crypto-value">—</span>
    <span class="lab-tile-bottom"><span id="overview-crypto-return">—</span><span id="overview-crypto-age">—</span></span>
   </button>
   <button class="lab-tile" type="button" data-lab="multi" aria-pressed="false">
-   <span class="lab-tile-top"><span class="lab-tile-glyph">◈</span><span class="lab-tile-status">9 INSTRUMENTS · INDICATIF</span></span>
+   <span class="lab-tile-top"><span class="lab-tile-glyph">◈</span><span class="lab-tile-status">ACTIONS ET AUTRES MARCHÉS</span></span>
    <span class="lab-tile-name">Multi-actifs <small>18 stratégies · 20 $ / robot</small></span>
    <span class="lab-tile-value" id="overview-multi-value">—</span>
    <span class="lab-tile-bottom"><span id="overview-multi-return">—</span><span id="overview-multi-age">—</span></span>
@@ -59,7 +62,7 @@
  <div class="research-panel-head"><div>
   <span class="eyebrow">LABORATOIRE D'EXPÉRIMENTATION</span>
   <h2 id="research-title">Recherche automatisée<span class="title-period">.</span></h2>
-  <p>Marchés actualisés toutes les 2 h, analyses Gemini jusqu'à toutes les 6 h, challengers suivis sans intervention.</p>
+  <p>La progression des robots, les analyses de Gemini et les mouvements importants du marché en mots simples.</p>
  </div><span id="research-ai-state" class="research-panel-state">En attente</span></div>
  <div class="research-panel-metrics">
   <div><small>ROBOTS ANALYSÉS</small><strong id="research-bots">—</strong></div>
@@ -240,7 +243,7 @@
  <section class="research-panel" id="gemini-desk-panel">
   <div class="research-panel-head"><div>
    <span class="eyebrow">ANALYSTE AUTONOME · RECHERCHE FICTIVE</span>
-   <h2>Journal de Gemini<span class="title-period">.</span></h2>
+   <h2>Ce que fait Gemini<span class="title-period">.</span></h2>
    <p>Décisions horodatées, essais virtuels, patchnotes et actualités de sources identifiées.</p>
   </div><span class="research-panel-state" id="desk-ai-status">En attente</span></div>
   <div class="research-panel-metrics">
@@ -253,7 +256,7 @@
   <section class="research-panel-details" id="desk-daily-panel">
    <div class="section-header compact"><div>
     <span class="eyebrow">BILAN QUOTIDIEN AUTOMATIQUE · HEURE DE PARIS</span>
-    <h3>Le carnet de bord du laboratoire</h3>
+    <h3>Le résumé de la journée</h3>
    </div></div>
    <p class="micro-note">Chaque jour : recherches effectuées, décisions, conclusions et prochaines observations. Une réponse de Gemini n'est attribuée à l'IA que si elle a réellement été reçue.</p>
    <label for="desk-daily-date" class="micro-note">Choisir une journée</label>
@@ -301,4 +304,4 @@
 
 <div class="strategy-description"><span class="eyebrow">LOGIQUE DU ROBOT</span><p id="sheet-description">—</p></div></section></div>
 <script>const DATA=/*__DATA__*/{"updated":"En attente du premier relevé","rows":[],"history":[]};</script><script>/*__JS__*/</script>
-<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script><script src="./lab04-desk.js?v=4.8" defer></script><script src="./lab04-ops.js?v=1" defer></script><script src="./lab04-clarity.js?v=5" defer></script></body></html>
+<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script><script src="./lab04-desk.js?v=4.8" defer></script><script src="./lab04-ops.js?v=1" defer></script><script src="./lab04-clarity.js?v=5" defer></script><script src="./lab04-simple.js?v=6" defer></script></body></html>
