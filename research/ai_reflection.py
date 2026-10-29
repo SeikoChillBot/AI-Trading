@@ -253,7 +253,28 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
             GEMINI_URL, headers={"x-goog-api-key":api_key,
                                  "Content-Type":"application/json"},
             json=simple, timeout=50)
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.HTTPError:
+            # Some allowed Gemini projects reject structured schema metadata.
+            # Last bounded recovery uses JSON MIME + the SAME strict local
+            # validate_model_ideas gate; never trust raw model instructions.
+            # Only for HTTP 400, never for quotas or auth failures.
+            if getattr(response, "status_code", None) != 400:
+                raise
+            json_only = json.loads(json.dumps(simple))
+            json_only["generationConfig"].pop("responseSchema", None)
+            json_only["generationConfig"]["maxOutputTokens"] = 5600
+            json_only["systemInstruction"]["parts"][0]["text"] += (
+                " Réponds avec un objet JSON contenant obligatoirement "
+                "summary (texte), experiments (tableau), bot_adjustments "
+                "(tableau). Pas de commentaire hors JSON."
+            )
+            response = requests.post(
+                GEMINI_URL, headers={"x-goog-api-key":api_key,
+                                    "Content-Type":"application/json"},
+                json=json_only, timeout=50)
+            response.raise_for_status()
     response_data = response.json()
     if not isinstance(response_data, dict):
         raise GeminiResponseError("invalid_api_response")
