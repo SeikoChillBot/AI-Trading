@@ -2,7 +2,7 @@
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style><link rel="stylesheet" href="./lab04-overview.css?v=4"><link rel="stylesheet" href="./lab04-analysis.css?v=4.2"><link rel="stylesheet" href="./lab04-markets.css?v=4"><link rel="stylesheet" href="./lab04-clarity.css?v=5"><link rel="stylesheet" href="./lab04-simple.css?v=6"><link rel="stylesheet" href="./lab04-guide.css?v=7"></head>
 <body><div class="app-shell" id="app">
 <header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><span class="release-tag" aria-label="Version de l’interface">AIT · SIMULATION</span><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
-<div class="page-heading"><span class="eyebrow" id="page-eyebrow">PAPER TRADING · LABORATOIRE</span><h1 id="page-title">Vue d’ensemble<span class="title-period">.</span></h1><p id="page-subtitle">Les résultats de votre expérience, au même endroit.</p></div>
+<div class="page-heading"><span class="eyebrow" id="page-eyebrow">ARGENT FICTIF · LABORATOIRE</span><h1 id="page-title">Vue d’ensemble<span class="title-period">.</span></h1><p id="page-subtitle">Les résultats de votre expérience, au même endroit.</p></div>
 <div class="display-currency" aria-label="Devise d'affichage">
   <div class="display-currency-controls"><span class="display-currency-label">DEVISE D’AFFICHAGE</span>
     <div class="display-currency-switch" role="group" aria-label="Passer de dollars en euros">
@@ -33,6 +33,19 @@
    <li><strong>Les changements sont bloqués tant que les preuves manquent.</strong> Les robots de référence ne sont jamais modifiés et aucun ordre réel n'est possible.</li>
   </ol>
  </details>
+ <details class="ait-words"><summary>Dictionnaire des mots du site</summary>
+ <dl>
+  <dt>Capital et valeur actuelle</dt><dd>Argent virtuel encore disponible, plus valeur estimée du placement que le robot détient.</dd>
+  <dt>Gain, perte, variation ou rendement</dt><dd>Différence depuis les 20 $ fictifs de départ, exprimée en dollars ou en pourcentage. Rien n'est retirable.</dd>
+  <dt>Liquidités</dt><dd>Part de l'argent fictif qui n'est pas investie dans un actif à ce moment.</dd>
+  <dt>Position et unités</dt><dd>Ce que le robot possède virtuellement et sa quantité ; une fraction de bitcoin peut être minuscule.</dd>
+  <dt>Frais, spread et glissement</dt><dd>Coûts simulés : commissions, écart entre prix pour acheter et vendre, et différence possible lors d'une exécution.</dd>
+  <dt>Robot témoin</dt><dd>Robot qui conserve simplement son actif pour servir de point de comparaison.</dd>
+  <dt>Variante en test</dt><dd>Autre version de la stratégie essayée séparément sur de nouveaux prix, sans changer le robot.</dd>
+  <dt>Gemini</dt><dd>IA qui analyse les rapports et propose des essais. Elle ne passe pas les ordres et n'approuve pas directement les changements.</dd>
+  <dt>Baleine et transfert</dt><dd>Une baleine serait un acteur très important. Une adresse qui déplace une grosse somme n'est pas forcément une baleine et ne prouve aucun achat.</dd>
+  <dt>Action, ETF, devise et crypto</dt><dd>Différents types d'actifs. Certains cours sont indicatifs ou retardés ; ils ne sont pas des prix d'exécution garantis.</dd>
+ </dl></details>
 </section>
 <div class="lab-overview">
  <div class="lab-overview-top"><div><span class="eyebrow">SIMULATIONS · SANS ARGENT RÉEL</span><h2>Deux équipes de robots.<br><span>Des essais sans argent réel.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
@@ -76,6 +89,7 @@
 <div class="list-caption"><span id="robots-count">— stratégies</span><span>VALEUR / VARIATION</span></div><div id="robot-list" class="robot-list"></div></section>
 <section id="view-analysis" class="view" aria-label="Analyse" hidden>
 <section class="ait-page-explain"><strong>À quoi sert cette page ?</strong><p>Le laboratoire compare les robots, observe les gros transferts publics et vérifie si de nouvelles idées méritent d'être testées. <b>« En test » ne signifie pas « rentable ».</b> Les chiffres compliqués restent consultables plus bas, si tu veux aller plus loin.</p><p class="ait-dynamic" id="ait-proof-state">Lecture des résultats de validation…</p></section>
+<details class="ait-words"><summary>Pourquoi aucune amélioration n'est encore approuvée ?</summary><p>Une idée est comparée à la stratégie d'origine sur de nouveaux prix, après sa création. Le laboratoire demande au moins 14 jours pour les cryptos et 30 jours pour les autres marchés, assez d'achats suivis de ventes et de nouveaux relevés. Il contrôle aussi les frais doublés, les baisses importantes et les prix manquants. Cela évite de confondre un coup de chance avec une vraie amélioration.</p></details>
 <section class="research-panel" aria-labelledby="research-title">
  <div class="research-panel-head"><div>
   <span class="eyebrow">OBSERVATION AUTOMATIQUE</span>
@@ -277,7 +291,7 @@
  <section class="ait-page-explain"><strong>Ce que fait réellement Gemini</strong><p>Gemini lit des résultats déjà collectés et suggère des essais. <b>Il ne passe pas d'ordres et ne modifie pas directement les robots.</b> Le système teste ensuite ses idées séparément. Ce journal distingue les avis de Gemini, les calculs statistiques et les résultats réellement observés.</p><div class="ait-proof-grid" id="ait-gemini-proof" role="status">Vérification des propositions et des résultats…</div><details><summary>Comment savoir si une idée est bonne ?</summary><p>Une bonne idée doit gagner face à la version actuelle sur de <b>nouvelles observations</b>, rester acceptable lorsque les frais augmentent, et ne pas provoquer de baisse trop forte. Pour l'instant, aucune amélioration n'a franchi tous ces contrôles.</p></details></section>
  <section class="research-panel" id="gemini-desk-panel">
   <div class="research-panel-head"><div>
-   <span class="eyebrow">ANALYSTE AUTONOME · RECHERCHE FICTIVE</span>
+   <span class="eyebrow">AVIS IA · EXPÉRIENCES FICTIVES</span>
    <h2>Ce que fait Gemini<span class="title-period">.</span></h2>
    <p>Décisions horodatées, essais virtuels, patchnotes et actualités de sources identifiées.</p>
   </div><span class="research-panel-state" id="desk-ai-status">En attente</span></div>
@@ -329,7 +343,7 @@
 <button class="nav-button" data-view="desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg><span>Journal IA</span></button>
 <button class="nav-button" data-view="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m9 15 2-6 6-2-2 6-6 2Z"/></svg><span>Marchés</span></button>
 </div></nav>
-<div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE STRATÉGIE</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Variation depuis le départ</span><strong id="sheet-return">—</strong></div></div><div class="lab-robot-holdings" aria-label="Composition du portefeuille fictif">
+<div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE DU ROBOT</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Variation depuis le départ</span><strong id="sheet-return">—</strong></div></div><div class="lab-robot-holdings" aria-label="Composition du portefeuille fictif">
   <div><small>MISE DE DÉPART</small><strong id="sheet-initial">20 $</strong></div>
   <div><small>LIQUIDITÉS RESTANTES</small><strong id="sheet-cash">—</strong></div>
   <div><small>QUANTITÉ DÉTENUE</small><strong id="sheet-units">—</strong></div>
