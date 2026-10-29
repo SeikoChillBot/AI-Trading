@@ -142,9 +142,9 @@ def build(now, knowledge, candles, previous, leaderboard=None):
     pinned = [item for item in preferred if item["id"] in qualified]
     newest = list(reversed([item for item in preferred if item["id"] not in qualified]))
     selected = (pinned + newest)[:MAX_TRACKED]
-    selected_ids = {item["id"] for item in selected}
-    active_ideas = [item for item in preferred if item["id"] in selected_ids]
-    for idea in active_ideas:
+    # Iterate in priority order (champions, then most recently created).
+    # Restoring original order before the cap can starve new entries.
+    for idea in selected:
         if len(tracks) >= MAX_TRACKED:
             break
         if not isinstance(idea, dict) or not isinstance(idea.get("spec"), dict):
