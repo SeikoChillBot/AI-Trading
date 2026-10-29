@@ -7,7 +7,7 @@ Preserve monitoring when the latest sample has no large movement.
 from __future__ import annotations
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 import requests
@@ -20,6 +20,8 @@ OUTPUT=ROOT/"reports/whale_follow.json"
 ADDRESS=re.compile(r"^0x[0-9a-f]{40}$")
 MAX_WALLETS=4
 MAX_PAGE=50
+RETENTION_DAYS=7
+MAX_REPORTED_NEW=12
 MAX_SEEN=300
 MAX_AGE_DAYS=7
 
@@ -84,25 +86,46 @@ def fetch_address(address,get=requests.get):
     return items
 
 def observe(now,source,state,get=requests.get):
-    old_tracking=state.get("tracked",{}) if isinstance(state,dict) else {}
-    saved=dict(old_tracking) if isinstance(old_tracking,dict) else {}
-    addresses=candidates(source,now,state)
-    report={
-        "schema":1,"generated_at":now.isoformat(),
-        "state":"observing" if addresses else "no_addresses_yet",
-        "source":HOST,"method":"latest_one_page_per_persistent_public_address",
-        "coverage":"latest_50_erc20_records_per_address_not_exhaustive",
-        "tracked_addresses":[],"new_transfers":[],"errors":{},
-        "max_addresses":MAX_WALLETS,"minimum_large_transfer":int(MIN_UNITS),
-        "can_infer_owner":False,"can_infer_trade":False,"real_orders":False,
-        "note":"Retained tracked addresses can have no new large transactions. No owner identity or purchase is inferred."
-    }
+    """Keep monitoring previously discovered addresses across empty/partial scans.
+
+    Selection is based on sampled public transfers, NOT a claimed owner.
+    Failed provider requests never erase baselines or produce fake new events.
+    """
+    fresh_candidates=candidates(source,now)
+    prior=state.get("tracked",{}) if isinstance(state,dict) else {}
+    prior=prior if isinstance(prior,dict) else {}
+    retained={}
+    for address,detail in prior.items():
+        if not ADDRESS.fullmatch(address) or not isinstance(detail,dict):
+            continue
+        last=detail.get("last_detected_at") or detail.get("baseline_at")
+        try:
+            last_dt=datetime.fromisoformat(str(last).replace("Z","+00:00"))
+            age=(now-last_dt).total_seconds()
+            if last_dt.tzinfo and 0<=age<=RETENTION_DAYS*86400:
+                retained[address]=detail
+        except (TypeError,ValueError,OverflowError):
+            continue
+    # New discoveries take priority. Existing watches continue when a sample
+    # contains no million-unit transfers or a token provider is temporarily down.
+    addresses=list(dict.fromkeys(fresh_candidates+list(retained)))[:MAX_WALLETS]
+    report={"schema":1,"generated_at":now.isoformat(),
+            "state":"observing" if addresses else "no_recent_addresses",
+            "source":HOST,"discovery_state":source.get("state","unknown"),
+            "selection":"public_sample_not_verified_whale_identity",
+            "method":"latest_one_page_per_selected_public_address",
+            "coverage":"bounded_non_exhaustive_pseudonymous_addresses",
+            "tracked_addresses":[],"new_transfers":[],"errors":{},
+            "max_addresses":MAX_WALLETS,"retention_days":RETENTION_DAYS,
+            "can_infer_owner":False,"can_infer_trade":False,"real_orders":False}
     if not addresses:
-        return report,state
+        return report,{"schema":1,"tracked":{}}
+    updated={}
     for address in addresses:
-        old=saved.get(address)
-        if not isinstance(old,dict):
-            old=None
+        old=retained.get(address)
+        discovered=address in fresh_candidates
+        baseline=old.get("baseline_at",now.isoformat()) if old else now.isoformat()
+        last_detected=now.isoformat() if discovered else old.get("last_detected_at",baseline)
         try:
             rows=fetch_address(address,get)
             valid=[]
@@ -114,8 +137,9 @@ def observe(now,source,state,get=requests.get):
                     if not isinstance(token_meta,dict):
                         continue
                     contract=str(token_meta.get("address_hash","")).lower()
-                    token=next((k for k,v in CONTRACTS.items() if v==contract),None)
-                    if not token:
+                    token=next((symbol for symbol,value in CONTRACTS.items()
+                                if value==contract),None)
+                    if token is None:
                         continue
                     item=transfer(raw,token,now)
                     if address not in (item["from_address"],item["to_address"]):
@@ -125,40 +149,37 @@ def observe(now,source,state,get=requests.get):
                     continue
             unique={e["id"]:e for e in valid}
             previous=set(old.get("seen_ids",[])) if old else set()
-            unseen=[item for key,item in unique.items() if key not in previous]
-            # The first page merely establishes a baseline. Only subsequent
-            # transactions >= 1M nominal units create a noteworthy event.
-            significant=[] if old is None else [
-                item for item in unseen if Decimal(item["quantity"])>=MIN_UNITS]
-            report["new_transfers"].extend(significant[:8])
+            # First observation only establishes baseline; no fake activity.
+            new=[] if old is None else [e for k,e in unique.items() if k not in previous]
+            space=max(0,MAX_REPORTED_NEW-len(report["new_transfers"]))
+            report["new_transfers"].extend(new[:space])
             report["tracked_addresses"].append({
-                "address":address,"verified_identity":False,
-                "sample_count":len(unique),"new_count":len(significant),
-                "baseline_at":old.get("baseline_at") if old else now.isoformat(),
-                "last_polled_at":now.isoformat(),"monitoring":"active"})
-            previous_order=old.get("seen_ids",[]) if old else []
-            ordered=list(dict.fromkeys(previous_order+list(unique)))
-            saved[address]={
-                "baseline_at":old.get("baseline_at") if old else now.isoformat(),
-                "seen_ids":ordered[-MAX_SEEN:],
+                "address":address,"verified_identity":False,"sample_count":len(unique),
+                "new_count":len(new),"baseline_at":baseline,
+                "last_detected_at":last_detected,
+                "last_polled_at":now.isoformat(),"collection_state":"ok",
+                "discovered_this_scan":bool(discovered)})
+            updated[address]={
+                "baseline_at":baseline,"last_detected_at":last_detected,
+                "seen_ids":sorted(previous|set(unique))[-300:],
                 "last_polled_at":now.isoformat()}
         except (requests.RequestException,ValueError,TypeError,KeyError) as exc:
+            # Do not discard an established watch when a provider fails.
             report["errors"][address]=type(exc).__name__
             report["tracked_addresses"].append({
                 "address":address,"verified_identity":False,
-                "sample_count":None,"new_count":0,
-                "baseline_at":old.get("baseline_at") if old else None,
+                "sample_count":None,"new_count":0,"baseline_at":baseline,
+                "last_detected_at":last_detected,
                 "last_polled_at":old.get("last_polled_at") if old else None,
-                "monitoring":"temporarily_unavailable"})
-    # Limit state growth and never turn a provider error into a fake new event.
-    saved=dict(list(saved.items())[-16:])
-    successful=sum(x["monitoring"]=="active" for x in report["tracked_addresses"])
-    if successful==0:
+                "collection_state":"unavailable","discovered_this_scan":bool(discovered)})
+            if old:
+                updated[address]=dict(old,last_detected_at=last_detected)
+    if len(report["errors"])==len(addresses):
         report["state"]="unavailable"
-    elif report["errors"]:
+    elif report["errors"] or not fresh_candidates:
         report["state"]="partial"
-    report["new_transfers"]=report["new_transfers"][:8]
-    return report,{"schema":1,"tracked":saved}
+    return report,{"schema":1,"tracked":updated}
+
 
 def main():
     now=datetime.now(timezone.utc)
