@@ -300,7 +300,7 @@ if evolution_path.exists():
                 {field: r.get(field) for field in (
                     "strategy", "lab", "asset", "role", "status",
                     "current_entry_scale", "proposed_entry_scale", "proposed_at",
-                    "gemini_decision", "decision_source", "blocked_checks", "paper_return_pct",
+                    "gemini_decision", "decision_source", "blocked_checks", "validation_progress", "paper_return_pct",
                     "drawdown_pct", "closed_roundtrips", "samples",
                     "ready_for_review", "last_change_at"
                 )} for r in evolution.get("robots", [])
