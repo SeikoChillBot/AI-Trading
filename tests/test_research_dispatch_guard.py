@@ -26,6 +26,16 @@ def run_age(minutes, event="schedule", status="completed"):
 
 
 class GuardTests(unittest.TestCase):
+    def test_recovery_workflow_has_event_driven_paper_heartbeat(self):
+        from pathlib import Path
+        workflow=Path(".github/workflows/research-uptime.yml").read_text(encoding="utf-8")
+        self.assertIn("workflow_run:", workflow)
+        self.assertIn("workflows: ['Paper trading']", workflow)
+        self.assertIn("types: [completed]", workflow)
+        self.assertIn("github.event.workflow_run.conclusion == 'success'", workflow)
+        self.assertIn("run: python -m research.research_dispatch_guard", workflow)
+        self.assertIn("actions: write", workflow)
+
     def test_recent_scheduled_or_running_prevents_dispatch(self):
         for status in ("completed", "queued", "in_progress"):
             self.assertFalse(guard.should_dispatch(NOW, [run_age(20, status=status)]))
