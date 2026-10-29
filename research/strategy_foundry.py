@@ -20,6 +20,7 @@ MEMORY = ROOT / "state/strategy_knowledge_base.json"
 REPORT = ROOT / "reports/strategy_foundry.json"
 MARKDOWN = ROOT / "reports/strategy_foundry.md"
 OPTIMIZER = ROOT / "reports/autonomous_optimizer.json"
+EVOLUTION = ROOT / "reports/strategy_evolution.json"
 ASSETS = ("BTCUSD", "ETHUSD", "SOLUSD")
 LOGICS = ("trend_following", "mean_reversion", "breakout",
           "ema_trend", "rsi_reversal", "volatility_gate", "dual_confirmation")
@@ -305,7 +306,7 @@ def model_memory(ledger):
             "instruction": "Learn from failures; do not retest the same parameters just to claim success."}
 
 
-def build(now, proposals, candles, previous, optimizer=None):
+def build(now, proposals, candles, previous, optimizer=None, evolution=None):
     ideas = [dict(x) for x in previous.get("ideas", [])
              if isinstance(x, dict) and isinstance(x.get("spec"), dict)][-MAX_IDEAS:]
     existing = {i.get("id"): i for i in ideas}
@@ -340,6 +341,29 @@ def build(now, proposals, candles, previous, optimizer=None):
                         valid = normalise(raw)
                         if valid["asset"] == asset and identifier(valid) == identifier_value:
                             submissions.append((valid, "autonomous_grid_search"))
+                    except (ValueError, TypeError, KeyError):
+                        pass
+                    break
+    # Only proven declarative, fixed and research-only mutations enter the archive.
+    if (isinstance(evolution, dict) and evolution.get("schema") == 1
+            and evolution.get("source") == "bounded_evolution"
+            and evolution.get("real_orders") is False
+            and evolution.get("robot_changes") is False):
+        pool = evolution.get("candidates", [])
+        chosen = evolution.get("selected_by_asset", {})
+        if isinstance(pool, list) and isinstance(chosen, dict):
+            for asset in ASSETS:
+                wanted = chosen.get(asset)
+                for item in pool[-MAX_IDEAS:]:
+                    if (not isinstance(item, dict) or item.get("id") != wanted
+                            or item.get("source") != "bounded_evolution"
+                            or item.get("historical_candidate_only") is not True
+                            or item.get("eligible_for_live_trading") is not False):
+                        continue
+                    try:
+                        spec = normalise(item["spec"])
+                        if spec["asset"] == asset and identifier(spec) == wanted:
+                            submissions.append((spec, "bounded_evolution"))
                     except (ValueError, TypeError, KeyError):
                         pass
                     break
@@ -396,6 +420,7 @@ def build(now, proposals, candles, previous, optimizer=None):
         "total_hypotheses": len(ideas),
         "gemini_hypotheses": sum(x.get("source") == "gemini_structured_hypothesis" for x in ideas),
         "auto_optimized_hypotheses": sum(x.get("source") == "autonomous_grid_search" for x in ideas),
+        "evolved_hypotheses": sum(x.get("source") == "bounded_evolution" for x in ideas),
         "tested_historically": sum(isinstance(x.get("latest_result"), dict) for x in ideas),
         "events": events, "recent_ideas": [{
             "id": x.get("id"), "source": x.get("source"),
@@ -411,7 +436,7 @@ def build(now, proposals, candles, previous, optimizer=None):
 
 def main():
     now = datetime.now(timezone.utc)
-    ledger, report = build(now, read(PROPOSALS), read(CANDLES), read(MEMORY), read(OPTIMIZER))
+    ledger, report = build(now, read(PROPOSALS), read(CANDLES), read(MEMORY), read(OPTIMIZER), read(EVOLUTION))
     MEMORY.parent.mkdir(parents=True, exist_ok=True)
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     MEMORY.write_text(json.dumps(ledger, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
