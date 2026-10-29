@@ -22,6 +22,15 @@ class ExplanationTests(unittest.TestCase):
         self.assertEqual(len(ids),len(set(ids)))
         self.assertEqual(html.count("<details"),html.count("</details>"))
 
+    def test_gemini_is_not_misrepresented_as_a_trader(self):
+        prompt=(ROOT/"research/ai_reflection.py").read_text(encoding="utf8")
+        self.assertIn('PAS la taille des sommes',prompt)
+        self.assertIn('moyenne historique positive',prompt)
+        guide=(ROOT/"site/lab04-guide.js").read_text(encoding="utf8")
+        self.assertIn('plus strict',guide)
+        self.assertIn('non confirmé',guide)
+        self.assertIn('Aucun', (ROOT/"site/index.html").read_text(encoding="utf8"))
+
     def test_explanations_read_only_and_source_qualified(self):
         js=(ROOT/"site/lab04-guide.js").read_text(encoding="utf8")
         builder=(ROOT/"build_site.py").read_text(encoding="utf8")
