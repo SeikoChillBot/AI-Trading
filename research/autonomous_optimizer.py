@@ -150,6 +150,7 @@ def build(now, candles, prior):
             known[key] = item
     issues = {}
     new = []
+    searched = set()
     latest = {}
     source = candles if isinstance(candles, dict) else {}
     for asset in ASSETS:
@@ -163,6 +164,7 @@ def build(now, candles, prior):
                    or last_t - last_search >= SEARCH_EVERY_CLOSED_DAYS * 86400)
             if due:
                 candidate = optimise_asset(bars, asset, now)
+                searched.add(asset)
                 candidate["created_at"] = now.isoformat()
                 key = candidate["id"]
                 if key not in known:
@@ -183,11 +185,8 @@ def build(now, candles, prior):
     latest = {k: v for k, v in latest.items() if v in retained}
     last_search = dict(prior.get("last_search_closed_day", {})) if isinstance(
         prior.get("last_search_closed_day", {}), dict) else {}
-    for asset in ASSETS:
-        if asset in latest and asset not in issues and latest[asset] in new:
-            last_search[asset] = source[asset][-1]["t"]
-        elif asset in latest and asset not in last_search:
-            last_search[asset] = source[asset][-1]["t"]
+    for asset in searched:
+        last_search[asset] = source[asset][-1]["t"]
     state = {
         "schema": 1, "updated_at": now.isoformat(),
         "candidates": ordered, "latest_by_asset": latest,
