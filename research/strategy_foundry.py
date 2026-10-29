@@ -195,6 +195,8 @@ def _base_signal(closes, i, spec, holding, age):
 
 def _confirmation_passes(closes, i, spec):
     """Evaluate composition gates from COMPLETED candles before open(i)."""
+    if not spec.get("confirmations"):
+        return True
     w = spec["lookback_days"]
     prior = closes[i-w:i]
     returns = [prior[k] / prior[k-1] - 1 for k in range(1, len(prior))]
