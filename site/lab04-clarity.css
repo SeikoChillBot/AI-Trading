@@ -27,3 +27,24 @@
 #lab-refresh{border:1px solid #638d72;border-radius:9px;padding:7px 10px;background:#254536;color:#e4f7e4;font-size:10px;font-weight:800;cursor:pointer}
 #lab-refresh:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
 @media(max-width:560px){.lab-freshness-actions{flex-direction:column;align-items:stretch}#lab-refresh{padding:7px}}
+
+/* Calm beginner-first disclosure: detailed research remains available on demand. */
+.lab-advanced{margin:13px 0;border:1px solid #344f4a;border-radius:12px;background:#15262d;overflow:hidden}
+.lab-advanced>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px;color:#ddf0e9;font-size:12px;font-weight:750;line-height:1.55}
+.lab-advanced>summary::-webkit-details-marker{display:none}
+.lab-advanced>summary:after{content:"+";border-radius:50%;border:1px solid #66827a;display:grid;place-items:center;width:22px;height:22px;flex:none;font-size:16px;color:#c5e7ce}
+.lab-advanced[open]>summary:after{content:"−"}
+.lab-advanced[open]>summary{border-bottom:1px solid #35564f}
+.lab-advanced>summary:focus-visible{outline:2px solid #b9f477;outline-offset:-3px}
+.lab-advanced>.research-panel-details,.lab-advanced>.lab-advanced{margin:12px}
+.lab-advanced>div.research-idea-list,.lab-advanced>label,.lab-advanced>select,.lab-advanced>p{margin-left:12px;margin-right:12px}
+#view-analysis .lab-advanced>.research-panel-details{background:#17282f}
+.sheet-technical{margin:14px 0}
+.sheet-technical .sheet-metrics,.sheet-technical .sheet-extra{margin:12px;display:grid}
+.ait-beginner-note{border:1px solid #597b65;border-radius:12px;background:#20352f;padding:13px 15px;margin:0 0 16px}
+.ait-beginner-note>strong{font-size:13px;color:#e7f7e6}
+.ait-beginner-note p{font-size:12px;line-height:1.65;color:#c5d5d0;margin:7px 0}
+.ait-beginner-note details{font-size:11px;margin-top:8px}
+.ait-beginner-note summary{cursor:pointer;color:#ccf2b8;font-weight:700;padding:6px 0}
+#view-analysis #whale-radar-panel,#view-analysis #robot-evolution-panel{margin-top:16px}
+@media(max-width:560px){.lab-advanced>summary{padding:12px;font-size:12px}.lab-advanced>.research-panel-details{margin:7px}.ait-beginner-note{padding:12px}.sheet-technical .sheet-metrics,.sheet-technical .sheet-extra{margin:9px}}
