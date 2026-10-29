@@ -192,6 +192,41 @@ if shadow_path.exists():
             }
     except (ValueError, TypeError, KeyError):
         pass
+# Autonomous search and manual-only live-screen progress: display only.
+auto_path = Path("reports/autonomous_optimizer.json")
+data["autonomous_optimizer"] = {"ready": False}
+if auto_path.exists():
+    try:
+        selection = json.loads(auto_path.read_text(encoding="utf-8"))
+        if (selection.get("schema") == 1
+                and selection.get("source") == "autonomous_grid_search"
+                and selection.get("real_orders") is False
+                and selection.get("robot_changes") is False):
+            data["autonomous_optimizer"] = {
+                "ready": True, "generated_at": selection.get("generated_at"),
+                "candidate_count": selection.get("candidate_count", 0),
+                "new_candidates": len(selection.get("new_candidate_ids", [])),
+                "issues": selection.get("issues", {}),
+                "next_stage": "independent_forward_paper_only",
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
+live_review_path = Path("reports/manual_live_review.json")
+data["manual_live_review"] = {"ready": False}
+if live_review_path.exists():
+    try:
+        gate = json.loads(live_review_path.read_text(encoding="utf-8"))
+        if (gate.get("schema") == 1 and gate.get("real_trading_enabled") is False
+                and gate.get("model_can_enable_live_trading") is False
+                and gate.get("requires_explicit_user_approval") is True):
+            data["manual_live_review"] = {
+                "ready": True, "generated_at": gate.get("generated_at"),
+                "tracked_research_candidates": gate.get("tracked_research_candidates", 0),
+                "eligible_for_human_review": gate.get("eligible_for_human_review", 0),
+                "real_trading_enabled": False,
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
 # Machine-readable, non-executable research proposals only (never portfolio inputs).
 ai_proposals_path = Path("reports/ai_research_proposals.json")
 data["ai_review"] = {"ready": False}
