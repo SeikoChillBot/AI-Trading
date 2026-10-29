@@ -198,7 +198,11 @@ if(evolList){
      const heading=document.createElement('strong');
      heading.textContent=String(item.strategy||'Robot').replaceAll('_',' ')+' · '+(item.lab==='crypto'?'Crypto':'Multi-actifs');
      const state=document.createElement('p');
-     state.textContent=statusLabels[item.status]||'Étude en cours';
+     state.textContent=item.status==='testing_proposal'?
+       (item.decision_source==='automatic_statistical_shadow'?
+        'Idée proposée par les calculs du laboratoire : en observation':
+        'Idée proposée par Gemini : en observation'):
+       (statusLabels[item.status]||'Étude en cours');
      const stats=document.createElement('p');
      const ret=Number(item.paper_return_pct);
      stats.textContent='Simulation actuelle : '+(Number.isFinite(ret)?ret.toFixed(2)+' %':'données en attente')+
@@ -214,6 +218,22 @@ if(evolList){
        why.textContent=(item.decision_source==='automatic_statistical_shadow'?
          'Moteur statistique : ':'Gemini : ')+item.gemini_decision;
        card.append(why);
+     }
+     const progress=item.validation_progress;
+     if(progress&&progress.paper_only){
+       const note=document.createElement('p');
+       const n=x=>Number.isFinite(Number(x))?Number(x):0;
+       note.textContent='Pour pouvoir juger cette idée : '+n(progress.days_observed).toFixed(1)+' / '+
+         n(progress.minimum_days)+' jours · '+n(progress.closed_trades)+' / '+
+         n(progress.minimum_closed_trades)+' opérations clôturées · '+
+         n(progress.future_observations)+' / '+
+         n(progress.minimum_future_observations)+' nouveaux relevés.';
+       card.append(note);
+       if(!progress.shadow_data_confirmed){
+         const pending=document.createElement('small');
+         pending.textContent='Comparaison indépendante encore en préparation.';
+         card.append(pending);
+       }
      }
      if(Array.isArray(item.blocked_checks)&&item.blocked_checks.length){
        const blocked=document.createElement('small');
