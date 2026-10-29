@@ -64,3 +64,30 @@ Objectif : rendre le moteur d'AIT capable d'explorer davantage de familles de r�
 - La nouvelle base d'indicateurs accumule les observations au fil des jours ; elle ne reconstitue jamais un passé inexistant.
 - Un premier déploiement ou un test de stratégie réussis n'est PAS une preuve prospective ; il faut des journées **futures** réellement observées et des transactions simulées pour discuter robustesse.
 - Les classements ne constituent **aucun entraînement des poids de Gemini**. C'est de l'optimisation déterministe, une mémoire de décisions et une communication de feedback au modèle.
+
+
+## Deuxième génération : créativité combinatoire et mémoire scientifique (29/10/2026)
+
+Le laboratoire prend des initiatives de recherche **sans code produit par l'IA** et toujours en **simulation**. Il distingue les mécanismes heuristiques quantitatifs de la réflexion du modèle Gemini, et ne présente jamais les hypothèses comme des stratégies rentables.
+
+### Créativité structurée et contrôlée
+
+- `research/strategy_foundry.py` autorise désormais, en plus des sept familles de signaux, **zéro, une ou deux confirmations de nature différente** : `rsi_oversold`, `rsi_strength`, `ema_uptrend`, `quiet_volatility`, `active_volatility`, `positive_momentum`. Les filtres contradictoires sont rejetés, tous les calculs de décisions n'utilisent que les prix clôturés **avant** l'ouverture simulée, les identifiants historiques d'anciennes stratégies restent inchangés.
+- `strategy_evolution.py` peut muter un filtre, ajouter une deuxième condition, en retirer une et conserver une idée composite même si elle ne domine pas les variantes simples sur les historiques. Les variantes sont identifiées, datées, reliées à leur parent et figées avant le suivi prospectif.
+- `strategy_architect.py` construit une seconde population **par croisement de deux hypothèses parentes** vérifiées pour le même actif : famille du premier parent, paramètres du second et deux confirmations choisies dans une grammaire finie. Évaluation sur quatre fenêtres historiques de développement anciennes, challenge sur deux fenêtres historiques ultérieures **réutilisées, donc non indépendantes**. Le classement des expériences ne lit pas ces deux dernières fenêtres ; elles ne constituent en aucun cas une validation aveugle. Le module n'invente pas librement de code ni de faits.
+- Le même module décrit le **régime récent** (tendance et volatilité des 30 derniers jours, sur cours déjà clôturés). Une photographie descriptive n'est ni une prévision fiable, ni une preuve de causalité.
+
+### Mémoire scientifique et feedback
+
+- `scientific_memory.py` conserve les empreintes des règles, les critères de validation historique échoués, les résultats synthétiques après frais normaux et doublés et, lorsqu'elles existent, les observations de suivi prospectif. Un même snapshot historique ne génère pas un « nouvel apprentissage » artificiel à chaque cycle de deux heures.
+- Les archives des anciens essais survivent au roulement des 80 hypothèses de travail ; le moteur génétique et l'architecte évitent les empreintes déjà testées. Le nombre d'empreintes est borné, comme toutes les archives.
+- Des programmes de recherche **falsifiables** sont déduits des contrôles historiques les plus souvent échoués : sensibilité aux frais, densité des transactions, rendement net, surperformance du témoin Hold, drawdown. Ces motifs guident les hypothèses futures sans prétendre expliquer causalement les pertes.
+- Gemini reçoit lors de ses appels autorisés le contexte de ce journal, des variantes proposées et des résultats récents ; il peut aussi suggérer ses propres combinaisons déclaratives. **Aucune modification des poids de Gemini**, aucune API GPT payante ajoutée, aucune garantie de réponse nouvelle si le cache ou les quotas empêchent l'appel.
+- `strategy_forward.py` observe les nouvelles clôtures **après** création, et `strategy_competition.py` classe seulement cette période prospective ; aucun rendement ne peut être rétroactivement inventé. Le Journal IA reste en lecture seule.
+
+### Vérification, limites et amélioration future
+
+- Tests unitaires de composition, absence de lecture de bougies futures, source d'hypothèse, croisement, qualité du snapshot, mémoire idempotente, archivage, sélection historique et absence d'ordres réels.
+- Les données disponibles pour le langage de stratégies sont actuellement les séries prix `open`/`close` quotidiennes BTC/ETH/SOL sur 720 bougies. Les flux de news, volumes, transactions on-chain et DeFi sont traités ailleurs comme contexte **daté et de qualité variable**, et ne peuvent pas être transformés en indicateurs historiques de trading sans séries vérifiées point-in-time.
+- Des hypothèses **plus sophistiquées** peuvent tout autant perdre après frais. L'intelligence utile ne se mesure pas au nombre de stratégies, mais à des progrès **hors historique consulté** obtenus ensuite dans les simulations prospectives. Au démarrage des nouveaux programmes : 0 journée future, donc aucune stratégie validée.
+- Les GitHub Actions exécutent la recherche au rythme prévu et publient une trace persistante. Le planificateur GitHub reste best-effort et l'IA Gemini gratuite soumise à quota.
