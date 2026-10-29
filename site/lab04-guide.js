@@ -39,6 +39,41 @@ if(proof){
  tile('Changements approuvés',evolution.ready?fmt(approved,0):'En attente',
   'Un changement n’est retenu qu’après des résultats futurs suffisants et des contrôles de risque.');
 }
+// Make the distinction between what Gemini says and what the data support explicit.
+const eth=Array.isArray(review.historical?.assets)?
+ review.historical.assets.find(x=>x.asset==='ETHUSD'):null;
+const ethReturn=Number(eth?.avg_net_return_pct),ethDrop=Number(eth?.worst_drawdown_pct);
+put('ait-gemini-nuance',modelAnswered&&eth&&
+ Number.isFinite(ethReturn)&&Number.isFinite(ethDrop)?
+ 'Contrôle des chiffres : les anciens essais sur ETH affichent une moyenne de '+
+ (ethReturn>0?'+':'')+fmt(ethReturn,2)+' %, mais aussi une baisse maximale de '+
+ fmt(ethDrop,2)+' %. Ce résultat historique n’est pas une performance garantie.' :
+ 'Les observations passées ne prouvent pas qu’une stratégie sera rentable demain.');
+const ideaBox=$('ait-gemini-ideas');
+if(ideaBox){
+ ideaBox.replaceChildren();
+ const candidateList=modelAnswered&&Array.isArray(review.bot_adjustments)?
+ review.bot_adjustments:[];
+ if(!candidateList.length){
+  const p=document.createElement('p');
+  p.textContent='Aucune proposition Gemini récente et vérifiée dans ce relevé.';
+  ideaBox.append(p);
+ }
+ const readableName=name=>String(name||'Robot').toUpperCase().replaceAll('_',' ');
+ for(const item of candidateList){
+  const card=document.createElement('article');card.className='ait-activity-item';
+  const heading=document.createElement('strong');
+  heading.textContent=readableName(item.strategy)+' — idée encore non testée';
+  const profile=document.createElement('p');
+  profile.textContent=item.entry_scale===1.2?
+   'Gemini suggère de rendre le signal d’entrée plus strict. Ce n’est ni une réduction garantie des pertes ni une diminution de la mise.':
+   'Gemini suggère de rendre le signal d’entrée plus réactif. Il pourrait générer plus d’opérations et de frais.';
+  const reason=document.createElement('small');
+  reason.textContent='Motif avancé par Gemini, non confirmé : '+
+    String(item.reason||'aucune justification fournie');
+  card.append(heading,profile,reason);ideaBox.append(card);
+ }
+}
 const sheet=$('robot-sheet'),title=$('sheet-name');
 const actions=$('ait-sheet-activity-list');
 const labels={BUY:'Achat fictif',SELL:'Vente fictive'};
