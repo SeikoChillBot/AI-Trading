@@ -1,7 +1,175 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-29T21:55:51.903660+00:00",
+  "updated_at": "2026-10-29T22:01:21.661243+00:00",
   "tracks": {
+    "53633ea1a537b8579e": {
+      "id": "53633ea1a537b8579e",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_strength"
+        ]
+      },
+      "started_at": "2026-10-29T22:01:21.661243+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "2a687faaa0b654a26f": {
+      "id": "2a687faaa0b654a26f",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-10-29T22:01:21.661243+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "1cfcfb93666ed07769": {
+      "id": "1cfcfb93666ed07769",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-10-29T22:01:21.661243+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "143da0502545044195": {
+      "id": "143da0502545044195",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "active_volatility",
+          "rsi_strength"
+        ]
+      },
+      "started_at": "2026-10-29T22:01:21.661243+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "1617d0b2ed93f1d786": {
+      "id": "1617d0b2ed93f1d786",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "active_volatility",
+          "rsi_strength"
+        ]
+      },
+      "started_at": "2026-10-29T22:01:21.661243+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "09fcd0e2b0dab27ef7": {
+      "id": "09fcd0e2b0dab27ef7",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "trend_following",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-10-29T22:01:21.661243+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
     "97bc58780a96065b2a": {
       "id": "97bc58780a96065b2a",
       "source": "bounded_evolution",

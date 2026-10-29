@@ -1,11 +1,89 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T21:55:51.903660+00:00",
-  "tracked": 9,
+  "generated_at": "2026-10-29T22:01:21.661243+00:00",
+  "tracked": 15,
   "archived_trials": 0,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
+    {
+      "id": "53633ea1a537b8579e",
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "2a687faaa0b654a26f",
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "1cfcfb93666ed07769",
+      "source": "autonomous_crossover",
+      "asset": "ETHUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "143da0502545044195",
+      "source": "autonomous_crossover",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "1617d0b2ed93f1d786",
+      "source": "autonomous_crossover",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "09fcd0e2b0dab27ef7",
+      "source": "autonomous_crossover",
+      "asset": "BTCUSD",
+      "logic": "trend_following",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
     {
       "id": "97bc58780a96065b2a",
       "source": "bounded_evolution",
@@ -124,6 +202,31 @@
       "sufficient_evidence": false
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "id": "53633ea1a537b8579e",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "2a687faaa0b654a26f",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "1cfcfb93666ed07769",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "143da0502545044195",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "1617d0b2ed93f1d786",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "09fcd0e2b0dab27ef7",
+      "status": "forward_paper_registered"
+    }
+  ],
   "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven."
 }
