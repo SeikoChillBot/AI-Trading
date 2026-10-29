@@ -110,7 +110,7 @@ def observe(now,source,state,get=requests.get):
     # contains no million-unit transfers or a token provider is temporarily down.
     addresses=list(dict.fromkeys(list(retained)+fresh_candidates))[:MAX_WALLETS]
     report={"schema":1,"generated_at":now.isoformat(),
-            "state":"observing" if addresses else "no_addresses_yet",
+            "state":"observing" if addresses else "no_recent_addresses",
             "source":HOST,"discovery_state":source.get("state","unknown"),
             "selection":"public_sample_not_verified_whale_identity",
             "method":"latest_one_page_per_selected_public_address",
@@ -180,7 +180,7 @@ def observe(now,source,state,get=requests.get):
                 updated[address]=dict(old,last_detected_at=last_detected)
     if len(report["errors"])==len(addresses):
         report["state"]="unavailable"
-    elif report["errors"] or not fresh_candidates:
+    elif report["errors"]:
         report["state"]="partial"
     return report,{"schema":1,"tracked":updated}
 
