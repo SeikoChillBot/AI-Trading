@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import re
 from datetime import datetime, timezone
+from decimal import InvalidOperation
 from pathlib import Path
 import requests
 from research.large_transfers import HOST, CONTRACTS, transfer
@@ -92,7 +93,7 @@ def observe(now,source,state,get=requests.get):
                     if address not in (item["from_address"],item["to_address"]):
                         continue
                     valid.append(item)
-                except (KeyError,TypeError,ValueError,OverflowError):
+                except (KeyError,TypeError,ValueError,OverflowError,InvalidOperation):
                     continue
             unique={e["id"]:e for e in valid}
             previous=set(old.get("seen_ids",[])) if isinstance(old,dict) else set()
