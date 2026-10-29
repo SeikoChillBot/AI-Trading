@@ -63,7 +63,8 @@ if(parent && !el('ait-beginner-snapshot')){
  const marketLine=div('p','ait-simple-caption');
  const moves=['BTCUSD','ETHUSD','SOLUSD'].map(asset=>{
   const info=pulse.assets?.[asset];
-  if(!info||!Number.isFinite(Number(info.change_7d_pct)))return null;
+  if(!info||info.change_7d_pct===null||info.change_7d_pct===undefined
+     ||!Number.isFinite(Number(info.change_7d_pct)))return null;
   const n=Number(info.change_7d_pct);
   return asset.slice(0,3)+' '+(n>0?'+':'')+n.toFixed(1)+' %';
  }).filter(Boolean);
