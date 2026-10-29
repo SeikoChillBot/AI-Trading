@@ -39,6 +39,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_market_knowledge.py' -v
           python -m unittest discover -s tests -p 'test_strategy_forward.py' -v
           python -m unittest discover -s tests -p 'test_autonomous_optimizer.py' -v
+          python -m unittest discover -s tests -p 'test_manual_live_review.py' -v
       - name: Validate independent market intelligence
         run: |
           python -m py_compile research/market_context.py research/whale_watch.py
@@ -82,6 +83,8 @@ jobs:
         run: python -m research.strategy_foundry
       - name: Observe AI strategy candidates on new daily candles only
         run: python -m research.strategy_forward
+      - name: Evaluate prospectively tested candidates for HUMAN review only
+        run: python -m research.manual_live_review
       - name: Review and safely promote eligible paper bot tuning candidates
         run: python -m research.robot_evolution
       - name: Run new Gemini-directed hypothetical market experiments
@@ -120,6 +123,7 @@ jobs:
           git add reports/market_knowledge.json state/market_feature_history.json
           git add reports/strategy_forward.json state/strategy_forward_positions.json
           git add reports/autonomous_optimizer.json state/autonomous_optimizer.json
+          git add reports/manual_live_review.json
           git add site/dashboard.html docs/index.html
           for artifact in state/whale_watch_state.json state/whale_follow_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json state/ai_daily_brief_state.json state/intraday_paper.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
             if [ -f "$artifact" ]; then git add -- "$artifact"; fi
