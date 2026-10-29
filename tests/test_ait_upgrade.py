@@ -62,6 +62,26 @@ class RadarTests(unittest.TestCase):
         self.assertEqual(len(again["new_transfers"]),1)
         self.assertEqual(again["new_transfers"][0]["trade_inference"],"unknown")
 
+    def test_shared_transfer_is_reported_only_once_across_addresses(self):
+        # Both public addresses see the same blockchain log in their pages.
+        # Their individual counters can reflect it, but the global feed must not duplicate it.
+        old={"schema":1,"tracked":{
+            ADDR1:{"baseline_at":NOW.isoformat(),"last_polled_at":NOW.isoformat(),
+                   "seen_ids":[]},
+            ADDR2:{"baseline_at":NOW.isoformat(),"last_polled_at":NOW.isoformat(),
+                   "seen_ids":[]}}}
+        source={"state":"partial","generated_at":NOW.isoformat(),
+                "sampled_wallet_flows":[]}
+        report,state=follow.observe(NOW,source,old,
+                                    lambda url,**kw:Response([sample_transfer()]))
+        self.assertEqual(report["state"],"observing")
+        self.assertEqual(len(report["tracked_addresses"]),2)
+        self.assertEqual([r["new_count"] for r in report["tracked_addresses"]],[1,1])
+        self.assertEqual(len(report["new_transfers"]),1)
+        self.assertEqual(len(set(r["id"] for r in report["new_transfers"])),1)
+        self.assertEqual(len(state["tracked"]),2)
+        self.assertFalse(report["can_infer_trade"])
+
     def test_retains_existing_addresses_when_latest_sample_is_quiet(self):
         old={"schema":1,"tracked":{ADDR1:{
             "baseline_at":(NOW-timedelta(days=1)).isoformat(),
