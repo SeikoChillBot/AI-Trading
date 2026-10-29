@@ -160,7 +160,7 @@ jobs:
                 exit 0
               fi
               git fetch origin main
-              git rebase origin/main || { git rebase --abort || true; echo "::warning::Concurrent Git publication; this report cycle was skipped safely. The next scheduled run will retry."; exit 0; }
+              git -c rebase.autoStash=true rebase --autostash origin/main || { git rebase --abort || true; echo "::error::Concurrent Git publication failed; outputs not persisted. Research will retry on next trigger."; exit 1; }
               sleep 3
             done
             exit 1
