@@ -74,6 +74,59 @@ if(historicalList){
   historicalList.append(note);
  }
 }
+const foundry=DATA.strategy_foundry||{};
+const foundryList=get('strategy-foundry-ideas');
+if(foundryList){
+ foundryList.replaceChildren();
+ if(foundry.ready){
+  put('strategy-foundry-summary',
+      Number(foundry.total_hypotheses||0)+' hypothèse(s) mémorisée(s) · '+
+      Number(foundry.gemini_hypotheses||0)+' de Gemini · '+
+      Number(foundry.tested_historically||0)+' comparaison(s) historiques. Aucun robot modifié.');
+  const titles={trend_following:'Suivi de tendance',
+                mean_reversion:'Recherche de rebond',
+                breakout:'Cassure de résistance'};
+  for(const item of (Array.isArray(foundry.ideas)?foundry.ideas:[]).slice(-8).reverse()){
+   const article=document.createElement('article');article.className='research-idea';
+   const heading=document.createElement('strong');
+   heading.textContent=(item.asset||'Marché')+' · '+(titles[item.logic]||'Logique expérimentale')+
+        ' · '+(item.source==='gemini_structured_hypothesis'?'Proposition Gemini':'Référence statistique');
+   const rule=document.createElement('p');
+   rule.textContent='Observation '+String(item.lookback_days||'?')+' jours · seuil '+
+        String(item.threshold_pct??'?')+' % · conservation maximum '+
+        String(item.max_hold_days||'?')+' jours.';
+   const outcome=document.createElement('small');
+   const gain=Number(item.avg_net_pct);
+   outcome.textContent=Number.isFinite(gain)&&item.avg_net_pct!=null?
+       'Replay historique : '+(gain>0?'+':'')+gain.toFixed(2)+' % en moyenne ; '+
+        Number(item.folds_beating_hold||0)+'/6 périodes au-dessus du témoin. Non validé pour le futur.':
+       'En attente de données historiques validées.';
+   article.append(heading,rule,outcome);foundryList.append(article);
+  }
+ }else{
+  put('strategy-foundry-summary','Première génération de l’atelier de recherche en attente.');
+ }
+}
+const forward=DATA.strategy_forward||{};
+if(foundryList && forward.ready && Array.isArray(forward.trials)){
+ const heading=document.createElement('p');heading.className='micro-note';
+ heading.textContent='Suivi prospectif séparé : '+Number(forward.tracked||0)+
+    ' stratégie(s), seulement sur les nouvelles journées depuis leur création.';
+ foundryList.prepend(heading);
+ for(const trial of forward.trials.slice(0,6)){
+  if(!trial||Number(trial.observed_days||0)<1)continue;
+  const line=document.createElement('article');line.className='research-idea';
+  const title=document.createElement('strong');
+  title.textContent=(trial.asset||'Actif')+' · '+(trial.logic||'Logique')+
+     ' · '+Number(trial.observed_days||0)+' journée(s) futures';
+  const p=document.createElement('small');
+  const net=Number(trial.net_pct);
+  p.textContent=(trial.net_pct!=null&&Number.isFinite(net)?
+     'Rendement fictif après frais : '+(net>0?'+':'')+net.toFixed(2)+' % ; ':
+     '')+'trop tôt pour prouver la rentabilité.';
+  line.append(title,p);foundryList.append(line);
+ }
+}
 const aiReview=DATA.ai_review||{};
 const aiHost=get('ai-experiment-list');
 if(aiHost){
