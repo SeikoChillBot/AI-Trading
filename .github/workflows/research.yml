@@ -40,6 +40,7 @@ jobs:
           python -m py_compile research/market_context.py research/whale_watch.py
           python -m unittest discover -s tests -p 'test_market_intelligence.py' -v
           python -m unittest discover -s tests -p 'test_autonomous_market.py' -v
+          python -m unittest discover -s tests -p 'test_base_usdc_watch.py' -v
           node --check site/lab04-clarity.js
       - name: Collect free research data and optional verified-wallet transfers
         env:
