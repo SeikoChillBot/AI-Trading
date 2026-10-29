@@ -20,6 +20,7 @@ from research.market_knowledge import model_memory as market_memory, OUTPUT as M
 from research.autonomous_optimizer import REPORT as OPTIMIZER_REPORT
 from research.strategy_evolution import REPORT as EVOLUTION_REPORT
 from research.strategy_competition import REPORT as COMPETITION_REPORT
+from research.strategy_architect import REPORT as ARCHITECT_REPORT
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "autonomous_research.json"
@@ -451,6 +452,29 @@ def main():
                 for c in evolution.get("candidates", [])[-6:] if isinstance(c, dict)
             ],
             "historical_only": True,
+        }
+    architect = read_json(ARCHITECT_REPORT)
+    if (architect.get("schema") == 1
+            and architect.get("source") == "autonomous_crossover"
+            and architect.get("real_orders") is False
+            and architect.get("robot_changes") is False):
+        research["independent_hypothesis_memory"] = {
+            "archived_candidates": architect.get("archived_candidates", 0),
+            "market_regimes": {
+                asset: {
+                    "trend": value.get("trend"),
+                    "volatility_regime": value.get("volatility_regime")}
+                for asset, value in architect.get("observed_price_regimes", {}).items()
+                if asset in ("BTCUSD","ETHUSD","SOLUSD") and isinstance(value, dict)
+            },
+            "recent_recombinations": [
+                {"asset": x.get("asset"), "logic": x.get("spec", {}).get("logic"),
+                 "confirmations": x.get("spec", {}).get("confirmations", []),
+                 "development_net_pct": x.get("selection_metrics", {}).get("avg_net_pct"),
+                 "historical_control_net_pct": x.get("historical_challenge", {}).get("net_average_pct")}
+                for x in architect.get("candidates", [])[-6:] if isinstance(x, dict)
+            ],
+            "no_predictive_claim": True,
         }
     comp = read_json(COMPETITION_REPORT)
     if (comp.get("schema") == 1 and comp.get("real_orders") is False
