@@ -16,6 +16,7 @@ from research.ai_decision_support import (
     baseline_ideas, safe_context, summarize_challengers, validate_model_ideas,
 )
 from research.strategy_foundry import model_memory, MEMORY as STRATEGY_MEMORY
+from research.market_knowledge import model_memory as market_memory, OUTPUT as MARKET_MEMORY
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "autonomous_research.json"
@@ -77,6 +78,8 @@ INSTRUCTIONS = (
     "Un transfert de stablecoins ne prouve jamais l'achat d'une baleine. "
     "Tu es aussi inventeur de stratégies, pas seulement commentateur des 36 robots. "
     "Lis la mémoire scientifique des hypothèses déjà testées dans le contexte. "
+    "Utilise aussi les observations datées de marché (sentiment, prix, risque) : "
+    "un historique court n'est PAS une preuve de corrélation causale ou de gain futur. "
     "Propose jusqu'à DEUX strategy_designs de nouvelles logiques sur BTCUSD,ETHUSD,SOLUSD : "
     "logic trend_following,mean_reversion,breakout ; lookback_days 10,20,40 ; "
     "threshold_pct 0.5,1,2 ; max_hold_days 1,3,7 ; rationale en français. "
@@ -379,6 +382,7 @@ def main():
     now = datetime.now(timezone.utc)
     research = read_json(REPORT)
     research["strategy_research_memory"] = model_memory(read_json(STRATEGY_MEMORY))
+    research["market_knowledge_memory"] = market_memory(read_json(MARKET_MEMORY))
     historical = summarize_challengers(read_json(WALK), now)
     configured = os.environ.get("SEIKO_AI_ENABLED") == "1"
     # A provider must be explicitly activated; Gemini free model is preferred.
