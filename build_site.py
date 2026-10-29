@@ -238,6 +238,9 @@ if base_file.exists():
                 "sampled_count":item.get("sampled_count",0),
                 "large_count":item.get("large_count",0),
                 "highlights":item.get("highlights",[])[:4],
+                "source_method":item.get("source_method"),
+                "coverage":item.get("coverage"),
+                "sampled_blocks":item.get("sampled_blocks"),
                 "not_exhaustive":True,"verified_trades":False}
     except (OSError,ValueError,TypeError):
         pass
