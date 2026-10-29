@@ -154,6 +154,45 @@ class EvidenceTests(unittest.TestCase):
             self.assertEqual(research["source"], "gemini_generate_content")
             self.assertFalse(research["real_orders_enabled"])
 
+    def test_gemini_http_400_falls_back_only_to_smaller_same_provider_schema(self):
+        completed = {"candidates":[{"finishReason":"STOP","content":{"parts":[{
+            "text":json.dumps({"summary":"Vérifier les frais","experiments":[],"bot_adjustments":[]})
+        }]}}]}
+        class Reply:
+            def __init__(self,code):
+                self.status_code=code
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    response=self
+                    raise ai.requests.HTTPError("Bad request",response=response)
+            def json(self):return completed
+        seen=[]
+        def post(url,**kwargs):
+            seen.append(kwargs["json"])
+            return Reply(400 if len(seen)==1 else 200)
+        historical=support.summarize_challengers(sample_report(),NOW)
+        with patch.object(ai.requests,"post",post):
+            out=ai.run_gemini("dummy",{},historical)
+        self.assertEqual(out["experiments"],[])
+        self.assertEqual(len(seen),2)
+        self.assertEqual(set(seen[1]["generationConfig"]["responseSchema"]["properties"]),
+                         {"summary","experiments","bot_adjustments"})
+
+    def test_gemini_quota_has_no_retry_or_paid_fallback(self):
+        class Reply:
+            status_code=429
+            def raise_for_status(self):
+                raise ai.requests.HTTPError("Quota",response=self)
+        calls=[]
+        def post(url,**kwargs):
+            calls.append(url)
+            return Reply()
+        historical=support.summarize_challengers(sample_report(),NOW)
+        with patch.object(ai.requests,"post",post):
+            with self.assertRaises(ai.requests.HTTPError):
+                ai.run_gemini("dummy",{},historical)
+        self.assertEqual(len(calls),1)
+
     def test_no_key_means_no_paid_request(self):
         with tempfile.TemporaryDirectory() as folder:
             folder = Path(folder)

@@ -228,7 +228,28 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         GEMINI_URL,
         headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
         json=payload, timeout=50)
-    response.raise_for_status()
+    try:
+        response.raise_for_status()
+    except requests.HTTPError:
+        # A complex output schema can be refused with 400. Retry only this
+        # schema error once, with the earlier simpler validated schema.
+        # Never retry quotas (429), authentication (401/403) or server faults,
+        # and never switch model/provider/charge tier.
+        if getattr(response, "status_code", None) != 400:
+            raise
+        simple = json.loads(json.dumps(payload))
+        simple["generationConfig"]["responseSchema"]["properties"] = {
+            key: schema["properties"][key] for key in ("summary", "experiments", "bot_adjustments")
+        }
+        simple["generationConfig"]["responseSchema"]["required"] = [
+            "summary", "experiments", "bot_adjustments"
+        ]
+        simple["generationConfig"]["maxOutputTokens"] = 2000
+        response = requests.post(
+            GEMINI_URL, headers={"x-goog-api-key":api_key,
+                                 "Content-Type":"application/json"},
+            json=simple, timeout=50)
+        response.raise_for_status()
     results = response.json().get("candidates", [])
     if not results or results[0].get("finishReason") != "STOP":
         raise ValueError("Gemini response incomplete or refused")
@@ -297,6 +318,7 @@ def main():
                                                 "model_reflection_failed"))
     model_last_called_at = None
     used_cache = False
+    last_http_status = prior.get("last_http_status") if cached_attempt else None
     if model_ready and historical["assets"]:
         if (cached_attempt and prior.get("state") == "model_reflection_completed"
                 and cached.get("source") == provider_source
@@ -323,10 +345,20 @@ def main():
                 desk_notes = result.get("desk_notes", [])
                 summary = result["summary"]
                 state = "model_reflection_completed"
+                last_http_status = None
                 model_last_called_at = now.isoformat()
             except (requests.RequestException, ValueError, KeyError, TypeError) as error:
                 state = "model_reflection_failed"
-                summary = "Échec d'analyse générative (" + type(error).__name__ + "). Repli sur les tests statistiques."
+                http_response = getattr(error, "response", None)
+                code = getattr(http_response, "status_code", None)
+                last_http_status = code if type(code) is int and 100 <= code <= 599 else None
+                category = ("quota API probablement atteint" if last_http_status == 429
+                            else "schéma API refusé" if last_http_status == 400
+                            else "authentification API refusée" if last_http_status in (401,403)
+                            else type(error).__name__)
+                summary = "Analyse Gemini indisponible (" + category + (
+                    ", HTTP "+str(last_http_status) if last_http_status else ""
+                ) + "). Repli sur les tests statistiques."
     elif model_ready:
         state = "historical_evidence_unavailable"
         summary = "Historique indisponible ou périmé : aucune consultation payante du modèle."
@@ -335,7 +367,7 @@ def main():
         "schema": 1, "generated_at": now.isoformat(),
         "research_date_utc": now.date().isoformat(),
         "review_slot": review_slot, "model_last_called_at": model_last_called_at,
-        "used_cache": used_cache,
+        "used_cache": used_cache, "last_http_status": last_http_status,
         "source": provider_source if state == "model_reflection_completed" else "deterministic_fallback",
         "state": state, "provider": provider, "summary": summary, "historical": historical,
         "experiments": proposals[:3],
@@ -351,7 +383,7 @@ def main():
     STATUS.write_text(json.dumps({
         "generated_at": now.isoformat(), "research_date_utc": now.date().isoformat(),
         "review_slot": review_slot, "model_last_called_at": model_last_called_at,
-        "used_cache": used_cache,
+        "used_cache": used_cache, "last_http_status": last_http_status,
         "state": state, "provider": provider, "model_configured": bool(model),
         "api_key_available": bool(api_key), "research_report_available": bool(research),
         "historical_evidence_available": bool(historical["assets"]),
