@@ -64,6 +64,7 @@ jobs:
         continue-on-error: true
         run: |
           python -m unittest discover -s tests -p 'test_site_lab04.py' -v
+          node --check site/app.js
           for f in site/lab04-*.js; do node --check "$f"; done
       - name: Warn if UI check failed
         if: steps.cycle.outputs.run == 'true' && steps.site_validation.outcome != 'success'
