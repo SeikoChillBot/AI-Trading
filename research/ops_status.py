@@ -61,6 +61,7 @@ def build(now, reports, actions):
     model=reports.get("model",{})
     intraday=reports.get("intraday",{})
     transfers=reports.get("transfers",{})
+    follow=reports.get("follow",{})
     experiment=reports.get("experiments",{})
     news=reports.get("news",{})
     errors=[]
@@ -93,8 +94,13 @@ def build(now, reports, actions):
          "detail":str(experiment.get("active",0))+" expériences en cours, jusqu'à 12 simultanées, au maximum 4 nouvelles par cycle."},
         {"id":"hourly","title":"Marchés et backtests horaires","status":"active" if hourly_ok else "degraded",
          "detail":str(oos)+" actifs avec études Kraken 60 minutes et candidat prospectif distinct."},
-        {"id":"whales","title":"Surveillance des baleines","status":"partial",
-         "detail":"Échantillons de transferts USDC/USDT Ethereum ; identité et achats non vérifiés, couverture non exhaustive."},
+        {"id":"whales","title":"Surveillance des gros mouvements","status":"partial",
+         "detail":str(sum(int(v or 0) for v in transfers.get("sampled_records",{}).values()))+
+                  " transferts publics échantillonnés USDC/USDT ; "+
+                  str(len(follow.get("tracked_addresses",[])))+
+                  " adresses publiques suivies indépendamment ("+
+                  str(follow.get("state","non configuré"))+
+                  "). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."},
         {"id":"changes","title":"Modifications automatiques par robot",
          "status":"testing" if evolution.get("counts",{}).get("testing",0)>0 else "pending",
          "detail":str(evolution.get("counts",{}).get("testing",0))+" profils en test indépendant ; "+
@@ -124,6 +130,7 @@ def main():
       "model":read("reports/ai_research_status.json"),
       "intraday":read("reports/intraday_research.json"),
       "transfers":read("reports/large_transfer_observations.json"),
+      "follow":read("reports/whale_follow.json"),
       "experiments":read("reports/ai_placement_experiments.json"),
       "news":read("reports/market_news.json"),
     }
