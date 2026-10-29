@@ -1,11 +1,50 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T22:51:14.049728+00:00",
-  "tracked": 15,
+  "generated_at": "2026-10-29T22:57:17.525615+00:00",
+  "tracked": 18,
   "archived_trials": 0,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
+    {
+      "id": "a5e69aa7e003a9b40a",
+      "source": "bounded_local_research_director",
+      "asset": "SOLUSD",
+      "logic": "mean_reversion",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "00e3f7125aee1b131d",
+      "source": "bounded_local_research_director",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "64e754fd7d289d4131",
+      "source": "bounded_local_research_director",
+      "asset": "BTCUSD",
+      "logic": "ema_trend",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
     {
       "id": "53633ea1a537b8579e",
       "source": "autonomous_crossover",
@@ -202,6 +241,19 @@
       "sufficient_evidence": false
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "id": "a5e69aa7e003a9b40a",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "00e3f7125aee1b131d",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "64e754fd7d289d4131",
+      "status": "forward_paper_registered"
+    }
+  ],
   "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven."
 }

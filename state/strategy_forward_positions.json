@@ -1,7 +1,86 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-29T22:51:14.049728+00:00",
+  "updated_at": "2026-10-29T22:57:17.525615+00:00",
   "tracks": {
+    "a5e69aa7e003a9b40a": {
+      "id": "a5e69aa7e003a9b40a",
+      "source": "bounded_local_research_director",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 10,
+        "threshold_pct": 0.5,
+        "max_hold_days": 1,
+        "rationale": "Une stratégie trop restrictive peut produire un échantillon insuffisant."
+      },
+      "started_at": "2026-10-29T22:57:17.525615+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "00e3f7125aee1b131d": {
+      "id": "00e3f7125aee1b131d",
+      "source": "bounded_local_research_director",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Comparer un signal conditionnel à une règle simple après frais.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-10-29T22:57:17.525615+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "64e754fd7d289d4131": {
+      "id": "64e754fd7d289d4131",
+      "source": "bounded_local_research_director",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 7,
+        "rationale": "Les frais simulés peuvent annuler les signaux; tester des filtres d'entrée.",
+        "confirmations": [
+          "ema_uptrend",
+          "quiet_volatility"
+        ]
+      },
+      "started_at": "2026-10-29T22:57:17.525615+00:00",
+      "last_t": 1793145600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
     "53633ea1a537b8579e": {
       "id": "53633ea1a537b8579e",
       "source": "autonomous_crossover",

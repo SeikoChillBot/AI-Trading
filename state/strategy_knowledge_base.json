@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-29T22:51:13.926905+00:00",
+  "updated_at": "2026-10-29T22:57:17.365837+00:00",
   "ideas": [
     {
       "id": "5191e3b657d1819654",
@@ -1780,6 +1780,364 @@
         "next_step": "Prospective unseen paper data and execution-quality audit required"
       },
       "last_reviewed_at": "2026-10-29T22:01:21.534932+00:00"
+    },
+    {
+      "id": "64e754fd7d289d4131",
+      "source": "bounded_local_research_director",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 7,
+        "rationale": "Les frais simulés peuvent annuler les signaux; tester des filtres d'entrée.",
+        "confirmations": [
+          "ema_uptrend",
+          "quiet_volatility"
+        ]
+      },
+      "created_at": "2026-10-29T22:57:17.365837+00:00",
+      "review_count": 1,
+      "history": [
+        {
+          "reviewed_at": "2026-10-29T22:57:17.365837+00:00",
+          "data_sha256": "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63",
+          "average_net_pct": -2.4359,
+          "folds_beating_hold": 3,
+          "historical_checks_pass": false
+        }
+      ],
+      "status": "historical_exploration_only",
+      "latest_data_sha256": "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63",
+      "latest_result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "BTCUSD",
+        "folds": [
+          {
+            "first_day": 1762128000,
+            "last_day": 1767225600,
+            "net_pct": -4.35318,
+            "drawdown_pct": 4.35318,
+            "closed_trades": 1,
+            "orders": 2,
+            "double_cost_net_pct": -6.05974,
+            "hold_net_pct": -21.19614,
+            "excess_vs_hold_points": 16.84296
+          },
+          {
+            "first_day": 1767312000,
+            "last_day": 1772409600,
+            "net_pct": -13.21277,
+            "drawdown_pct": 13.21277,
+            "closed_trades": 2,
+            "orders": 4,
+            "double_cost_net_pct": -16.28211,
+            "hold_net_pct": -23.83535,
+            "excess_vs_hold_points": 10.62258
+          },
+          {
+            "first_day": 1772496000,
+            "last_day": 1777593600,
+            "net_pct": 3.99286,
+            "drawdown_pct": 4.77146,
+            "closed_trades": 2,
+            "orders": 4,
+            "double_cost_net_pct": 0.31502,
+            "hold_net_pct": 11.66797,
+            "excess_vs_hold_points": -7.67511
+          },
+          {
+            "first_day": 1777680000,
+            "last_day": 1782777600,
+            "net_pct": -2.80652,
+            "drawdown_pct": 4.93289,
+            "closed_trades": 2,
+            "orders": 4,
+            "double_cost_net_pct": -6.24389,
+            "hold_net_pct": -26.51946,
+            "excess_vs_hold_points": 23.71294
+          },
+          {
+            "first_day": 1782864000,
+            "last_day": 1787961600,
+            "net_pct": 8.55779,
+            "drawdown_pct": 3.58856,
+            "closed_trades": 2,
+            "orders": 4,
+            "double_cost_net_pct": 4.71851,
+            "hold_net_pct": 31.26562,
+            "excess_vs_hold_points": -22.70783
+          },
+          {
+            "first_day": 1788048000,
+            "last_day": 1793145600,
+            "net_pct": -6.79381,
+            "drawdown_pct": 6.79381,
+            "closed_trades": 2,
+            "orders": 4,
+            "double_cost_net_pct": -10.09017,
+            "hold_net_pct": 2.05705,
+            "excess_vs_hold_points": -8.85086
+          }
+        ],
+        "average_net_pct": -2.4359,
+        "average_excess_vs_hold_points": 1.9908,
+        "average_double_cost_net_pct": -5.6071,
+        "max_drawdown_pct": 13.21277,
+        "closed_trades": 11,
+        "folds_beating_hold": 3,
+        "checks": {
+          "enough_closed_trades": false,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": true
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      },
+      "last_reviewed_at": "2026-10-29T22:57:17.365837+00:00"
+    },
+    {
+      "id": "00e3f7125aee1b131d",
+      "source": "bounded_local_research_director",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Comparer un signal conditionnel à une règle simple après frais.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "created_at": "2026-10-29T22:57:17.365837+00:00",
+      "review_count": 1,
+      "history": [
+        {
+          "reviewed_at": "2026-10-29T22:57:17.365837+00:00",
+          "data_sha256": "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a",
+          "average_net_pct": -16.3518,
+          "folds_beating_hold": 2,
+          "historical_checks_pass": false
+        }
+      ],
+      "status": "historical_exploration_only",
+      "latest_data_sha256": "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a",
+      "latest_result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "folds": [
+          {
+            "first_day": 1762128000,
+            "last_day": 1767225600,
+            "net_pct": -19.09729,
+            "drawdown_pct": 24.75243,
+            "closed_trades": 6,
+            "orders": 12,
+            "double_cost_net_pct": -27.38098,
+            "hold_net_pct": -24.58591,
+            "excess_vs_hold_points": 5.48862
+          },
+          {
+            "first_day": 1767312000,
+            "last_day": 1772409600,
+            "net_pct": -27.99348,
+            "drawdown_pct": 31.72133,
+            "closed_trades": 7,
+            "orders": 14,
+            "double_cost_net_pct": -36.5195,
+            "hold_net_pct": -33.63799,
+            "excess_vs_hold_points": 5.64451
+          },
+          {
+            "first_day": 1772496000,
+            "last_day": 1777593600,
+            "net_pct": 0.0,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0,
+            "orders": 0,
+            "double_cost_net_pct": 0.0,
+            "hold_net_pct": 11.17446,
+            "excess_vs_hold_points": -11.17446
+          },
+          {
+            "first_day": 1777680000,
+            "last_day": 1782777600,
+            "net_pct": -34.48814,
+            "drawdown_pct": 35.46133,
+            "closed_trades": 8,
+            "orders": 16,
+            "double_cost_net_pct": -43.27563,
+            "hold_net_pct": -32.82636,
+            "excess_vs_hold_points": -1.66178
+          },
+          {
+            "first_day": 1782864000,
+            "last_day": 1787961600,
+            "net_pct": 0.0,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0,
+            "orders": 0,
+            "double_cost_net_pct": 0.0,
+            "hold_net_pct": 53.74934,
+            "excess_vs_hold_points": -53.74934
+          },
+          {
+            "first_day": 1788048000,
+            "last_day": 1793145600,
+            "net_pct": -16.53203,
+            "drawdown_pct": 16.53203,
+            "closed_trades": 5,
+            "orders": 10,
+            "double_cost_net_pct": -23.71731,
+            "hold_net_pct": -5.78789,
+            "excess_vs_hold_points": -10.74414
+          }
+        ],
+        "average_net_pct": -16.3518,
+        "average_excess_vs_hold_points": -11.0328,
+        "average_double_cost_net_pct": -21.8156,
+        "max_drawdown_pct": 35.46133,
+        "closed_trades": 26,
+        "folds_beating_hold": 2,
+        "checks": {
+          "enough_closed_trades": true,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": false
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      },
+      "last_reviewed_at": "2026-10-29T22:57:17.365837+00:00"
+    },
+    {
+      "id": "a5e69aa7e003a9b40a",
+      "source": "bounded_local_research_director",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 10,
+        "threshold_pct": 0.5,
+        "max_hold_days": 1,
+        "rationale": "Une stratégie trop restrictive peut produire un échantillon insuffisant."
+      },
+      "created_at": "2026-10-29T22:57:17.365837+00:00",
+      "review_count": 1,
+      "history": [
+        {
+          "reviewed_at": "2026-10-29T22:57:17.365837+00:00",
+          "data_sha256": "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b",
+          "average_net_pct": -28.8536,
+          "folds_beating_hold": 0,
+          "historical_checks_pass": false
+        }
+      ],
+      "status": "historical_exploration_only",
+      "latest_data_sha256": "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b",
+      "latest_result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "SOLUSD",
+        "folds": [
+          {
+            "first_day": 1762128000,
+            "last_day": 1767225600,
+            "net_pct": -35.02359,
+            "drawdown_pct": 35.02359,
+            "closed_trades": 23,
+            "orders": 46,
+            "double_cost_net_pct": -57.05389,
+            "hold_net_pct": -33.71005,
+            "excess_vs_hold_points": -1.31354
+          },
+          {
+            "first_day": 1767312000,
+            "last_day": 1772409600,
+            "net_pct": -34.2069,
+            "drawdown_pct": 40.62586,
+            "closed_trades": 17,
+            "orders": 34,
+            "double_cost_net_pct": -51.55364,
+            "hold_net_pct": -32.9243,
+            "excess_vs_hold_points": -1.2826
+          },
+          {
+            "first_day": 1772496000,
+            "last_day": 1777593600,
+            "net_pct": -14.61585,
+            "drawdown_pct": 18.7003,
+            "closed_trades": 14,
+            "orders": 28,
+            "double_cost_net_pct": -33.63878,
+            "hold_net_pct": -5.08237,
+            "excess_vs_hold_points": -9.53348
+          },
+          {
+            "first_day": 1777680000,
+            "last_day": 1782777600,
+            "net_pct": -30.9117,
+            "drawdown_pct": 33.83559,
+            "closed_trades": 18,
+            "orders": 36,
+            "double_cost_net_pct": -50.03493,
+            "hold_net_pct": -13.73405,
+            "excess_vs_hold_points": -17.17765
+          },
+          {
+            "first_day": 1782864000,
+            "last_day": 1787961600,
+            "net_pct": -23.14427,
+            "drawdown_pct": 23.20084,
+            "closed_trades": 14,
+            "orders": 28,
+            "double_cost_net_pct": -40.26713,
+            "hold_net_pct": 40.9895,
+            "excess_vs_hold_points": -64.13377
+          },
+          {
+            "first_day": 1788048000,
+            "last_day": 1793145600,
+            "net_pct": -35.21902,
+            "drawdown_pct": 35.21902,
+            "closed_trades": 16,
+            "orders": 32,
+            "double_cost_net_pct": -51.43236,
+            "hold_net_pct": -4.84332,
+            "excess_vs_hold_points": -30.3757
+          }
+        ],
+        "average_net_pct": -28.8536,
+        "average_excess_vs_hold_points": -20.6361,
+        "average_double_cost_net_pct": -47.3301,
+        "max_drawdown_pct": 40.62586,
+        "closed_trades": 102,
+        "folds_beating_hold": 0,
+        "checks": {
+          "enough_closed_trades": true,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": false
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      },
+      "last_reviewed_at": "2026-10-29T22:57:17.365837+00:00"
     }
   ],
   "never_run_model_code": true,
