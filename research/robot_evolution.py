@@ -230,6 +230,8 @@ def build(now, research, ideas, shadow, state, active):
                      study.get("created_at")==proposed.get("created_at") and
                      study.get("entry_scale")==proposed.get("entry_scale"))
         study=study if valid_study else {}
+        candidate_stats=study.get("candidate",{})
+        candidate_stats=candidate_stats if isinstance(candidate_stats,dict) else {}
         try:
             age_days=max(0,(now-datetime.fromisoformat(proposed["created_at"])).total_seconds()/86400) if proposed else 0
         except (KeyError,ValueError,TypeError):
@@ -240,7 +242,7 @@ def build(now, research, ideas, shadow, state, active):
         progress={
             "days_observed":round(age_days,1),
             "minimum_days":MIN_PROSPECTIVE_DAYS[lab],
-            "closed_trades":safe_count(study.get("candidate",{}).get("closed_trades")),
+            "closed_trades":safe_count(candidate_stats.get("closed_trades")),
             "minimum_closed_trades":MIN_ROUNDTRIPS,
             "future_observations":safe_count(study.get("observations")),
             "minimum_future_observations":120 if lab=="crypto" else 24,
