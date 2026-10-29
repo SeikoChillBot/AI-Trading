@@ -96,6 +96,10 @@ INSTRUCTIONS = (
     "Propose jusqu'à DEUX strategy_designs de nouvelles logiques sur BTCUSD,ETHUSD,SOLUSD : "
     "logic trend_following,mean_reversion,breakout,ema_trend,rsi_reversal,volatility_gate,dual_confirmation ; lookback_days 10,20,40 ; "
     "threshold_pct 0.5,1,2 ; max_hold_days 1,3,7 ; rationale en français. "
+    "Optionnel : confirmations=[] ou une à deux conditions parmi "
+    "rsi_oversold,rsi_strength,ema_uptrend,quiet_volatility,active_volatility,positive_momentum. "
+    "Il s’agit de filtres sur cours précédemment clôturés, jamais de preuves de profit. "
+    "Préfère des hypothèses différentes et falsifiables lorsque les tests précédents échouent. "
     "Les conditions sont évaluées par Python, pas en exécutant du code Gemini. "
     "Évite de dupliquer les hypothèses échouées, sauf raison nouvelle vérifiable. "
     "Recherche un rendement net robuste après frais et stress des coûts, "
@@ -150,6 +154,9 @@ IDEA_SCHEMA = {
                 "threshold_pct": {"type": "number", "enum": [0.5,1,2]},
                 "max_hold_days": {"type": "integer", "enum": [1,3,7]},
                 "rationale": {"type": "string"},
+                "confirmations": {"type": "array", "items": {"type": "string",
+                    "enum": ["rsi_oversold","rsi_strength","ema_uptrend",
+                             "quiet_volatility","active_volatility","positive_momentum"]}},
             },
             "required": ["asset","logic","lookback_days","threshold_pct","max_hold_days","rationale"],
             "additionalProperties": False,
@@ -255,6 +262,9 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
                     "threshold_pct": {"type": "NUMBER", "enum": [0.5,1,2]},
                     "max_hold_days": {"type": "INTEGER", "enum": [1,3,7]},
                     "rationale": {"type": "STRING"},
+                    "confirmations": {"type": "ARRAY", "items": {"type": "STRING",
+                        "enum": ["rsi_oversold","rsi_strength","ema_uptrend",
+                                 "quiet_volatility","active_volatility","positive_momentum"]}},
                 },
                 "required": ["asset","logic","lookback_days","threshold_pct","max_hold_days","rationale"],
             }},
@@ -414,6 +424,7 @@ def main():
                 "lookback_days": spec.get("lookback_days"),
                 "threshold_pct": spec.get("threshold_pct"),
                 "max_hold_days": spec.get("max_hold_days"),
+                "confirmations": spec.get("confirmations", []),
                 "development_net_pct": metrics.get("avg_net_pct"),
                 "development_score": metrics.get("score"),
                 "historical_challenge_net_pct": check.get("net_average_pct"),
@@ -434,6 +445,7 @@ def main():
                 {"asset": c.get("asset"), "parent_failure_reasons":
                  c.get("parent_failure_reasons", [])[:4],
                  "changed_dimension": c.get("changed_dimension"),
+                 "confirmations": c.get("spec", {}).get("confirmations", []),
                  "development_net_pct": c.get("selection_metrics", {}).get("avg_net_pct"),
                  "control_net_pct": c.get("historical_challenge", {}).get("net_average_pct")}
                 for c in evolution.get("candidates", [])[-6:] if isinstance(c, dict)
