@@ -35,6 +35,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_intraday_lab.py' -v
           python -m unittest discover -s tests -p 'test_ops_status.py' -v
           python -m unittest discover -s tests -p 'test_ait_upgrade.py' -v
+          python -m unittest discover -s tests -p 'test_strategy_foundry.py' -v
       - name: Validate independent market intelligence
         run: |
           python -m py_compile research/market_context.py research/whale_watch.py
@@ -70,6 +71,8 @@ jobs:
           SEIKO_AI_PROVIDER: gemini
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python -m research.ai_reflection
+      - name: Archive and replay bounded AI-designed strategy hypotheses
+        run: python -m research.strategy_foundry
       - name: Review and safely promote eligible paper bot tuning candidates
         run: python -m research.robot_evolution
       - name: Run new Gemini-directed hypothetical market experiments
@@ -104,6 +107,7 @@ jobs:
           git add reports/ai_research.md reports/ai_research_status.json reports/ai_research_proposals.json reports/challenger_walkforward.json reports/challenger_candles.json reports/robot_evolution.json reports/ai_placement_experiments.json reports/market_news.json reports/ai_journal.json reports/ai_daily_brief.json
           git add reports/intraday_research.json reports/system_health.json
           git add reports/market_context.json reports/whale_observations.json reports/large_transfer_observations.json reports/whale_follow.json reports/base_usdc_observations.json reports/market_pulse.json reports/challenger_incubator.json
+          git add reports/strategy_foundry.json reports/strategy_foundry.md state/strategy_knowledge_base.json
           git add site/dashboard.html docs/index.html
           for artifact in state/whale_watch_state.json state/whale_follow_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json state/ai_daily_brief_state.json state/intraday_paper.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
             if [ -f "$artifact" ]; then git add -- "$artifact"; fi
