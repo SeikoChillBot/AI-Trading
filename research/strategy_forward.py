@@ -16,7 +16,9 @@ KNOWLEDGE = ROOT / "state/strategy_knowledge_base.json"
 CANDLES = ROOT / "reports/challenger_candles.json"
 STATE = ROOT / "state/strategy_forward_positions.json"
 REPORT = ROOT / "reports/strategy_forward.json"
+CHAMPIONS = ROOT / "reports/strategy_competition.json"
 MAX_TRACKED = 24
+MAX_ARCHIVED = 120
 CAPITAL = foundry.CAPITAL
 COST = foundry.COST
 
@@ -108,7 +110,7 @@ def advance(record, bars):
     return record
 
 
-def build(now, knowledge, candles, previous):
+def build(now, knowledge, candles, previous, leaderboard=None):
     ideas = knowledge.get("ideas", []) if isinstance(knowledge, dict) else []
     if not isinstance(ideas, list):
         ideas = []
@@ -116,7 +118,33 @@ def build(now, knowledge, candles, previous):
     prior = prior if isinstance(prior, dict) else {}
     tracks = {}
     events = []
+    # Always admit recently invented strategies. Reserve places for validated
+    # paper champions, then rotate out the oldest trials as capacity fills.
+    # Archived trials are retained as *terminated paper studies*, not profits.
+    qualified = set()
+    if (isinstance(leaderboard, dict) and leaderboard.get("schema") == 1
+            and leaderboard.get("real_orders") is False
+            and leaderboard.get("robots_modified") is False):
+        for row in leaderboard.get("ranked", [])[:24]:
+            if isinstance(row, dict) and row.get("stage") == "paper_champion":
+                qualified.add(row.get("id"))
+    preferred = []
     for idea in ideas:
+        if not isinstance(idea, dict) or not isinstance(idea.get("spec"), dict):
+            continue
+        try:
+            valid = foundry.normalise(idea["spec"])
+            if idea.get("id") != foundry.identifier(valid):
+                continue
+            preferred.append(idea)
+        except (ValueError, TypeError, KeyError):
+            continue
+    pinned = [item for item in preferred if item["id"] in qualified]
+    newest = list(reversed([item for item in preferred if item["id"] not in qualified]))
+    selected = (pinned + newest)[:MAX_TRACKED]
+    selected_ids = {item["id"] for item in selected}
+    active_ideas = [item for item in preferred if item["id"] in selected_ids]
+    for idea in active_ideas:
         if len(tracks) >= MAX_TRACKED:
             break
         if not isinstance(idea, dict) or not isinstance(idea.get("spec"), dict):
@@ -149,9 +177,23 @@ def build(now, knowledge, candles, previous):
             rec = register(idea, bars, now)
             events.append({"id": key, "status": "forward_paper_registered"})
         tracks[key] = rec
+    earlier_archive = previous.get("archived", []) if isinstance(previous, dict) else []
+    archive = [x for x in earlier_archive if isinstance(x, dict)][-MAX_ARCHIVED:]
+    for key, old in prior.items():
+        if key not in tracks and isinstance(old, dict) and not any(
+                x.get("id") == key for x in archive):
+            archive.append({
+                "id": key, "source": old.get("source"),
+                "last_t": old.get("last_t"), "observed_days": old.get("observed_days", 0),
+                "net_pct": old.get("net_pct"), "status": "archived_capacity_rotation",
+                "archived_at": now.isoformat(),
+            })
+            events.append({"id": key, "status": "archived_capacity_rotation"})
+    archive = archive[-MAX_ARCHIVED:]
     output = {
         "schema": 1, "generated_at": now.isoformat(),
-        "tracked": len(tracks), "robots_modified": False,
+        "tracked": len(tracks), "archived_trials": len(archive),
+        "robots_modified": False,
         "real_orders": False,
         "trials": [
             {"id": rec["id"], "source": rec.get("source"),
@@ -167,13 +209,13 @@ def build(now, knowledge, candles, previous):
         "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven.",
     }
     state = {"schema": 1, "updated_at": now.isoformat(), "tracks": tracks,
-             "real_orders": False}
+             "archived": archive, "real_orders": False}
     return output, state
 
 
 def main():
     now = datetime.now(timezone.utc)
-    result, state = build(now, read(KNOWLEDGE), read(CANDLES), read(STATE))
+    result, state = build(now, read(KNOWLEDGE), read(CANDLES), read(STATE), read(CHAMPIONS))
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     STATE.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
