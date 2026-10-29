@@ -140,10 +140,10 @@ put('strategy-optimizer-status',optimizer.ready?
     ' configurations archivées, '+Number(optimizer.new_candidates||0)+
     ' nouvelles dans le dernier cycle. Historique exploratoire, sans profit garanti.':
     'Recherche quantitative autonome : premier relevé non encore confirmé.');
-const evolution=DATA.strategy_evolution||{};
-put('strategy-evolution-status',evolution.ready?
-    'Évolution autonome : '+Number(evolution.total_mutations||0)+
-    ' mutation(s) archivées, '+Number(evolution.new_mutations||0)+
+const strategyEvolution=DATA.strategy_evolution||{};
+put('strategy-evolution-status',strategyEvolution.ready?
+    'Évolution autonome : '+Number(strategyEvolution.total_mutations||0)+
+    ' mutation(s) archivées, '+Number(strategyEvolution.new_mutations||0)+
     ' nouvelle(s) dans ce cycle. Les liens avec les stratégies parentes sont conservés.':
     'Évolution autonome : premier cycle non encore confirmé.');
 const competition=DATA.strategy_competition||{};
