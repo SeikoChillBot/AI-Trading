@@ -13,9 +13,11 @@ from typing import Optional
 import requests
 
 OWNER_REPO = "SeikoChillBot/AI-Trading"
-API = "https://api.github.com/repos/" + OWNER_REPO + "/actions/workflows/research.yml"
+ROOT_API = "https://api.github.com/repos/" + OWNER_REPO + "/actions"
+API = ROOT_API + "/workflows/research.yml"
+RUNS_API = ROOT_API + "/runs"
+RESEARCH_NAME = "Seiko research — guarded automatic analysis"
 MAX_AGE_SECONDS = 165 * 60  # research normally every 120 minutes, with GitHub cron jitter
-MIN_DISPATCH_SPACING_SECONDS = 60 * 60
 
 
 def parse_utc(value: object) -> Optional[datetime]:
@@ -28,25 +30,39 @@ def parse_utc(value: object) -> Optional[datetime]:
         return None
 
 
+def is_research(row: object) -> bool:
+    if not isinstance(row, dict):
+        return False
+    name = row.get("name")
+    path = row.get("path")
+    return name == RESEARCH_NAME or (
+        isinstance(path, str) and ".github/workflows/research.yml" in path
+    )
+
+
 def should_dispatch(now: datetime, rows: object) -> bool:
-    """Only dispatch if valid API history proves no recent queued/running/completed research."""
+    """Require enough overall Actions history to rule out a recent research run."""
     if not isinstance(rows, list) or not rows:
-        return False  # empty API history is not enough evidence to dispatch
-    newest = None
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        if row.get("event") not in ("schedule", "workflow_dispatch"):
-            continue
+        return False
+    candidates = [row for row in rows if isinstance(row, dict)]
+    # GitHub returns recent runs sorted newest-first but we inspect timestamps
+    # rather than trusting order. For a full page of 100 runs, history must
+    # reach BEYOND the freshness threshold to prove no recent research was lost
+    # to pagination (notably when Pages builds are frequent).
+    timestamps = [parse_utc(row.get("created_at")) for row in candidates]
+    timestamps = [t for t in timestamps if t is not None]
+    if not timestamps:
+        return False
+    oldest = min(timestamps)
+    if len(candidates) >= 100 and (now - oldest).total_seconds() < MAX_AGE_SECONDS:
+        return False
+    research = [row for row in candidates if is_research(row)
+                and row.get("event") in ("schedule", "workflow_dispatch")]
+    for row in research:
         created = parse_utc(row.get("created_at"))
-        if created is None:
-            continue
-        if newest is None or created > newest:
-            newest = created
-        age = (now-created).total_seconds()
-        if -60 <= age < MAX_AGE_SECONDS:
+        if created is not None and -60 <= (now-created).total_seconds() < MAX_AGE_SECONDS:
             return False
-    return newest is not None and (now-newest).total_seconds() >= MAX_AGE_SECONDS
+    return True
 
 
 def check_and_dispatch(now: Optional[datetime] = None, token: Optional[str] = None,
@@ -62,15 +78,15 @@ def check_and_dispatch(now: Optional[datetime] = None, token: Optional[str] = No
         "User-Agent": "AIT-Research-Cron-Recovery",
     }
     try:
-        reply = get(API + "/runs", headers=headers,
-                    params={"per_page": 25}, timeout=12)
+        reply = get(RUNS_API, headers=headers,
+                    params={"per_page": 100}, timeout=15)
         reply.raise_for_status()
         data = reply.json()
         if not isinstance(data, dict) or not isinstance(data.get("workflow_runs"), list):
             return "skipped: invalid workflow history"
         rows = data["workflow_runs"]
         if not should_dispatch(now, rows):
-            return "skipped: research recent, queued, or history insufficient"
+            return "skipped: recent research run or insufficient Actions history"
         # Guard against accidental repeat dispatches based on the run created
         # during the same window; do not dispatch without confirmed API history.
         result = post(API + "/dispatches", headers=headers,
