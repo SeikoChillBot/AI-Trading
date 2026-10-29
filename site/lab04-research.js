@@ -156,6 +156,17 @@ put('strategy-architect-status',architect.ready?
     ' expériences mémorisées, '+Number(architect.new_candidates||0)+
     ' nouvelles. Les régimes sont descriptifs et ne prédisent pas les cours.':
     'Recombinaison créative : premier relevé non encore confirmé.');
+const scientific=DATA.scientific_memory||{};
+const failureKeys=scientific.ready&&scientific.failure_patterns?
+    Object.entries(scientific.failure_patterns).sort((a,b)=>Number(b[1])-Number(a[1])):[];
+put('strategy-scientific-status',scientific.ready?
+    'Mémoire scientifique : '+Number(scientific.recorded_hypotheses||0)+
+    ' hypothèses conservées, '+Number(scientific.total_experiment_fingerprints||0)+
+    ' expériences distinctes, '+Number(scientific.prospective_observed||0)+
+    ' avec observation future. Principal contrôle historique en échec : '+
+    (failureKeys[0]?.[0]||'aucun')+
+    '. Les fréquences ne prouvent pas une cause.':
+    'Mémoire scientifique : aucune synthèse confirmée pour le moment.');
 const competition=DATA.strategy_competition||{};
 put('strategy-competition-status',competition.ready?
     'Compétition fictive sur nouvelles journées : '+
