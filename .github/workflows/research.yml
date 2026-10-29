@@ -2,6 +2,20 @@ name: Seiko research — guarded automatic analysis
 
 on:
   workflow_dispatch:
+  # A scoped code change boots research without waiting for GitHub's best-effort cron.
+  # Report/state commits from the research and paper jobs never retrigger this job.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/research.yml'
+      - 'research/research_dispatch_guard.py'
+      - 'research/autonomous_optimizer.py'
+      - 'research/strategy_foundry.py'
+      - 'research/strategy_forward.py'
+      - 'research/market_knowledge.py'
+      - 'research/manual_live_review.py'
+      - 'research/ai_reflection.py'
+      - 'research/ai_decision_support.py'
   schedule:
     - cron: '17 */2 * * *'
 
@@ -35,6 +49,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_intraday_lab.py' -v
           python -m unittest discover -s tests -p 'test_ops_status.py' -v
           python -m unittest discover -s tests -p 'test_ait_upgrade.py' -v
+          python -m unittest discover -s tests -p 'test_research_dispatch_guard.py' -v
           python -m unittest discover -s tests -p 'test_strategy_foundry.py' -v
           python -m unittest discover -s tests -p 'test_market_knowledge.py' -v
           python -m unittest discover -s tests -p 'test_strategy_forward.py' -v
