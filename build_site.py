@@ -129,6 +129,46 @@ if walk_path.exists():
             ],
             "errors": record.get("issues", {})
         }
+# Persistent strategy ideas: read-only, never enters robot signal or balance code.
+foundry_path = Path("reports/strategy_foundry.json")
+data["strategy_foundry"] = {"ready": False}
+if foundry_path.exists():
+    try:
+        foundry = json.loads(foundry_path.read_text(encoding="utf-8"))
+        if (foundry.get("schema") == 1 and foundry.get("no_live_trades") is True
+                and foundry.get("no_robot_modification") is True):
+            ideas = []
+            for item in foundry.get("recent_ideas", [])[-12:]:
+                if not isinstance(item, dict):
+                    continue
+                spec = item.get("spec", {})
+                result = item.get("result", {})
+                if (not isinstance(spec, dict) or not isinstance(result, dict)
+                        or spec.get("asset") not in ("BTCUSD", "ETHUSD", "SOLUSD")
+                        or spec.get("logic") not in
+                        ("trend_following", "mean_reversion", "breakout")):
+                    continue
+                ideas.append({
+                    "id": str(item.get("id", ""))[:18],
+                    "source": item.get("source"), "status": item.get("status"),
+                    "asset": spec.get("asset"), "logic": spec.get("logic"),
+                    "lookback_days": spec.get("lookback_days"),
+                    "threshold_pct": spec.get("threshold_pct"),
+                    "max_hold_days": spec.get("max_hold_days"),
+                    "avg_net_pct": result.get("average_net_pct"),
+                    "folds_beating_hold": result.get("folds_beating_hold"),
+                    "closed_trades": result.get("closed_trades"),
+                    "all_historical_checks_pass": result.get("all_historical_checks_pass"),
+                })
+            data["strategy_foundry"] = {
+                "ready": True, "generated_at": foundry.get("generated_at"),
+                "total_hypotheses": foundry.get("total_hypotheses", 0),
+                "gemini_hypotheses": foundry.get("gemini_hypotheses", 0),
+                "tested_historically": foundry.get("tested_historically", 0),
+                "ideas": ideas, "live_robots_changed": False,
+            }
+    except (ValueError, KeyError, TypeError):
+        pass
 # Machine-readable, non-executable research proposals only (never portfolio inputs).
 ai_proposals_path = Path("reports/ai_research_proposals.json")
 data["ai_review"] = {"ready": False}
