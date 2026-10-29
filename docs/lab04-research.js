@@ -124,9 +124,11 @@ if(pulseBox){
   const title=document.createElement('strong');title.textContent=asset+' · cours clôturé '+(info.last_closed_day_utc||'date inconnue');
   const stats=document.createElement('p');
   const fmt=n=>Number.isFinite(Number(n))?Number(n).toFixed(2)+' %':'—';
-  stats.textContent='1 jour '+fmt(info.change_1d_pct)+' · 7 jours '+fmt(info.change_7d_pct)+
-   ' · 30 jours '+fmt(info.change_30d_pct)+
-   ' · volatilité annualisée estimée '+fmt(info.realized_volatility_30d_annualized_pct);
+  const week=Number(info.change_7d_pct);
+  const trend=Number.isFinite(week)?(week>0?'hausse':week<0?'baisse':'stable'):'évolution inconnue';
+  stats.textContent='Sur les 7 derniers jours : '+fmt(info.change_7d_pct)+
+    ' ('+trend+') · sur 30 jours : '+fmt(info.change_30d_pct)+
+    '. Ces chiffres décrivent le passé, pas la semaine prochaine.';
   card.append(title,stats);pulseBox.append(card);
  }
  const sample=pulse.large_transfers||{};
@@ -174,7 +176,7 @@ if(evolList){
  const statusLabels={
    baseline_held:'Témoin de conservation, inchangé',
    analyzing_for_opportunities:'En veille : données insuffisantes pour modifier',
-   testing_proposal:'Hypothèse Gemini à tester prospectivement',
+   testing_proposal:'Variante en cours de test, pas encore validée',
    tuning_activated:'Réglage appliqué en simulation après validation',
  };
  const counts=evolution.counts||{};
@@ -182,8 +184,8 @@ if(evolList){
  put('evolution-testing',String(counts.testing||0));
  put('evolution-activated',String(counts.activated||0));
  put('evolution-summary',evolution.ready?
-  'Chaque robot conserve son historique. Gemini propose des réglages limités, mesurés puis éventuellement activés après validation hors échantillon.':
-  'Journal individuel en attente du premier cycle de recherche. Aucun réglage automatique présumé.');
+  'Les robots cherchent des améliorations, mais aucune idée n’est appliquée sans avoir montré de meilleurs résultats sur de nouvelles données, frais compris.':
+  'Le suivi des améliorations est en attente. Aucune modification supposée.');
  const filter=get('evolution-filter');
  const renderEvol=()=>{
    const selected=filter?.value||'all';
@@ -194,9 +196,13 @@ if(evolList){
      shown++;
      const card=document.createElement('article');card.className='research-idea';
      const heading=document.createElement('strong');
-     heading.textContent=item.strategy+' · '+(item.lab==='crypto'?'Crypto':'Multi-actifs');
+     heading.textContent=String(item.strategy||'Robot').replaceAll('_',' ')+' · '+(item.lab==='crypto'?'Crypto':'Multi-actifs');
      const state=document.createElement('p');
-     state.textContent=statusLabels[item.status]||'Étude en cours';
+     state.textContent=item.status==='testing_proposal'?
+       (item.decision_source==='automatic_statistical_shadow'?
+        'Idée proposée par les calculs du laboratoire : en observation':
+        'Idée proposée par Gemini : en observation'):
+       (statusLabels[item.status]||'Étude en cours');
      const stats=document.createElement('p');
      const ret=Number(item.paper_return_pct);
      stats.textContent='Simulation actuelle : '+(Number.isFinite(ret)?ret.toFixed(2)+' %':'données en attente')+
@@ -213,9 +219,38 @@ if(evolList){
          'Moteur statistique : ':'Gemini : ')+item.gemini_decision;
        card.append(why);
      }
+     const progress=item.validation_progress;
+     if(progress&&progress.paper_only){
+       const note=document.createElement('p');
+       const n=x=>Number.isFinite(Number(x))?Number(x):0;
+       note.textContent='Pour pouvoir juger cette idée : '+n(progress.days_observed).toFixed(1)+' / '+
+         n(progress.minimum_days)+' jours · '+n(progress.closed_trades)+' / '+
+         n(progress.minimum_closed_trades)+' opérations clôturées · '+
+         n(progress.future_observations)+' / '+
+         n(progress.minimum_future_observations)+' nouveaux relevés.';
+       card.append(note);
+       if(!progress.shadow_data_confirmed){
+         const pending=document.createElement('small');
+         pending.textContent='Comparaison indépendante encore en préparation.';
+         card.append(pending);
+       }
+     }
      if(Array.isArray(item.blocked_checks)&&item.blocked_checks.length){
        const blocked=document.createElement('small');
-       blocked.textContent='Validation en attente : '+item.blocked_checks.join(', ');
+       const terms={
+         minimum_elapsed_days:'durée d’observation trop courte',
+         minimum_closed_roundtrips:'pas assez d’achats et ventes terminés',
+         sufficient_distinct_future_candles:'pas assez de nouveaux cours observés',
+         bounded_missing_market_observations:'trop de données manquantes',
+         improves_net_after_costs:'gain après frais non démontré',
+         double_fees_not_loss:'risque de perte lorsque les frais augmentent',
+         bounded_maximum_drawdown:'risque de baisse trop important',
+         missing_forward_shadow_data:'premiers résultats encore attendus',
+         stale_shadow_evidence:'résultats trop anciens',
+         shadow_provenance_or_candidate_mismatch:'comparaison non certifiée',
+         incomplete_or_invalid_shadow_statistics:'données de comparaison incomplètes'
+       };
+       blocked.textContent='Encore à vérifier : '+item.blocked_checks.map(k=>terms[k]||'contrôle technique en attente').join(' · ');
        card.append(blocked);
      }
      evolList.append(card);
