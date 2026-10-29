@@ -111,6 +111,10 @@ def evolve(now, ideas, pulse, candles, state):
     trials=[dict(x) for x in previous if isinstance(x,dict)][-HISTORY_LIMIT:]
     outcomes=[]
     seen={x.get("id") for x in trials}
+    # GitHub may retrigger the same two-hour research window several times.
+    # A repeated run updates existing trials but cannot open extra candidates.
+    slot=now.strftime("%Y-%m-%d")+"T%02d:00Z"%((now.hour//2)*2)
+    already_enrolled=state.get("last_enrollment_slot")==slot
     model_requests=(ideas.get("scenario_proposals",[])
                     if ideas.get("source")=="gemini_generate_content"
                     and ideas.get("state")=="model_reflection_completed" else [])
@@ -124,7 +128,7 @@ def evolve(now, ideas, pulse, candles, state):
     # A bounded experiment queue, not a fixed total number of two trials.
     # Continue starting new distinct prospective tests as previous ones finish.
     registered = 0
-    for item in new_requests:
+    for item in ([] if already_enrolled else new_requests):
         if registered >= MAX_PER_CYCLE:
             break
         if not isinstance(item,dict):
@@ -217,7 +221,8 @@ def evolve(now, ideas, pulse, candles, state):
                     "sampled_whale_transfer_is_confirmed_buy":False},
         "warning":"Paper fills at later observed daily closes, not executable exchange fills. Model proposals are hypotheses, not proven profits.",
     }
-    return report,{"schema":1,"trials":trials[-HISTORY_LIMIT:]}
+    return report,{"schema":1,"trials":trials[-HISTORY_LIMIT:],
+                   "last_enrollment_slot":slot}
 
 
 def main():
