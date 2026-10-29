@@ -1,0 +1,92 @@
+"""Bounded GitHub Actions research watchdog triggered from healthy paper runs.
+
+GitHub cron is best-effort, not guaranteed. If recent research has not been
+queued or run, send ONE workflow_dispatch using the existing GitHub Actions
+token. Never infer an outage from historical failed runs; avoid double runs.
+Failure to read GitHub API does not dispatch blindly and cannot stop paper trading.
+"""
+from __future__ import annotations
+
+import os
+from datetime import datetime, timezone
+from typing import Optional
+import requests
+
+OWNER_REPO = "SeikoChillBot/AI-Trading"
+API = "https://api.github.com/repos/" + OWNER_REPO + "/actions/workflows/research.yml"
+MAX_AGE_SECONDS = 165 * 60  # research normally every 120 minutes, with GitHub cron jitter
+MIN_DISPATCH_SPACING_SECONDS = 60 * 60
+
+
+def parse_utc(value: object) -> Optional[datetime]:
+    if not isinstance(value, str):
+        return None
+    try:
+        t = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return t.astimezone(timezone.utc) if t.tzinfo else None
+    except ValueError:
+        return None
+
+
+def should_dispatch(now: datetime, rows: object) -> bool:
+    """Only dispatch if valid API history proves no recent queued/running/completed research."""
+    if not isinstance(rows, list) or not rows:
+        return False  # empty API history is not enough evidence to dispatch
+    newest = None
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        if row.get("event") not in ("schedule", "workflow_dispatch"):
+            continue
+        created = parse_utc(row.get("created_at"))
+        if created is None:
+            continue
+        if newest is None or created > newest:
+            newest = created
+        age = (now-created).total_seconds()
+        if -60 <= age < MAX_AGE_SECONDS:
+            return False
+    return newest is not None and (now-newest).total_seconds() >= MAX_AGE_SECONDS
+
+
+def check_and_dispatch(now: Optional[datetime] = None, token: Optional[str] = None,
+                       get=requests.get, post=requests.post) -> str:
+    now = now or datetime.now(timezone.utc)
+    token = token if token is not None else os.environ.get("GH_TOKEN", "")
+    if not token or os.environ.get("GITHUB_REPOSITORY") != OWNER_REPO:
+        return "skipped: token missing or unexpected repository"
+    headers = {
+        "Authorization": "Bearer " + token,
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "AIT-Research-Cron-Recovery",
+    }
+    try:
+        reply = get(API + "/runs", headers=headers,
+                    params={"per_page": 25}, timeout=12)
+        reply.raise_for_status()
+        data = reply.json()
+        if not isinstance(data, dict) or not isinstance(data.get("workflow_runs"), list):
+            return "skipped: invalid workflow history"
+        rows = data["workflow_runs"]
+        if not should_dispatch(now, rows):
+            return "skipped: research recent, queued, or history insufficient"
+        # Guard against accidental repeat dispatches based on the run created
+        # during the same window; do not dispatch without confirmed API history.
+        result = post(API + "/dispatches", headers=headers,
+                      json={"ref": "main"}, timeout=12)
+        result.raise_for_status()
+        if result.status_code not in (200, 201, 202, 204):
+            return "warning: unexpected GitHub dispatch response"
+        return "dispatched: recovery research workflow_dispatch"
+    except (requests.RequestException, ValueError, TypeError):
+        return "skipped: GitHub API unavailable; leave cron and paper intact"
+
+
+def main() -> None:
+    # Avoid exposing tokens or JSON HTTP responses in CI logs.
+    print("AIT research watchdog:", check_and_dispatch())
+
+
+if __name__ == "__main__":
+    main()
