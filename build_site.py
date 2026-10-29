@@ -317,6 +317,38 @@ if science_path.exists():
             }
     except (ValueError, TypeError, KeyError):
         pass
+# Read-only record of what the autonomous research director actually selected.
+director_path = Path("reports/research_director.json")
+data["research_director"] = {"ready": False}
+if director_path.exists():
+    try:
+        director = json.loads(director_path.read_text(encoding="utf-8"))
+        if (director.get("schema") == 1
+                and director.get("source") == "falsifiable_research_director"
+                and director.get("real_orders") is False
+                and director.get("robot_changes") is False
+                and director.get("no_automatic_robot_promotion") is True):
+            data["research_director"] = {
+                "ready": True, "generated_at": director.get("generated_at"),
+                "tracked": director.get("tracked", 0),
+                "total_experiments": director.get("total_experiments", 0),
+                "model_directed_this_cycle": director.get("model_directed_this_cycle", 0),
+                "local_fallback_new_experiments": director.get("local_fallback_new_experiments", 0),
+                "status": {asset: director.get("status", {}).get(asset)
+                            for asset in ("BTCUSD","ETHUSD","SOLUSD")},
+                "experiments": [{
+                    "asset": plan.get("asset"), "goal": plan.get("goal"),
+                    "source": plan.get("source"),
+                    "hypothesis": plan.get("hypothesis"),
+                    "prospective_status": plan.get("prospective_status"),
+                    "prospective_observed_days": plan.get("prospective_observed_days"),
+                    "rejection_rule": plan.get("rejection_rule"),
+                } for plan in director.get("experiments", [])[-9:]
+                  if isinstance(plan, dict)],
+                "no_model_code_executed": True,
+            }
+    except (ValueError, TypeError, KeyError):
+        pass
 # Machine-readable, non-executable research proposals only (never portfolio inputs).
 ai_proposals_path = Path("reports/ai_research_proposals.json")
 data["ai_review"] = {"ready": False}
