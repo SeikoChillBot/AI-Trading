@@ -285,7 +285,29 @@ def validate_model_ideas(value, assets):
             continue
         seen_designs.add(key)
         valid_designs.append(spec)
+    tasks = value.get("research_tasks", [])
+    if not isinstance(tasks, list) or len(tasks) > 2:
+        raise ValueError("Invalid research task count")
+    from research.research_director import _checked_plan
+    approved_tasks = []
+    seen_task_ids = set()
+    for task in tasks:
+        if not isinstance(task, dict):
+            raise ValueError("Invalid model research task")
+        try:
+            goal, hypothesis, reject, spec = _checked_plan(task, task.get("asset"))
+        except (ValueError, TypeError, KeyError) as error:
+            raise ValueError("Model task outside approved research grammar") from error
+        key = identifier(spec)
+        if key in seen_task_ids:
+            continue
+        seen_task_ids.add(key)
+        approved_tasks.append({"asset":spec["asset"], "goal":goal,
+                               "hypothesis":hypothesis,
+                               "rejection_rule":reject,
+                               "strategy":spec})
     return {"summary": value["summary"].strip()[:1000], "experiments": clean,
             "bot_adjustments": bot_adjustments,
             "scenario_proposals": trials, "desk_notes": notes,
-            "strategy_designs": valid_designs}
+            "strategy_designs": valid_designs,
+            "research_tasks": approved_tasks}
