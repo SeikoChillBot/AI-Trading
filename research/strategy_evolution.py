@@ -119,6 +119,20 @@ def build(now, bars_by_asset, optimizer, previous, knowledge):
             parent = by_id.get(parent_id)
             if parent is None or parent["spec"]["asset"] != asset:
                 raise ValueError("missing_authenticated_parent")
+            # A previously evolved genome becomes the parent of a new generation
+            # only when its *development* score is better than the current
+            # original optimizer candidate. The reused historical challenge
+            # must NOT choose the parent (avoid selection on held-out labels).
+            prior_child_id = prior.get("selected_by_asset", {}).get(asset)
+            prior_child = known.get(prior_child_id)
+            if (isinstance(prior_child, dict)
+                    and prior_child.get("asset") == asset
+                    and prior_child.get("source") == "bounded_evolution"
+                    and isinstance(prior_child.get("selection_metrics"), dict)
+                    and isinstance(parent.get("selection_metrics"), dict)
+                    and prior_child["selection_metrics"].get("score", -1e9) >
+                        parent["selection_metrics"].get("score", -1e9)):
+                parent_id, parent = prior_child_id, prior_child
             last_t = bars[-1]["t"]
             prior_t = last_search.get(asset)
             recent = (type(prior_t) is int
