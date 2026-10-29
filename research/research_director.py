@@ -233,13 +233,14 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                 old["prospective_status"] = situation
                 old["prospective_observed_days"] = days
                 evidence_days[asset] = days
-                if situation in ("awaiting_prospective_data",
-                                 "tentatively_supported_paper_only"):
+                if situation == "awaiting_prospective_data":
                     selections[asset] = old_id
                     status[asset] = situation
                     continue
-                # A hypothesis is not retested merely because historical
-                # metrics shifted; contradicted future evidence opens new work.
+                # Both strong and weak completed *prospective* experiments
+                # open a new distinct question. Keep the old frozen experiment
+                # in the archive: the league, not this director, decides which
+                # positive paper strategies deserve continuing observation.
             targets = goal_order[position:] + goal_order[:position]
             chosen = None
             for plan in tasks:
@@ -263,7 +264,13 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                         break
             if not chosen:
                 errors[asset] = "bounded_strategy_space_exhausted"
-                status[asset] = "no_untried_experiment"
+                # Keep a completed plan rather than silently emptying its
+                # registered forward track when the bounded grammar runs out.
+                if old:
+                    selections[asset] = old_id
+                    status[asset] = old.get("prospective_status", "no_untried_experiment")
+                else:
+                    status[asset] = "no_untried_experiment"
                 continue
             goal, question, rejection, spec, origin = chosen
             key = foundry.identifier(spec)
