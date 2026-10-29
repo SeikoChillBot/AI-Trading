@@ -1,0 +1,593 @@
+{
+  "schema": 1,
+  "updated_at": "2026-10-29T22:02:35.485957+00:00",
+  "lessons": [
+    {
+      "id": "5191e3b657d1819654",
+      "asset": "BTCUSD",
+      "logic": "trend_following",
+      "confirmations": [],
+      "source": "deterministic_reference",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63",
+          "net_pct": -5.1358,
+          "double_cost_net_pct": -14.0416,
+          "excess_vs_hold": -0.7091,
+          "drawdown_pct": 10.25726,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63"
+      ],
+      "latest_historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "0a96651dc89ea61036",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "confirmations": [],
+      "source": "deterministic_reference",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a",
+          "net_pct": -17.048,
+          "double_cost_net_pct": -28.3139,
+          "excess_vs_hold": -11.7289,
+          "drawdown_pct": 36.12343,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a"
+      ],
+      "latest_historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "drawdown_under_20_pct",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "0cafd059c30c6a3924",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "confirmations": [],
+      "source": "deterministic_reference",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b",
+          "net_pct": -0.2376,
+          "double_cost_net_pct": -4.1079,
+          "excess_vs_hold": 7.9799,
+          "drawdown_pct": 20.66745,
+          "failed_checks": [
+            "drawdown_under_20_pct",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b"
+      ],
+      "latest_historical_failure_reasons": [
+        "drawdown_under_20_pct",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "2f2b7e8c605e3a5d03",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "confirmations": [],
+      "source": "autonomous_grid_search",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63",
+          "net_pct": -3.2174,
+          "double_cost_net_pct": -6.0056,
+          "excess_vs_hold": 1.2093,
+          "drawdown_pct": 8.0598,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63"
+      ],
+      "latest_historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "e921c860eb3b6e24a0",
+      "asset": "ETHUSD",
+      "logic": "breakout",
+      "confirmations": [],
+      "source": "autonomous_grid_search",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a",
+          "net_pct": -2.6652,
+          "double_cost_net_pct": -5.7417,
+          "excess_vs_hold": 2.6539,
+          "drawdown_pct": 8.13239,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "253095b8a9544ff8df",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "confirmations": [],
+      "source": "autonomous_grid_search",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b",
+          "net_pct": -2.2374,
+          "double_cost_net_pct": -5.3668,
+          "excess_vs_hold": 5.98,
+          "drawdown_pct": 7.4672,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "43a92df4809f8f30fe",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "confirmations": [],
+      "source": "bounded_evolution",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63",
+          "net_pct": -1.4497,
+          "double_cost_net_pct": -2.8812,
+          "excess_vs_hold": 2.977,
+          "drawdown_pct": 6.48444,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63"
+      ],
+      "latest_historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "56bf169e5e3e751450",
+      "asset": "ETHUSD",
+      "logic": "breakout",
+      "confirmations": [],
+      "source": "bounded_evolution",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a",
+          "net_pct": -2.6069,
+          "double_cost_net_pct": -4.5571,
+          "excess_vs_hold": 2.7122,
+          "drawdown_pct": 7.65209,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "97bc58780a96065b2a",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "confirmations": [],
+      "source": "bounded_evolution",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b",
+          "net_pct": -1.1972,
+          "double_cost_net_pct": -4.3988,
+          "excess_vs_hold": 7.0202,
+          "drawdown_pct": 7.4672,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "09fcd0e2b0dab27ef7",
+      "asset": "BTCUSD",
+      "logic": "trend_following",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_oversold"
+      ],
+      "source": "autonomous_crossover",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63",
+          "net_pct": -0.3859,
+          "double_cost_net_pct": -0.6764,
+          "excess_vs_hold": 4.0408,
+          "drawdown_pct": 2.31541,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63"
+      ],
+      "latest_historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "1617d0b2ed93f1d786",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "active_volatility",
+        "rsi_strength"
+      ],
+      "source": "autonomous_crossover",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63",
+          "net_pct": -0.3727,
+          "double_cost_net_pct": -0.6634,
+          "excess_vs_hold": 4.054,
+          "drawdown_pct": 2.23908,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "a3b97cce90ab46022f27634dd0565f5a7b0e6ef126cedc7e4e49533078e45e63"
+      ],
+      "latest_historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "143da0502545044195",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "confirmations": [
+        "active_volatility",
+        "rsi_strength"
+      ],
+      "source": "autonomous_crossover",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 5.3191,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "1cfcfb93666ed07769",
+      "asset": "ETHUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_oversold"
+      ],
+      "source": "autonomous_crossover",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 5.3191,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "017d5ab75abfa3a25d2f6bb224cb86fc30871551136a94137be99f554fbeef9a"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "2a687faaa0b654a26f",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_oversold"
+      ],
+      "source": "autonomous_crossover",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 8.2174,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "53633ea1a537b8579e",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_strength"
+      ],
+      "source": "autonomous_crossover",
+      "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
+      "last_reviewed_at": "2026-10-29T22:02:35.485957+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-10-29T22:02:35.485957+00:00",
+          "data_sha256": "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b",
+          "net_pct": 0.1438,
+          "double_cost_net_pct": -0.1561,
+          "excess_vs_hold": 8.3613,
+          "drawdown_pct": 0.02282,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "9fa55f03fae30605534b8396c478d81d5fe359db6fae7d5bd280ad5eaeacc23b"
+      ],
+      "latest_historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    }
+  ],
+  "seen_spec_ids": [
+    "5191e3b657d1819654",
+    "0a96651dc89ea61036",
+    "0cafd059c30c6a3924",
+    "2f2b7e8c605e3a5d03",
+    "e921c860eb3b6e24a0",
+    "253095b8a9544ff8df",
+    "43a92df4809f8f30fe",
+    "56bf169e5e3e751450",
+    "97bc58780a96065b2a",
+    "09fcd0e2b0dab27ef7",
+    "1617d0b2ed93f1d786",
+    "143da0502545044195",
+    "1cfcfb93666ed07769",
+    "2a687faaa0b654a26f",
+    "53633ea1a537b8579e"
+  ],
+  "real_orders": false,
+  "robots_modified": false
+}
