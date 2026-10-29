@@ -172,6 +172,7 @@ function renderAnalysis(){const wins=rows.filter(r=>r.return_pct>0).length,losse
 function openSheet(r){sheetRobot=r;const coin=coinFor(r.asset),v=r.capital_usd-START;
  $('sheet-coin').className='coin-icon '+coinClass(coin);$('sheet-coin').textContent=symbol(coin);setText('sheet-name',nameFor(r.strategy));setText('sheet-category',info(r)[0]);setText('sheet-capital',money(r.capital_usd));setText('sheet-return',percentage(r.return_pct));$('sheet-return').className=polarity(r.return_pct);setText('sheet-asset',coin);setText('sheet-timeframe',r.timeframe_min+' min');setText('sheet-trades',r.trades.toLocaleString('fr-FR'));setText('sheet-fees',money(r.fees_usd,3));setText('sheet-description',info(r)[1]);renderSheetExtras(r);
  const points=series.map(s=>({v:s.values.get(r.strategy)??START,t:s.t,label:s.label}));lineChart($('sheet-chart'),points,{compact:true,tone:v});window.SeikoNavigation.openSheet(document.activeElement);}
+let returnFromSheet=false;
 function isSheetOpen(){return !$('robot-sheet').hidden}
 function showSheet(trigger){
  if(isSheetOpen())return;
@@ -187,12 +188,13 @@ function dismissSheet(fromHistory=false){
  $('robot-sheet').hidden=true;document.body.style.overflow='';sheetRobot=null;
  const target=previouslyFocused;previouslyFocused=null;
  if(target&&target.isConnected&&target.focus)target.focus({preventScroll:true});
- if(!fromHistory&&historyApi.state?.seikoSheet)historyApi.back();
+ if(!fromHistory&&historyApi.state?.seikoSheet){returnFromSheet=true;historyApi.back();}
 }
 window.SeikoNavigation={openSheet:showSheet,closeSheet:()=>dismissSheet(false),
  isSheetOpen,navigate:target=>{if(isSheetOpen())dismissSheet(false);toView(target,true)}};
 window.addEventListener('popstate',()=>{
  if(isSheetOpen()){dismissSheet(true);return;}
+ if(returnFromSheet){returnFromSheet=false;return;}
  toView(location.hash.substring(1)||'home',false);
 });
 $('close-sheet').addEventListener('click',()=>dismissSheet());
