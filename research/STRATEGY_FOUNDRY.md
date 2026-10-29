@@ -91,3 +91,23 @@ Le laboratoire prend des initiatives de recherche **sans code produit par l'IA**
 - Les données disponibles pour le langage de stratégies sont actuellement les séries prix `open`/`close` quotidiennes BTC/ETH/SOL sur 720 bougies. Les flux de news, volumes, transactions on-chain et DeFi sont traités ailleurs comme contexte **daté et de qualité variable**, et ne peuvent pas être transformés en indicateurs historiques de trading sans séries vérifiées point-in-time.
 - Des hypothèses **plus sophistiquées** peuvent tout autant perdre après frais. L'intelligence utile ne se mesure pas au nombre de stratégies, mais à des progrès **hors historique consulté** obtenus ensuite dans les simulations prospectives. Au démarrage des nouveaux programmes : 0 journée future, donc aucune stratégie validée.
 - Les GitHub Actions exécutent la recherche au rythme prévu et publient une trace persistante. Le planificateur GitHub reste best-effort et l'IA Gemini gratuite soumise à quota.
+
+
+## Troisième génération : directeur de recherche autonome
+
+Cette couche est un **agent de recherche scientifique borné**, pas un être humain, ni un modèle réentraîné en continu. Son objectif est d'aller au-delà d'une grille de paramètres : planifier une expérience, la figer, l'observer dans le futur, puis décider de la prochaine question. Aucun ordre réel et aucune modification des 36 robots.
+
+### Chaîne complète
+
+1. `research/scientific_memory.py` produit une mémoire cumulative des critères historiques ratés et des questions falsifiables, séparées des observations réellement futures.
+2. `research/ai_reflection.py` demande à Gemini, **dans le même appel au quota gratuit déjà autorisé**, jusqu'à deux `research_tasks` structurées : actif, objectif parmi `cost_resilience`, `trade_frequency`, `beat_hold`, `net_return`, `risk_control`, hypothèse, règle de rejet et spécification déclarative `strategy`. `research/ai_decision_support.py` valide localement toutes les propositions. Aucun texte ou code modèle n'est exécuté.
+3. `research/research_director.py` reçoit ces plans et leur provenance. Il n'admet des tâches Gemini que si la réponse est authentifiée comme émanant du modèle configuré, suffisamment récente, safe et originale. Sinon, il produit une **expérience locale bornée explicitement étiquetée**, en fonction de l'agenda d'échecs (ce n'est PAS de la créativité Gemini).
+4. Chaque plan a un identifiant immuable, une question réfutable, sa condition d'échec, son `closed_day_at_registration` et son état. Les plans sont stockés dans `state/research_director.json` et le rapport `reports/research_director.json`.
+5. `research/strategy_foundry.py` n'accepte que le plan signé, l'inscrit comme `gemini_research_director` ou `bounded_local_research_director` et l'envoie au dispositif de suivi fictif `research/strategy_forward.py`. Les résultats historiques déjà étudiés ne constituent pas une mesure d'apprentissage indépendant.
+6. Le directeur lit ensuite le suivi prospectif figé. Un résultat ne peut être interprété qu'avec **au moins 90 nouvelles journées entières, au moins 10 transactions clôturées, une séquence temporelle cohérente**, un rendement net, une comparaison Hold et le drawdown. Il sépare `prospectively_contradicted` de `tentatively_supported_paper_only`. Dans les deux cas, il peut ouvrir une **nouvelle question** ; les essais précédents restent archivés et c'est le classement indépendant qui juge les championnes fictives.
+
+### Ce que signifie et ne signifie pas « intelligent »
+
+L'agent choisit l'objectif d'une expérimentation à partir d'échecs mesurés, peut prendre en compte un plan inventé par Gemini, et modifie la suite de sa recherche selon la preuve prospective. Mais ses **actions exécutables restent limitées à la grammaire auditable** et aux données fiables dont on dispose. Si Gemini est en cache, indisponible ou ne propose aucune idée, la planification est locale, **pas générative**. Les résultats futurs n'ont pas encore été accumulés ; aucun avantage ni profit n'a été prouvé.
+
+Les tests `tests/test_research_director.py` et `tests/test_ai_decision_support.py` empêchent les plans mal formés, les pseudo-ordres, les statistiques futures fabriquées, le double comptage lors d'une relance et les changements d'identifiants. La CI isolée et le workflow de recherche vérifient la chaîne et publient les décisions pour le Journal IA.
