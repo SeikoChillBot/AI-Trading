@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style><link rel="stylesheet" href="./lab04-overview.css?v=4"><link rel="stylesheet" href="./lab04-analysis.css?v=4.2"><link rel="stylesheet" href="./lab04-markets.css?v=4"></head>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><meta name="description" content="Seiko Trading Lab : 36 robots, deux portefeuilles de simulation et une recherche multi-marchés transparente."><title>Seiko — Trading Lab</title><style>/*__CSS__*/</style><link rel="stylesheet" href="./lab04-overview.css?v=4"><link rel="stylesheet" href="./lab04-analysis.css?v=4.2"><link rel="stylesheet" href="./lab04-markets.css?v=4"><link rel="stylesheet" href="./lab04-clarity.css?v=5"></head>
 <body><div class="app-shell" id="app">
 <header class="topbar"><div class="brand" aria-label="Seiko Trading Lab"><div class="brand-icon"><span></span><span></span><span></span></div><div class="brand-word">SEIKO<span class="brand-slash">/</span><small>TRADING LAB</small></div></div><span class="release-tag" aria-label="Version de l’interface">LAB / 04</span><div class="live-status" id="live-status"><span class="status-light"></span><span id="status-text">Chargement</span></div></header>
 <div class="page-heading"><span class="eyebrow" id="page-eyebrow">PAPER TRADING · LABORATOIRE</span><h1 id="page-title">Vue d’ensemble<span class="title-period">.</span></h1><p id="page-subtitle">Les résultats de votre expérience, au même endroit.</p></div>
@@ -14,6 +14,7 @@
 </div>
 <main>
 <section id="view-home" class="view is-visible" aria-label="Tableau de bord des expériences">
+<section class="lab-freshness" aria-label="Fraîcheur des relevés"><div><strong>Dernières données publiées</strong><p id="lab-freshness-detail">Vérification de la dernière publication…</p></div><span id="lab-freshness-badge">Vérification</span></section>
 <div class="lab-overview">
  <div class="lab-overview-top"><div><span class="eyebrow">PANORAMA / SIMULATIONS</span><h2>Deux laboratoires.<br><span>Une même ambition.</span></h2></div><div class="lab-overview-counter"><strong id="overview-bots">36</strong><small>robots<br>expérimentaux</small></div></div>
  <p>Les deux expériences utilisent 20 $ fictifs par robot, mais leurs dates de départ, marchés et coûts sont différents : leurs historiques restent séparés.</p>
@@ -121,6 +122,15 @@
   <div class="research-idea-list" id="market-pulse-assets"></div>
   <p class="micro-note" id="pulse-whales">Échantillon de transferts publics en attente.</p>
   <p class="micro-note">Les transferts de stablecoins ne prouvent aucun achat ou vente. Échantillon limité, pas de couverture exhaustive.</p>
+ </div>
+ <div class="research-panel-details" id="whale-radar-panel">
+  <div class="section-header compact"><div><span class="eyebrow">ETHEREUM · TRANSFERTS PUBLICS</span><h3>Radar des gros mouvements</h3></div></div>
+  <p id="whale-radar-status" class="micro-note">Chargement de l'échantillon USDC/USDT.</p>
+  <div class="whale-radar-stats"><div><small>TRANSFERTS ≥ 1 M</small><strong id="whale-radar-count">—</strong></div><div><small>ADRESSES DANS L'ÉCHANTILLON</small><strong id="whale-radar-wallets">—</strong></div><div><small>NOUVELLES OBSERVATIONS</small><strong id="whale-radar-new">—</strong></div></div>
+  <h4>Mouvements les plus importants</h4>
+  <div id="whale-radar-highlights" class="research-idea-list"></div>
+  <details class="radar-details"><summary>Adresses actives dans l'échantillon</summary><div id="whale-radar-addresses" class="research-idea-list"></div></details>
+  <p class="micro-note">Montants nominaux approximatifs. Flux entrants/sortants calculés uniquement dans l'échantillon, pas solde complet. Aucune identité de baleine, aucune transaction d'achat/vente ni opportunité de trading vérifiée. <a href="https://eth.blockscout.com/" target="_blank" rel="noopener noreferrer">Source : Blockscout</a>.</p>
  </div>
  <div class="research-panel-details" id="forward-incubator-panel">
   <div class="section-header compact"><div><span class="eyebrow">INCUBATEUR PROSPECTIF</span><h3>Nouveaux challengers autonomes</h3></div></div>
@@ -274,8 +284,14 @@
 <button class="nav-button" data-view="desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg><span>Journal IA</span></button>
 <button class="nav-button" data-view="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m9 15 2-6 6-2-2 6-6 2Z"/></svg><span>Marchés</span></button>
 </div></nav>
-<div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE STRATÉGIE</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Rendement</span><strong id="sheet-return">—</strong></div></div><div class="sheet-chart-wrap"><div class="section-overline">HISTORIQUE DU CAPITAL</div><div id="sheet-chart" class="sheet-chart"></div></div><div class="sheet-metrics"><div><span>ACTIF</span><strong id="sheet-asset">—</strong></div><div><span>INTERVALLE</span><strong id="sheet-timeframe">—</strong></div><div><span>OPÉRATIONS</span><strong id="sheet-trades">—</strong></div><div><span>FRAIS SIMULÉS</span><strong id="sheet-fees">—</strong></div></div><div class="sheet-extra"><div><span>BAISSE MAX. OBSERVÉE</span><strong id="sheet-drawdown">—</strong></div><div><span>ÉCART AVEC LE HOLD</span><strong id="sheet-benchmark">—</strong></div><p id="sheet-benchmark-note">Comparaison indicative entre stratégies différentes.</p></div>
+<div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE STRATÉGIE</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Rendement</span><strong id="sheet-return">—</strong></div></div><div class="lab-robot-holdings" aria-label="Composition du portefeuille fictif">
+  <div><small>MISE DE DÉPART</small><strong id="sheet-initial">20 $</strong></div>
+  <div><small>LIQUIDITÉS RESTANTES</small><strong id="sheet-cash">—</strong></div>
+  <div><small>QUANTITÉ DÉTENUE</small><strong id="sheet-units">—</strong></div>
+  <div><small>POSITION</small><strong id="sheet-position">—</strong></div>
+ </div>
+ <div class="sheet-chart-wrap"><div class="section-overline">HISTORIQUE DU CAPITAL · VALEUR FICTIVE</div><div id="sheet-chart" class="sheet-chart"></div><p class="micro-note" id="sheet-chart-context">Dates et observations en préparation.</p></div><div class="sheet-metrics"><div><span>ACTIF</span><strong id="sheet-asset">—</strong></div><div><span>INTERVALLE</span><strong id="sheet-timeframe">—</strong></div><div><span>OPÉRATIONS</span><strong id="sheet-trades">—</strong></div><div><span>FRAIS SIMULÉS</span><strong id="sheet-fees">—</strong></div></div><div class="sheet-extra"><div><span>BAISSE MAX. OBSERVÉE</span><strong id="sheet-drawdown">—</strong></div><div><span>ÉCART AVEC LE HOLD</span><strong id="sheet-benchmark">—</strong></div><p id="sheet-benchmark-note">Comparaison indicative entre stratégies différentes.</p></div>
 
 <div class="strategy-description"><span class="eyebrow">LOGIQUE DU ROBOT</span><p id="sheet-description">—</p></div></section></div>
 <script>const DATA=/*__DATA__*/{"updated":"En attente du premier relevé","rows":[],"history":[]};</script><script>/*__JS__*/</script>
-<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script><script src="./lab04-desk.js?v=4.8" defer></script><script src="./lab04-ops.js?v=1" defer></script></body></html>
+<script src="./lab04-core.js?v=4" defer></script><script src="./lab04-home.js?v=4" defer></script><script src="./lab04-directory.js?v=4" defer></script><script src="./lab04-analysis.js?v=4" defer></script><script src="./lab04-research.js?v=4.5" defer></script><script src="./lab04-desk.js?v=4.8" defer></script><script src="./lab04-ops.js?v=1" defer></script><script src="./lab04-clarity.js?v=5" defer></script></body></html>
