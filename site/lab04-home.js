@@ -33,8 +33,8 @@ function summary(){
 }
 function draw(){
  summary();
- const label=selected==='crypto'?'CRYPTO · KRAKEN':'MULTI-ACTIFS · 9 INSTRUMENTS';
- L.put('hero-portfolio-kind',label);L.put('hero-capital-label','VALEUR ESTIMÉE · '+(selected==='crypto'?'CRYPTO':'MULTI-ACTIFS'));
+ const label=selected==='crypto'?'CRYPTOMONNAIES':'ACTIONS, FONDS ET DEVISES';
+ L.put('hero-portfolio-kind',label);L.put('hero-capital-label','VALEUR ESTIMÉE DES PLACEMENTS');
  const amt=L.total[selected],base=L.init[selected],gain=amt-base;
  L.put('portfolio-value',L.money(amt));L.put('portfolio-profit',(gain>0?'+':'')+L.money(gain));
  L.put('portfolio-percent',L.pct(base?gain/base*100:0));
@@ -43,8 +43,8 @@ function draw(){
  }
  L.put('hero-since','Depuis '+L.stamp(L.start[selected]));
  L.put('chart-clarification',selected==='crypto'?
-  'Crypto : montant récupérable après vente estimée, incluant frais et carnet Kraken.':
-  'Multi-actifs : prix publics indicatifs, frais d’exécution et de sortie estimés ; dividendes non intégrés.');
+  'Crypto : valeur fictive si les positions étaient vendues maintenant, frais estimés compris.':
+  'Autres marchés : cours indicatifs et frais estimés. Les dividendes ne sont pas pris en compte.');
  const tag=document.querySelector('.hero-small-tag');if(tag)tag.textContent='FICTIF · '+(selected==='crypto'?'SPOT':'PRIX INDICATIFS');
  L.put('chart-period',range==='all'?'Depuis le lancement':range==='7d'?'7 derniers jours':'24 dernières heures');
  L.put('chart-last','Dernier : '+L.money(amt));
