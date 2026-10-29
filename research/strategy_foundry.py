@@ -353,6 +353,7 @@ def model_memory(ledger):
             "lookback_days": spec.get("lookback_days"),
             "threshold_pct": spec.get("threshold_pct"),
             "max_hold_days": spec.get("max_hold_days"),
+            "confirmations": spec.get("confirmations", []),
             "source": idea.get("source"),
             "average_net_pct": result.get("average_net_pct"),
             "beats_hold_folds": result.get("folds_beating_hold"),
@@ -410,22 +411,26 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None):
             and evolution.get("robot_changes") is False):
         pool = evolution.get("candidates", [])
         chosen = evolution.get("selected_by_asset", {})
-        if isinstance(pool, list) and isinstance(chosen, dict):
+        composed = evolution.get("composed_by_asset", {})
+        if (isinstance(pool, list) and isinstance(chosen, dict)
+                and isinstance(composed, dict)):
             for asset in ASSETS:
-                wanted = chosen.get(asset)
-                for item in pool[-MAX_IDEAS:]:
-                    if (not isinstance(item, dict) or item.get("id") != wanted
-                            or item.get("source") != "bounded_evolution"
-                            or item.get("historical_candidate_only") is not True
-                            or item.get("eligible_for_live_trading") is not False):
-                        continue
-                    try:
-                        spec = normalise(item["spec"])
-                        if spec["asset"] == asset and identifier(spec) == wanted:
-                            submissions.append((spec, "bounded_evolution"))
-                    except (ValueError, TypeError, KeyError):
-                        pass
-                    break
+                # Keep a genuine combination under study even when its older
+                # development score is lower than the best simple rule.
+                for wanted in {chosen.get(asset), composed.get(asset)} - {None}:
+                    for item in pool[-MAX_IDEAS:]:
+                        if (not isinstance(item, dict) or item.get("id") != wanted
+                                or item.get("source") != "bounded_evolution"
+                                or item.get("historical_candidate_only") is not True
+                                or item.get("eligible_for_live_trading") is not False):
+                            continue
+                        try:
+                            spec = normalise(item["spec"])
+                            if spec["asset"] == asset and identifier(spec) == wanted:
+                                submissions.append((spec, "bounded_evolution"))
+                        except (ValueError, TypeError, KeyError):
+                            pass
+                        break
     submissions += [(x, "deterministic_reference") for x in seed_specs()]
     for raw, origin in submissions:
         try:
