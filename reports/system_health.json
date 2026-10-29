@@ -1,10 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T00:05:26.560714+00:00",
-  "status": "needs_attention",
-  "alerts": [
-    "Dernière analyse Gemini non confirmée"
-  ],
+  "generated_at": "2026-10-29T04:45:00.032249+00:00",
+  "status": "observing",
+  "alerts": [],
   "roadmap": [
     {
       "id": "robots",
@@ -15,14 +13,14 @@
     {
       "id": "intelligence",
       "title": "Analyses Gemini et recherche autonome",
-      "status": "degraded",
+      "status": "active",
       "detail": "Jusqu'à 4 analyses IA par jour, tests statistiques entre deux appels."
     },
     {
       "id": "scenarios",
       "title": "Expériences fictives en rotation",
       "status": "active",
-      "detail": "6 expériences en cours, jusqu'à 12 simultanées, au maximum 4 nouvelles par cycle."
+      "detail": "9 expériences en cours, jusqu'à 12 simultanées, au maximum 4 nouvelles par cycle."
     },
     {
       "id": "hourly",
@@ -32,15 +30,15 @@
     },
     {
       "id": "whales",
-      "title": "Surveillance des baleines",
+      "title": "Surveillance des gros mouvements",
       "status": "partial",
-      "detail": "Échantillons de transferts USDC/USDT Ethereum ; identité et achats non vérifiés, couverture non exhaustive."
+      "detail": "300 transferts publics échantillonnés USDC/USDT ; 2 adresses publiques suivies indépendamment (observing). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
     },
     {
       "id": "changes",
       "title": "Modifications automatiques par robot",
       "status": "testing",
-      "detail": "16 profils en test indépendant ; 0 adopté(s) après validation."
+      "detail": "18 profils en test indépendant ; 0 adopté(s) après validation."
     },
     {
       "id": "news",
@@ -66,22 +64,19 @@
     "workflows": {
       "Paper trading": {
         "state": "healthy",
-        "run_id": 40791577478,
-        "last_created_at": "2026-10-29T00:04:06Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/40791577478",
+        "run_id": 40819396548,
+        "last_created_at": "2026-10-29T04:44:07Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/40819396548",
         "last_result": "success"
       },
       "Seiko research — guarded automatic analysis": {
-        "state": "healthy",
-        "run_id": 40791498210,
-        "last_created_at": "2026-10-29T00:03:22Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/40791498210",
-        "last_result": "success"
+        "state": "unknown",
+        "reason": "No completed run in recent GitHub history"
       }
     }
   },
-  "gemini_last_state": "model_reflection_failed",
-  "paper_experiments_active": 6,
+  "gemini_last_state": "model_reflection_completed",
+  "paper_experiments_active": 9,
   "robot_count": 36,
   "real_orders": false,
   "recommendation": "Les essais restent fictifs ; aucune rentabilité future n'est garantie."

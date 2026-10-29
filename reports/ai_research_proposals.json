@@ -1,29 +1,33 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T00:05:26.281636+00:00",
+  "generated_at": "2026-10-29T04:44:53.571777+00:00",
   "research_date_utc": "2026-10-29",
   "review_slot": "2026-10-29T00:00Z",
-  "model_last_called_at": null,
-  "used_cache": true,
+  "model_last_called_at": "2026-10-29T04:44:53.571777+00:00",
+  "used_cache": false,
   "last_http_status": null,
-  "source": "deterministic_fallback",
-  "state": "model_reflection_failed",
+  "error_type": null,
+  "error_code": null,
+  "attempts_in_slot": 1,
+  "last_attempt_at": "2026-10-29T04:44:53.571777+00:00",
+  "source": "gemini_generate_content",
+  "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Tentative IA déjà effectuée dans ce créneau de six heures ; repli statistique.",
+  "summary": "Analyse quantitative critique du laboratoire Seiko au 29-10-2026. L'historique des robots reste trop court (moins de 14 jours pour la crypto) et aucun actif ne satisfait l'ensemble des critères de robustesse. Les performances OOS sur les challengers BTC, ETH et SOL montrent des rendements nets négatifs ou des drawdowns excessifs après frais. La récurrence des tests sur les mêmes holdouts surestime la performance. Aucune stratégie n'est déclarée robuste et aucune promesse de rendement n'est formulée.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
     "assets": [
       {
         "asset": "BTCUSD",
-        "folds": 7,
+        "folds": 8,
         "positive_oos_folds": 2,
         "beats_hold_folds": 4,
         "positive_double_cost_folds": 1,
-        "closed_trades": 8,
-        "avg_net_return_pct": -1.9618,
-        "avg_excess_vs_hold_points": 2.328,
-        "avg_net_return_double_cost_pct": -4.328,
+        "closed_trades": 11,
+        "avg_net_return_pct": -2.6699,
+        "avg_excess_vs_hold_points": 0.8265,
+        "avg_net_return_double_cost_pct": -5.3474,
         "worst_drawdown_pct": 19.5062,
         "latest_research_parameters": {
           "window": 40,
@@ -42,14 +46,14 @@
       },
       {
         "asset": "ETHUSD",
-        "folds": 7,
+        "folds": 8,
         "positive_oos_folds": 3,
-        "beats_hold_folds": 3,
+        "beats_hold_folds": 4,
         "positive_double_cost_folds": 2,
-        "closed_trades": 6,
-        "avg_net_return_pct": 9.1134,
-        "avg_excess_vs_hold_points": 4.2907,
-        "avg_net_return_double_cost_pct": 6.7158,
+        "closed_trades": 7,
+        "avg_net_return_pct": 7.8287,
+        "avg_excess_vs_hold_points": 4.3323,
+        "avg_net_return_double_cost_pct": 5.5104,
         "worst_drawdown_pct": 25.1673,
         "latest_research_parameters": {
           "window": 40,
@@ -68,14 +72,14 @@
       },
       {
         "asset": "SOLUSD",
-        "folds": 7,
+        "folds": 8,
         "positive_oos_folds": 2,
         "beats_hold_folds": 3,
         "positive_double_cost_folds": 1,
-        "closed_trades": 13,
-        "avg_net_return_pct": -4.9479,
-        "avg_excess_vs_hold_points": -2.5702,
-        "avg_net_return_double_cost_pct": -8.8219,
+        "closed_trades": 15,
+        "avg_net_return_pct": -5.2159,
+        "avg_excess_vs_hold_points": -2.53,
+        "avg_net_return_double_cost_pct": -9.0164,
         "worst_drawdown_pct": 35.0085,
         "latest_research_parameters": {
           "window": 10,
@@ -99,11 +103,11 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Contrôler la robustesse historique de BTCUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
+      "title": "Test de résistance aux frais doublés sur BTC",
+      "hypothesis": "Doubler les frais de transaction détériore l'espérance de gain des stratégies de momentum sur BTC.",
+      "experiment": "Rejouer l'ensemble des historiques OOS en appliquant des frais de transaction multipliés par 2 sur les robots BTC sans modifier les fenêtres.",
+      "rejection_rule": "Si le rendement net moyen reste positif après doublement des frais, l'hypothèse de sensibilité est rejetée.",
+      "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
@@ -113,34 +117,38 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Contrôler la robustesse historique de ETHUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
+      "title": "Validation prospective post-drawdown sur ETH",
+      "hypothesis": "Les drawdowns historiques observés sur ETH sous-estiment la volatilité réelle en période de forte baisse macroéconomique.",
+      "experiment": "Collecter 30 nouvelles observations de forward paper trading sans réajuster les paramètres et mesurer l'apparition de nouveaux drawdowns maximaux.",
+      "rejection_rule": "Si le nouveau drawdown maximal reste inférieur au pire drawdown historique sans dépassement, l'hypothèse est rejetée.",
+      "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "beats_hold_in_most_folds",
-        "drawdown_below_20_pct"
-      ]
-    },
-    {
-      "asset": "SOLUSD",
-      "title": "Contrôler la robustesse historique de SOLUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
-      "blocking_checks": [
-        "twenty_or_more_closed_trades",
-        "positive_average_net_return",
-        "beats_hold_in_most_folds",
-        "positive_average_with_double_costs",
         "drawdown_below_20_pct"
       ]
     }
   ],
-  "bot_adjustments": [],
+  "bot_adjustments": [
+    {
+      "strategy": "btc_momentum",
+      "entry_scale": 1.2,
+      "reason": "Réduction de l'exposition face aux performances OOS négatives et aux signaux de repli macroéconomique.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "eth_momentum",
+      "entry_scale": 1.2,
+      "reason": "Limitation du risque de drawdown excessif observé sur les folds historiques de l'actif ETHUSD.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "sol_momentum",
+      "entry_scale": 0.8,
+      "reason": "Adaptation rapide aux variations de liquidité et aux transferts importants observés sur Solana sans modifier les règles de base.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    }
+  ],
   "scenario_proposals": [],
   "desk_notes": [],
   "experiments_validated": false,
