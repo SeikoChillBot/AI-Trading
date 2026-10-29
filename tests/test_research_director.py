@@ -93,7 +93,7 @@ class ResearchDirectorTests(unittest.TestCase):
             self.assertEqual(len(state["experiments"]),3)
         with self.assertRaises(ValueError):
             director._checked_plan({**proposal()["research_tasks"][0],
-              "rejection_rule":"Gagner tous les jours."},"BTCUSD")
+              "rejection_rule":"Non."},"BTCUSD")
 
     def test_only_real_future_observation_can_close_a_loop(self):
         _,state=self.go()
