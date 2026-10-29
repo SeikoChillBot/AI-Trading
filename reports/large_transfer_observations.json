@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-29T19:41:00.698370+00:00",
+  "generated_at": "2026-10-29T20:51:56.099779+00:00",
   "source": "https://eth.blockscout.com/api/v2",
   "chain": "ethereum",
   "state": "observing",
@@ -13,15 +13,156 @@
     "USDT": 150
   },
   "validated_records": {
-    "USDC": 39,
-    "USDT": 27
+    "USDC": 150,
+    "USDT": 150
   },
-  "large_transfers_observed": 0,
-  "large_transfers_new": [],
-  "sample_highlights": [],
-  "sampled_wallet_flows": [],
-  "sampled_wallets_count": 0,
-  "new_event_count": 0,
+  "large_transfers_observed": 3,
+  "large_transfers_new": [
+    {
+      "id": "f19ead2a901e4d5e4652415104433951cd62217a0448f4aba388fb373875fbf7",
+      "token": "USDC",
+      "quantity": "1300000.0001",
+      "nominal_usd_approx": 1300000.0001,
+      "timestamp": "2026-10-29T20:51:23+00:00",
+      "tx_hash": "0x825b9c723c0936373c61dc1bdb9dc33791a2cf9a2bc395fb12de4721b994cc0d",
+      "from_address": "0x3ab8bda9e21d1302fd71b2a398aa46ec63a57e56",
+      "to_address": "0x909b552806bb944f30676c7eb82fa4f11b99f7d7",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "42548cc6b233224b2bff1febff818448a25781a9830d0e179737abc440f8b95c",
+      "token": "USDC",
+      "quantity": "2045290",
+      "nominal_usd_approx": 2045290.0,
+      "timestamp": "2026-10-29T20:50:59+00:00",
+      "tx_hash": "0x897b6a0dd174a1d9d150f99a09a3c60511a667c769081ded58f2bad5eb6a4ed8",
+      "from_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "to_address": "0x51c72848c68a965f66fa7a88855f9f7784502a7f",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "b7f465657d87e861adddcf0cb1a19a806909c1e4721544c83d1cfef55c133f1c",
+      "token": "USDC",
+      "quantity": "8951941",
+      "nominal_usd_approx": 8951941.0,
+      "timestamp": "2026-10-29T20:50:59+00:00",
+      "tx_hash": "0x451a41d98f135487c4d2a11747054e724e46e88699645f06afb94aa604afe460",
+      "from_address": "0x8ca60aa18c1ee273e8117640253716989473c5e8",
+      "to_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
+  "sample_highlights": [
+    {
+      "id": "b7f465657d87e861adddcf0cb1a19a806909c1e4721544c83d1cfef55c133f1c",
+      "token": "USDC",
+      "quantity": "8951941",
+      "nominal_usd_approx": 8951941.0,
+      "timestamp": "2026-10-29T20:50:59+00:00",
+      "tx_hash": "0x451a41d98f135487c4d2a11747054e724e46e88699645f06afb94aa604afe460",
+      "from_address": "0x8ca60aa18c1ee273e8117640253716989473c5e8",
+      "to_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "42548cc6b233224b2bff1febff818448a25781a9830d0e179737abc440f8b95c",
+      "token": "USDC",
+      "quantity": "2045290",
+      "nominal_usd_approx": 2045290.0,
+      "timestamp": "2026-10-29T20:50:59+00:00",
+      "tx_hash": "0x897b6a0dd174a1d9d150f99a09a3c60511a667c769081ded58f2bad5eb6a4ed8",
+      "from_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "to_address": "0x51c72848c68a965f66fa7a88855f9f7784502a7f",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "f19ead2a901e4d5e4652415104433951cd62217a0448f4aba388fb373875fbf7",
+      "token": "USDC",
+      "quantity": "1300000.0001",
+      "nominal_usd_approx": 1300000.0001,
+      "timestamp": "2026-10-29T20:51:23+00:00",
+      "tx_hash": "0x825b9c723c0936373c61dc1bdb9dc33791a2cf9a2bc395fb12de4721b994cc0d",
+      "from_address": "0x3ab8bda9e21d1302fd71b2a398aa46ec63a57e56",
+      "to_address": "0x909b552806bb944f30676c7eb82fa4f11b99f7d7",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
+  "sampled_wallet_flows": [
+    {
+      "address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "incoming_nominal_usd": 8951941.0,
+      "outgoing_nominal_usd": 2045290.0,
+      "sample_net_nominal_usd": 6906651.0,
+      "sample_observations": 2,
+      "tokens": [
+        "USDC"
+      ],
+      "identity_verified": false,
+      "trade_inference": "unknown"
+    },
+    {
+      "address": "0x8ca60aa18c1ee273e8117640253716989473c5e8",
+      "incoming_nominal_usd": 0.0,
+      "outgoing_nominal_usd": 8951941.0,
+      "sample_net_nominal_usd": -8951941.0,
+      "sample_observations": 1,
+      "tokens": [
+        "USDC"
+      ],
+      "identity_verified": false,
+      "trade_inference": "unknown"
+    },
+    {
+      "address": "0x51c72848c68a965f66fa7a88855f9f7784502a7f",
+      "incoming_nominal_usd": 2045290.0,
+      "outgoing_nominal_usd": 0.0,
+      "sample_net_nominal_usd": 2045290.0,
+      "sample_observations": 1,
+      "tokens": [
+        "USDC"
+      ],
+      "identity_verified": false,
+      "trade_inference": "unknown"
+    },
+    {
+      "address": "0x3ab8bda9e21d1302fd71b2a398aa46ec63a57e56",
+      "incoming_nominal_usd": 0.0,
+      "outgoing_nominal_usd": 1300000.0,
+      "sample_net_nominal_usd": -1300000.0,
+      "sample_observations": 1,
+      "tokens": [
+        "USDC"
+      ],
+      "identity_verified": false,
+      "trade_inference": "unknown"
+    },
+    {
+      "address": "0x909b552806bb944f30676c7eb82fa4f11b99f7d7",
+      "incoming_nominal_usd": 1300000.0,
+      "outgoing_nominal_usd": 0.0,
+      "sample_net_nominal_usd": 1300000.0,
+      "sample_observations": 1,
+      "tokens": [
+        "USDC"
+      ],
+      "identity_verified": false,
+      "trade_inference": "unknown"
+    }
+  ],
+  "sampled_wallets_count": 5,
+  "new_event_count": 3,
   "errors": {},
   "buy_sell_inference": false,
   "real_trades": false,
