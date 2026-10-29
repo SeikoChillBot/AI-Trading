@@ -213,7 +213,8 @@ if follow_file.exists():
                 "generated_at":follow.get("generated_at"),
                 "coverage":follow.get("coverage"),
                 "tracked_addresses":[{k:row.get(k) for k in (
-                    "address","verified_identity","sample_count","new_count","baseline_at")}
+                    "address","verified_identity","sample_count","new_count","baseline_at",
+                    "last_polled_at","monitoring")}
                     for row in follow.get("tracked_addresses",[])[:4] if isinstance(row,dict)],
                 "new_transfers":[{k:row.get(k) for k in (
                     "tx_hash","token","nominal_usd_approx","timestamp",
