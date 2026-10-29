@@ -68,7 +68,7 @@ function detailSheet(r){
  svg.setAttribute('viewBox','0 0 '+w+' '+h);svg.style.width='100%';svg.style.height='100%';
  svg.innerHTML='<path d="'+path+'" fill="none" stroke="'+(n(r.return_pct)>=0?'#b9f477':'#ff8497')+'" stroke-width="2.6" stroke-linecap="round"/>';
  host.append(svg);
- $('robot-sheet').hidden=false;document.body.style.overflow='hidden';$('close-sheet').focus();
+ window.SeikoNavigation.openSheet(document.activeElement);
 }
 document.querySelectorAll('[data-robot-lab]').forEach(b=>b.addEventListener('click',()=>{
  scope=b.dataset.robotLab;asset='all';render();
@@ -80,7 +80,7 @@ document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click'
 document.querySelectorAll('[data-coin]').forEach(b=>b.addEventListener('click',()=>{asset=b.dataset.coin;render()}));
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='robots')render()}));
 window.addEventListener('hashchange',()=>{if(location.hash==='#robots')render()});
-L.openRobotMarket=name=>{scope='multi';search=name.toLocaleLowerCase('fr');if(input)input.value=name;render();L.goto('robots')};
+L.openRobotMarket=name=>{scope='multi';search=name.toLocaleLowerCase('fr');if(input)input.value=name;render();window.SeikoNavigation.navigate('robots')};
 L.refreshers.push(()=>{render();if(opened&&!$('robot-sheet').hidden){L.put('sheet-capital',L.money(opened.capital_usd));L.put('sheet-fees',L.money(opened.fees_usd,3))}});
 render();
 })();
