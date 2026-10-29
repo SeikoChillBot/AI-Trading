@@ -107,6 +107,26 @@ if(foundryList){
   put('strategy-foundry-summary','Première génération de l’atelier de recherche en attente.');
  }
 }
+const forward=DATA.strategy_forward||{};
+if(foundryList && forward.ready && Array.isArray(forward.trials)){
+ const heading=document.createElement('p');heading.className='micro-note';
+ heading.textContent='Suivi prospectif séparé : '+Number(forward.tracked||0)+
+    ' stratégie(s), seulement sur les nouvelles journées depuis leur création.';
+ foundryList.prepend(heading);
+ for(const trial of forward.trials.slice(0,6)){
+  if(!trial||Number(trial.observed_days||0)<1)continue;
+  const line=document.createElement('article');line.className='research-idea';
+  const title=document.createElement('strong');
+  title.textContent=(trial.asset||'Actif')+' · '+(trial.logic||'Logique')+
+     ' · '+Number(trial.observed_days||0)+' journée(s) futures';
+  const p=document.createElement('small');
+  const net=Number(trial.net_pct);
+  p.textContent=(trial.net_pct!=null&&Number.isFinite(net)?
+     'Rendement fictif après frais : '+(net>0?'+':'')+net.toFixed(2)+' % ; ':
+     '')+'trop tôt pour prouver la rentabilité.';
+  line.append(title,p);foundryList.append(line);
+ }
+}
 const aiReview=DATA.ai_review||{};
 const aiHost=get('ai-experiment-list');
 if(aiHost){
