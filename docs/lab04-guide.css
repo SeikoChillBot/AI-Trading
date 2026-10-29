@@ -34,3 +34,17 @@
  .ait-proof-cell{padding:11px}
  .ait-step-track span{padding:9px}
 }
+
+.ait-words{border:1px solid #3f5e55;background:#192b2e;border-radius:11px;padding:0 14px;margin:12px 0 19px;color:#cfe5d8}
+.ait-words>summary{padding:13px 0;cursor:pointer;font-weight:750;font-size:12px;color:#d9f1d7}
+.ait-words summary:focus-visible{outline:2px solid #b9f477;outline-offset:2px}
+.ait-words dl{display:grid;grid-template-columns:minmax(112px,1fr) 2.4fr;gap:11px 16px;padding-bottom:12px;margin:7px 0}
+.ait-words dt{font-size:12px;font-weight:800;color:#e8f4e9}
+.ait-words dd{font-size:12px;line-height:1.65;color:#aecfc0;margin:0}
+.ait-words>p{font-size:12px;line-height:1.7;color:#c2d7ce;padding-bottom:12px}
+@media(max-width:560px){.ait-words dl{grid-template-columns:1fr;gap:2px}.ait-words dt{margin-top:10px}.ait-words dd{margin-bottom:5px}}
+
+.ait-rule-details{border-top:1px solid #3b5a53;margin-top:12px;padding-top:4px}
+.ait-rule-details>summary{cursor:pointer;color:#c8eeb0;font-size:12px;font-weight:750;padding:8px 0}
+.ait-rule-details>p{font-size:12px;color:#c4d8ce;line-height:1.65;margin:7px 0}
+.ait-rule-details>summary:focus-visible{outline:2px solid #b9f477;outline-offset:3px}
