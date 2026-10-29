@@ -21,6 +21,7 @@ from research.autonomous_optimizer import REPORT as OPTIMIZER_REPORT
 from research.strategy_evolution import REPORT as EVOLUTION_REPORT
 from research.strategy_competition import REPORT as COMPETITION_REPORT
 from research.strategy_architect import REPORT as ARCHITECT_REPORT
+from research.scientific_memory import model_memory as scientific_context, REPORT as SCIENTIFIC_REPORT
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "autonomous_research.json"
@@ -407,6 +408,7 @@ def main():
     research = read_json(REPORT)
     research["strategy_research_memory"] = model_memory(read_json(STRATEGY_MEMORY))
     research["market_knowledge_memory"] = market_memory(read_json(MARKET_MEMORY))
+    research["scientific_lessons_memory"] = scientific_context(read_json(SCIENTIFIC_REPORT))
     optimizer = read_json(OPTIMIZER_REPORT)
     if (optimizer.get("schema") == 1
             and optimizer.get("source") == "autonomous_grid_search"
