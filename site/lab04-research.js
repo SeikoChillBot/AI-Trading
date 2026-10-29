@@ -174,7 +174,7 @@ if(evolList){
  const statusLabels={
    baseline_held:'Témoin de conservation, inchangé',
    analyzing_for_opportunities:'En veille : données insuffisantes pour modifier',
-   testing_proposal:'Hypothèse Gemini à tester prospectivement',
+   testing_proposal:'Variante en cours de test, pas encore validée',
    tuning_activated:'Réglage appliqué en simulation après validation',
  };
  const counts=evolution.counts||{};
@@ -194,7 +194,7 @@ if(evolList){
      shown++;
      const card=document.createElement('article');card.className='research-idea';
      const heading=document.createElement('strong');
-     heading.textContent=item.strategy+' · '+(item.lab==='crypto'?'Crypto':'Multi-actifs');
+     heading.textContent=String(item.strategy||'Robot').replaceAll('_',' ')+' · '+(item.lab==='crypto'?'Crypto':'Multi-actifs');
      const state=document.createElement('p');
      state.textContent=statusLabels[item.status]||'Étude en cours';
      const stats=document.createElement('p');
@@ -215,7 +215,20 @@ if(evolList){
      }
      if(Array.isArray(item.blocked_checks)&&item.blocked_checks.length){
        const blocked=document.createElement('small');
-       blocked.textContent='Validation en attente : '+item.blocked_checks.join(', ');
+       const terms={
+         minimum_elapsed_days:'durée d’observation trop courte',
+         minimum_closed_roundtrips:'pas assez d’achats et ventes terminés',
+         sufficient_distinct_future_candles:'pas assez de nouveaux cours observés',
+         bounded_missing_market_observations:'trop de données manquantes',
+         improves_net_after_costs:'gain après frais non démontré',
+         double_fees_not_loss:'risque de perte lorsque les frais augmentent',
+         bounded_maximum_drawdown:'risque de baisse trop important',
+         missing_forward_shadow_data:'premiers résultats encore attendus',
+         stale_shadow_evidence:'résultats trop anciens',
+         shadow_provenance_or_candidate_mismatch:'comparaison non certifiée',
+         incomplete_or_invalid_shadow_statistics:'données de comparaison incomplètes'
+       };
+       blocked.textContent='Encore à vérifier : '+item.blocked_checks.map(k=>terms[k]||'contrôle technique en attente').join(' · ');
        card.append(blocked);
      }
      evolList.append(card);
