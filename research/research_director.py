@@ -114,7 +114,17 @@ def prospective_status(record, forward):
         return "invalid_forward_provenance", 0
     days = rec.get("observed_days", 0)
     trades = rec.get("closed_trades", 0)
-    if (type(days) is not int or type(trades) is not int or
+    # Never use a self-reported observation count without matching genuine
+    # successive *future* calendar time after this plan was registered.
+    frozen_day = record.get("closed_day_at_registration")
+    last_day = rec.get("last_t")
+    chronological = (
+        type(frozen_day) is int and type(last_day) is int
+        and last_day > frozen_day
+        and type(days) is int and 0 <= days <= (last_day - frozen_day) // 86400
+        and (last_day - frozen_day) % 86400 == 0
+    )
+    if (not chronological or type(trades) is not int or
             days < MIN_OBSERVED_DAYS or trades < MIN_CLOSED_TRADES or
             rec.get("status") != "observing_paper_only"):
         return "awaiting_prospective_data", max(0, days) if type(days) is int else 0
