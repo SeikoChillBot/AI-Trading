@@ -33,6 +33,73 @@ put('lab-gemini-diagnostic',state==='model_reflection_completed'?
  'Réponse Gemini non confirmée : '+(state||'statut absent')+' · calculs statistiques indépendants.');
 // Show portfolio composition for both legacy crypto highlights and unified directory sheets.
 const panel=$('robot-sheet'),name=$('sheet-name');
+let selectedPeriod='all';
+function drawIndividualChart(r,multi,history){
+ const box=$('sheet-chart');if(!box)return;
+ const launch=Date.parse(multi?D.multi_asset?.started_at:D.launched_at);
+ const update=Date.parse(multi?D.multi_asset?.updated_at:D.updated);
+ const original=(history||[]).filter(x=>x.strategy===r.strategy).map(x=>({
+   t:Date.parse(x.recorded_at||''),v:Number(x.capital_usd)}))
+   .filter(p=>Number.isFinite(p.t)&&Number.isFinite(p.v)&&p.v>=0)
+   .sort((a,b)=>a.t-b.t);
+ const points=[...original];
+ if(Number.isFinite(launch)&&(!points.length||launch<points[0].t))
+  points.unshift({t:launch,v:Number(r.initial_usd||20)});
+ if(Number.isFinite(update)&&(!points.length||update>points[points.length-1].t))
+  points.push({t:update,v:Number(r.capital_usd)});
+ const maxT=points.length?points[points.length-1].t:Date.now();
+ const delay=selectedPeriod==='1d'?86400000:selectedPeriod==='7d'?604800000:Infinity;
+ const selected=points.filter(p=>p.t>=maxT-delay);
+ const selectedRows=original.filter(p=>p.t>=maxT-delay);
+ box.replaceChildren();
+ document.querySelectorAll('[data-sheet-range]').forEach(button=>{
+  const active=button.dataset.sheetRange===selectedPeriod;
+  button.classList.toggle('is-active',active);
+  button.setAttribute('aria-pressed',String(active));
+ });
+ if(selected.length<2){
+  const p=document.createElement('p');p.className='micro-note';
+  p.textContent='Pas encore assez de relevés dans cette période pour tracer une courbe fiable.';
+  box.append(p);put('sheet-chart-stats','Données insuffisantes sur cette période.');return;
+ }
+ const low=Math.min(...selected.map(p=>p.v)),high=Math.max(...selected.map(p=>p.v));
+ const pad=Math.max((high-low)*.18,Number(r.initial_usd||20)*.003);
+ const min=low-pad,max=high+pad,w=520,h=175;
+ const xy=selected.map(p=>({
+  x:14+(p.t-selected[0].t)/Math.max(1,maxT-selected[0].t)*(w-28),
+  y:10+(max-p.v)/(max-min)*(h-30)}));
+ // The last sample is the actual last observation, not an invented projection.
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ svg.setAttribute('viewBox','0 0 '+w+' '+h);
+ svg.setAttribute('role','img');
+ svg.setAttribute('aria-label','Capital estimé de '+r.strategy+' de '+date(selected[0].t)+' à '+date(selected[selected.length-1].t));
+ svg.style.width='100%';svg.style.height='100%';
+ const ns='http://www.w3.org/2000/svg';
+ for(const y of [18,85,152]){
+  const line=document.createElementNS(ns,'line');
+  line.setAttribute('x1',14);line.setAttribute('x2',w-14);
+  line.setAttribute('y1',y);line.setAttribute('y2',y);
+  line.setAttribute('stroke','#35504e');line.setAttribute('stroke-width','1');
+  svg.append(line);
+ }
+ const path=document.createElementNS(ns,'path');
+ path.setAttribute('d',xy.map((p,i)=>(i?'L':'M')+p.x.toFixed(2)+' '+p.y.toFixed(2)).join(' '));
+ path.setAttribute('fill','none');
+ path.setAttribute('stroke',selected.at(-1).v>=selected[0].v?'#b9f477':'#ff8497');
+ path.setAttribute('stroke-width','3');
+ path.setAttribute('stroke-linecap','round');path.setAttribute('stroke-linejoin','round');
+ svg.append(path);
+ const dot=document.createElementNS(ns,'circle');
+ dot.setAttribute('cx',xy.at(-1).x);dot.setAttribute('cy',xy.at(-1).y);
+ dot.setAttribute('r','4');dot.setAttribute('fill',path.getAttribute('stroke'));
+ svg.append(dot);box.append(svg);
+ put('sheet-chart-stats','Minimum '+money(low)+' · maximum '+money(high)+
+  ' · '+selectedRows.length+' relevé(s) horodaté(s) · '+date(selected[0].t)+' → '+
+  date(selected.at(-1).t)+'.');
+}
+for(const button of document.querySelectorAll('[data-sheet-range]')){
+ button.addEventListener('click',()=>{selectedPeriod=button.dataset.sheetRange;updateHoldings()});
+}
 function updateHoldings(){
  if(!panel||panel.hidden||!name)return;
  const L=window.SeikoV4;if(!L)return;
@@ -54,6 +121,7 @@ function updateHoldings(){
  put('sheet-units',Number.isFinite(n)?format(n,8)+' '+String(r.asset||'').replace(/USD$/,''):'Donnée absente');
  put('sheet-position',Number.isFinite(n)?n>0?'Actif détenu (simulation)':'Liquidités uniquement':'Non déterminée');
  const history=category.includes('multi')?L.m.history:L.D.history;
+ drawIndividualChart(r,category.includes('multi'),history);
  const records=(history||[]).filter(x=>x.strategy===r.strategy&&Number.isFinite(Date.parse(x.recorded_at||'')));
  const first=records[0]?.recorded_at,last=records[records.length-1]?.recorded_at;
  put('sheet-chart-context',records.length?records.length+' relevés · '+date(first)+' → '+date(last)+
