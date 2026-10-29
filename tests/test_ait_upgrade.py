@@ -66,7 +66,7 @@ class RadarTests(unittest.TestCase):
         source={"state":"observing","generated_at":(NOW-timedelta(hours=5)).isoformat(),
                 "sampled_wallet_flows":[{"address":ADDR1,"identity_verified":False}]}
         report,state=follow.observe(NOW,source,{},lambda *x,**kw:None)
-        self.assertEqual(report["state"],"not_configured")
+        self.assertEqual(report["state"],"no_recent_addresses")
         self.assertEqual(report["new_transfers"],[])
 
 
