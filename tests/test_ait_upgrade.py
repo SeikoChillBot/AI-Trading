@@ -141,6 +141,31 @@ class GeminiRecoveryTests(unittest.TestCase):
             self.assertTrue(result["used_cache"])
 
 
+    def test_gemini_schema_400_recovers_with_json_only_still_validated(self):
+        sample={"summary":"Vérifier les risques","experiments":[],
+                "bot_adjustments":[],"scenario_proposals":[],"desk_notes":[]}
+        output={"candidates":[{"finishReason":"STOP",
+                "content":{"parts":[{"text":json.dumps(sample)}]}}]}
+        class APIResponse:
+            def __init__(self,status_code):self.status_code=status_code
+            def raise_for_status(self):
+                if self.status_code>=400:
+                    raise ai.requests.HTTPError("Bad request",response=self)
+            def json(self):return output
+        calls=[]
+        def post(url,**kwargs):
+            calls.append(kwargs["json"])
+            return APIResponse(400 if len(calls)<3 else 200)
+        with patch.object(ai.requests,"post",post):
+            data=ai.run_gemini("fake-test-only",{},
+                               {"assets":[{"asset":"BTCUSD"}]})
+        self.assertEqual(data["summary"],sample["summary"])
+        self.assertEqual(len(calls),3)
+        self.assertNotIn("responseSchema",calls[2]["generationConfig"])
+        self.assertEqual(calls[2]["generationConfig"]["responseMimeType"],"application/json")
+
+
+
 class DashboardTests(unittest.TestCase):
     def test_original_navigation_and_new_panels(self):
         root=Path(__file__).resolve().parents[1]
