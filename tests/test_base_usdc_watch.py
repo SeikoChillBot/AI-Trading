@@ -89,6 +89,38 @@ class Tests(unittest.TestCase):
         self.assertIn("public_rpc_logs",result["source_method"])
         self.assertTrue(all(url!=base.HOST for url,method in errors))
 
+    def test_busy_base_usdc_blocks_are_not_falsely_reported_as_outage(self):
+        # Real Base often has over 500 USDC Transfer events in 12 blocks.
+        # A previous local cap of 500 made working public RPCs look broken.
+        class RpcReply:
+            def __init__(self,result):self.result=result
+            def raise_for_status(self):pass
+            def json(self):return {"jsonrpc":"2.0","id":1,"result":self.result}
+        row={"address":base.CONTRACT,
+             "topics":[base.EVENT_TRANSFER,"0x"+"0"*64,"0x"+"0"*64],
+             "transactionHash":HASH,"logIndex":"0x0",
+             "blockNumber":hex(1000),"data":hex(10000)}
+        calls=[]
+        def rpc(url,**kw):
+            method=kw["json"]["method"];calls.append(method)
+            return RpcReply(hex(1000) if method=="eth_blockNumber" else [row]*850)
+        report=base.build(NOW,post=rpc,prefer_rpc=True)
+        self.assertEqual(report["state"],"observing")
+        self.assertEqual(report["sampled_count"],850)
+        self.assertEqual(report["large_count"],0)
+        self.assertEqual(calls,["eth_blockNumber","eth_getLogs"])
+
+    def test_rpc_error_code_preserved_without_external_error_text(self):
+        class Reply:
+            def raise_for_status(self):pass
+            def json(self):return {"jsonrpc":"2.0","id":1,
+                  "error":{"code":-32005,"message":"hidden external diagnostic"}}
+        def failed_rpc(*args,**kwargs):return Reply()
+        result=base.build(NOW,post=failed_rpc,prefer_rpc=True)
+        self.assertEqual(result["state"],"unavailable")
+        self.assertTrue(all("rpc_error_-32005" in x for x in result["sources_attempted"]))
+        self.assertNotIn("hidden external diagnostic",str(result))
+
     def test_scheduled_mode_reports_all_endpoint_failures_without_fake_transfers(self):
         def blocked(*args,**kwargs):
             raise base.requests.HTTPError("rate limited")
