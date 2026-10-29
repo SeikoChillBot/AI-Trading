@@ -22,3 +22,8 @@
 .sheet-range button{border:1px solid #3d5f54;border-radius:8px;background:#162d31;color:#b4cec7;padding:7px 10px;font-size:10px;font-weight:800}
 .sheet-range button.is-active{background:#2b5037;border-color:#78a471;color:#e7ffe0}
 #sheet-chart-stats{font-size:10px;color:#b7c9ca;line-height:1.5}
+
+.lab-freshness-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+#lab-refresh{border:1px solid #638d72;border-radius:9px;padding:7px 10px;background:#254536;color:#e4f7e4;font-size:10px;font-weight:800;cursor:pointer}
+#lab-refresh:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+@media(max-width:560px){.lab-freshness-actions{flex-direction:column;align-items:stretch}#lab-refresh{padding:7px}}
