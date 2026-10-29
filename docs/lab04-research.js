@@ -127,6 +127,18 @@ if(foundryList && forward.ready && Array.isArray(forward.trials)){
   line.append(title,p);foundryList.append(line);
  }
 }
+const optimizer=DATA.autonomous_optimizer||{};
+put('strategy-optimizer-status',optimizer.ready?
+    'Recherche quantitative autonome : '+Number(optimizer.candidate_count||0)+
+    ' configurations archivées, '+Number(optimizer.new_candidates||0)+
+    ' nouvelles dans le dernier cycle. Historique exploratoire, sans profit garanti.':
+    'Recherche quantitative autonome : premier relevé non encore confirmé.');
+const liveGate=DATA.manual_live_review||{};
+put('strategy-manual-review-status',liveGate.ready?
+    'Tests futurs suivis : '+Number(liveGate.tracked_research_candidates||0)+
+    ' ; candidats pour examen humain : '+Number(liveGate.eligible_for_human_review||0)+
+    '. Argent réel désactivé, accord personnel obligatoire.':
+    'Contrôle d’accès réel : en attente de premier rapport. Argent réel désactivé.');
 const aiReview=DATA.ai_review||{};
 const aiHost=get('ai-experiment-list');
 if(aiHost){
