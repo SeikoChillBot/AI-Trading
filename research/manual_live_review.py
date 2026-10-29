@@ -56,10 +56,17 @@ def build(now, forward, foundry_memory):
         except (ValueError, KeyError, TypeError):
             continue
     results = []
+    try:
+        generated = datetime.fromisoformat(str(forward.get("generated_at", "")).replace("Z", "+00:00"))
+        fresh = (generated.tzinfo is not None
+                 and 0 <= (now - generated).total_seconds() <= 12 * 3600)
+    except (TypeError, ValueError, OverflowError):
+        fresh = False
     valid_report = (isinstance(forward, dict)
                     and forward.get("schema") == 1
                     and forward.get("real_orders") is False
-                    and forward.get("robots_modified") is False)
+                    and forward.get("robots_modified") is False
+                    and fresh)
     for row in records[:24] if valid_report else []:
         if not isinstance(row, dict) or row.get("id") not in verified:
             continue
