@@ -85,12 +85,19 @@ if(foundryList){
       Number(foundry.tested_historically||0)+' comparaison(s) historiques. Aucun robot modifié.');
   const titles={trend_following:'Suivi de tendance',
                 mean_reversion:'Recherche de rebond',
-                breakout:'Cassure de résistance'};
+                breakout:'Cassure de résistance',
+                ema_trend:'Tendance EMA',
+                rsi_reversal:'Rebond RSI',
+                volatility_gate:'Tendance avec filtre de volatilité',
+                dual_confirmation:'Confirmation EMA + RSI'};
   for(const item of (Array.isArray(foundry.ideas)?foundry.ideas:[]).slice(-8).reverse()){
    const article=document.createElement('article');article.className='research-idea';
    const heading=document.createElement('strong');
    heading.textContent=(item.asset||'Marché')+' · '+(titles[item.logic]||'Logique expérimentale')+
-        ' · '+(item.source==='gemini_structured_hypothesis'?'Proposition Gemini':'Référence statistique');
+        ' · '+(item.source==='gemini_structured_hypothesis'?'Proposition Gemini':
+          item.source==='bounded_evolution'?'Mutation autonome':
+          item.source==='autonomous_grid_search'?'Recherche quantitative':
+          'Référence statistique');
    const rule=document.createElement('p');
    rule.textContent='Observation '+String(item.lookback_days||'?')+' jours · seuil '+
         String(item.threshold_pct??'?')+' % · conservation maximum '+
@@ -133,6 +140,20 @@ put('strategy-optimizer-status',optimizer.ready?
     ' configurations archivées, '+Number(optimizer.new_candidates||0)+
     ' nouvelles dans le dernier cycle. Historique exploratoire, sans profit garanti.':
     'Recherche quantitative autonome : premier relevé non encore confirmé.');
+const evolution=DATA.strategy_evolution||{};
+put('strategy-evolution-status',evolution.ready?
+    'Évolution autonome : '+Number(evolution.total_mutations||0)+
+    ' mutation(s) archivées, '+Number(evolution.new_mutations||0)+
+    ' nouvelle(s) dans ce cycle. Les liens avec les stratégies parentes sont conservés.':
+    'Évolution autonome : premier cycle non encore confirmé.');
+const competition=DATA.strategy_competition||{};
+put('strategy-competition-status',competition.ready?
+    'Compétition fictive sur nouvelles journées : '+
+    Number(competition.tracked||0)+' stratégies suivies, '+
+    Number(competition.qualifying_candidates||0)+' candidate(s) en validation, '+
+    Number(competition.paper_champions||0)+
+    ' championne(s) fictive(s). Aucun gain futur garanti.':
+    'Compétition fictive : résultats prospectifs non encore publiés.');
 const liveGate=DATA.manual_live_review||{};
 put('strategy-manual-review-status',liveGate.ready?
     'Tests futurs suivis : '+Number(liveGate.tracked_research_candidates||0)+
