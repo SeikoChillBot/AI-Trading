@@ -135,7 +135,8 @@ def signal(closes, i, spec, holding, age):
         rsi = _rsi(closes, i, w)
         changes = [(closes[j] / closes[j - 1] - 1)
                    for j in range(i - w + 1, i)]
-        volatility = math.sqrt(sum((v - sum(changes) / len(changes)) ** 2
+        mean_change = sum(changes) / len(changes)
+        volatility = math.sqrt(sum((v - mean_change) ** 2
                                    for v in changes) / len(changes))
     if holding:
         if age >= spec["max_hold_days"]:
