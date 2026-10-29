@@ -2,7 +2,12 @@ name: AIT — independent research uptime watchdog
 
 on:
   workflow_dispatch:
-  # Fallback independent of paper-trading: never dispatch a duplicate research run.
+  # GitHub cron is best-effort and has missed recent scheduled events.
+  # Existing ChillBot paper dispatches provide a second, event-driven heartbeat.
+  workflow_run:
+    workflows: ['Paper trading']
+    types: [completed]
+  # Keep a standalone recovery route if external paper dispatches stop.
   schedule:
     - cron: '43 * * * *'
   push:
@@ -20,6 +25,8 @@ concurrency:
 
 jobs:
   research-uptime:
+    # A failed paper job should not automatically fan out into new research.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
