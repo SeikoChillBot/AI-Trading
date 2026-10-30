@@ -1,66 +1,79 @@
-# Seiko Trading Lab — contre-analyse GPT du 29 octobre 2026
+# Seiko Trading Lab — contre-analyse GPT du 30 octobre 2026
 
-**Auteur :** supervision ChatGPT, indépendante de Gemini et des moteurs statistiques.  
-**Périmètre :** dépôt GitHub `SeikoChillBot/AI-Trading`, données fictives uniquement.  
-**Date du contrôle :** 29/10/2026, vers 14 h 05 (Europe/Paris).  
-**Sources internes :** `reports/ai_research_status.json`, `reports/ai_research_proposals.json`, `reports/ai_daily_brief.json`, `reports/realistic_metrics.json`, `reports/multi_asset_micro_metrics.json`, `reports/challenger_walkforward.json`, `reports/robot_evolution.json`, `reports/ai_placement_experiments.json`, `reports/base_usdc_observations.json`, `reports/whale_follow.json` et exécutions GitHub Actions mentionnées ci-dessous.
+**Auteur :** ChatGPT, supervision indépendante ; ne pas attribuer ce document à Gemini.  
+**Contrôle :** vendredi 30/10/2026 vers 14 h 40, heure de Paris (UTC+1).  
+**Nature :** vérification des rapports GitHub et des exécutions ; aucune API GPT payante, aucun ordre réel.  
+**Fraîcheur des données :** recherche publiée à 13:02:32 UTC (14:02 Paris), simulation paper à 13:34:49 UTC (14:34 Paris). Les résultats peuvent évoluer ensuite.
 
-## 1. Statut réellement vérifié de Gemini
+## 1. Gemini : vraie réponse, puis cache
 
-- Une **réponse générative Gemini réelle** a été enregistrée à **08:54:51 UTC** le 29/10 : `model_reflection_completed`, `source=gemini_generate_content`, `model_last_called_at=2026-10-29T08:54:51Z`.
-- Le rapport de recherche du cycle **11:44–11:45 UTC** réutilise cette réponse : `used_cache=true`, `review_slot=2026-10-29T06:00Z`. Ce cycle est **une actualisation des observations, pas un nouvel appel Gemini**.
-- Le workflow recherche [40867717628](https://github.com/SeikoChillBot/AI-Trading/actions/runs/40867717628) et le workflow Paper [40877852892](https://github.com/SeikoChillBot/AI-Trading/actions/runs/40877852892) sont tous deux `success`. Le déploiement Pages [40877890544](https://github.com/SeikoChillBot/AI-Trading/actions/runs/40877890544) est `success`.
-- Gemini a émis **2 expériences historiques non testées** et **3 hypothèses de réglage** dans son JSON. Le journal des robots n'enregistre qu'**une variante Gemini en test prospectif**, `sol_momentum`; aucun réglage n'est validé. Les **9 scénarios de placement fictif** sont tous issus du moteur quantitatif, **zéro** d'une décision Gemini.
+- `reports/ai_research_status.json` : `state=model_reflection_completed`, `provider=gemini`, `model_last_called_at=2026-10-30T12:05:31.600322Z`, `attempts_in_slot=1`, sans erreur signalée. Le journal de l'exécution de recherche **41052681456** confirme l'étape réelle à 12:05 UTC. Ce statut et la source `gemini_generate_content` indiquent une réponse Gemini enregistrée, non un repli statistique.
+- Le cycle de recherche **41059890515**, à 13:02 UTC, est **SUCCESS**, mais son rapport porte `used_cache=true` : **ce cycle n'a pas obtenu une nouvelle réponse Gemini**. Il a publié les données actualisées, commit `9ea5e54` poussé sur `main` à 13:02:36 UTC.
+- Gemini a fourni **2 propositions d'expériences**, **2 propositions de seuil** (`btc_momentum`, `eth_momentum`, `entry_scale=1.2`), mais **0 `research_tasks`**, **0 `strategy_designs`**, **0 `scenario_proposals`** et **0 `desk_notes`**. C'est une analyse réellement générative, **pas** une nouvelle stratégie structurée ou un essai exécuté par Gemini.
+- `reports/robot_evolution.json` : **36 robots**, **12 Hold immuables**, **24 variantes en test**, **0 activation**. Une ancienne variante `sol_momentum` conserve la provenance `gemini_structured_hypothesis` ; elle ne doit pas être attribuée à l'appel du jour.
+- Le rapport quotidien du 30/10 attribue **2 nouveaux essais de placement au moteur statistique et 0 à Gemini**. Les essais existants de Gemini ne sont pas réinterprétés comme des transactions.
 
-## 2. Audit indépendant GPT — performances et risques
+## 2. Audit GPT indépendant des résultats, après coûts simulés
 
-### Expérience prospective crypto (18 robots × 20 USD fictifs)
+| Famille | Départ fictif | Dernière valeur | Rendement net estimé | État de validation |
+|---|---:|---:|---:|---|
+| Crypto V2, 18 × 20 USD | 360 USD | **330,73541 USD** | **−8,1291 %** | **0/18** évaluable |
+| Multi-actifs micro, 18 × 20 USD | 360 USD | **359,11149 USD** | **−0,2468 %** | **0/18** évaluable |
 
-**Dernière observation : 12:59:26 UTC.** Capital initial 360 USD ; valorisation estimée **347,86669 USD**, soit **−12,13331 USD (−3,3704 %)**. Frais déjà comptabilisés dans les stratégies : **8,1169 USD** (somme des `fees_paid_usd`), sans prétendre que la perte est entièrement imputable aux frais. **52 ordres fictifs remplis, zéro refusé**, mais seulement **0 robot évaluable** : durée **0,7709 jour**, seuil de revue 14 jours et au moins 20 allers-retours clôturés par stratégie.
+**Crypto V2 :** `reports/realistic_metrics.json`, 13:34:49 UTC : **122 ordres fictifs remplis**, **0 refus**, **58 allers-retours clôturés au total**, **18,56926 USD de frais déjà comptabilisés** (somme par stratégie), **18/18 robots en perte**. Les frais agrégés représentent environ **5,16 % des 360 USD de capitaux expérimentaux initiaux**, mais ne peuvent pas être identifiés mécaniquement comme la cause de toute la perte de 29,26459 USD. Le drawdown global observé déclaré est **8,1291 %**. Durée seulement **1,7954 jour**, contre un seuil de travail de **14 jours et 20 allers-retours par robot**. Seulement **4 stratégies** font mieux que leur Hold respectif sur cette fenêtre, tout en restant elles-mêmes en perte ; une supériorité relative ponctuelle ne prouve rien.
 
-Sur les 18 robots, **16 affichent une performance négative et 2 restent à 0 %**, aucun n'est positif. **Six surpassent néanmoins leur témoin Hold en points de rendement** sur la fenêtre observée, parfois simplement en restant en liquidités : cela ne démontre pas un avantage exploitable. Le meilleur classement relatif et le rendement absolu doivent rester distincts. La valorisation reste une simulation avec frais, carnet instantané et glissement hypothétique.
+**Multi-actifs micro :** `reports/multi_asset_micro_metrics.json`, 13:34:49 UTC : **12 positions ouvertes**, **0 aller-retour clôturé**, durée **1,6996 jour**, seuil **30 jours et 20 allers-retours**. Les 16 scénarios actions/ETF sont marqués `DELAYED_OR_CLOSED` et les 2 EUR/USD `REFERENCE_ONLY` ; ces qualités de cotation n'impliquent pas que toutes les positions sont en cash. Fractionnement, dividendes/splits, disponibilité européenne et cours exécutables restent non vérifiés.
 
-### Expérience prospective multi-actifs micro (18 robots × 20 USD fictifs)
+**Étude historique quotidienne, 8 fenêtres par actif :**
 
-**Dernière observation : 12:59:26 UTC.** Capital initial 360 USD ; valorisation **359,8605 USD**, soit **−0,1395 USD (−0,0387 %)**. Durée **0,675 jour**, **0 robot évaluable** (seuil 30 jours et 20 allers-retours). Les 16 robots actions/ETF présentent des cotations `DELAYED_OR_CLOSED` et sont encore en cash ; seuls les 2 scénarios EUR/USD ont une référence `REFERENCE_ONLY`, non exécutable chez un courtier. **Le résultat quasi stable ne signifie donc pas que 16 stratégies ont résisté au marché.** Les fractions d'actions/ETF restent des hypothèses de recherche non confirmées pour un compte français.
+| Actif | Rendement net moyen | Excès moyen vs Hold | Rendement frais ×2 | Pire drawdown | Trades clôturés | Fenêtres devant Hold |
+|---|---:|---:|---:|---:|---:|---:|
+| BTC | −1,5586 % | +2,8004 points | −3,8579 % | 19,5062 % | 9 | 5/8 |
+| ETH | **+7,3968 %** | +5,4038 points | **+5,0781 %** | **25,1673 %** | 7 | 4/8 |
+| SOL | −4,9151 % | −0,0277 point | −8,9099 % | 35,0085 % | 16 | 4/8 |
 
-Les deux groupes de 360 USD sont des **expériences distinctes**, pas une somme à investir, et leurs résultats ne doivent pas être fusionnés comme un portefeuille réel.
+**Lecture correcte :** ETH a une moyenne historique positive, donc « tous les rendements historiques sont négatifs » serait faux. Mais **aucun candidat n'est robuste** : nombre de trades insuffisant, résultats non uniformes selon les fenêtres, drawdown ETH >20 %, et risque de sélection répétée des mêmes historiques. Les seuils sont des garde-fous de recherche, non une certification.
 
-### Étude historique walk-forward (BTC / ETH / SOL, 8 fenêtres OOS chacune)
+**Étude horaire distincte** (`reports/intraday_research.json`, bougie 12:00 UTC) : moyennes historiques **BTC −7,85458 %**, **ETH −10,22239 %**, **SOL −8,56586 %** ; toutes trois ont un excès moyen négatif face au Hold. Les trois pistes horaires prospectives sont également négatives (**BTC −5,12025 %**, **ETH −3,30195 %**, **SOL −0,4286 %**) avec **33 observations et 1 trade clôturé chacune**. Cela explique pourquoi le bilan quotidien peut annoncer « 0 avec un excès historique positif » **pour les études horaires** sans contredire les valeurs quotidiennes ci-dessus. Ne pas fusionner ces protocoles.
 
-| Actif | Rendement net moyen historique | Excès moyen vs Hold (points) | Frais ×2 : moyenne | Baisse maximale observée | Allers-retours clôturés |
-|---|---:|---:|---:|---:|---:|
-| BTC | −2,6699 % | +0,8265 | −5,3474 % | 19,5062 % | 11 |
-| ETH | **+7,8287 %** | +4,3323 | **+5,5104 %** | **25,1673 %** | 7 |
-| SOL | −5,2159 % | −2,5300 | −9,0164 % | 35,0085 % | 15 |
+## 3. Compléments critiques aux propositions Gemini
 
-**Correction importante de la synthèse Gemini :** dire que les performances nettes historiques sont « négatives » pour tous les robots/actifs est **faux pour cette étude ETH**, dont la moyenne est positive. Cela ne qualifie **pas** ETH : 7 trades clôturés (<20), seulement **4 fenêtres sur 8** battent Hold, **3 sur 8** ont un rendement net positif, et le drawdown maximal dépasse le seuil de travail de 20 %. La moyenne positive peut être tirée par quelques fenêtres très favorables. Les mêmes fenêtres déjà explorées ne constituent pas une nouvelle preuve indépendante.
+**Proposition BTC « frais doublés » :** Gemini demande un simple achat spot fictif de 20 USD conservé sept jours, avec frais doublés, pour juger des **robots de momentum**. Ce protocole ne teste pas directement le signal momentum : il mesure surtout une détention ponctuelle avec coût différent. **Expérience corrigée à préparer, non lancée :** figer un robot momentum et son clone à règles et bougies identiques, l'un aux frais de base et l'autre aux frais ×2, plus un Hold synchronisé, sur **de nouvelles données**. Comparer rendement net, différence vs Hold, nombre de signaux/trades, drawdown et coûts ; rejeter l'avantage si le clone perd son excès net. Aucune nouvelle série prospective indépendante n'est encore disponible pour conclure.
 
-BTC : moyenne nette négative, frais doublés négatifs, 11 trades et seulement 4/8 fenêtres devant Hold. SOL : moyenne nette négative, baisse maximale 35 %, 15 trades et 3/8 fenêtres devant Hold. **Aucun des trois candidats ne satisfait les critères de qualification.**
+**Proposition SOL « breakout » :** un achat spot de trois jours déclenché par `market_selloff` ou `sampled_large_transfer` ne suffit pas à tester un **filtre breakout**. Un transfert de stablecoins échantillonné, notamment sur Ethereum, ne prouve ni achat SOL ni flux directionnel. **Expérience corrigée à préparer, non lancée :** comparer sur les mêmes futurs jours une règle breakout déclarative et figée, un témoin Hold et un témoin sans filtre ; mesurer faux signaux selon une définition préalable, frais, drawdown et rendement net. Ne pas utiliser de transfert comme preuve de signal.
 
-## 3. Vérification des hypothèses et de l'attribution
+**Propositions de réglage `entry_scale=1.2` :** il s'agit d'un **seuil de signal**, non d'une réduction du montant engagé ni d'une diminution démontrée du risque. Le système les laisse au stade d'hypothèses ; aucun robot n'a été modifié.
 
-- Le JSON Gemini propose notamment `entry_scale=1.2` en parlant de « réduction de l'exposition ». **C'est un contresens dans la justification** : dans `research/robot_tuning.py` et les consignes révisées, ce multiplicateur concerne le **seuil de signal**, pas le montant investi ni une baisse garantie du risque. Les explications de vulnérabilité technique dans une autre proposition ne sont pas étayées par les preuves transmises. Ces propositions restent **non validées**.
-- Les expériences suggérées par Gemini (stress des frais BTC, fenêtres indépendantes ETH) sont **des hypothèses non testées**, et non des tests terminés. Leur exécution doit préserver des données réellement nouvelles et un protocole falsifiable.
-- `reports/robot_evolution.json` compte **36 robots**, dont **12 témoins Hold immuables**, **21 variantes en test** (20 statistiques, 1 Gemini), 3 en analyse et **0 adoption**. Les protections prospectives doivent rester en place.
-- `reports/ai_placement_experiments.json` : 9 essais quantitatifs fictifs, 6 positions en attente de nouveaux jours clôturés et 3 entrées encore en attente. Les 6 positions ont **zéro observation après entrée** ; leurs valeurs provisoires ne sont pas des performances finales. Aucun essai initié par Gemini.
-- `reports/whale_follow.json` signale **un transfert public USDC nominal d'environ 1,8 M USD** observé sur Ethereum à 11:02:35 UTC ; ni identité du propriétaire, ni achat/vente ne sont établis. Les quatre adresses suivies ne constituent pas une couverture exhaustive.
+## 4. Travaux autonomes non terminés et limite de conception
 
-## 4. Incident technique distinct : Base USDC
+- `reports/strategy_foundry.json` : **18 hypothèses**, **0 hypothèse Gemini**, **3 optimisations**, **3 évolutions**, **6 croisements**, **3 plans du directeur**, **0 contrôle contradictoire local associé à Gemini**. `reports/scientific_memory.json` : 18 hypothèses archivées ; **18/18** échouent au contrôle historique de frais doublés, **17/18** à la positivité nette, **14/18** au volume de trades, sur des historiques déjà exploités.
+- `reports/strategy_forward.json` : **18 pistes prospectives**, **1 journée observée chacune**, **0 trade clôturé**, **0 championne** (`strategy_competition.json`). Les écarts favorables vs Hold de certaines pistes restées en liquidités pendant la baisse ne sont pas une preuve de stratégie rentable.
+- `reports/research_director.json` : **3 plans locaux BTC/ETH/SOL**, chacun à **1 jour prospectif**, **0 plan neuf Gemini** et **0 paire contradictoire**.
+- **Goulot de conception vérifié dans `research/research_director.py` :** tant que le plan actif d'un actif est `awaiting_prospective_data`, le directeur le conserve et passe à l'actif suivant **avant** d'examiner les éventuelles nouvelles `research_tasks` Gemini. Les trois emplacements locaux sont actuellement occupés. Même si Gemini produisait demain une tâche structurée, elle pourrait attendre longtemps sans voie expérimentale parallèle. **Correction proposée, pas appliquée :** une file d'attente/voie `shadow` indépendante et bornée pour de nouveaux plans Gemini, avec gel horodaté, provenance, quotas de slots, comparaison synchronisée, tests anti-fuite et aucun écrasement des plans en cours. Ne pas faire une modification rapide de ce moteur sans tests ciblés.
 
-Le rapport `reports/base_usdc_observations.json` à **11:44:52 UTC** reste **`state=unavailable`** : 0 événement observable, et non « aucun transfert ». Les tentatives RPC ont échoué sur **PublicNode (ValueError)**, **Nodely (ValueError)** et **RPC officiel Base (HTTPError)**. Les tests unitaires simulés du workflow recherche sont verts, **mais la collecte réelle Base n'est pas opérationnelle**.
+## 5. Journal de scénarios et couverture de marché
 
-**Diagnostic limité :** le code `research/base_usdc_watch.py` masque les détails des erreurs JSON-RPC derrière `ValueError`; impossible de conclure s'il s'agit d'une méthode refusée, d'une limite de plage, d'une réponse inattendue ou d'une indisponibilité fournisseur. Recommandation : journaliser de manière bornée le **code d'erreur RPC non sensible** et la méthode concernée, sans URL de clé ni corps brut, puis valider sur un vrai cycle. Ne pas activer d'API Blockscout payante.
+- `reports/ai_placement_experiments.json` : **11 essais enregistrés**, dont **9 actifs** et **2 terminés mais non validés** (1 jour : SOL **−8,4353 %**, ETH **−6,2927 %** en valorisation fictive). Plusieurs horizons 1/3/7 jours réutilisent les **mêmes entrées et observations** : ils ne constituent **pas** des échantillons indépendants. Deux essais du 30/10 sont encore `waiting_next_closed_day` et ne disposent pas de prix d'entrée.
+- `reports/market_pulse.json` : dernière journée Kraken entièrement close **29/10** ; variations 7 jours BTC **−4,324 %**, ETH **−5,745 %**, SOL **−7,862 %** ; volatilité annualisée descriptive 30 jours BTC **29,3 %**, ETH **36,99 %**, SOL **42,42 %**. Ces constats ne prédisent pas le lendemain.
+- `reports/base_usdc_observations.json` est maintenant `state=observing` : **809 événements échantillonnés**, **0 gros transfert dans cet échantillon**, une seule source RPC indiquée, couverture **12 derniers blocs uniquement**. **L'ancienne panne Base ne doit plus être présentée comme toujours active**, mais ce très court échantillon ne couvre pas toute la chaîne.
+- `reports/market_news.json` : 9 titres de presse, **non vérifiés éditorialement**, certains publiés après l'appel Gemini de 12:05 UTC. Aucun lien causal avec les variations ni ordre de trading ne doit être inféré de ces titres.
 
-## 5. Correctif réellement appliqué aujourd'hui
+## 6. Infrastructure, sécurité et modifications réelles
 
-Le workflow `.github/workflows/research.yml` a été **verrouillé sur `SEIKO_AI_PROVIDER: gemini`**, et les variables `SEIKO_AI_MODEL` ainsi que `OPENAI_API_KEY` ont été **retirées de son environnement** (commit `c9f89766da84c95f1f11edd9bb4498b0bb4e8ff7`). Les étapes de recherche, tests, simulation et publication ont été conservées. **Vérification statique après écriture : réussie** ; **aucun nouveau run complet sous ce commit n'était encore confirmé** au moment du contrôle. La facturation du projet Gemini n'est pas vérifiable depuis ces rapports : la gratuité effective de la clé dépend toujours du niveau du projet Google.
+- Recherche **41059890515** : **SUCCESS**, tests et assemblage de site réussis, **publication Git confirmée** à 13:02:36 UTC (`9ea5e54`). Dernier Paper **41064399358** : **SUCCESS**, 13:34–13:34 UTC, résultats publiés commit `2912fee`. Pages **41064435229** : **SUCCESS** ; watchdog **41064452577** : **SUCCESS**. Le snapshot `system_health.json` à 13:02 disait encore « research running », mais le run s'est terminé ensuite avec succès : il est temporellement périmé sur ce point, pas signe de panne.
+- Workflow `.github/workflows/research.yml` : `SEIKO_AI_PROVIDER: gemini` et seul secret IA transmis `GEMINI_API_KEY` ; **aucune clé OpenAI transmise à ce workflow**. Les tests incluent l'absence de repli payant. Le statut de facturation réel du projet Google **ne peut pas être prouvé par ces fichiers** : le vérifier dans AI Studio, sans activation payante.
+- Avertissements GitHub sur dépréciation Node.js 20 dans certaines actions, **non bloquants** dans les runs observés. Aucun correctif urgent à faire sans préparer et tester une montée de version.
+- **Action effectuée par GPT aujourd'hui :** lecture des sources, recoupement des données et des journaux, contre-analyse et mise à jour de ce rapport uniquement. **Aucun changement** des moteurs, paramètres, 36 historiques, témoins Hold, interface, workflows ou secrets. Aucun test local du moteur n'a été exécuté par GPT ; les résultats CI cités sont des tests réellement exécutés par GitHub Actions.
 
-## 6. Suite proposée — sans argent réel ni API GPT payante
+## 7. Priorités proposées
 
-1. **Ne promouvoir aucun robot** avant les seuils prospectifs, le contrôle des frais, la comparaison au Hold et des échantillons indépendants.
-2. Lors du prochain cycle Gemini non mis en cache, vérifier que la synthèse distingue correctement le **+7,8287 % historique ETH** des critères de qualification non satisfaits et que les multiplicateurs de seuil ne sont plus décrits comme des montants.
-3. Corriger le diagnostic Base **sans ajouter de fournisseur payant**, puis attendre un succès réel pour annoncer le suivi opérationnel.
-4. Recontrôler l'exécution de `research.yml` après le verrouillage Gemini, la fraîcheur des rapports et les scénarios lorsque de nouveaux jours de marché seront effectivement clôturés.
+1. Préparer une voie `shadow` Gemini parallèle et strictement bornée pour éviter la saturation du directeur, **sur branche isolée avec tests de provenance, idempotence et chronologie**, sans toucher aux expériences existantes.
+2. Convertir les deux expériences narratives Gemini en **protocoles appariés réellement falsifiables** (momentum frais ×2 et breakout vs témoins), puis les enregistrer comme **propositions non exécutées** jusqu'à disponibilité de nouvelles bougies.
+3. Accumuler des journées et transactions prospectives réellement nouvelles ; refuser toute promotion sur le seul historique ou sur une journée de baisse.
+4. Continuer la supervision de la provenance Gemini/cache/repli et la vérification de publication Git ; préserver l'absence de facturation OpenAI et d'ordres réels.
 
-**Aucun ordre réel, aucun changement de stratégie approuvé, aucun historique de robot ou témoin Hold modifié par cette supervision.** Cette note est une **contre-analyse GPT** : elle ne doit pas être attribuée à Gemini ni présentée comme une preuve de rendement futur.
+## Sources GitHub contrôlées
+
+- [Rapport Gemini et statut](https://github.com/SeikoChillBot/AI-Trading/blob/main/reports/ai_research_status.json) ; [propositions](https://github.com/SeikoChillBot/AI-Trading/blob/main/reports/ai_research_proposals.json) ; [bilan](https://github.com/SeikoChillBot/AI-Trading/blob/main/reports/ai_daily_brief.json).
+- [Crypto V2](https://github.com/SeikoChillBot/AI-Trading/blob/main/reports/realistic_metrics.json) ; [multi-actifs micro](https://github.com/SeikoChillBot/AI-Trading/blob/main/reports/multi_asset_micro_metrics.json) ; [Foundry](https://github.com/SeikoChillBot/AI-Trading/blob/main/reports/strategy_foundry.json) ; [directeur](https://github.com/SeikoChillBot/AI-Trading/blob/main/research/research_director.py).
+- [Recherche 41059890515](https://github.com/SeikoChillBot/AI-Trading/actions/runs/41059890515) ; [Paper 41064399358](https://github.com/SeikoChillBot/AI-Trading/actions/runs/41064399358) ; [Pages 41064435229](https://github.com/SeikoChillBot/AI-Trading/actions/runs/41064435229).
