@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés en tendance** : Simuler une période de 7 jours en position longue spot sans levier sur BTCUSD avec un capital fictif de 20 USD en appliquant des frais de transaction doublés. Critère d'abandon : L'hypothèse est réfutée si la performance nette dépasse celle du témoin Hold malgré le doublement des frais.
-- **SOLUSD — Validation prospective d'un seuil de breakout** : Observer un placement fictif long spot sans levier de 20 USD sur SOLUSD pendant 3 jours lors d'un mouvement de marché classé comme sampled_large_transfer ou market_selloff. Critère d'abandon : L'hypothèse est réfutée si le drawdown dépasse celui observé sur la même période par le robot témoin de référence.
+- **BTCUSD — Test de résistance à la volatilité et frais doublés sur BTC** : Exécuter une simulation de placement fictif de 20 USD en position longue spot sans levier sur BTCUSD pendant 3 jours, en évaluant l'impact de frais de transaction doublés par rapport au témoin Hold. Critère d'abandon : Rejeter l'hypothèse si le rendement net après frais doublés est inférieur ou égal au rendement du témoin Hold sur la même période de 3 jours.
+- **ETHUSD — Validation de tendance sur ETH face aux mouvements de marché** : Lancer une simulation prospective de placement fictif de 20 USD en spot long sans levier sur ETHUSD pendant 7 jours en conditions de marché baissier échantillonné. Critère d'abandon : Rejeter l'hypothèse si le drawdown maximum dépasse 10 % ou si le rendement excédentaire par rapport au Hold reste négatif à l'issue des 7 jours.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
