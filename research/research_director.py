@@ -288,7 +288,7 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                 else:
                     status[asset] = "no_untried_experiment"
                 continue
-            goal, question, rejection, spec, origin, rival_spec = chosen
+            goal, question, rejection, spec, origin = chosen
             key = foundry.identifier(spec)
             if key in already:
                 raise ValueError("duplicate_strategy_id")
