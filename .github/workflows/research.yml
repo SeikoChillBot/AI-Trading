@@ -14,6 +14,7 @@ on:
       - 'research/strategy_architect.py'
       - 'research/scientific_memory.py'
       - 'research/research_director.py'
+      - 'research/creative_review.py'
       - 'research/strategy_competition.py'
       - 'research/strategy_foundry.py'
       - 'research/strategy_forward.py'
@@ -45,7 +46,7 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Verify research safety gates
         run: |
-          python -m py_compile research/auto_research.py research/ai_reflection.py research/ai_decision_support.py research/robot_evolution.py research/robot_tuning.py research/robot_shadow.py
+          python -m py_compile research/creative_review.py research/auto_research.py research/ai_reflection.py research/ai_decision_support.py research/robot_evolution.py research/robot_tuning.py research/robot_shadow.py
           python -m unittest discover -s tests -p 'test_robot_evolution.py' -v
           python -m unittest discover -s tests -p 'test_research_automation.py' -v
           python -m unittest discover -s tests -p 'test_ai_decision_support.py' -v
