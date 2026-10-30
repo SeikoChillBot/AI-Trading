@@ -492,6 +492,45 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
                     except (TypeError, ValueError, KeyError):
                         pass
                     break
+    # Independently frozen local counter-hypotheses for Gemini-origin plans.
+    # A pair is accepted only if both refer to each other's immutable IDs.
+    if (isinstance(director, dict) and director.get("schema") == 1
+            and director.get("source") == "falsifiable_research_director"
+            and director.get("real_orders") is False
+            and director.get("robot_changes") is False
+            and director.get("no_automatic_robot_promotion") is True):
+        chosen = director.get("active_by_asset", {})
+        controls = director.get("controls_by_asset", {})
+        archive = director.get("experiments", [])
+        if isinstance(chosen, dict) and isinstance(controls, dict) and isinstance(archive, list):
+            lookup = {item.get("id"): item for item in archive
+                      if isinstance(item, dict) and isinstance(item.get("id"), str)}
+            for asset in ASSETS:
+                primary_id, rival_id = chosen.get(asset), controls.get(asset)
+                primary, control = lookup.get(primary_id), lookup.get(rival_id)
+                if not isinstance(primary, dict) or not isinstance(control, dict):
+                    continue
+                if (primary.get("source") != "gemini_research_director"
+                        or primary.get("paired_control_id") != rival_id
+                        or control.get("source") != "local_adversarial_control"
+                        or control.get("paired_primary_id") != primary_id
+                        or control.get("role") != "paired_control"
+                        or primary.get("closed_day_at_registration")
+                           != control.get("closed_day_at_registration")
+                        or any(item.get("real_orders") is not False
+                               or item.get("robots_modified") is not False
+                               for item in (primary, control))):
+                    continue
+                try:
+                    candidate = normalise(control["spec"])
+                    lead = normalise(primary["spec"])
+                    if (candidate["asset"] == asset == lead["asset"]
+                            and identifier(candidate) == rival_id
+                            and identifier(lead) == primary_id
+                            and lead["logic"] != candidate["logic"]):
+                        submissions.append((candidate, "local_adversarial_control"))
+                except (ValueError, TypeError, KeyError):
+                    pass
     submissions += [(x, "deterministic_reference") for x in seed_specs()]
     for raw, origin in submissions:
         try:
@@ -549,6 +588,7 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
         "crossed_hypotheses": sum(x.get("source") == "autonomous_crossover" for x in ideas),
         "director_hypotheses": sum(x.get("source") in ("gemini_research_director",
                                "bounded_local_research_director") for x in ideas),
+        "local_adversarial_controls": sum(x.get("source") == "local_adversarial_control" for x in ideas),
         "tested_historically": sum(isinstance(x.get("latest_result"), dict) for x in ideas),
         "events": events, "recent_ideas": [{
             "id": x.get("id"), "source": x.get("source"),

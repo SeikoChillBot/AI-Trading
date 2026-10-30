@@ -113,4 +113,12 @@ L'agent choisit l'objectif d'une expérimentation à partir d'échecs mesurés, 
 Les tests `tests/test_research_director.py` et `tests/test_ai_decision_support.py` empêchent les plans mal formés, les pseudo-ordres, les statistiques futures fabriquées, le double comptage lors d'une relance et les changements d'identifiants. La CI isolée et le workflow de recherche vérifient la chaîne et publient les décisions pour le Journal IA.
 
 
-<!-- Gemini paired-hypothesis research upgrade: integration draft -->
+### Recherche contradictoire : expériences jumelées
+
+- Lorsqu'une nouvelle stratégie **structurée** est effectivement proposée par Gemini, `research/research_director.py` la fige avec sa date de départ. `research/creative_review.py` fabrique une stratégie témoin rivale **locale**, appartenant à une autre famille de signaux (et ne l'attribue donc jamais à Gemini).
+- Les deux stratégies reçoivent chacune un identifiant indépendant et une provenance croisée vérifiable. `strategy_foundry.py` n'admet le contrôle que si le directeur associe explicitement les deux stratégies, leurs spécifications et le même jour d'inscription.
+- Les suivis des deux stratégies sont créés en portefeuille papier ; la comparaison attend **90 nouvelles journées et 10 transactions clôturées par stratégie**, avec même jour final, date d'inscription identique, rendement net et témoin Hold. Aucun résultat de replay déjà consulté ne peut décider du gagnant.
+- Toute idée principale et son contrôle sont archivés avec leurs résultats. Si aucun plan structuré ne provient de Gemini, le directeur continue ses expériences locales distinctement étiquetées ; il n'invente pas une contribution du modèle.
+- Les 36 robots d'origine, les Hold et l'interdiction de transactions réelles restent inchangés. L'existence d'une critique et d'un témoin n'est **pas une preuve** que Gemini crée de bonnes stratégies, ni que leur rendement s'améliorera.
+
+Cette logique a été développée sur branche dédiée, afin d'éviter que chaque édition intermédiaire du code ne déclenche la recherche en production et ne multiplie les emails GitHub Actions en échec.

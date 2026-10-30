@@ -249,6 +249,9 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                         selections[asset] = old_id
                         status[asset] = "awaiting_paired_future"
                         continue
+                    # A completed comparison is an archived result, not a
+                    # control attached to the next independently frozen plan.
+                    controls.pop(asset, None)
                 elif situation == "awaiting_prospective_data":
                     selections[asset] = old_id
                     status[asset] = situation
@@ -259,6 +262,7 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                 # positive paper strategies deserve continuing observation.
             targets = goal_order[position:] + goal_order[:position]
             chosen = None
+            rival_spec = None
             for plan in tasks:
                 if not isinstance(plan, dict) or plan.get("asset") != asset:
                     continue
@@ -268,6 +272,10 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                     continue
                 if foundry.identifier(spec) in already:
                     continue
+                candidate_rival = creative_review.competing_spec(spec, already)
+                if candidate_rival is None:
+                    continue
+                rival_spec = candidate_rival
                 chosen = (goal, question, reject, spec, "gemini_research_director")
                 model_used += 1
                 break
@@ -306,6 +314,22 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                 "real_orders": False, "robots_modified": False,
             }
             archive.append(frozen)
+            if origin == "gemini_research_director" and rival_spec is not None:
+                rival_id = foundry.identifier(rival_spec)
+                if rival_id in already:
+                    raise ValueError("duplicate_rival_strategy")
+                control = dict(frozen, id=rival_id, spec=rival_spec,
+                               source="local_adversarial_control",
+                               role="paired_control",
+                               hypothesis="Tester une explication rivale sur les mêmes bougies",
+                               paired_primary_id=key)
+                frozen["paired_control_id"] = rival_id
+                archive.append(control)
+                by_id[rival_id] = control
+                attempted.append(rival_id)
+                already.add(rival_id)
+                controls[asset] = rival_id
+                local_critics += 1
             if origin == "bounded_local_research_director":
                 local_used += 1
             by_id[key] = frozen
@@ -321,9 +345,12 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
     archive = archive[-MAX_EXPERIMENTS:]
     ids = {item["id"] for item in archive}
     selections = {k:v for k,v in selections.items() if v in ids}
+    controls = {asset: key for asset, key in controls.items()
+                if key in ids and asset in selections}
     state = {
         "schema": 1, "updated_at": now.isoformat(),
         "experiments": archive, "active_by_asset": selections,
+        "controls_by_asset": controls,
         "attempted_ids": list(dict.fromkeys(attempted))[-MAX_ATTEMPTED:],
         "real_orders": False, "robot_changes": False,
     }
@@ -331,7 +358,9 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
         "schema": 1, "generated_at": now.isoformat(),
         "source": "falsifiable_research_director",
         "real_orders": False, "robot_changes": False,
-        "active_by_asset": selections, "experiments": archive,
+        "active_by_asset": selections, "controls_by_asset": controls,
+        "experiments": archive,
+        "paired_local_controls_created": local_critics,
         "tracked": len(selections), "total_experiments": len(archive),
         "model_directed_this_cycle": model_used,
         "local_fallback_new_experiments": local_used,

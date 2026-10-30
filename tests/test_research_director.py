@@ -3,6 +3,7 @@ import unittest
 from datetime import datetime, timezone, timedelta
 
 from research import research_director as director
+from research import creative_review
 from research import strategy_foundry as foundry
 from research import ai_decision_support as decisions
 
@@ -63,6 +64,15 @@ class ResearchDirectorTests(unittest.TestCase):
         self.assertEqual(report["tracked"],3)
         btc=next(x for x in state["experiments"] if x["asset"]=="BTCUSD")
         self.assertEqual(btc["source"],"gemini_research_director")
+        control_id=state["controls_by_asset"]["BTCUSD"]
+        control=next(x for x in state["experiments"] if x["id"]==control_id)
+        self.assertEqual(control["source"],"local_adversarial_control")
+        self.assertEqual(control["paired_primary_id"],btc["id"])
+        self.assertEqual(btc["paired_control_id"],control_id)
+        self.assertNotEqual(control["spec"]["logic"],btc["spec"]["logic"])
+        self.assertEqual(control["closed_day_at_registration"],
+                         btc["closed_day_at_registration"])
+        self.assertEqual(report["paired_local_controls_created"],1)
         self.assertEqual(btc["goal"],"cost_resilience")
         self.assertEqual(btc["id"],foundry.identifier(foundry.normalise(model_spec())))
         self.assertFalse(report["real_orders"])
@@ -71,7 +81,9 @@ class ResearchDirectorTests(unittest.TestCase):
         second,new_state=self.go(proposals=proposal(),previous=state)
         self.assertEqual(second["model_directed_this_cycle"],0)
         self.assertEqual(second["local_fallback_new_experiments"],0)
-        self.assertEqual(len(new_state["experiments"]),3)
+        self.assertEqual(len(new_state["experiments"]),4)
+        self.assertEqual(new_state["controls_by_asset"],
+                         state["controls_by_asset"])
 
     def test_fallback_is_labelled_and_research_aim_rotates_by_asset(self):
         report,state=self.go()
@@ -122,6 +134,42 @@ class ResearchDirectorTests(unittest.TestCase):
         rec["spec"]={**btc["spec"],"threshold_pct":2}
         self.assertEqual(director.prospective_status(btc,{"tracks":{btc["id"]:rec}})[0],
                          "invalid_forward_provenance")
+
+    def test_pair_is_admitted_to_foundry_only_with_matching_provenance(self):
+        report,state=self.go(proposals=proposal())
+        ledger,counts=foundry.build(NOW,{},candles(),{},None,None,None,report)
+        self.assertEqual(counts["local_adversarial_controls"],1)
+        self.assertEqual(counts["director_hypotheses"],3)
+        forged={**report,"controls_by_asset":{"BTCUSD":"wrong"}}
+        _,bad=foundry.build(NOW,{},candles(),{},None,None,None,forged)
+        self.assertEqual(bad["local_adversarial_controls"],0)
+        self.assertFalse(ledger["real_orders"])
+
+    def test_paired_future_requires_matching_candles_and_trades(self):
+        _,state=self.go(proposals=proposal())
+        primary=next(x for x in state["experiments"]
+                     if x["source"]=="gemini_research_director")
+        control=next(x for x in state["experiments"]
+                     if x["source"]=="local_adversarial_control")
+        end=primary["closed_day_at_registration"]+90*86400
+        def track(idea,net):
+            return {"id":idea["id"],"spec":idea["spec"],
+                    "last_t":end,"status":"observing_paper_only",
+                    "observed_days":90,"closed_trades":11,"net_pct":net,
+                    "excess_vs_hold_points":1.5,"max_drawdown_pct":3}
+        paper={"real_orders":False,"tracks":{
+            primary["id"]:track(primary,2),
+            control["id"]:track(control,4)}}
+        result=creative_review.comparison(primary,control,paper)
+        self.assertEqual(result["stage"],"control_at_least_as_good")
+        self.assertEqual(result["primary_minus_control_pct_points"],-2)
+        paper["tracks"][control["id"]]["last_t"]=end-86400
+        self.assertEqual(creative_review.comparison(primary,control,paper)["stage"],
+                         "awaiting_synchronized_future")
+        paper["tracks"][control["id"]]["last_t"]=end
+        paper["tracks"][control["id"]]["observed_days"]=89
+        self.assertEqual(creative_review.comparison(primary,control,paper)["stage"],
+                         "awaiting_synchronized_future")
 
     def test_unverified_scientific_memory_cannot_launch_new_experiments(self):
         report, state = self.go(science_state={"seen_spec_ids":[],
