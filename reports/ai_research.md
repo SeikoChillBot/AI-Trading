@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés** : Simuler 20 USD en position long spot sur 3 jours en période de selloff avec des frais doublés pour observer l'impact direct sur le rendement net. Critère d'abandon : Rejeter l'hypothèse si le rendement net dépasse ou égale le témoin Hold dans plus de la moitié des fenêtres testées.
-- **ETHUSD — Impact d'un rebond sur le sentiment de marché bas** : Placer un test fictif de 20 USD sur 1 jour lors d'une phase de market_selloff échantillonnée pour mesurer l'écart par rapport au maintien. Critère d'abandon : Rejeter l'hypothèse si l'excès de rendement par rapport au Hold reste négatif de plus de 2 points.
+- **BTCUSD — Sensibilité aux frais et résistance du momentum** : Simuler l'exécution des ordres de btc_momentum avec des frais doublés sur 7 jours consécutifs hors échantillon. Critère d'abandon : Rejeter l'hypothèse si la performance nette de la variante à frais doublés devient inférieure au témoin Hold sur la même période.
+- **ETHUSD — Filtre de volatilité et réduction des faux signaux** : Observer en paper trading sur 3 jours le comportement d'ETHUSD avec le filtre actif par rapport à la version standard. Critère d'abandon : Rejeter l'hypothèse si le nombre de trades non rentables augmente ou si le drawdown dépasse celui de la version de référence.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.

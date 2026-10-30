@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-30T05:55:12.160041+00:00",
+  "generated_at": "2026-10-30T06:26:07.517902+00:00",
   "research_date_utc": "2026-10-30",
-  "review_slot": "2026-10-30T00:00Z",
-  "model_last_called_at": "2026-10-30T00:05:33.384114+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-30T06:00Z",
+  "model_last_called_at": "2026-10-30T06:26:07.517902+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-30T00:05:33.384114+00:00",
+  "last_attempt_at": "2026-10-30T06:26:07.517902+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse quantitative des robots et des historiques OOS montre qu'aucune stratégie n'est robuste et que les performances nettes après frais restent majoritairement négatives, en particulier pour ETHUSD et SOLUSD. Les historiques de replays et de forward paper indiquent des drawdowns importants et une sensibilité élevée aux coûts de transaction. Aucune preuve ne permet de valider une rentabilité future ou de généraliser ces échantillons au marché entier.",
+  "summary": "L'analyse des historiques montre que la grande majorité des stratégies de robots de type crypto et multi-actifs affichent des performances négatives nettes de frais sur les périodes d'observation enregistrées, confirmant l'absence de robustesse garantie. Les performances hors échantillon et en paper trading prospectif divergent fréquemment des tests historiques passés, soulignant les limites du surajustement (overfitting) et l'impact des coûts. Aucune stratégie ne peut être considérée comme infaillible, et le profil de risque reste dépendant des conditions de marché.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,24 +103,23 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés",
-      "hypothesis": "Doubler les frais de transaction réduit les performances nettes en dessous du benchmark Hold sans prouver d'avantage directionnel durable.",
-      "experiment": "Simuler 20 USD en position long spot sur 3 jours en période de selloff avec des frais doublés pour observer l'impact direct sur le rendement net.",
-      "rejection_rule": "Rejeter l'hypothèse si le rendement net dépasse ou égale le témoin Hold dans plus de la moitié des fenêtres testées.",
+      "title": "Sensibilité aux frais et résistance du momentum",
+      "hypothesis": "Doubler les frais de transaction n'annule pas la valeur relative des signaux de momentum sur BTC si la fréquence des ordres est réduite.",
+      "experiment": "Simuler l'exécution des ordres de btc_momentum avec des frais doublés sur 7 jours consécutifs hors échantillon.",
+      "rejection_rule": "Rejeter l'hypothèse si la performance nette de la variante à frais doublés devient inférieure au témoin Hold sur la même période.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
-        "beats_hold_in_most_folds",
         "positive_average_with_double_costs"
       ]
     },
     {
       "asset": "ETHUSD",
-      "title": "Impact d'un rebond sur le sentiment de marché bas",
-      "hypothesis": "Un niveau de peur élevé (Fear & Greed à 30) combiné à une volatilité modérée n'offre pas d'avantage systématique pour les stratégies de retour à la moyenne.",
-      "experiment": "Placer un test fictif de 20 USD sur 1 jour lors d'une phase de market_selloff échantillonnée pour mesurer l'écart par rapport au maintien.",
-      "rejection_rule": "Rejeter l'hypothèse si l'excès de rendement par rapport au Hold reste négatif de plus de 2 points.",
+      "title": "Filtre de volatilité et réduction des faux signaux",
+      "hypothesis": "L'ajout d'un filtre de volatilité calme (quiet_volatility) sur eth_ema_cross diminue les faux signaux en période de baisse prolongée.",
+      "experiment": "Observer en paper trading sur 3 jours le comportement d'ETHUSD avec le filtre actif par rapport à la version standard.",
+      "rejection_rule": "Rejeter l'hypothèse si le nombre de trades non rentables augmente ou si le drawdown dépasse celui de la version de référence.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -131,15 +130,9 @@
   ],
   "bot_adjustments": [
     {
-      "strategy": "btc_scalp_conservative",
+      "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Ajustement du seuil de déclenchement pour limiter la fréquence des ordres dans un régime de volatilité faible, sans modifier la taille de la position engagée.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "eth_momentum",
-      "entry_scale": 0.8,
-      "reason": "Modification du seuil d'entrée pour réagir plus rapidement aux variations récentes, à titre d'exploration prospective sans garantie de gain.",
+      "reason": "Modification du seuil de déclenchement (entry_scale) pour exiger une confirmation plus stricte, sans modifier le capital engagé.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],
