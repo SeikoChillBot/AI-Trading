@@ -238,7 +238,18 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                 old["prospective_status"] = situation
                 old["prospective_observed_days"] = days
                 evidence_days[asset] = days
-                if situation == "awaiting_prospective_data":
+                control_id = prior_controls.get(asset)
+                rival = by_id.get(control_id) if old.get("paired_control_id") == control_id else None
+                if rival:
+                    paired = creative_review.comparison(old, rival, forward)
+                    old["paired_review"] = paired
+                    rival["paired_review"] = paired
+                    controls[asset] = control_id
+                    if paired["stage"] == "awaiting_synchronized_future":
+                        selections[asset] = old_id
+                        status[asset] = "awaiting_paired_future"
+                        continue
+                elif situation == "awaiting_prospective_data":
                     selections[asset] = old_id
                     status[asset] = situation
                     continue
