@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-30T09:15:17.212219+00:00",
+  "generated_at": "2026-10-30T12:05:31.600322+00:00",
   "research_date_utc": "2026-10-30",
-  "review_slot": "2026-10-30T06:00Z",
-  "model_last_called_at": "2026-10-30T06:26:07.517902+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-30T12:00Z",
+  "model_last_called_at": "2026-10-30T12:05:31.600322+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-30T06:26:07.517902+00:00",
+  "last_attempt_at": "2026-10-30T12:05:31.600322+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse des historiques montre que la grande majorité des stratégies de robots de type crypto et multi-actifs affichent des performances négatives nettes de frais sur les périodes d'observation enregistrées, confirmant l'absence de robustesse garantie. Les performances hors échantillon et en paper trading prospectif divergent fréquemment des tests historiques passés, soulignant les limites du surajustement (overfitting) et l'impact des coûts. Aucune stratégie ne peut être considérée comme infaillible, et le profil de risque reste dépendant des conditions de marché.",
+  "summary": "Analyse des données et des robots du laboratoire Seiko : les observations historiques et les backtests répétés montrent des rendements nets majoritairement négatifs et une sensibilité élevée aux frais, confirmant qu'aucune stratégie ne présente de robustesse universelle par rapport au témoin Hold. Les signaux de marché enregistrent des baisses sur BTCUSD, ETHUSD et SOLUSD, accompagnées d'une volatilité accrue.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Sensibilité aux frais et résistance du momentum",
-      "hypothesis": "Doubler les frais de transaction n'annule pas la valeur relative des signaux de momentum sur BTC si la fréquence des ordres est réduite.",
-      "experiment": "Simuler l'exécution des ordres de btc_momentum avec des frais doublés sur 7 jours consécutifs hors échantillon.",
-      "rejection_rule": "Rejeter l'hypothèse si la performance nette de la variante à frais doublés devient inférieure au témoin Hold sur la même période.",
+      "title": "Test de résistance aux frais doublés en tendance",
+      "hypothesis": "Une augmentation des frais de transaction dégrade la rentabilité nette des robots de momentum au point de rendre la stratégie systématiquement inférieure au Hold.",
+      "experiment": "Simuler une période de 7 jours en position longue spot sans levier sur BTCUSD avec un capital fictif de 20 USD en appliquant des frais de transaction doublés.",
+      "rejection_rule": "L'hypothèse est réfutée si la performance nette dépasse celle du témoin Hold malgré le doublement des frais.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -115,15 +115,17 @@
       ]
     },
     {
-      "asset": "ETHUSD",
-      "title": "Filtre de volatilité et réduction des faux signaux",
-      "hypothesis": "L'ajout d'un filtre de volatilité calme (quiet_volatility) sur eth_ema_cross diminue les faux signaux en période de baisse prolongée.",
-      "experiment": "Observer en paper trading sur 3 jours le comportement d'ETHUSD avec le filtre actif par rapport à la version standard.",
-      "rejection_rule": "Rejeter l'hypothèse si le nombre de trades non rentables augmente ou si le drawdown dépasse celui de la version de référence.",
+      "asset": "SOLUSD",
+      "title": "Validation prospective d'un seuil de breakout",
+      "hypothesis": "Un filtre de breakout sur SOLUSD réduit la fréquence des faux signaux lors des phases de selloff sans détruire la performance globale.",
+      "experiment": "Observer un placement fictif long spot sans levier de 20 USD sur SOLUSD pendant 3 jours lors d'un mouvement de marché classé comme sampled_large_transfer ou market_selloff.",
+      "rejection_rule": "L'hypothèse est réfutée si le drawdown dépasse celui observé sur la même période par le robot témoin de référence.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
+        "positive_average_net_return",
         "beats_hold_in_most_folds",
+        "positive_average_with_double_costs",
         "drawdown_below_20_pct"
       ]
     }
@@ -132,7 +134,13 @@
     {
       "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Modification du seuil de déclenchement (entry_scale) pour exiger une confirmation plus stricte, sans modifier le capital engagé.",
+      "reason": "Le profil conservative ajuste uniquement le seuil de déclenchement du signal pour exiger une confirmation plus stricte, sans modifier le capital engagé ni garantir un niveau de risque.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "eth_momentum",
+      "entry_scale": 1.2,
+      "reason": "Modification du seuil d'entrée pour limiter l'exposition aux faux signaux observés lors des baisses récentes, sans altérer la taille des sommes allouées.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],
