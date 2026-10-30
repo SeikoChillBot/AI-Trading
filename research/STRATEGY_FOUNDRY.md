@@ -111,3 +111,6 @@ Cette couche est un **agent de recherche scientifique borné**, pas un être hum
 L'agent choisit l'objectif d'une expérimentation à partir d'échecs mesurés, peut prendre en compte un plan inventé par Gemini, et modifie la suite de sa recherche selon la preuve prospective. Mais ses **actions exécutables restent limitées à la grammaire auditable** et aux données fiables dont on dispose. Si Gemini est en cache, indisponible ou ne propose aucune idée, la planification est locale, **pas générative**. Les résultats futurs n'ont pas encore été accumulés ; aucun avantage ni profit n'a été prouvé.
 
 Les tests `tests/test_research_director.py` et `tests/test_ai_decision_support.py` empêchent les plans mal formés, les pseudo-ordres, les statistiques futures fabriquées, le double comptage lors d'une relance et les changements d'identifiants. La CI isolée et le workflow de recherche vérifient la chaîne et publient les décisions pour le Journal IA.
+
+
+<!-- Gemini paired-hypothesis research upgrade: integration draft -->
