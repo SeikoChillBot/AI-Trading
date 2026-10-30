@@ -249,6 +249,9 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
                         selections[asset] = old_id
                         status[asset] = "awaiting_paired_future"
                         continue
+                    # A completed comparison is an archived result, not a
+                    # control attached to the next independently frozen plan.
+                    controls.pop(asset, None)
                 elif situation == "awaiting_prospective_data":
                     selections[asset] = old_id
                     status[asset] = situation
