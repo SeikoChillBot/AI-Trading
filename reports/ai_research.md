@@ -4,9 +4,9 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Faits mesurés
 
-- BTCUSD : -2.08 % rendement net moyen, 2.66 points face au Hold, -4.45 % avec frais doublés, 8 trades clôturés, drawdown maximal 19.51 % sur 7 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, beats_hold_in_most_folds, positive_average_with_double_costs.
-- ETHUSD : 8.38 % rendement net moyen, 4.88 points face au Hold, 5.99 % avec frais doublés, 6 trades clôturés, drawdown maximal 25.17 % sur 7 fenêtres ; blocages : twenty_or_more_closed_trades, beats_hold_in_most_folds, drawdown_below_20_pct.
-- SOLUSD : -4.49 % rendement net moyen, -0.03 points face au Hold, -8.59 % avec frais doublés, 14 trades clôturés, drawdown maximal 35.01 % sur 7 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, beats_hold_in_most_folds, positive_average_with_double_costs, drawdown_below_20_pct.
+- BTCUSD : -1.56 % rendement net moyen, 2.80 points face au Hold, -3.86 % avec frais doublés, 9 trades clôturés, drawdown maximal 19.51 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, positive_average_with_double_costs.
+- ETHUSD : 7.40 % rendement net moyen, 5.40 points face au Hold, 5.08 % avec frais doublés, 7 trades clôturés, drawdown maximal 25.17 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, beats_hold_in_most_folds, drawdown_below_20_pct.
+- SOLUSD : -4.92 % rendement net moyen, -0.03 points face au Hold, -8.91 % avec frais doublés, 16 trades clôturés, drawdown maximal 35.01 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, beats_hold_in_most_folds, positive_average_with_double_costs, drawdown_below_20_pct.
 
 ## Pistes d'expériences
 

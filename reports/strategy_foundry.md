@@ -1,6 +1,6 @@
 # AIT — Atelier autonome de stratégies
 
-Bilan du 2026-10-30T00:08:59.026860+00:00. Simulation et recherche seulement.
+Bilan du 2026-10-30T00:18:14.340328+00:00. Simulation et recherche seulement.
 
 Hypothèses conservées : 18 ; proposées par Gemini : 0 ; rejouées sur l'histoire : 18.
 
@@ -12,9 +12,9 @@ Les 36 robots et leurs témoins ne sont jamais modifiés par cet atelier.
 
 - 56bf169e5e3e751450 ETHUSD / breakout / 40 j / 2.0% : moyenne historique -2.6069%, 4/6 fenêtres au-dessus de Hold
 
-- 97bc58780a96065b2a SOLUSD / breakout / 40 j / 1.0% : moyenne historique -1.1972%, 4/6 fenêtres au-dessus de Hold
+- 97bc58780a96065b2a SOLUSD / breakout / 40 j / 1.0% : moyenne historique -1.1972%, 5/6 fenêtres au-dessus de Hold
 
-- 09fcd0e2b0dab27ef7 BTCUSD / trend_following / 40 j / 1.0% : moyenne historique -0.3859%, 3/6 fenêtres au-dessus de Hold
+- 09fcd0e2b0dab27ef7 BTCUSD / trend_following / 40 j / 1.0% : moyenne historique -0.3859%, 4/6 fenêtres au-dessus de Hold
 
 - 1617d0b2ed93f1d786 BTCUSD / breakout / 40 j / 1.0% : moyenne historique -0.3727%, 3/6 fenêtres au-dessus de Hold
 
@@ -26,8 +26,8 @@ Les 36 robots et leurs témoins ne sont jamais modifiés par cet atelier.
 
 - 53633ea1a537b8579e SOLUSD / breakout / 40 j / 2.0% : moyenne historique 0.1438%, 5/6 fenêtres au-dessus de Hold
 
-- 64e754fd7d289d4131 BTCUSD / ema_trend / 20 j / 1.0% : moyenne historique -2.4359%, 3/6 fenêtres au-dessus de Hold
+- 64e754fd7d289d4131 BTCUSD / ema_trend / 20 j / 1.0% : moyenne historique -2.5648%, 3/6 fenêtres au-dessus de Hold
 
-- 00e3f7125aee1b131d ETHUSD / rsi_reversal / 20 j / 1.0% : moyenne historique -16.3518%, 2/6 fenêtres au-dessus de Hold
+- 00e3f7125aee1b131d ETHUSD / rsi_reversal / 20 j / 1.0% : moyenne historique -16.9885%, 1/6 fenêtres au-dessus de Hold
 
-- a5e69aa7e003a9b40a SOLUSD / mean_reversion / 10 j / 0.5% : moyenne historique -28.8536%, 0/6 fenêtres au-dessus de Hold
+- a5e69aa7e003a9b40a SOLUSD / mean_reversion / 10 j / 0.5% : moyenne historique -31.1512%, 1/6 fenêtres au-dessus de Hold
