@@ -147,7 +147,6 @@ TASK_STRATEGY_SCHEMA = {
                 "max_hold_days","rationale","confirmations"],
     "additionalProperties":False,
 }
-CREATIVE_REVIEW_SCHEMA = {"type": "object", "properties": {}, "required": []}
 TASK_ITEM_SCHEMA = {
     "type":"object",
     "properties":{
