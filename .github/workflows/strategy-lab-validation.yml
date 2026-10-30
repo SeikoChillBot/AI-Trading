@@ -4,6 +4,10 @@ on:
   push:
     paths:
       - '.github/workflows/strategy-lab-validation.yml'
+      - '.github/workflows/research.yml'
+      - '.github/workflows/simulate.yml'
+      - 'research/publication_recovery.py'
+      - 'tests/test_publication_recovery.py'
       - 'research/autonomous_optimizer.py'
       - 'research/strategy_foundry.py'
       - 'research/strategy_evolution.py'
@@ -52,10 +56,11 @@ jobs:
         run: pip install -r requirements.txt
       - name: Validate Python and dashboard syntax
         run: |
-          python -m py_compile research/autonomous_optimizer.py research/strategy_evolution.py research/strategy_architect.py research/scientific_memory.py research/research_director.py research/creative_review.py research/strategy_competition.py research/strategy_foundry.py research/strategy_forward.py research/manual_live_review.py research/market_knowledge.py research/ai_reflection.py research/ai_decision_support.py build_site.py
+          python -m py_compile research/publication_recovery.py research/autonomous_optimizer.py research/strategy_evolution.py research/strategy_architect.py research/scientific_memory.py research/research_director.py research/creative_review.py research/strategy_competition.py research/strategy_foundry.py research/strategy_forward.py research/manual_live_review.py research/market_knowledge.py research/ai_reflection.py research/ai_decision_support.py build_site.py
           node --check site/lab04-research.js
       - name: Test bounded optimizer and publication gates
         run: |
+          python -m unittest discover -s tests -p 'test_publication_recovery.py' -v
           python -m unittest discover -s tests -p 'test_autonomous_optimizer.py' -v
           python -m unittest discover -s tests -p 'test_manual_live_review.py' -v
           python -m unittest discover -s tests -p 'test_strategy_foundry.py' -v
