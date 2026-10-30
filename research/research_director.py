@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from research import strategy_foundry as foundry
+from research import creative_review
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDLES = ROOT / "reports/challenger_candles.json"
@@ -192,6 +193,9 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
     active = active if isinstance(active, dict) else {}
     previous_active = {asset: active.get(asset) for asset in foundry.ASSETS}
     by_id = {row["id"]: row for row in archive}
+    prior_controls = prior.get("controls_by_asset", {})
+    prior_controls = prior_controls if isinstance(prior_controls, dict) else {}
+    controls = {}
     status, selections, errors, evidence_days = {}, {}, {}, {}
     science_ok = (isinstance(science, dict)
                   and science.get("schema") == 1
@@ -217,6 +221,7 @@ def build(now, candles, science, science_state, proposals, knowledge, forward, p
     tasks = _eligible_model_tasks(proposals, now)
     model_used = 0
     local_used = 0
+    local_critics = 0
     for position, asset in enumerate(foundry.ASSETS):
         bars = candles.get(asset) if isinstance(candles, dict) else None
         try:
