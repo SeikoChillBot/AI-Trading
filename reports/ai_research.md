@@ -4,13 +4,13 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Faits mesurés
 
-- BTCUSD : -1.56 % rendement net moyen, 2.80 points face au Hold, -3.86 % avec frais doublés, 9 trades clôturés, drawdown maximal 19.51 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, positive_average_with_double_costs.
-- ETHUSD : 7.40 % rendement net moyen, 5.40 points face au Hold, 5.08 % avec frais doublés, 7 trades clôturés, drawdown maximal 25.17 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, beats_hold_in_most_folds, drawdown_below_20_pct.
-- SOLUSD : -4.92 % rendement net moyen, -0.03 points face au Hold, -8.91 % avec frais doublés, 16 trades clôturés, drawdown maximal 35.01 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, beats_hold_in_most_folds, positive_average_with_double_costs, drawdown_below_20_pct.
+- BTCUSD : -1.72 % rendement net moyen, 3.03 points face au Hold, -4.24 % avec frais doublés, 9 trades clôturés, drawdown maximal 19.51 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, positive_average_with_double_costs.
+- ETHUSD : 7.30 % rendement net moyen, 5.73 points face au Hold, 4.79 % avec frais doublés, 7 trades clôturés, drawdown maximal 25.17 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, beats_hold_in_most_folds, drawdown_below_20_pct.
+- SOLUSD : -4.29 % rendement net moyen, 0.38 points face au Hold, -8.12 % avec frais doublés, 15 trades clôturés, drawdown maximal 35.01 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, positive_average_with_double_costs, drawdown_below_20_pct.
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance à la volatilité et frais doublés sur BTC** : Exécuter une simulation de placement fictif de 20 USD en position longue spot sans levier sur BTCUSD pendant 3 jours, en évaluant l'impact de frais de transaction doublés par rapport au témoin Hold. Critère d'abandon : Rejeter l'hypothèse si le rendement net après frais doublés est inférieur ou égal au rendement du témoin Hold sur la même période de 3 jours.
-- **ETHUSD — Validation de tendance sur ETH face aux mouvements de marché** : Lancer une simulation prospective de placement fictif de 20 USD en spot long sans levier sur ETHUSD pendant 7 jours en conditions de marché baissier échantillonné. Critère d'abandon : Rejeter l'hypothèse si le drawdown maximum dépasse 10 % ou si le rendement excédentaire par rapport au Hold reste négatif à l'issue des 7 jours.
+- **BTCUSD — Test de résistance aux frais de transaction sur BTCUSD** : Rejouer exactement les signaux de btc_momentum et btc_breakout avec des frais doublés en simulation prospective sur une fenêtre de 3 jours. Critère d'abandon : Si le rendement net après doublement des frais dépasse ou égale le scénario de référence sans frais, l'hypothèse de sensibilité aux coûts est réfutée.
+- **ETHUSD — Évaluation du positionnement de retour à la moyenne (mean reversion) sur ETHUSD** : Suivi en simulation sur 7 jours de eth_reversion en comparant strictement sa trajectoire nette au témoin eth_hold. Critère d'abandon : Si le robot dépasse le rendement du témoin hold avec un drawdown inférieur à 8.5% sur la période, l'hypothèse d'inefficacité est rejetée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
