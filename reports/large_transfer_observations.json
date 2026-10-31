@@ -1,131 +1,30 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-31T08:40:39.967102+00:00",
+  "generated_at": "2026-10-31T11:25:51.048485+00:00",
   "source": "https://eth.blockscout.com/api/v2",
   "chain": "ethereum",
-  "state": "observing",
+  "state": "partial",
   "method": "sample_latest_public_token_transfers",
   "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
   "max_pages_per_token": 3,
   "minimum_nominal_usd": 1000000,
   "sampled_records": {
-    "USDC": 150,
+    "USDC": 0,
     "USDT": 150
   },
   "validated_records": {
-    "USDC": 129,
-    "USDT": 150
+    "USDC": 0,
+    "USDT": 134
   },
-  "large_transfers_observed": 2,
-  "large_transfers_new": [
-    {
-      "id": "030f11e19fc93016571bfd30468b7b3de3640ad18d812ec66bc52b3fc8fab7f1",
-      "token": "USDC",
-      "quantity": "2476480",
-      "nominal_usd_approx": 2476480.0,
-      "timestamp": "2026-10-31T08:36:23+00:00",
-      "tx_hash": "0xdc0d9b4d2ff84cc3a4984986d1b93f77bbbb14cfb8b1c053d7005aa501bd1e07",
-      "from_address": "0x47d9c06fd6a7a4b70b89171105c908bde0d19d0e",
-      "to_address": "0x07510def19f67576b1bedb339053eb5baff77bc5",
-      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
-      "owner_identity": "unknown",
-      "trade_inference": "unknown"
-    },
-    {
-      "id": "fcd4aab9af3ac2bf52564d10a1b7d76a31ab5dcbd9335670954542e98720cbb7",
-      "token": "USDC",
-      "quantity": "1902475",
-      "nominal_usd_approx": 1902475.0,
-      "timestamp": "2026-10-31T08:36:11+00:00",
-      "tx_hash": "0x3b85fea63e697f6b986287ebfb02a3b1843d4f237953d81a63fe8e6b140ec22a",
-      "from_address": "0x5392bd00571157fa11103b0ee6d492c9563a6799",
-      "to_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
-      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
-      "owner_identity": "unknown",
-      "trade_inference": "unknown"
-    }
-  ],
-  "sample_highlights": [
-    {
-      "id": "030f11e19fc93016571bfd30468b7b3de3640ad18d812ec66bc52b3fc8fab7f1",
-      "token": "USDC",
-      "quantity": "2476480",
-      "nominal_usd_approx": 2476480.0,
-      "timestamp": "2026-10-31T08:36:23+00:00",
-      "tx_hash": "0xdc0d9b4d2ff84cc3a4984986d1b93f77bbbb14cfb8b1c053d7005aa501bd1e07",
-      "from_address": "0x47d9c06fd6a7a4b70b89171105c908bde0d19d0e",
-      "to_address": "0x07510def19f67576b1bedb339053eb5baff77bc5",
-      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
-      "owner_identity": "unknown",
-      "trade_inference": "unknown"
-    },
-    {
-      "id": "fcd4aab9af3ac2bf52564d10a1b7d76a31ab5dcbd9335670954542e98720cbb7",
-      "token": "USDC",
-      "quantity": "1902475",
-      "nominal_usd_approx": 1902475.0,
-      "timestamp": "2026-10-31T08:36:11+00:00",
-      "tx_hash": "0x3b85fea63e697f6b986287ebfb02a3b1843d4f237953d81a63fe8e6b140ec22a",
-      "from_address": "0x5392bd00571157fa11103b0ee6d492c9563a6799",
-      "to_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
-      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
-      "owner_identity": "unknown",
-      "trade_inference": "unknown"
-    }
-  ],
-  "sampled_wallet_flows": [
-    {
-      "address": "0x47d9c06fd6a7a4b70b89171105c908bde0d19d0e",
-      "incoming_nominal_usd": 0.0,
-      "outgoing_nominal_usd": 2476480.0,
-      "sample_net_nominal_usd": -2476480.0,
-      "sample_observations": 1,
-      "tokens": [
-        "USDC"
-      ],
-      "identity_verified": false,
-      "trade_inference": "unknown"
-    },
-    {
-      "address": "0x07510def19f67576b1bedb339053eb5baff77bc5",
-      "incoming_nominal_usd": 2476480.0,
-      "outgoing_nominal_usd": 0.0,
-      "sample_net_nominal_usd": 2476480.0,
-      "sample_observations": 1,
-      "tokens": [
-        "USDC"
-      ],
-      "identity_verified": false,
-      "trade_inference": "unknown"
-    },
-    {
-      "address": "0x5392bd00571157fa11103b0ee6d492c9563a6799",
-      "incoming_nominal_usd": 0.0,
-      "outgoing_nominal_usd": 1902475.0,
-      "sample_net_nominal_usd": -1902475.0,
-      "sample_observations": 1,
-      "tokens": [
-        "USDC"
-      ],
-      "identity_verified": false,
-      "trade_inference": "unknown"
-    },
-    {
-      "address": "0x55fe002aeff02f77364de339a1292923a15844b8",
-      "incoming_nominal_usd": 1902475.0,
-      "outgoing_nominal_usd": 0.0,
-      "sample_net_nominal_usd": 1902475.0,
-      "sample_observations": 1,
-      "tokens": [
-        "USDC"
-      ],
-      "identity_verified": false,
-      "trade_inference": "unknown"
-    }
-  ],
-  "sampled_wallets_count": 4,
-  "new_event_count": 2,
-  "errors": {},
+  "large_transfers_observed": 0,
+  "large_transfers_new": [],
+  "sample_highlights": [],
+  "sampled_wallet_flows": [],
+  "sampled_wallets_count": 0,
+  "new_event_count": 0,
+  "errors": {
+    "USDC": "ReadTimeout: HTTPSConnectionPool(host='eth.blockscout.com', port=443): Read timed out. (read timeout=12)"
+  },
   "buy_sell_inference": false,
   "real_trades": false,
   "warning": "Large stablecoin transfers may be exchange movements, mint/redemption, custody or bridges; not proof of a whale purchase."
