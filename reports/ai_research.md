@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais de transaction sur BTCUSD** : Rejouer exactement les signaux de btc_momentum et btc_breakout avec des frais doublés en simulation prospective sur une fenêtre de 3 jours. Critère d'abandon : Si le rendement net après doublement des frais dépasse ou égale le scénario de référence sans frais, l'hypothèse de sensibilité aux coûts est réfutée.
-- **ETHUSD — Évaluation du positionnement de retour à la moyenne (mean reversion) sur ETHUSD** : Suivi en simulation sur 7 jours de eth_reversion en comparant strictement sa trajectoire nette au témoin eth_hold. Critère d'abandon : Si le robot dépasse le rendement du témoin hold avec un drawdown inférieur à 8.5% sur la période, l'hypothèse d'inefficacité est rejetée.
+- **BTCUSD — Test de résistance aux frais doublés** : Exécuter en simulation un test de 20 USD sur BTCUSD en spot long pendant 7 jours en conditions de frais doublés, en comparant la trajectoire au témoin Hold. Critère d'abandon : Rejeter l'hypothèse si la performance nette dépasse le seuil du témoin Hold sous les mêmes contraintes de frais.
+- **ETHUSD — Évaluation de la sensibilité au repli du marché** : Lancer une simulation de placement fictif de 20 USD sur ETHUSD pendant 3 jours lors d'un scénario de repli de marché échantillonné. Critère d'abandon : Invalider l'hypothèse si le drawdown maximal reste inférieur à celui enregistré par le robot témoin eth_hold sur la même période.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.

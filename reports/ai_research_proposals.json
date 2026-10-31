@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-31T05:51:42.601576+00:00",
+  "generated_at": "2026-10-31T08:41:18.990671+00:00",
   "research_date_utc": "2026-10-31",
-  "review_slot": "2026-10-31T00:00Z",
-  "model_last_called_at": "2026-10-31T02:46:01.298651+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-31T06:00Z",
+  "model_last_called_at": "2026-10-31T08:41:18.990671+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-31T02:46:01.298651+00:00",
+  "last_attempt_at": "2026-10-31T08:41:18.990671+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des performances des robots cryptographiques et multi-actifs du laboratoire Seiko au 31 octobre 2026. L'examen des données historiques et des observations en cours (paper trading prospectif sur 46 observations) montre que la majorité des stratégies affichent des rendements nets négatifs après frais, les rendant inaptes à une adoption réelle sans preuves prospectives supplémentaires. Aucun robot n'est éligible à la revue humaine. Les gains historiques observés sur certains segments (comme ETHUSD avec un rendement moyen de 7.30% mais un drawdown de 25.17%) contrastent avec l'échec aux critères stricts de double coût et de robustesse OOS. Les robots 'hold' continuent de servir de témoins immuables. Aucune promesse de rendement n'est formulée.",
+  "summary": "Analyse critique des performances des robots cryptographiques et multi-actifs du laboratoire Seiko. Les historiques montrent des rendements nets négatifs globaux et des échecs récurrents face aux coûts de double frais, confirmant qu'aucune stratégie actuelle ne démontre une robustesse prospective avérée. Les données de marché indiquent un régime de tendance baissière et de volatilité modérée, accompagnées de flux et de titres d'actualité non vérifiés qui ne constituent en aucun cas des signaux de transaction ou des preuves causales.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais de transaction sur BTCUSD",
-      "hypothesis": "L'augmentation des frais de transaction de 50% à 100% dégrade l'ensemble des performances nettes des robots de momentum et de breakout, invalidant les hypothèses de surperformance fondées sur des backtests à faibles coûts.",
-      "experiment": "Rejouer exactement les signaux de btc_momentum et btc_breakout avec des frais doublés en simulation prospective sur une fenêtre de 3 jours.",
-      "rejection_rule": "Si le rendement net après doublement des frais dépasse ou égale le scénario de référence sans frais, l'hypothèse de sensibilité aux coûts est réfutée.",
+      "title": "Test de résistance aux frais doublés",
+      "hypothesis": "L'augmentation des frais de transaction de 100 % élimine le peu de marges positives observées historiquement sur les stratégies de breakout.",
+      "experiment": "Exécuter en simulation un test de 20 USD sur BTCUSD en spot long pendant 7 jours en conditions de frais doublés, en comparant la trajectoire au témoin Hold.",
+      "rejection_rule": "Rejeter l'hypothèse si la performance nette dépasse le seuil du témoin Hold sous les mêmes contraintes de frais.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -116,10 +116,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Évaluation du positionnement de retour à la moyenne (mean reversion) sur ETHUSD",
-      "hypothesis": "Les stratégies de retour à la moyenne ne parviennent pas à surpasser le témoin hold lors des phases de repli du marché, en raison d'une fréquence de transactions trop faible ou inadéquate.",
-      "experiment": "Suivi en simulation sur 7 jours de eth_reversion en comparant strictement sa trajectoire nette au témoin eth_hold.",
-      "rejection_rule": "Si le robot dépasse le rendement du témoin hold avec un drawdown inférieur à 8.5% sur la période, l'hypothèse d'inefficacité est rejetée.",
+      "title": "Évaluation de la sensibilité au repli du marché",
+      "hypothesis": "Les stratégies de mean_reversion sur ETHUSD amplifient les drawdowns lors des phases de selloff signalées par les indicateurs de sentiment.",
+      "experiment": "Lancer une simulation de placement fictif de 20 USD sur ETHUSD pendant 3 jours lors d'un scénario de repli de marché échantillonné.",
+      "rejection_rule": "Invalider l'hypothèse si le drawdown maximal reste inférieur à celui enregistré par le robot témoin eth_hold sur la même période.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -132,13 +132,7 @@
     {
       "strategy": "btc_scalp_conservative",
       "entry_scale": 1.2,
-      "reason": "Ajustement du seuil de déclenchement (entry_scale) pour limiter la fréquence des signaux dans un régime de volatilité incertaine, sans garantie de réduction de risque ou de capital engagé.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "eth_momentum",
-      "entry_scale": 0.8,
-      "reason": "Modification du seuil de sensibilité pour observer la réactivité du robot face aux variations de tendance récentes, constituant une simple hypothèse de recherche prospective.",
+      "reason": "Ajustement du seuil de déclenchement pour réduire la fréquence des ordres dans un contexte de volatilité incertaine, sans modifier le capital engagé.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],
