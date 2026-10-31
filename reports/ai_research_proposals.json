@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-31T15:32:00.974587+00:00",
+  "generated_at": "2026-10-31T18:17:36.225815+00:00",
   "research_date_utc": "2026-10-31",
-  "review_slot": "2026-10-31T12:00Z",
-  "model_last_called_at": "2026-10-31T12:41:48.935663+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-31T18:00Z",
+  "model_last_called_at": "2026-10-31T18:17:36.225815+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-31T12:41:48.935663+00:00",
+  "last_attempt_at": "2026-10-31T18:17:36.225815+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des données quantitatives Seiko: les historiques de robots affichent des performances nettes négatives et des drawdowns significatifs, aucune stratégie active ne garantissant de supériorité robuste face au simple maintien de l'actif (Hold). L'évaluation prospective et les tests hors échantillon répétés ne prouvent aucune rentabilité future.",
+  "summary": "Analyse critique des données quantitatives Seiko : les historiques horodatés confirment que la majorité des stratégies de trading testées affichent des rendements nets négatifs après frais et subissent des drawdowns importants. Les robots hold et les variantes testées ne prouvent aucune rentabilité future. Les recherches répétées sur les mêmes holdouts augmentent le risque de surajustement, et aucun résultat historique ne constitue une garantie de performance.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -104,9 +104,9 @@
     {
       "asset": "BTCUSD",
       "title": "Test de résistance aux frais doublés",
-      "hypothesis": "Doubler les frais de transaction n'annule pas la performance nette si la fréquence des ordres est maintenue au minimum.",
-      "experiment": "Simuler l'exécution des signaux BTCUSD avec des frais doublés sur les prochaines observations de marché pour mesurer l'impact net par rapport au témoin Hold.",
-      "rejection_rule": "Rejeter l'hypothèse si la perte nette dépasse celle du modèle à frais normaux de plus de deux points de pourcentage.",
+      "hypothesis": "L'augmentation des frais de transaction réduit les rendements nets des stratégies actives sous les seuils acceptables par rapport au Hold.",
+      "experiment": "Simuler l'exécution des ordres BTCUSD avec des frais doublés sur de nouvelles données futures non vues.",
+      "rejection_rule": "Rejeter l'hypothèse si la performance nette avec frais doublés dépasse la stratégie Hold de base sur l'échantillon futur.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -116,10 +116,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Filtre de volatilité pour le retour à la moyenne",
-      "hypothesis": "L'application d'un filtre de volatilité calme réduit le nombre de faux signaux en période de tendance baissière.",
-      "experiment": "Observer le comportement de la stratégie ETHUSD sous contrainte de volatilité calme sur de nouvelles données journalières.",
-      "rejection_rule": "Rejeter l'hypothèse si le drawdown dépasse celui observé sur la période précédente.",
+      "title": "Sensibilité au seuil de volatilité",
+      "hypothesis": "L'application de filtres de volatilité calme réduit la fréquence des faux signaux en période de repli sur ETHUSD.",
+      "experiment": "Mesurer le rendement net et le drawdown d'une stratégie de cassure filtrée par la volatilité sur une fenêtre prospective de 7 jours.",
+      "rejection_rule": "Rejeter l'hypothèse si le drawdown dépasse 12 % ou si le rendement net reste inférieur au témoin Hold.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -132,13 +132,7 @@
     {
       "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Ajustement du seuil de déclenchement pour limiter la sensibilité aux faux signaux dans un régime de marché baissier.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "eth_momentum",
-      "entry_scale": 0.8,
-      "reason": "Modification du seuil d'entrée pour observer la réactivité de la stratégie face aux variations de court terme.",
+      "reason": "Ajustement du seuil de déclenchement pour exiger un signal de momentum plus strict, sans modifier la taille du capital engagé.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],

@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés** : Simuler l'exécution des signaux BTCUSD avec des frais doublés sur les prochaines observations de marché pour mesurer l'impact net par rapport au témoin Hold. Critère d'abandon : Rejeter l'hypothèse si la perte nette dépasse celle du modèle à frais normaux de plus de deux points de pourcentage.
-- **ETHUSD — Filtre de volatilité pour le retour à la moyenne** : Observer le comportement de la stratégie ETHUSD sous contrainte de volatilité calme sur de nouvelles données journalières. Critère d'abandon : Rejeter l'hypothèse si le drawdown dépasse celui observé sur la période précédente.
+- **BTCUSD — Test de résistance aux frais doublés** : Simuler l'exécution des ordres BTCUSD avec des frais doublés sur de nouvelles données futures non vues. Critère d'abandon : Rejeter l'hypothèse si la performance nette avec frais doublés dépasse la stratégie Hold de base sur l'échantillon futur.
+- **ETHUSD — Sensibilité au seuil de volatilité** : Mesurer le rendement net et le drawdown d'une stratégie de cassure filtrée par la volatilité sur une fenêtre prospective de 7 jours. Critère d'abandon : Rejeter l'hypothèse si le drawdown dépasse 12 % ou si le rendement net reste inférieur au témoin Hold.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
