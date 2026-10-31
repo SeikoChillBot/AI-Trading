@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-10-31T11:27:00.381779+00:00",
+  "generated_at": "2026-10-31T12:41:48.935663+00:00",
   "research_date_utc": "2026-10-31",
-  "review_slot": "2026-10-31T06:00Z",
-  "model_last_called_at": "2026-10-31T08:41:18.990671+00:00",
-  "used_cache": true,
+  "review_slot": "2026-10-31T12:00Z",
+  "model_last_called_at": "2026-10-31T12:41:48.935663+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-10-31T08:41:18.990671+00:00",
+  "last_attempt_at": "2026-10-31T12:41:48.935663+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des performances des robots cryptographiques et multi-actifs du laboratoire Seiko. Les historiques montrent des rendements nets négatifs globaux et des échecs récurrents face aux coûts de double frais, confirmant qu'aucune stratégie actuelle ne démontre une robustesse prospective avérée. Les données de marché indiquent un régime de tendance baissière et de volatilité modérée, accompagnées de flux et de titres d'actualité non vérifiés qui ne constituent en aucun cas des signaux de transaction ou des preuves causales.",
+  "summary": "Analyse critique des données quantitatives Seiko: les historiques de robots affichent des performances nettes négatives et des drawdowns significatifs, aucune stratégie active ne garantissant de supériorité robuste face au simple maintien de l'actif (Hold). L'évaluation prospective et les tests hors échantillon répétés ne prouvent aucune rentabilité future.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -104,9 +104,9 @@
     {
       "asset": "BTCUSD",
       "title": "Test de résistance aux frais doublés",
-      "hypothesis": "L'augmentation des frais de transaction de 100 % élimine le peu de marges positives observées historiquement sur les stratégies de breakout.",
-      "experiment": "Exécuter en simulation un test de 20 USD sur BTCUSD en spot long pendant 7 jours en conditions de frais doublés, en comparant la trajectoire au témoin Hold.",
-      "rejection_rule": "Rejeter l'hypothèse si la performance nette dépasse le seuil du témoin Hold sous les mêmes contraintes de frais.",
+      "hypothesis": "Doubler les frais de transaction n'annule pas la performance nette si la fréquence des ordres est maintenue au minimum.",
+      "experiment": "Simuler l'exécution des signaux BTCUSD avec des frais doublés sur les prochaines observations de marché pour mesurer l'impact net par rapport au témoin Hold.",
+      "rejection_rule": "Rejeter l'hypothèse si la perte nette dépasse celle du modèle à frais normaux de plus de deux points de pourcentage.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -116,10 +116,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Évaluation de la sensibilité au repli du marché",
-      "hypothesis": "Les stratégies de mean_reversion sur ETHUSD amplifient les drawdowns lors des phases de selloff signalées par les indicateurs de sentiment.",
-      "experiment": "Lancer une simulation de placement fictif de 20 USD sur ETHUSD pendant 3 jours lors d'un scénario de repli de marché échantillonné.",
-      "rejection_rule": "Invalider l'hypothèse si le drawdown maximal reste inférieur à celui enregistré par le robot témoin eth_hold sur la même période.",
+      "title": "Filtre de volatilité pour le retour à la moyenne",
+      "hypothesis": "L'application d'un filtre de volatilité calme réduit le nombre de faux signaux en période de tendance baissière.",
+      "experiment": "Observer le comportement de la stratégie ETHUSD sous contrainte de volatilité calme sur de nouvelles données journalières.",
+      "rejection_rule": "Rejeter l'hypothèse si le drawdown dépasse celui observé sur la période précédente.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -130,9 +130,15 @@
   ],
   "bot_adjustments": [
     {
-      "strategy": "btc_scalp_conservative",
+      "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Ajustement du seuil de déclenchement pour réduire la fréquence des ordres dans un contexte de volatilité incertaine, sans modifier le capital engagé.",
+      "reason": "Ajustement du seuil de déclenchement pour limiter la sensibilité aux faux signaux dans un régime de marché baissier.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "eth_momentum",
+      "entry_scale": 0.8,
+      "reason": "Modification du seuil d'entrée pour observer la réactivité de la stratégie face aux variations de court terme.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],
