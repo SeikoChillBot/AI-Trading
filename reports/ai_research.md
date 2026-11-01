@@ -10,6 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de placement fictif BTCUSD** : Simuler un placement fictif long spot de 20 USD sur BTCUSD pendant 3 jours en conditions de marché market_selloff, en collectant prospectivement les données sans réutiliser les holdouts. Critère d'abandon : Rejeter l'hypothèse si le rendement net final est inférieur au témoin Hold sur la même période de 3 jours.
+- **BTCUSD — Test de résistance aux frais doublés et surcoûts** : Rejouer la stratégie breakout BTCUSD avec un niveau de frais multiplié par deux sur 81 périodes forward, en comparant les résultats nets au témoin Hold. Critère d'abandon : Si le rendement net après frais doublés dépasse la performance du témoin Hold sur la même période, l'hypothèse de vulnérabilité est réfutée.
+- **ETHUSD — Évaluation de la réversibilité de la tendance et seuils** : Simuler une exécution spot long sans levier sur 7 jours avec la stratégie de réversion, en comparant la fréquence de trade et le drawdown. Critère d'abandon : Si le robot dépasse le rendement du Hold avec un drawdown inférieur à 10% sur les données prospectives, l'hypothèse d'échec de la réversion est rejetée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
