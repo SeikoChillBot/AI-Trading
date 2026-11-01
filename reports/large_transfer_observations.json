@@ -1,20 +1,20 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-01T02:11:20.957147+00:00",
+  "generated_at": "2026-11-01T05:01:21.440473+00:00",
   "source": "https://eth.blockscout.com/api/v2",
   "chain": "ethereum",
-  "state": "observing",
+  "state": "unavailable",
   "method": "sample_latest_public_token_transfers",
   "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
   "max_pages_per_token": 3,
   "minimum_nominal_usd": 1000000,
   "sampled_records": {
-    "USDC": 150,
-    "USDT": 150
+    "USDC": 0,
+    "USDT": 50
   },
   "validated_records": {
-    "USDC": 150,
-    "USDT": 112
+    "USDC": 0,
+    "USDT": 16
   },
   "large_transfers_observed": 0,
   "large_transfers_new": [],
@@ -22,7 +22,10 @@
   "sampled_wallet_flows": [],
   "sampled_wallets_count": 0,
   "new_event_count": 0,
-  "errors": {},
+  "errors": {
+    "USDC": "ReadTimeout: HTTPSConnectionPool(host='eth.blockscout.com', port=443): Read timed out. (read timeout=12)",
+    "USDT": "ReadTimeout: HTTPSConnectionPool(host='eth.blockscout.com', port=443): Read timed out. (read timeout=12)"
+  },
   "buy_sell_inference": false,
   "real_trades": false,
   "warning": "Large stablecoin transfers may be exchange movements, mint/redemption, custody or bridges; not proof of a whale purchase."
