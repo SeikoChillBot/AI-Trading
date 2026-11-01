@@ -31,41 +31,58 @@ def age_hours(now,obj):
         return None
 
 def workflows(get=requests.get, token=None):
-    try:
-        headers={"Accept":"application/vnd.github+json","User-Agent":"SeikoLabHealth/1.0"}
-        if token:headers["Authorization"]="Bearer "+token
-        response=get(API,params={"per_page":35},headers=headers,timeout=15)
-        response.raise_for_status()
-        runs=response.json()["workflow_runs"]
-        if not isinstance(runs,list):raise ValueError("Invalid GitHub data")
-        result={}
-        for name in ("Paper trading","Seiko research — guarded automatic analysis"):
-            finished=[x for x in runs if x.get("name")==name and
-                      x.get("status")=="completed" and x.get("conclusion") in ("success","failure")]
-            if not finished:
-                result[name]={"state":"unknown","reason":"No completed run in recent GitHub history"}
+    """Inspect each workflow's own runs, not a crowded repository-wide feed.
+
+    Frequent Paper/Pages/watchdog runs can push the latest research run out
+    of the first 35 repository-wide results even when research is healthy.
+    """
+    headers={"Accept":"application/vnd.github+json","User-Agent":"SeikoLabHealth/1.0"}
+    if token:headers["Authorization"]="Bearer "+token
+    targets={
+        "Paper trading":"simulate.yml",
+        "Seiko research — guarded automatic analysis":"research.yml",
+    }
+    result={}
+    accessible=0
+    for name,workflow_file in targets.items():
+        try:
+            url=API.replace("/actions/runs","/actions/workflows/"+workflow_file+"/runs")
+            response=get(url,params={"per_page":20},headers=headers,timeout=15)
+            response.raise_for_status()
+            runs=response.json()["workflow_runs"]
+            if not isinstance(runs,list):raise ValueError("Invalid GitHub data")
+            accessible+=1
+        except (KeyError,TypeError,ValueError,requests.RequestException) as error:
+            result[name]={"state":"unknown",
+                          "reason":"GitHub workflow history unavailable",
+                          "error_type":type(error).__name__}
+            continue
+        finished=[x for x in runs if x.get("name")==name and
+                  x.get("status")=="completed" and x.get("conclusion") in ("success","failure")]
+        if not finished:
+            result[name]={"state":"unknown","reason":"No completed run in this workflow's recent history"}
+            continue
+        latest=max(finished,key=lambda x:x.get("created_at",""))
+        active=[x for x in runs if x.get("name")==name and
+                x.get("status") in ("queued","in_progress","waiting")]
+        if active:
+            current=max(active,key=lambda x:x.get("created_at",""))
+            if current.get("created_at","")>latest.get("created_at",""):
+                result[name]={"state":"running",
+                              "run_id":current.get("id"),
+                              "last_created_at":current.get("created_at"),
+                              "url":current.get("html_url"),
+                              "previous_completed_result":latest.get("conclusion")}
                 continue
-            latest=max(finished,key=lambda x:x.get("created_at",""))
-            active=[x for x in runs if x.get("name")==name and
-                    x.get("status") in ("queued","in_progress","waiting")]
-            if active:
-                current=max(active,key=lambda x:x.get("created_at",""))
-                if current.get("created_at","")>latest.get("created_at",""):
-                    result[name]={"state":"running",
-                                  "run_id":current.get("id"),
-                                  "last_created_at":current.get("created_at"),
-                                  "url":current.get("html_url"),
-                                  "previous_completed_result":latest.get("conclusion")}
-                    continue
-            result[name]={
-                "state":"healthy" if latest["conclusion"]=="success" else "failure",
-                "run_id":latest.get("id"),"last_created_at":latest.get("created_at"),
-                "url":latest.get("html_url"),
-                "last_result":latest["conclusion"],
-            }
-        return {"state":"available","workflows":result}
-    except (KeyError,TypeError,ValueError,requests.RequestException) as error:
-        return {"state":"unavailable","reason":type(error).__name__,"workflows":{}}
+        result[name]={
+            "state":"healthy" if latest["conclusion"]=="success" else "failure",
+            "run_id":latest.get("id"),"last_created_at":latest.get("created_at"),
+            "url":latest.get("html_url"),
+            "last_result":latest["conclusion"],
+        }
+    availability=("available" if accessible==len(targets)
+                  else "partial" if accessible else "unavailable")
+    return {"state":availability,"workflows":result}
 
 def build(now, reports, actions):
     evolution=reports.get("evolution",{})
