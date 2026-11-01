@@ -39,6 +39,45 @@ class Tests(unittest.TestCase):
         self.assertEqual(latest["state"],"running")
         self.assertEqual(latest["run_id"],12)
 
+    def test_crowded_repo_feed_cannot_hide_a_recent_research_success(self):
+        """Each API request is scoped to the actual workflow file."""
+        requested=[]
+        class ScopedResponse:
+            def __init__(self, name):self.name=name
+            def raise_for_status(self):pass
+            def json(self):
+                return {"workflow_runs":[{
+                    "name":self.name,"status":"completed","conclusion":"success",
+                    "id":91 if self.name=="Paper trading" else 92,
+                    "created_at":"2026-11-01T11:46:25Z"}]}
+        def get(url,**kwargs):
+            requested.append((url,kwargs["params"]["per_page"]))
+            name=("Paper trading" if "/simulate.yml/" in url else
+                  "Seiko research — guarded automatic analysis")
+            return ScopedResponse(name)
+        out=ops.workflows(get=get)
+        self.assertEqual(out["state"],"available")
+        self.assertEqual(out["workflows"]["Seiko research — guarded automatic analysis"]["run_id"],92)
+        self.assertEqual(len(requested),2)
+        self.assertTrue(any("/workflows/research.yml/runs" in url for url,_ in requested))
+        self.assertTrue(any("/workflows/simulate.yml/runs" in url for url,_ in requested))
+        self.assertFalse(any(url.endswith("/actions/runs") for url,_ in requested))
+
+    def test_one_workflow_api_failure_does_not_erase_the_other_status(self):
+        class PaperResponse:
+            def raise_for_status(self):pass
+            def json(self):
+                return {"workflow_runs":[{"name":"Paper trading",
+                        "status":"completed","conclusion":"success","id":81,
+                        "created_at":"2026-11-01T12:00:00Z"}]}
+        def get(url,**kwargs):
+            if "/research.yml/" in url:raise ops.requests.RequestException("temporary")
+            return PaperResponse()
+        out=ops.workflows(get=get)
+        self.assertEqual(out["state"],"partial")
+        self.assertEqual(out["workflows"]["Paper trading"]["state"],"healthy")
+        self.assertEqual(out["workflows"]["Seiko research — guarded automatic analysis"]["state"],"unknown")
+
     def test_status_is_honest_about_partial_whale_monitor(self):
         data={
           "evolution":{"counts":{"tracked":36,"testing":3,"activated":0}},
