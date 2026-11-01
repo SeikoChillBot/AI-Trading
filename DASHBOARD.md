@@ -1,13 +1,13 @@
 # Tableau de bord — AI Trading
 
-Actualisé : **01/11/2026 à 09:30 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
+Actualisé : **01/11/2026 à 09:40 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
 
 > Simulation uniquement, aucun argent réel. Les frais de marché sont simplifiés et les résultats ne sont pas des prévisions.
 
 | Robot | Capital | Gain / perte | Évolution | Opérations |
 |---|---:|---:|---|---:|
 | btc_scalp_momentum | 20.18 $ | +0.91 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 8 |
-| btc_momentum | 20.07 $ | +0.33 % | ▁▁▁▁▁▂▂▂▂▃▂▂▃▂▃▃▃▄▃▃▂▃▄▄▄▄▄▄▄▄▅▅▇▆▇▆▆▆█▆▄▅▅▅▆▆▆▇ | 11 |
+| btc_momentum | 20.10 $ | +0.51 % | ▁▁▁▁▂▁▂▂▂▂▁▂▂▂▂▂▃▃▃▂▃▃▃▃▃▃▃▃▃▄▄▅▅▅▄▄▅▆▅▄▄▄▄▅▅▄▅█ | 11 |
 | sol_scalp_microtrend | 20.05 $ | +0.27 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 24 |
 | sol_momentum | 19.98 $ | -0.12 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 20 |
 | btc_breakout | 19.90 $ | -0.49 % | ▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▁▁▁▃▂▃▂▂▂▃▃▄▃▂▄▄▄▄▄▄▅▇▇▆█▆▅▅▆▅▇ | 15 |
@@ -23,7 +23,7 @@ Actualisé : **01/11/2026 à 09:30 (heure de Paris)** · **18 robots** · **20 U
 | btc_volatility | 18.89 $ | -5.54 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▃▂▁▁▃▃▄▃▂▂▃▂▂▄▄▄▅▅▆█▇ | 5 |
 | sol_hold | 18.71 $ | -6.47 % | █▆▇▆▆▃▁▂▂▁▁▂▃▃▄▅▆▆▆▅▄▄▄▄▃▃▄▄▅▄▄▄▄▅▄▄▄▄▃▃▄▄▃▄▃▄▄▃ | 1 |
 | btc_rsi | 18.14 $ | -9.31 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 28 |
-| sol_bollinger | 17.89 $ | -10.57 % | ▅▅▅▅▅▅▅▅▅▅▃▁▃▁▅▄▃▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▄▆▇█▇▇▇▇ | 28 |
+| sol_bollinger | 17.89 $ | -10.57 % | ▅▅▅▅▅▅▅▅▅▃▁▃▁▅▄▃▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▄▆▇█▇▇▇▇▇ | 28 |
 
 ## Comprendre les résultats
 
