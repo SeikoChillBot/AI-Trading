@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-01T16:27:51.802473+00:00",
+  "generated_at": "2026-11-01T18:59:20.730230+00:00",
   "research_date_utc": "2026-11-01",
-  "review_slot": "2026-11-01T12:00Z",
-  "model_last_called_at": "2026-11-01T13:37:29.861057+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-01T18:00Z",
+  "model_last_called_at": "2026-11-01T18:59:20.730230+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-01T13:37:29.861057+00:00",
+  "last_attempt_at": "2026-11-01T18:59:20.730230+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse critique des données et des robots du laboratoire Seiko montre qu'aucune stratégie ne démontre une robustesse prospective avérée. Les performances historiques et hors échantillon affichent des rendements nets négatifs fréquents, avec des sensibilités prononcées aux coûts et des échecs récurrents face aux critères de validation. L'examen des historiques de test (BTCUSD, ETHUSD, SOLUSD) souligne l'insuffisance du nombre de transactions et la persistance de drawdowns importants. Aucune hypothèse ne doit être interprétée comme un gain garanti, et l'optimisation répétée sur les mêmes holdouts majore le risque de surajustement.",
+  "summary": "Analyse critique des performances des robots de laboratoire Seiko pour la période se terminant le 2026-11-01. Les historiques OOS et les tests prospectifs paper trading montrent des rendements nets majoritairement négatifs sur BTCUSD, ETHUSD et SOLUSD, avec des drawdowns importants et une sensibilité prononcée aux frais. Les stratégies de type momentum, breakout et RSI échouent à surperformer durablement le modèle Hold témoin. Aucune hypothèse ne démontre une rentabilité prospective garantie.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés et surcoûts",
-      "hypothesis": "Doubler les frais de transaction supprime le peu de profitabilité apparente sur BTCUSD en période OOS.",
-      "experiment": "Rejouer la stratégie breakout BTCUSD avec un niveau de frais multiplié par deux sur 81 périodes forward, en comparant les résultats nets au témoin Hold.",
-      "rejection_rule": "Si le rendement net après frais doublés dépasse la performance du témoin Hold sur la même période, l'hypothèse de vulnérabilité est réfutée.",
+      "title": "Test de résistance aux frais doublés et seuil de déclenchement",
+      "hypothesis": "L'application d'un seuil plus sélectif et l'intégration de confirmations de volatilité réduisent la fréquence des faux signaux mais risquent de supprimer les opportunités nettes.",
+      "experiment": "Simuler un placement fictif de 20 USD en long spot sans levier sur BTCUSD pendant 3 jours lors d'un signal de type sampled_large_transfer, en appliquant des frais normaux et doublés.",
+      "rejection_rule": "Rejeter l'hypothèse si le rendement net prospectif après frais doublés reste négatif ou sous-performe le Hold témoin sur la même période.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -116,10 +116,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Évaluation de la réversibilité de la tendance et seuils",
-      "hypothesis": "L'ajustement des seuils d'entrée sur ETHUSD ne suffit pas à compenser le coût des faux signaux en régime baissier.",
-      "experiment": "Simuler une exécution spot long sans levier sur 7 jours avec la stratégie de réversion, en comparant la fréquence de trade et le drawdown.",
-      "rejection_rule": "Si le robot dépasse le rendement du Hold avec un drawdown inférieur à 10% sur les données prospectives, l'hypothèse d'échec de la réversion est rejetée.",
+      "title": "Validation prospective du retour à la moyenne sur fenêtres courtes",
+      "hypothesis": "Un filtre de retour à la moyenne avec lookback de 20 jours limite les drawdowns lors des phases de selloff, sans pour autant garantir un profit net positif.",
+      "experiment": "Simuler un placement fictif de 20 USD en long spot sans levier sur ETHUSD pendant 7 jours en condition market_selloff.",
+      "rejection_rule": "Rejeter l'hypothèse si le drawdown dépasse 15 % ou si la performance nette est inférieure au témoin d'achat-conservation.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -129,15 +129,15 @@
   ],
   "bot_adjustments": [
     {
-      "strategy": "btc_momentum",
+      "strategy": "btc_scalp_conservative",
       "entry_scale": 1.2,
-      "reason": "Modification du seuil de déclenchement (entry_scale) pour exiger un signal de momentum plus strict, sans modifier la taille du capital engagé ni garantir un rendement.",
+      "reason": "Ajustement du seuil pour limiter les transactions excessives observées dans les historiques récents, tout en maintenant l'intégrité du capital engagé.",
       "evidence_state": "gemini_hypothesis_unverified"
     },
     {
       "strategy": "eth_reversion",
       "entry_scale": 0.8,
-      "reason": "Ajustement du seuil de sensibilité pour capter plus rapidement les mouvements de retour à la moyenne, tout en maintenant les risques inhérents aux pertes historiques.",
+      "reason": "Modification du profil pour tester une sensibilité accrue aux variations de prix à court terme sur ETHUSD, sans modifier le montant alloué de 20 USD.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],

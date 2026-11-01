@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés et surcoûts** : Rejouer la stratégie breakout BTCUSD avec un niveau de frais multiplié par deux sur 81 périodes forward, en comparant les résultats nets au témoin Hold. Critère d'abandon : Si le rendement net après frais doublés dépasse la performance du témoin Hold sur la même période, l'hypothèse de vulnérabilité est réfutée.
-- **ETHUSD — Évaluation de la réversibilité de la tendance et seuils** : Simuler une exécution spot long sans levier sur 7 jours avec la stratégie de réversion, en comparant la fréquence de trade et le drawdown. Critère d'abandon : Si le robot dépasse le rendement du Hold avec un drawdown inférieur à 10% sur les données prospectives, l'hypothèse d'échec de la réversion est rejetée.
+- **BTCUSD — Test de résistance aux frais doublés et seuil de déclenchement** : Simuler un placement fictif de 20 USD en long spot sans levier sur BTCUSD pendant 3 jours lors d'un signal de type sampled_large_transfer, en appliquant des frais normaux et doublés. Critère d'abandon : Rejeter l'hypothèse si le rendement net prospectif après frais doublés reste négatif ou sous-performe le Hold témoin sur la même période.
+- **ETHUSD — Validation prospective du retour à la moyenne sur fenêtres courtes** : Simuler un placement fictif de 20 USD en long spot sans levier sur ETHUSD pendant 7 jours en condition market_selloff. Critère d'abandon : Rejeter l'hypothèse si le drawdown dépasse 15 % ou si la performance nette est inférieure au témoin d'achat-conservation.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
