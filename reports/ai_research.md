@@ -1,6 +1,6 @@
 # Seiko Trading Lab — analyse de robustesse et hypothèses IA
 
-Statut : **model_reflection_completed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
+Statut : **model_reflection_failed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
 
 ## Faits mesurés
 
@@ -10,7 +10,8 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Stress de résilience aux frais sur BTC** : Simuler le comportement du robot btc_scalp_conservative avec des frais réels majorés de 100 % sur de nouvelles données entrantes. Critère d'abandon : Rejeter l'hypothèse si le rendement net devient inférieur au témoin Hold dans plus de 50 pour cent des fenêtres de test.
-- **ETHUSD — Comparaison de filtrage par volatilité sur ETH** : Exécuter une simulation prospective de 3 jours sur ETHUSD avec un filtre de volatilité calme obligatoire avant toute entrée. Critère d'abandon : Rejeter l'hypothèse si le drawdown maximum dépasse celui de la stratégie de référence sans filtre sur la même période.
+- **BTCUSD — Contrôler la robustesse historique de BTCUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
+- **ETHUSD — Contrôler la robustesse historique de ETHUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
+- **SOLUSD — Contrôler la robustesse historique de SOLUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
