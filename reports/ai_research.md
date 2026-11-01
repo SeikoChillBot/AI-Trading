@@ -1,6 +1,6 @@
 # Seiko Trading Lab — analyse de robustesse et hypothèses IA
 
-Statut : **model_reflection_failed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
+Statut : **model_reflection_completed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
 
 ## Faits mesurés
 
@@ -10,8 +10,6 @@ Statut : **model_reflection_failed**. Données historiques uniquement. Aucune pr
 
 ## Pistes d'expériences
 
-- **BTCUSD — Contrôler la robustesse historique de BTCUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
-- **ETHUSD — Contrôler la robustesse historique de ETHUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
-- **SOLUSD — Contrôler la robustesse historique de SOLUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
+- **BTCUSD — Test de placement fictif BTCUSD** : Simuler un placement fictif long spot de 20 USD sur BTCUSD pendant 3 jours en conditions de marché market_selloff, en collectant prospectivement les données sans réutiliser les holdouts. Critère d'abandon : Rejeter l'hypothèse si le rendement net final est inférieur au témoin Hold sur la même période de 3 jours.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.

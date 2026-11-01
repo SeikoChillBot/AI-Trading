@@ -1,10 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-01T06:16:04.424950+00:00",
-  "status": "needs_attention",
-  "alerts": [
-    "Dernière analyse Gemini non confirmée"
-  ],
+  "generated_at": "2026-11-01T09:02:32.983691+00:00",
+  "status": "observing",
+  "alerts": [],
   "roadmap": [
     {
       "id": "robots",
@@ -15,7 +13,7 @@
     {
       "id": "intelligence",
       "title": "Analyses Gemini et recherche autonome",
-      "status": "degraded",
+      "status": "active",
       "detail": "Jusqu'à 4 analyses IA par jour, tests statistiques entre deux appels."
     },
     {
@@ -33,8 +31,8 @@
     {
       "id": "whales",
       "title": "Surveillance des gros mouvements",
-      "status": "partial",
-      "detail": "200 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (observing). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
+      "status": "active",
+      "detail": "300 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (partial). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
     },
     {
       "id": "changes",
@@ -66,21 +64,18 @@
     "workflows": {
       "Paper trading": {
         "state": "healthy",
-        "run_id": 41279763116,
-        "last_created_at": "2026-11-01T06:10:46Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/41279763116",
+        "run_id": 41290550124,
+        "last_created_at": "2026-11-01T09:50:46Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/41290550124",
         "last_result": "success"
       },
       "Seiko research — guarded automatic analysis": {
-        "state": "running",
-        "run_id": 41280037585,
-        "last_created_at": "2026-11-01T06:14:46Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/41280037585",
-        "previous_completed_result": "success"
+        "state": "unknown",
+        "reason": "No completed run in recent GitHub history"
       }
     }
   },
-  "gemini_last_state": "model_reflection_failed",
+  "gemini_last_state": "model_reflection_completed",
   "paper_experiments_active": 9,
   "robot_count": 36,
   "real_orders": false,

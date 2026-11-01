@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-01T06:15:58.720826+00:00",
+  "generated_at": "2026-11-01T09:02:29.833398+00:00",
   "research_date_utc": "2026-11-01",
   "review_slot": "2026-11-01T06:00Z",
-  "model_last_called_at": null,
+  "model_last_called_at": "2026-11-01T09:02:29.833398+00:00",
   "used_cache": false,
-  "last_http_status": 503,
-  "error_type": "HTTPError",
-  "error_code": "UNAVAILABLE",
-  "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-01T06:15:58.720826+00:00",
-  "source": "deterministic_fallback",
-  "state": "model_reflection_failed",
+  "last_http_status": null,
+  "error_type": null,
+  "error_code": null,
+  "attempts_in_slot": 2,
+  "last_attempt_at": "2026-11-01T09:02:29.833398+00:00",
+  "source": "gemini_generate_content",
+  "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse Gemini indisponible (HTTPError, HTTP 503). Repli sur les tests statistiques.",
+  "summary": "Analyse critique des données du laboratoire Seiko : les robots crypto affichent des performances nettes négatives et des historiques trop courts (3.6 jours). Les analyses sur les tests historiques et les redémarrages de stratégies montrent des échecs récurrents face aux coûts et aux drawdowns. Aucune stratégie n'est robuste et les tests prospectifs exigent de nouvelles données non utilisées.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,46 +103,26 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Contrôler la robustesse historique de BTCUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
+      "title": "Test de placement fictif BTCUSD",
+      "hypothesis": "Un signal de breakout sur BTCUSD sous régime de forte volatilité et sentiment bas peut générer un rendement net positif supérieur au Hold sur une fenêtre de 3 jours.",
+      "experiment": "Simuler un placement fictif long spot de 20 USD sur BTCUSD pendant 3 jours en conditions de marché market_selloff, en collectant prospectivement les données sans réutiliser les holdouts.",
+      "rejection_rule": "Rejeter l'hypothèse si le rendement net final est inférieur au témoin Hold sur la même période de 3 jours.",
+      "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
         "positive_average_with_double_costs"
       ]
-    },
-    {
-      "asset": "ETHUSD",
-      "title": "Contrôler la robustesse historique de ETHUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
-      "blocking_checks": [
-        "twenty_or_more_closed_trades",
-        "drawdown_below_20_pct"
-      ]
-    },
-    {
-      "asset": "SOLUSD",
-      "title": "Contrôler la robustesse historique de SOLUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
-      "blocking_checks": [
-        "twenty_or_more_closed_trades",
-        "positive_average_net_return",
-        "beats_hold_in_most_folds",
-        "positive_average_with_double_costs",
-        "drawdown_below_20_pct"
-      ]
     }
   ],
-  "bot_adjustments": [],
+  "bot_adjustments": [
+    {
+      "strategy": "btc_scalp_conservative",
+      "entry_scale": 1.2,
+      "reason": "Ajustement du seuil de déclenchement du signal pour limiter la sur-activité observée sur le robot scalp, tout en maintenant le capital engagé inchangé.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    }
+  ],
   "scenario_proposals": [],
   "desk_notes": [],
   "strategy_designs": [],
