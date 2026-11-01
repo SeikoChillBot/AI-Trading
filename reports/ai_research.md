@@ -4,13 +4,13 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Faits mesurés
 
-- BTCUSD : -1.72 % rendement net moyen, 3.03 points face au Hold, -4.24 % avec frais doublés, 9 trades clôturés, drawdown maximal 19.51 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, positive_average_with_double_costs.
-- ETHUSD : 7.30 % rendement net moyen, 5.73 points face au Hold, 4.79 % avec frais doublés, 7 trades clôturés, drawdown maximal 25.17 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, beats_hold_in_most_folds, drawdown_below_20_pct.
-- SOLUSD : -4.29 % rendement net moyen, 0.38 points face au Hold, -8.12 % avec frais doublés, 15 trades clôturés, drawdown maximal 35.01 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, positive_average_with_double_costs, drawdown_below_20_pct.
+- BTCUSD : -1.79 % rendement net moyen, 2.97 points face au Hold, -4.34 % avec frais doublés, 8 trades clôturés, drawdown maximal 19.51 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, positive_average_with_double_costs.
+- ETHUSD : 7.14 % rendement net moyen, 6.46 points face au Hold, 4.63 % avec frais doublés, 7 trades clôturés, drawdown maximal 25.17 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, drawdown_below_20_pct.
+- SOLUSD : -5.48 % rendement net moyen, -0.16 points face au Hold, -9.24 % avec frais doublés, 14 trades clôturés, drawdown maximal 35.01 % sur 8 fenêtres ; blocages : twenty_or_more_closed_trades, positive_average_net_return, beats_hold_in_most_folds, positive_average_with_double_costs, drawdown_below_20_pct.
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés** : Simuler l'exécution des ordres BTCUSD avec des frais doublés sur de nouvelles données futures non vues. Critère d'abandon : Rejeter l'hypothèse si la performance nette avec frais doublés dépasse la stratégie Hold de base sur l'échantillon futur.
-- **ETHUSD — Sensibilité au seuil de volatilité** : Mesurer le rendement net et le drawdown d'une stratégie de cassure filtrée par la volatilité sur une fenêtre prospective de 7 jours. Critère d'abandon : Rejeter l'hypothèse si le drawdown dépasse 12 % ou si le rendement net reste inférieur au témoin Hold.
+- **BTCUSD — Stress de résilience aux frais sur BTC** : Simuler le comportement du robot btc_scalp_conservative avec des frais réels majorés de 100 % sur de nouvelles données entrantes. Critère d'abandon : Rejeter l'hypothèse si le rendement net devient inférieur au témoin Hold dans plus de 50 pour cent des fenêtres de test.
+- **ETHUSD — Comparaison de filtrage par volatilité sur ETH** : Exécuter une simulation prospective de 3 jours sur ETHUSD avec un filtre de volatilité calme obligatoire avant toute entrée. Critère d'abandon : Rejeter l'hypothèse si le drawdown maximum dépasse celui de la stratégie de référence sans filtre sur la même période.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
