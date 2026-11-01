@@ -1,52 +1,52 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-01T09:02:28.952033+00:00",
+  "generated_at": "2026-11-01T11:47:46.010570+00:00",
   "type": "kraken_1h_intraday_research",
   "source": "Kraken public 60m OHLC, only closed candles",
   "status": "available",
   "assets": {
     "BTCUSD": {
-      "last_closed_hour_utc": "2026-11-01T08:00:00+00:00",
+      "last_closed_hour_utc": "2026-11-01T10:00:00+00:00",
       "historical_study": {
         "folds": [
           {
-            "test_started": 1792659600,
-            "test_ended": 1793088000,
+            "test_started": 1792666800,
+            "test_ended": 1793095200,
             "parameter": {
               "kind": "trend",
               "period": 16,
               "threshold": 0.008
             },
             "net_return_pct": 0.0,
-            "excess_vs_hold_points": 4.21593,
+            "excess_vs_hold_points": 4.32591,
             "double_cost_return_pct": 0.0,
             "max_drawdown_pct": 0.0,
             "closed_trades": 0
           },
           {
-            "test_started": 1793091600,
-            "test_ended": 1793520000,
+            "test_started": 1793098800,
+            "test_ended": 1793527200,
             "parameter": {
               "kind": "trend",
               "period": 8,
               "threshold": 0.008
             },
             "net_return_pct": -11.05522,
-            "excess_vs_hold_points": -7.30514,
+            "excess_vs_hold_points": -6.8974,
             "double_cost_return_pct": -15.73172,
             "max_drawdown_pct": 11.05522,
             "closed_trades": 3
           }
         ],
         "avg_net_return_pct": -5.52761,
-        "avg_excess_vs_hold": -1.5446,
+        "avg_excess_vs_hold": -1.28574,
         "max_drawdown_pct": 11.05522,
         "proven_profitable": false
       },
       "paper_forward": {
         "version": 2,
         "status": "forward_hourly_observations",
-        "observations": 77,
+        "observations": 79,
         "capital_usd": 18.97595,
         "net_return_pct": -5.12025,
         "max_drawdown_pct": 5.3,
@@ -56,47 +56,47 @@
       "paper_only": true
     },
     "ETHUSD": {
-      "last_closed_hour_utc": "2026-11-01T08:00:00+00:00",
+      "last_closed_hour_utc": "2026-11-01T10:00:00+00:00",
       "historical_study": {
         "folds": [
           {
-            "test_started": 1792659600,
-            "test_ended": 1793088000,
+            "test_started": 1792666800,
+            "test_ended": 1793095200,
             "parameter": {
               "kind": "trend",
               "period": 8,
               "threshold": 0.008
             },
             "net_return_pct": -6.41177,
-            "excess_vs_hold_points": -0.69343,
+            "excess_vs_hold_points": -0.88316,
             "double_cost_return_pct": -9.72163,
             "max_drawdown_pct": 6.41217,
             "closed_trades": 2
           },
           {
-            "test_started": 1793091600,
-            "test_ended": 1793520000,
+            "test_started": 1793098800,
+            "test_ended": 1793527200,
             "parameter": {
               "kind": "trend",
               "period": 24,
               "threshold": 0.008
             },
-            "net_return_pct": -13.79133,
-            "excess_vs_hold_points": -10.44759,
-            "double_cost_return_pct": -19.78126,
+            "net_return_pct": -14.02118,
+            "excess_vs_hold_points": -10.30802,
+            "double_cost_return_pct": -19.99514,
             "max_drawdown_pct": 14.20285,
             "closed_trades": 3
           }
         ],
-        "avg_net_return_pct": -10.10155,
-        "avg_excess_vs_hold": -5.57051,
+        "avg_net_return_pct": -10.21647,
+        "avg_excess_vs_hold": -5.59559,
         "max_drawdown_pct": 14.20285,
         "proven_profitable": false
       },
       "paper_forward": {
         "version": 2,
         "status": "forward_hourly_observations",
-        "observations": 77,
+        "observations": 79,
         "capital_usd": 19.38026,
         "net_return_pct": -3.0987,
         "max_drawdown_pct": 5.2526,
@@ -106,47 +106,47 @@
       "paper_only": true
     },
     "SOLUSD": {
-      "last_closed_hour_utc": "2026-11-01T08:00:00+00:00",
+      "last_closed_hour_utc": "2026-11-01T10:00:00+00:00",
       "historical_study": {
         "folds": [
           {
-            "test_started": 1792659600,
-            "test_ended": 1793088000,
+            "test_started": 1792666800,
+            "test_ended": 1793095200,
             "parameter": {
               "kind": "trend",
               "period": 24,
               "threshold": 0.008
             },
             "net_return_pct": -7.74519,
-            "excess_vs_hold_points": -2.23032,
+            "excess_vs_hold_points": -1.72001,
             "double_cost_return_pct": -11.0079,
             "max_drawdown_pct": 7.74519,
             "closed_trades": 2
           },
           {
-            "test_started": 1793091600,
-            "test_ended": 1793520000,
+            "test_started": 1793098800,
+            "test_ended": 1793527200,
             "parameter": {
               "kind": "trend",
               "period": 24,
               "threshold": 0.008
             },
             "net_return_pct": -7.62394,
-            "excess_vs_hold_points": -1.87356,
+            "excess_vs_hold_points": -1.22199,
             "double_cost_return_pct": -10.89094,
             "max_drawdown_pct": 7.62394,
             "closed_trades": 2
           }
         ],
         "avg_net_return_pct": -7.68457,
-        "avg_excess_vs_hold": -2.05194,
+        "avg_excess_vs_hold": -1.471,
         "max_drawdown_pct": 7.74519,
         "proven_profitable": false
       },
       "paper_forward": {
         "version": 2,
         "status": "forward_hourly_observations",
-        "observations": 77,
+        "observations": 79,
         "capital_usd": 19.88957,
         "net_return_pct": -0.55215,
         "max_drawdown_pct": 4.1351,
