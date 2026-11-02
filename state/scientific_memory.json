@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-01T23:40:00.806812+00:00",
+  "updated_at": "2026-11-02T02:32:14.625562+00:00",
   "lessons": [
     {
       "id": "5191e3b657d1819654",
@@ -9,8 +9,8 @@
       "confirmations": [],
       "source": "deterministic_reference",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -81,6 +81,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
+          "net_pct": -5.2484,
+          "double_cost_net_pct": -14.0957,
+          "excess_vs_hold": -1.1329,
+          "drawdown_pct": 10.51215,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -88,7 +102,8 @@
         "b36d4c46a2c4e5f042d4b1c17e28f3d219bba75bc3a0cd59088a97f9c803edfc",
         "3f06068937e897bca835a8733a6be23e80281b7e2b5f80403fc53c286070f5eb",
         "1b1b4f8457abfe0382c6b80cba503fc3922e7d1a81ac4f13841398a73d19058e",
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2"
+        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
+        "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -97,12 +112,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.43587,
+        "excess_vs_hold_points": 5.4666,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -114,8 +129,8 @@
       "confirmations": [],
       "source": "deterministic_reference",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -191,6 +206,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
+          "net_pct": -18.3886,
+          "double_cost_net_pct": -29.3601,
+          "excess_vs_hold": -13.7863,
+          "drawdown_pct": 36.12343,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -198,7 +228,8 @@
         "24d639f16512d2c567cfa9788e3eb3e43b4af4b0505816a99ba44fa935fee70a",
         "d804472c1c7e57a98a8001aa4526a4f4d0b8432c8df245f4581acd20f9090c80",
         "2b29b992f4c69af547f65007a09c131525b08ccd00c3f6f7e24ee7e17c39bc95",
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b"
+        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
+        "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -208,12 +239,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
-        "net_pct": -6.14881,
-        "excess_vs_hold_points": 0.0,
+        "observed_days": 4,
+        "net_pct": -6.15422,
+        "excess_vs_hold_points": -0.83247,
         "max_drawdown_pct": 6.61254,
-        "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "closed_trades": 1,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -225,8 +256,8 @@
       "confirmations": [],
       "source": "deterministic_reference",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -300,6 +331,20 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
+          "net_pct": -0.4336,
+          "double_cost_net_pct": -4.255,
+          "excess_vs_hold": 7.2849,
+          "drawdown_pct": 13.79513,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -307,20 +352,22 @@
         "44f16d102b571c203865ad26830534e41027a0fe9ec53b7a399f5e6d2a8c63d2",
         "768a5e4ba95e14f0f20a687a5d2c70039c8108eccdb54d9f9a6d7cf3a9119ed1",
         "8cf5eb14f7eb93e7415bc5683f186a255d468bfaea21831b0213a91cf3c9da10",
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0"
+        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
+        "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
+        "positive_average_net",
         "positive_with_double_costs"
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 8.52172,
+        "excess_vs_hold_points": 9.38554,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -332,8 +379,8 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -409,6 +456,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
+          "net_pct": -3.3993,
+          "double_cost_net_pct": -6.4394,
+          "excess_vs_hold": 0.7162,
+          "drawdown_pct": 8.50454,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -416,7 +478,8 @@
         "b36d4c46a2c4e5f042d4b1c17e28f3d219bba75bc3a0cd59088a97f9c803edfc",
         "3f06068937e897bca835a8733a6be23e80281b7e2b5f80403fc53c286070f5eb",
         "1b1b4f8457abfe0382c6b80cba503fc3922e7d1a81ac4f13841398a73d19058e",
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2"
+        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
+        "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -426,12 +489,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.43587,
+        "excess_vs_hold_points": 5.4666,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -443,8 +506,8 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -515,6 +578,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
+          "net_pct": -2.6863,
+          "double_cost_net_pct": -5.8046,
+          "excess_vs_hold": 1.9161,
+          "drawdown_pct": 8.13239,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -522,7 +599,8 @@
         "24d639f16512d2c567cfa9788e3eb3e43b4af4b0505816a99ba44fa935fee70a",
         "d804472c1c7e57a98a8001aa4526a4f4d0b8432c8df245f4581acd20f9090c80",
         "2b29b992f4c69af547f65007a09c131525b08ccd00c3f6f7e24ee7e17c39bc95",
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b"
+        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
+        "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -531,12 +609,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.14881,
+        "excess_vs_hold_points": 5.32175,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -548,8 +626,8 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -620,6 +698,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
+          "net_pct": -2.2374,
+          "double_cost_net_pct": -5.3668,
+          "excess_vs_hold": 5.4811,
+          "drawdown_pct": 7.4672,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -627,7 +719,8 @@
         "44f16d102b571c203865ad26830534e41027a0fe9ec53b7a399f5e6d2a8c63d2",
         "768a5e4ba95e14f0f20a687a5d2c70039c8108eccdb54d9f9a6d7cf3a9119ed1",
         "8cf5eb14f7eb93e7415bc5683f186a255d468bfaea21831b0213a91cf3c9da10",
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0"
+        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
+        "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -636,12 +729,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 8.52172,
+        "excess_vs_hold_points": 9.38554,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -653,8 +746,8 @@
       "confirmations": [],
       "source": "bounded_evolution",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -729,6 +822,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
+          "net_pct": -1.4497,
+          "double_cost_net_pct": -2.8812,
+          "excess_vs_hold": 2.6658,
+          "drawdown_pct": 6.48444,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -736,7 +844,8 @@
         "b36d4c46a2c4e5f042d4b1c17e28f3d219bba75bc3a0cd59088a97f9c803edfc",
         "3f06068937e897bca835a8733a6be23e80281b7e2b5f80403fc53c286070f5eb",
         "1b1b4f8457abfe0382c6b80cba503fc3922e7d1a81ac4f13841398a73d19058e",
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2"
+        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
+        "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -746,12 +855,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.43587,
+        "excess_vs_hold_points": 5.4666,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -763,8 +872,8 @@
       "confirmations": [],
       "source": "bounded_evolution",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -835,6 +944,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
+          "net_pct": -2.6069,
+          "double_cost_net_pct": -4.5571,
+          "excess_vs_hold": 1.9954,
+          "drawdown_pct": 7.65209,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -842,7 +965,8 @@
         "24d639f16512d2c567cfa9788e3eb3e43b4af4b0505816a99ba44fa935fee70a",
         "d804472c1c7e57a98a8001aa4526a4f4d0b8432c8df245f4581acd20f9090c80",
         "2b29b992f4c69af547f65007a09c131525b08ccd00c3f6f7e24ee7e17c39bc95",
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b"
+        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
+        "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -851,12 +975,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.14881,
+        "excess_vs_hold_points": 5.32175,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -868,8 +992,8 @@
       "confirmations": [],
       "source": "bounded_evolution",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -940,6 +1064,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
+          "net_pct": -1.1972,
+          "double_cost_net_pct": -4.3988,
+          "excess_vs_hold": 6.5213,
+          "drawdown_pct": 7.4672,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -947,7 +1085,8 @@
         "44f16d102b571c203865ad26830534e41027a0fe9ec53b7a399f5e6d2a8c63d2",
         "768a5e4ba95e14f0f20a687a5d2c70039c8108eccdb54d9f9a6d7cf3a9119ed1",
         "8cf5eb14f7eb93e7415bc5683f186a255d468bfaea21831b0213a91cf3c9da10",
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0"
+        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
+        "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -956,12 +1095,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 8.52172,
+        "excess_vs_hold_points": 9.38554,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -976,8 +1115,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1050,6 +1189,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
+          "net_pct": -0.3859,
+          "double_cost_net_pct": -0.6764,
+          "excess_vs_hold": 3.7296,
+          "drawdown_pct": 2.31541,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1057,7 +1210,8 @@
         "b36d4c46a2c4e5f042d4b1c17e28f3d219bba75bc3a0cd59088a97f9c803edfc",
         "3f06068937e897bca835a8733a6be23e80281b7e2b5f80403fc53c286070f5eb",
         "1b1b4f8457abfe0382c6b80cba503fc3922e7d1a81ac4f13841398a73d19058e",
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2"
+        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
+        "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1066,12 +1220,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.43587,
+        "excess_vs_hold_points": 5.4666,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1086,8 +1240,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1162,6 +1316,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
+          "net_pct": -0.3727,
+          "double_cost_net_pct": -0.6634,
+          "excess_vs_hold": 3.7428,
+          "drawdown_pct": 2.23908,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1169,7 +1338,8 @@
         "b36d4c46a2c4e5f042d4b1c17e28f3d219bba75bc3a0cd59088a97f9c803edfc",
         "3f06068937e897bca835a8733a6be23e80281b7e2b5f80403fc53c286070f5eb",
         "1b1b4f8457abfe0382c6b80cba503fc3922e7d1a81ac4f13841398a73d19058e",
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2"
+        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
+        "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -1179,12 +1349,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.43587,
+        "excess_vs_hold_points": 5.4666,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1199,8 +1369,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1271,6 +1441,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 4.6023,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1278,7 +1462,8 @@
         "24d639f16512d2c567cfa9788e3eb3e43b4af4b0505816a99ba44fa935fee70a",
         "d804472c1c7e57a98a8001aa4526a4f4d0b8432c8df245f4581acd20f9090c80",
         "2b29b992f4c69af547f65007a09c131525b08ccd00c3f6f7e24ee7e17c39bc95",
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b"
+        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
+        "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1287,12 +1472,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.14881,
+        "excess_vs_hold_points": 5.32175,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1307,8 +1492,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1379,6 +1564,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 4.6023,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1386,7 +1585,8 @@
         "24d639f16512d2c567cfa9788e3eb3e43b4af4b0505816a99ba44fa935fee70a",
         "d804472c1c7e57a98a8001aa4526a4f4d0b8432c8df245f4581acd20f9090c80",
         "2b29b992f4c69af547f65007a09c131525b08ccd00c3f6f7e24ee7e17c39bc95",
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b"
+        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
+        "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1395,12 +1595,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.14881,
+        "excess_vs_hold_points": 5.32175,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1415,8 +1615,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1487,6 +1687,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 7.7185,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1494,7 +1708,8 @@
         "44f16d102b571c203865ad26830534e41027a0fe9ec53b7a399f5e6d2a8c63d2",
         "768a5e4ba95e14f0f20a687a5d2c70039c8108eccdb54d9f9a6d7cf3a9119ed1",
         "8cf5eb14f7eb93e7415bc5683f186a255d468bfaea21831b0213a91cf3c9da10",
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0"
+        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
+        "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1503,12 +1718,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 8.52172,
+        "excess_vs_hold_points": 9.38554,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1523,8 +1738,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1590,6 +1805,19 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
+          "net_pct": 0.1438,
+          "double_cost_net_pct": -0.1561,
+          "excess_vs_hold": 7.8623,
+          "drawdown_pct": 0.02282,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1597,7 +1825,8 @@
         "44f16d102b571c203865ad26830534e41027a0fe9ec53b7a399f5e6d2a8c63d2",
         "768a5e4ba95e14f0f20a687a5d2c70039c8108eccdb54d9f9a6d7cf3a9119ed1",
         "8cf5eb14f7eb93e7415bc5683f186a255d468bfaea21831b0213a91cf3c9da10",
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0"
+        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
+        "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1605,12 +1834,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 8.52172,
+        "excess_vs_hold_points": 9.38554,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1625,8 +1854,8 @@
       ],
       "source": "bounded_local_research_director",
       "first_seen_at": "2026-10-29T22:57:17.628776+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1702,6 +1931,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
+          "net_pct": -2.0772,
+          "double_cost_net_pct": -5.2786,
+          "excess_vs_hold": 2.0382,
+          "drawdown_pct": 13.21277,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1709,7 +1953,8 @@
         "b36d4c46a2c4e5f042d4b1c17e28f3d219bba75bc3a0cd59088a97f9c803edfc",
         "3f06068937e897bca835a8733a6be23e80281b7e2b5f80403fc53c286070f5eb",
         "1b1b4f8457abfe0382c6b80cba503fc3922e7d1a81ac4f13841398a73d19058e",
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2"
+        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
+        "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -1719,12 +1964,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": 0.0,
-        "excess_vs_hold_points": 6.43587,
+        "excess_vs_hold_points": 5.4666,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1738,8 +1983,8 @@
       ],
       "source": "bounded_local_research_director",
       "first_seen_at": "2026-10-29T22:57:17.628776+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1815,6 +2060,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
+          "net_pct": -15.714,
+          "double_cost_net_pct": -21.2265,
+          "excess_vs_hold": -11.1117,
+          "drawdown_pct": 35.46133,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1822,7 +2082,8 @@
         "24d639f16512d2c567cfa9788e3eb3e43b4af4b0505816a99ba44fa935fee70a",
         "d804472c1c7e57a98a8001aa4526a4f4d0b8432c8df245f4581acd20f9090c80",
         "2b29b992f4c69af547f65007a09c131525b08ccd00c3f6f7e24ee7e17c39bc95",
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b"
+        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
+        "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -1832,12 +2093,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
-        "net_pct": -1.62716,
-        "excess_vs_hold_points": 4.52165,
+        "observed_days": 4,
+        "net_pct": -0.76026,
+        "excess_vs_hold_points": 4.56149,
         "max_drawdown_pct": 2.11324,
         "closed_trades": 0,
-        "last_closed_day": 1793404800,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
@@ -1849,8 +2110,8 @@
       "confirmations": [],
       "source": "bounded_local_research_director",
       "first_seen_at": "2026-10-29T22:57:17.628776+00:00",
-      "last_reviewed_at": "2026-11-01T23:40:00.806812+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-02T02:32:14.625562+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -1926,6 +2187,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-02T02:32:14.625562+00:00",
+          "data_sha256": "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
+          "net_pct": -28.6849,
+          "double_cost_net_pct": -47.553,
+          "excess_vs_hold": -20.9664,
+          "drawdown_pct": 41.4892,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -1933,7 +2209,8 @@
         "44f16d102b571c203865ad26830534e41027a0fe9ec53b7a399f5e6d2a8c63d2",
         "768a5e4ba95e14f0f20a687a5d2c70039c8108eccdb54d9f9a6d7cf3a9119ed1",
         "8cf5eb14f7eb93e7415bc5683f186a255d468bfaea21831b0213a91cf3c9da10",
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0"
+        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
+        "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -1943,12 +2220,12 @@
       ],
       "latest_prospective": {
         "status": "observing_paper_only",
-        "observed_days": 3,
+        "observed_days": 4,
         "net_pct": -10.88235,
-        "excess_vs_hold_points": -2.36063,
+        "excess_vs_hold_points": -1.49682,
         "max_drawdown_pct": 10.88235,
-        "closed_trades": 1,
-        "last_closed_day": 1793404800,
+        "closed_trades": 2,
+        "last_closed_day": 1793491200,
         "not_a_guarantee": true
       },
       "hypothesis_only": true
