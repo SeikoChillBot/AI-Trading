@@ -10,6 +10,6 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés sur BTC** : Simuler une exécution sur BTCUSD avec des frais normaux et des frais doublés en comparant les soldes sur 3 jours. Critère d'abandon : Si la baisse nette dépasse le double de l'augmentation des frais ou si le nombre de trades chute de plus de 50 pourcent, l'hypothèse est réfutée.
+- **BTCUSD — Test de résistance des frais sur rupture de tendance** : Rejouer la stratégie breakout avec des frais majorés de 100 % sur les bougies journalières futures de BTCUSD en conservant un capital fictif de 20 USD. Critère d'abandon : Rjeter l'hypothèse si le rendement net devient significativement plus négatif que le témoin Hold sur la même période.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
