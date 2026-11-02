@@ -85,6 +85,16 @@ class ResearchDirectorTests(unittest.TestCase):
         self.assertEqual(new_state["controls_by_asset"],
                          state["controls_by_asset"])
 
+    def test_gemini_prompt_prioritizes_market_evidence_and_honest_execution(self):
+        from research import ai_reflection
+        prompt = ai_reflection.INSTRUCTIONS
+        self.assertIn("régimes de marché", prompt)
+        self.assertIn("comparaison appariée", prompt)
+        self.assertIn("scenario_proposals", prompt)
+        self.assertIn("Les expériences narratives restent des hypothèses", prompt)
+        self.assertIn("sélectivité des ordres", prompt)
+        self.assertIn("au plus deux expériences narratives", prompt)
+
     def test_fallback_is_labelled_and_research_aim_rotates_by_asset(self):
         report,state=self.go()
         self.assertEqual(report["model_directed_this_cycle"],0)
