@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-02T11:47:28.839722+00:00",
+  "generated_at": "2026-11-02T13:30:08.708936+00:00",
   "research_date_utc": "2026-11-02",
-  "review_slot": "2026-11-02T06:00Z",
-  "model_last_called_at": "2026-11-02T06:16:40.640715+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-02T12:00Z",
+  "model_last_called_at": "2026-11-02T13:30:08.708936+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-02T06:16:40.640715+00:00",
+  "last_attempt_at": "2026-11-02T13:30:08.708936+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Aucune strategie ne demontre de robustesse prospective averee dans le contexte recupere. Les analyses historiques et hors echantillon soulignent des performances nettes negatives et une forte sensibilite aux frais, sans qu'aucun resultat ne puisse etre generalise au marche entier.",
+  "summary": "Analyse quantitative du laboratoire Seiko : les robots de tendance, de momentum et de breakout affichent des performances historiques négatives et un échec généralisé face aux coûts et aux drawdowns. Les données montrent des régimes de marché baissiers avec une volatilité modérée à élevée. Aucune stratégie ne prouve de rentabilité future.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,32 +103,26 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Falsification de la resilience aux couts sur BTC",
-      "hypothesis": "Doubler les frais de transaction ameliore la selectivite des ordres de breakout sans detruire la valeur nette.",
-      "experiment": "Simuler 7 jours de positionnement long spot sans effet de levier avec des frais standard et doubles.",
-      "rejection_rule": "Rejeter l'hypothese si le rendement net avec frais doubles devient inferieur au test de reference Hold.",
+      "title": "Test de résistance aux frais doublés sur BTC",
+      "hypothesis": "Doubler les frais de transaction n'altère pas la proportion relative des signaux rentables par rapport aux pertes structurelles.",
+      "experiment": "Simuler une exécution sur BTCUSD avec des frais normaux et des frais doublés en comparant les soldes sur 3 jours.",
+      "rejection_rule": "Si la baisse nette dépasse le double de l'augmentation des frais ou si le nombre de trades chute de plus de 50 pourcent, l'hypothèse est réfutée.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
         "positive_average_with_double_costs"
       ]
-    },
-    {
-      "asset": "ETHUSD",
-      "title": "Falsification du signal de retour a la moyenne sur ETH",
-      "hypothesis": "Un filtre de volatilite calme reduit le drawdown sur 3 jours sans supprimer totalement les trades utiles.",
-      "experiment": "Observer un positionnement long spot de 3 jours sur ETHUSD conditionne par une volatilite calme.",
-      "rejection_rule": "Rejeter l'hypothese si le drawdown depasse celui du robot temoin Hold sur la meme periode.",
-      "evidence_state": "ai_hypothesis_not_tested",
-      "blocking_checks": [
-        "twenty_or_more_closed_trades",
-        "beats_hold_in_most_folds",
-        "drawdown_below_20_pct"
-      ]
     }
   ],
-  "bot_adjustments": [],
+  "bot_adjustments": [
+    {
+      "strategy": "btc_scalp_conservative",
+      "entry_scale": 1.2,
+      "reason": "Réajustement du seuil de déclenchement pour limiter la sur-réaction dans un régime baissier à faible liquidité.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    }
+  ],
   "scenario_proposals": [],
   "desk_notes": [],
   "strategy_designs": [],

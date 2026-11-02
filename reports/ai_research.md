@@ -10,7 +10,6 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Falsification de la resilience aux couts sur BTC** : Simuler 7 jours de positionnement long spot sans effet de levier avec des frais standard et doubles. Critère d'abandon : Rejeter l'hypothese si le rendement net avec frais doubles devient inferieur au test de reference Hold.
-- **ETHUSD — Falsification du signal de retour a la moyenne sur ETH** : Observer un positionnement long spot de 3 jours sur ETHUSD conditionne par une volatilite calme. Critère d'abandon : Rejeter l'hypothese si le drawdown depasse celui du robot temoin Hold sur la meme periode.
+- **BTCUSD — Test de résistance aux frais doublés sur BTC** : Simuler une exécution sur BTCUSD avec des frais normaux et des frais doublés en comparant les soldes sur 3 jours. Critère d'abandon : Si la baisse nette dépasse le double de l'augmentation des frais ou si le nombre de trades chute de plus de 50 pourcent, l'hypothèse est réfutée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
