@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés** : Rejouer l'ensemble des signaux BTCUSD avec des frais doublés en simulation sur les données de forward paper pour observer la dégradation du rendement net. Critère d'abandon : Si la baisse du rendement net dépasse 50% de la performance initiale ou si le nombre d'ordres tombe à zéro, l'hypothèse est rejetée.
-- **ETHUSD — Filtre de volatilité active sur ETHUSD** : Simuler une variante de stratégie breakout avec le filtre active_volatility sur une fenêtre prospective de 7 jours avec un capital fictif de 20 USD. Critère d'abandon : Si le rendement net reste inférieur au témoin ETH_Hold sur la même période, l'hypothèse est rejetée.
+- **BTCUSD — Falsification de la resilience aux couts sur BTC** : Simuler 7 jours de positionnement long spot sans effet de levier avec des frais standard et doubles. Critère d'abandon : Rejeter l'hypothese si le rendement net avec frais doubles devient inferieur au test de reference Hold.
+- **ETHUSD — Falsification du signal de retour a la moyenne sur ETH** : Observer un positionnement long spot de 3 jours sur ETHUSD conditionne par une volatilite calme. Critère d'abandon : Rejeter l'hypothese si le drawdown depasse celui du robot temoin Hold sur la meme periode.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.

@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-02T05:22:56.762406+00:00",
+  "generated_at": "2026-11-02T06:16:40.640715+00:00",
   "research_date_utc": "2026-11-02",
-  "review_slot": "2026-11-02T00:00Z",
-  "model_last_called_at": "2026-11-02T02:32:11.665242+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-02T06:00Z",
+  "model_last_called_at": "2026-11-02T06:16:40.640715+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-02T02:32:11.665242+00:00",
+  "last_attempt_at": "2026-11-02T06:16:40.640715+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse des historiques et des tests sur BTCUSD, ETHUSD et SOLUSD montre qu'aucune stratégie active ne surpasse durablement le témoin Hold après frais et stress des coûts. Les performances hors échantillon et le forward paper affichent des rendements nets négatifs ou insuffisants, confirmant l'absence de robustesse généralisée. Aucune stratégie ne peut être qualifiée de profitable avec certitude.",
+  "summary": "Aucune strategie ne demontre de robustesse prospective averee dans le contexte recupere. Les analyses historiques et hors echantillon soulignent des performances nettes negatives et une forte sensibilite aux frais, sans qu'aucun resultat ne puisse etre generalise au marche entier.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés",
-      "hypothesis": "Doubler les frais de transaction élimine les signaux marginaux sans détériorer significativement le drawdown global.",
-      "experiment": "Rejouer l'ensemble des signaux BTCUSD avec des frais doublés en simulation sur les données de forward paper pour observer la dégradation du rendement net.",
-      "rejection_rule": "Si la baisse du rendement net dépasse 50% de la performance initiale ou si le nombre d'ordres tombe à zéro, l'hypothèse est rejetée.",
+      "title": "Falsification de la resilience aux couts sur BTC",
+      "hypothesis": "Doubler les frais de transaction ameliore la selectivite des ordres de breakout sans detruire la valeur nette.",
+      "experiment": "Simuler 7 jours de positionnement long spot sans effet de levier avec des frais standard et doubles.",
+      "rejection_rule": "Rejeter l'hypothese si le rendement net avec frais doubles devient inferieur au test de reference Hold.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -116,10 +116,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Filtre de volatilité active sur ETHUSD",
-      "hypothesis": "L'intégration de la condition active_volatility réduit les faux signaux en période de repli sur ETHUSD.",
-      "experiment": "Simuler une variante de stratégie breakout avec le filtre active_volatility sur une fenêtre prospective de 7 jours avec un capital fictif de 20 USD.",
-      "rejection_rule": "Si le rendement net reste inférieur au témoin ETH_Hold sur la même période, l'hypothèse est rejetée.",
+      "title": "Falsification du signal de retour a la moyenne sur ETH",
+      "hypothesis": "Un filtre de volatilite calme reduit le drawdown sur 3 jours sans supprimer totalement les trades utiles.",
+      "experiment": "Observer un positionnement long spot de 3 jours sur ETHUSD conditionne par une volatilite calme.",
+      "rejection_rule": "Rejeter l'hypothese si le drawdown depasse celui du robot temoin Hold sur la meme periode.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -128,26 +128,7 @@
       ]
     }
   ],
-  "bot_adjustments": [
-    {
-      "strategy": "btc_momentum",
-      "entry_scale": 1.2,
-      "reason": "Réduire la sensibilité aux faux signaux en période de baisse par un seuil d'entrée plus strict, sans modifier le capital engagé.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "eth_momentum",
-      "entry_scale": 1.2,
-      "reason": "Ajuster le seuil de déclenchement pour limiter les prises de positions dans un régime de volatilité défavorable.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "sol_momentum",
-      "entry_scale": 1.2,
-      "reason": "Limiter la fréquence des transactions sur SOLUSD en raison des drawdowns historiques élevés.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    }
-  ],
+  "bot_adjustments": [],
   "scenario_proposals": [],
   "desk_notes": [],
   "strategy_designs": [],
