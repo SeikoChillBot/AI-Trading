@@ -10,7 +10,6 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Impact de la volatilité active sur le breakout** : Exécuter un placement fictif de 20 USD sur BTCUSD en long spot sans levier pendant 3 jours lors d'un motif market_selloff en comparant le rendement net avec et sans le filtre de volatilité sur de nouvelles données futures. Critère d'abandon : Rejeter l'hypothèse si le rendement net avec filtre devient inférieur au hold ou si les frais dépassent l'excès de rendement.
-- **ETHUSD — Résilience des seuils de retour à la moyenne** : Tester un placement fictif de 20 USD sur ETHUSD en long spot sans levier pendant 7 jours lors d'un motif market_uptrend en augmentant le seuil de déclenchement. Critère d'abandon : Rejeter l'hypothèse si le nombre de roundtrips tombe à zéro ou si le drawdown dépasse celui de la configuration de base.
+- **BTCUSD — Test de résistance aux frais doublés pour BTC** : Rejouer l'historique des ordres avec des frais doublés et comparer le rendement net final à la configuration de base. Critère d'abandon : Si le rendement net ne change pas ou si le nombre de trades varie alors que la règle de signal est identique, l'hypothèse est réfutée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
