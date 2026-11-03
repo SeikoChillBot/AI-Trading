@@ -10,7 +10,6 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais sur breakout** : Simuler le comportement du robot btc_breakout avec des frais normaux, +50% et +100% sur de nouvelles données futures non vues. Critère d'abandon : Si le rendement net avec frais doublés dépasse ou égale le rendement de base sans dégradation proportionnelle, l'hypothèse est réfutée.
-- **ETHUSD — Évaluation du filtre de volatilité calme** : Observer l'impact de la condition quiet_volatility sur eth_ema_cross sur une fenêtre prospective de 7 jours. Critère d'abandon : Si le nombre de faux signaux augmente ou si le drawdown dépasse celui du témoin eth_hold, l'hypothèse est rejetée.
+- **BTCUSD — Test de résistance aux frais doublés et seuil de rupture** : Rejouer la stratégie breakout BTCUSD sur de nouvelles données futures non vues en appliquant un coût de transaction doublé. Critère d'abandon : Si le rendement net prospectif avec frais doublés dépasse la borne inférieure historique sans amélioration du drawdown, l'hypothèse est réfutée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
