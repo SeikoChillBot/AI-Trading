@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-03T09:43:36.223877+00:00",
+  "generated_at": "2026-11-03T12:33:48.285754+00:00",
   "research_date_utc": "2026-11-03",
-  "review_slot": "2026-11-03T06:00Z",
-  "model_last_called_at": "2026-11-03T06:55:03.393523+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-03T12:00Z",
+  "model_last_called_at": "2026-11-03T12:33:48.285754+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-03T06:55:03.393523+00:00",
+  "last_attempt_at": "2026-11-03T12:33:48.285754+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des données quantitatives du laboratoire Seiko. Les robots de trading affichent des performances historiques négatives et des drawdowns significatifs, l'indice de peur et de cupidité est en zone de faiblesse (26), et les marchés crypto traversent des régimes de tendance baissière et de volatilité faible à modérée. Aucune stratégie ne prouve une robustesse future après frais et stress des coûts.",
+  "summary": "Analyse critique des données Seiko : les robots de la lab crypto affichent des rendements nets négatifs sur l'historique récent (par exemple btc_momentum à -15.61% et btc_rsi à -35.89%), tandis que les stratégies multi-actifs maintiennent des baisses modérées. Les tests de coûts montrent une sensibilité accrue aux frais et les recherches répétées sur les mêmes holdouts ne garantissent aucune rentabilité future. Aucun gain avéré n'est revendiqué.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,23 +103,41 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés et seuil de rupture",
-      "hypothesis": "Doubler les frais de transaction sur une règle breakout avec lookback de 40 jours n'altère pas la sélectivité des ordres mais dégrade le rendement net de manière prévisible.",
-      "experiment": "Rejouer la stratégie breakout BTCUSD sur de nouvelles données futures non vues en appliquant un coût de transaction doublé.",
-      "rejection_rule": "Si le rendement net prospectif avec frais doublés dépasse la borne inférieure historique sans amélioration du drawdown, l'hypothèse est réfutée.",
+      "title": "Impact de la volatilité active sur le breakout",
+      "hypothesis": "L'ajout d'une confirmation de volatilité active filtre les faux signaux en régime de repli.",
+      "experiment": "Exécuter un placement fictif de 20 USD sur BTCUSD en long spot sans levier pendant 3 jours lors d'un motif market_selloff en comparant le rendement net avec et sans le filtre de volatilité sur de nouvelles données futures.",
+      "rejection_rule": "Rejeter l'hypothèse si le rendement net avec filtre devient inférieur au hold ou si les frais dépassent l'excès de rendement.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
         "positive_average_with_double_costs"
       ]
+    },
+    {
+      "asset": "ETHUSD",
+      "title": "Résilience des seuils de retour à la moyenne",
+      "hypothesis": "Un seuil de retour à la moyenne plus strict réduit la fréquence des transactions perdantes.",
+      "experiment": "Tester un placement fictif de 20 USD sur ETHUSD en long spot sans levier pendant 7 jours lors d'un motif market_uptrend en augmentant le seuil de déclenchement.",
+      "rejection_rule": "Rejeter l'hypothèse si le nombre de roundtrips tombe à zéro ou si le drawdown dépasse celui de la configuration de base.",
+      "evidence_state": "ai_hypothesis_not_tested",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "drawdown_below_20_pct"
+      ]
     }
   ],
   "bot_adjustments": [
     {
-      "strategy": "btc_reversion",
+      "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Modification du seuil de déclenchement du signal pour tester une sélectivité accrue sur BTCUSD en période de volatilité modérée, sans modifier la taille des sommes engagées.",
+      "reason": "Modification du seuil d'entrée via entry_scale pour tester une sélectivité accrue face aux drawdowns historiques.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "eth_momentum",
+      "entry_scale": 0.8,
+      "reason": "Ajustement du profil pour observer la réactivité du signal face aux variations récentes de la volatilité annualisée.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],
