@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-04T12:12:58.087116+00:00",
+  "generated_at": "2026-11-04T14:58:09.035908+00:00",
   "state": "observing",
   "source": "https://eth.blockscout.com/api/v2",
   "discovery_state": "observing",
@@ -12,10 +12,10 @@
       "address": "0x152a29aefe3339c7f0bbf62d9091ec8b3fc5197f",
       "verified_identity": false,
       "sample_count": 4,
-      "new_count": 0,
+      "new_count": 1,
       "baseline_at": "2026-10-29T04:44:48.618373+00:00",
       "last_detected_at": "2026-10-29T04:44:48.618373+00:00",
-      "last_polled_at": "2026-11-04T12:12:58.087116+00:00",
+      "last_polled_at": "2026-11-04T14:58:09.035908+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -23,11 +23,11 @@
     {
       "address": "0x0668c9bf6a6936b9eb5a19f61c663070beff2f9b",
       "verified_identity": false,
-      "sample_count": 49,
-      "new_count": 0,
+      "sample_count": 50,
+      "new_count": 1,
       "baseline_at": "2026-10-29T04:44:48.618373+00:00",
       "last_detected_at": "2026-10-29T04:44:48.618373+00:00",
-      "last_polled_at": "2026-11-04T12:12:58.087116+00:00",
+      "last_polled_at": "2026-11-04T14:58:09.035908+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -39,7 +39,7 @@
       "new_count": 0,
       "baseline_at": "2026-10-29T11:44:54.490530+00:00",
       "last_detected_at": "2026-10-29T11:44:54.490530+00:00",
-      "last_polled_at": "2026-11-04T12:12:58.087116+00:00",
+      "last_polled_at": "2026-11-04T14:58:09.035908+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -47,17 +47,44 @@
     {
       "address": "0xa02e4c28915bee0724d9f44d8dd5225c76e67de6",
       "verified_identity": false,
-      "sample_count": 29,
-      "new_count": 0,
+      "sample_count": 16,
+      "new_count": 1,
       "baseline_at": "2026-10-29T11:44:54.490530+00:00",
       "last_detected_at": "2026-10-29T11:44:54.490530+00:00",
-      "last_polled_at": "2026-11-04T12:12:58.087116+00:00",
+      "last_polled_at": "2026-11-04T14:58:09.035908+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
     }
   ],
-  "new_transfers": [],
+  "new_transfers": [
+    {
+      "id": "c68a023ff0654944843bc23e05b20cf256a88976e084a8a875824ad71bb83f4c",
+      "token": "USDC",
+      "quantity": "1212720.179",
+      "nominal_usd_approx": 1212720.179,
+      "timestamp": "2026-11-04T14:45:35+00:00",
+      "tx_hash": "0xc5e95ee55b7c7803830e4486aa2e4a138ac209818f904eeb398affc4db3c55c9",
+      "from_address": "0x152a29aefe3339c7f0bbf62d9091ec8b3fc5197f",
+      "to_address": "0x0668c9bf6a6936b9eb5a19f61c663070beff2f9b",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "ed8cc0b23c64b309a5dbd23f01c9c35fd45611632f850f8e9026f674668f12c3",
+      "token": "USDT",
+      "quantity": "1500000",
+      "nominal_usd_approx": 1500000.0,
+      "timestamp": "2026-11-04T12:34:59+00:00",
+      "tx_hash": "0xa975cd89697c05f91b0742837de09fbe08bac04b887387293873c2332542b933",
+      "from_address": "0xa02e4c28915bee0724d9f44d8dd5225c76e67de6",
+      "to_address": "0x2770dcd5ca72639e5b29062196b31d343b841e27",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
   "errors": {},
   "max_addresses": 4,
   "retention_days": 7,
