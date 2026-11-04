@@ -10,7 +10,6 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés** : Rejouer l'ensemble des signaux BTCUSD avec des coûts de transaction doublés sur une période out-of-sample indépendante. Critère d'abandon : L'expérience est réfutée si la baisse de rendement net dépasse strictement le double de l'augmentation des frais de transaction.
-- **ETHUSD — Filtre de volatilité pour la réduction des faux signaux** : Simuler une règle de breakout filtrée par une volatilité historiquement faible sur ETHUSD sur de nouvelles données futures. Critère d'abandon : L'hypothèse est rejetée si le nombre de trades chute de plus de 50 pour cent sans amélioration mesurable du ratio de rendement net par rapport au témoin hold.
+- **BTCUSD — Test de résistance aux frais doublés** : Rejouer l'historique et le flux de papier prospectif avec des frais doublés sans modifier les règles de seuil. Critère d'abandon : Si la baisse du rendement net excède le double de l'augmentation des frais sur les fenêtres OOS, l'hypothèse est réfutée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
