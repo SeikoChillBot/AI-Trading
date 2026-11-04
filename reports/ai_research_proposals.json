@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-04T05:03:04.554198+00:00",
+  "generated_at": "2026-11-04T06:33:29.513915+00:00",
   "research_date_utc": "2026-11-04",
-  "review_slot": "2026-11-04T00:00Z",
-  "model_last_called_at": "2026-11-04T02:13:01.087709+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-04T06:00Z",
+  "model_last_called_at": "2026-11-04T06:33:29.513915+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-04T02:13:01.087709+00:00",
+  "last_attempt_at": "2026-11-04T06:33:29.513915+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse des observations de marché au 2026-11-04 montre un régime persistant de tendance baissière et de volatilité modérée à travers BTCUSD, ETHUSD et SOLUSD, avec des performances de robots généralement négatives après frais et des drawdowns significatifs. Les historiques répétés indiquent une sensibilité marquée aux coûts et un nombre insuffisant de transactions valides, confirmant qu'aucune stratégie n'est robuste. Les robots hold et témoins restent immuables en phase d'observation sans promesse de rendement.",
+  "summary": "Analyse des données et des robots du laboratoire Seiko pour la période se terminant le 04 novembre 2026. Les observations horodatées sur les actifs crypto (BTCUSD, ETHUSD, SOLUSD) confirment des rendements nets négatifs et des drawdowns significatifs, alignés sur les régimes de marché en tendance baissière et volatilité modérée. Les robots de momentum et de rupture affichent des pertes historiques nettes amplifiées par les frais de transaction, tandis que les témoins hold restent nos repères immuables. Aucune preuve de rentabilité future n'est validée, et les hypothèses exploratoires devront être testées rigoureusement sur de nouvelles données prospectives.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,23 +103,48 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Sensibilité aux frais et filtrage de volatilité sur BTC",
-      "hypothesis": "Doubler les frais de transaction sur une logique breakout avec filtres de volatilité réduira la fréquence des ordres sans détériorer le rendement net par rapport au Hold.",
-      "experiment": "Rejouer la stratégie breakout sur BTCUSD avec les frais actuels et des frais doublés en collectant de nouvelles données journalières non utilisées.",
-      "rejection_rule": "Rejeter l'hypothèse si le rendement net avec frais doublés chute de plus de 2% supplémentaires sans réduction proportionnelle du drawdown maximal.",
+      "title": "Test de résistance aux frais doublés",
+      "hypothesis": "L'augmentation des frais de transaction dégrade la rentabilité nette sans modifier la pertinence des signaux sous-jacents.",
+      "experiment": "Rejouer l'ensemble des signaux BTCUSD avec des coûts de transaction doublés sur une période out-of-sample indépendante.",
+      "rejection_rule": "L'expérience est réfutée si la baisse de rendement net dépasse strictement le double de l'augmentation des frais de transaction.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
         "positive_average_with_double_costs"
       ]
+    },
+    {
+      "asset": "ETHUSD",
+      "title": "Filtre de volatilité pour la réduction des faux signaux",
+      "hypothesis": "L'application d'un filtre de volatilité calme réduit la fréquence des faux signaux de rupture en période baissière.",
+      "experiment": "Simuler une règle de breakout filtrée par une volatilité historiquement faible sur ETHUSD sur de nouvelles données futures.",
+      "rejection_rule": "L'hypothèse est rejetée si le nombre de trades chute de plus de 50 pour cent sans amélioration mesurable du ratio de rendement net par rapport au témoin hold.",
+      "evidence_state": "ai_hypothesis_not_tested",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "beats_hold_in_most_folds",
+        "drawdown_below_20_pct"
+      ]
     }
   ],
   "bot_adjustments": [
     {
-      "strategy": "btc_scalp_conservative",
+      "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Ajustement du seuil de déclenchement pour observer la robustesse face au régime de volatilité basse sans modifier la taille de l'engagement ni garantir un gain.",
+      "reason": "Ajustement du seuil de déclenchement pour limiter la sur-réaction aux mouvements erratiques observés dans le régime de tendance baissière.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "eth_momentum",
+      "entry_scale": 1.2,
+      "reason": "Modification du seuil d'entrée afin d'observer une sélectivité accrue face aux drawdowns récents.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "sol_momentum",
+      "entry_scale": 1.2,
+      "reason": "S'appuyer sur un seuil plus strict pour contraindre la fréquence des ordres sur Solana, fortement pénalisée par les frais.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],
