@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-04T23:45:01.759998+00:00",
-  "research_date_utc": "2026-11-04",
-  "review_slot": "2026-11-04T18:00Z",
-  "model_last_called_at": "2026-11-04T19:08:34.308017+00:00",
-  "used_cache": true,
-  "last_http_status": null,
-  "error_type": null,
-  "error_code": null,
+  "generated_at": "2026-11-05T02:36:50.222290+00:00",
+  "research_date_utc": "2026-11-05",
+  "review_slot": "2026-11-05T00:00Z",
+  "model_last_called_at": null,
+  "used_cache": false,
+  "last_http_status": 503,
+  "error_type": "HTTPError",
+  "error_code": "UNAVAILABLE",
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-04T19:08:34.308017+00:00",
-  "source": "gemini_generate_content",
-  "state": "model_reflection_completed",
+  "last_attempt_at": "2026-11-05T02:36:50.222290+00:00",
+  "source": "deterministic_fallback",
+  "state": "model_reflection_failed",
   "provider": "gemini",
-  "summary": "Analyse critique des performances des robots et des historiques de laboratoire pour la session du 2026-11-04. Les historiques montrent que la majorité des stratégies de trading actif subissent des pertes nettes sensibles après frais et présentent des drawdowns significatifs, notamment sur SOLUSD et BTCUSD. Les robots témoins de type hold restent des références immuables indispensables. Aucune stratégie n'a démontré de robustesse universelle sur les critères OOS et face au doublement des frais de transaction. Les ajustements de robots proposés ci-dessous relèvent strictement de configurations prospectives hypothétiques, sans promesse de rendement ni exécution réelle.",
+  "summary": "Analyse Gemini indisponible (HTTPError, HTTP 503). Repli sur les tests statistiques.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -22,12 +22,12 @@
         "asset": "BTCUSD",
         "folds": 8,
         "positive_oos_folds": 1,
-        "beats_hold_folds": 5,
+        "beats_hold_folds": 3,
         "positive_double_cost_folds": 1,
-        "closed_trades": 9,
-        "avg_net_return_pct": -2.662,
-        "avg_excess_vs_hold_points": 2.6909,
-        "avg_net_return_double_cost_pct": -5.1965,
+        "closed_trades": 11,
+        "avg_net_return_pct": -3.7592,
+        "avg_excess_vs_hold_points": 1.2203,
+        "avg_net_return_double_cost_pct": -6.6686,
         "worst_drawdown_pct": 19.5062,
         "latest_research_parameters": {
           "window": 40,
@@ -37,7 +37,7 @@
           "six_or_more_oos_folds": true,
           "twenty_or_more_closed_trades": false,
           "positive_average_net_return": false,
-          "beats_hold_in_most_folds": true,
+          "beats_hold_in_most_folds": false,
           "positive_average_with_double_costs": false,
           "drawdown_below_20_pct": true
         },
@@ -51,9 +51,9 @@
         "beats_hold_folds": 4,
         "positive_double_cost_folds": 2,
         "closed_trades": 7,
-        "avg_net_return_pct": 4.5663,
-        "avg_excess_vs_hold_points": 5.7757,
-        "avg_net_return_double_cost_pct": 1.8915,
+        "avg_net_return_pct": 4.973,
+        "avg_excess_vs_hold_points": 5.3602,
+        "avg_net_return_double_cost_pct": 2.2982,
         "worst_drawdown_pct": 25.1673,
         "latest_research_parameters": {
           "window": 40,
@@ -73,13 +73,13 @@
       {
         "asset": "SOLUSD",
         "folds": 8,
-        "positive_oos_folds": 4,
-        "beats_hold_folds": 5,
-        "positive_double_cost_folds": 1,
+        "positive_oos_folds": 3,
+        "beats_hold_folds": 4,
+        "positive_double_cost_folds": 3,
         "closed_trades": 15,
-        "avg_net_return_pct": -5.6063,
-        "avg_excess_vs_hold_points": 0.0461,
-        "avg_net_return_double_cost_pct": -9.7755,
+        "avg_net_return_pct": -5.1825,
+        "avg_excess_vs_hold_points": -0.3085,
+        "avg_net_return_double_cost_pct": -9.3952,
         "worst_drawdown_pct": 35.0085,
         "latest_research_parameters": {
           "window": 10,
@@ -89,7 +89,7 @@
           "six_or_more_oos_folds": true,
           "twenty_or_more_closed_trades": false,
           "positive_average_net_return": false,
-          "beats_hold_in_most_folds": true,
+          "beats_hold_in_most_folds": false,
           "positive_average_with_double_costs": false,
           "drawdown_below_20_pct": false
         },
@@ -103,51 +103,48 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance des frais et filtrage de volatilité",
-      "hypothesis": "L'augmentation des frais de transaction et l'application d'un filtre de volatilité réduisent les faux signaux sans garantir un rendement net positif.",
-      "experiment": "Rejouer la stratégie BTCUSD avec les frais actuels et majorés de 50%, en comparant la fréquence des transactions et le drawdown résultant sur de nouvelles données futures.",
-      "rejection_rule": "L'expérience est rejetée si le rendement net avec frais majorés reste inférieur au témoin hold sur la même période.",
-      "evidence_state": "ai_hypothesis_not_tested",
+      "title": "Contrôler la robustesse historique de BTCUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
+        "beats_hold_in_most_folds",
         "positive_average_with_double_costs"
       ]
     },
     {
       "asset": "ETHUSD",
-      "title": "Évaluation comparative des seuils de réversion sur ETH",
-      "hypothesis": "Modifier la sensibilité d'entrée d'un robot de réversion à la moyenne n'améliore pas mécaniquement la rentabilité globale en régime de tendance baissière.",
-      "experiment": "Observer les performances prospectives d'ETHUSD sur 7 jours avec un profil ajusté et le comparer à l'actif témoin hold.",
-      "rejection_rule": "L'hypothèse est réfutée si l'écart de performance par rapport au simple hold ne montre aucune amélioration statistiquement vérifiable.",
-      "evidence_state": "ai_hypothesis_not_tested",
+      "title": "Contrôler la robustesse historique de ETHUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "beats_hold_in_most_folds",
         "drawdown_below_20_pct"
       ]
-    }
-  ],
-  "bot_adjustments": [
-    {
-      "strategy": "btc_momentum",
-      "entry_scale": 1.2,
-      "reason": "Modification du seuil de déclenchement du signal pour limiter la sur-fréquentation des transactions en période de volatilité incertaine, sans modifier la taille des positions.",
-      "evidence_state": "gemini_hypothesis_unverified"
     },
     {
-      "strategy": "eth_momentum",
-      "entry_scale": 0.8,
-      "reason": "Ajustement de la sensibilité du seuil d'entrée pour réagir plus rapidement aux variations de court terme observées sur les données récentes de l'actif.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "sol_reversion",
-      "entry_scale": 1.2,
-      "reason": "Resserrement du seuil d'activation pour limiter l'exposition aux faux signaux constatés lors des précédents tests de repli sur SOLUSD.",
-      "evidence_state": "gemini_hypothesis_unverified"
+      "asset": "SOLUSD",
+      "title": "Contrôler la robustesse historique de SOLUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_net_return",
+        "beats_hold_in_most_folds",
+        "positive_average_with_double_costs",
+        "drawdown_below_20_pct"
+      ]
     }
   ],
+  "bot_adjustments": [],
   "scenario_proposals": [],
   "desk_notes": [],
   "strategy_designs": [],

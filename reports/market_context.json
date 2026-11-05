@@ -1,30 +1,30 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-04T23:44:50.307936+00:00",
+  "generated_at": "2026-11-05T02:36:34.103933+00:00",
   "model": "market_context_observation_v1",
   "auto_trading": false,
   "whale_purchases_inferred": false,
   "observations": {
     "sentiment": {
-      "index": 34,
-      "classification": "Fear",
-      "published_at": "2026-11-04T00:00:00+00:00",
+      "index": 50,
+      "classification": "Neutral",
+      "published_at": "2026-11-05T00:00:00+00:00",
       "source": "https://api.alternative.me/fng/?limit=2",
       "kind": "market_sentiment_not_forecast"
     },
     "chain_tvl": {
       "tvl_usd_by_chain": {
-        "Arbitrum": 1488468788.25,
-        "Base": 6181308021.13,
-        "Ethereum": 45909726964.12,
-        "BSC": 5315986920.84,
-        "Solana": 5542384408.86
+        "Arbitrum": 1485256737.57,
+        "BSC": 5317693866.67,
+        "Ethereum": 45840156701.29,
+        "Base": 6183740805.42,
+        "Solana": 5551223416.08
       },
       "source": "https://api.llama.fi/v2/chains",
       "kind": "defi_tvl_not_capital_inflow"
     },
     "stablecoins": {
-      "circulating_usd_estimate": 295196208386.46,
+      "circulating_usd_estimate": 295276987356.56,
       "stablecoins_included": 337,
       "source": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
       "kind": "stablecoin_supply_not_immediate_buying_pressure"

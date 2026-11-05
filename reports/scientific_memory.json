@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-04T23:45:02.096314+00:00",
+  "generated_at": "2026-11-05T02:36:52.515727+00:00",
   "state": "research_memory_recorded",
-  "recorded_hypotheses": 18,
-  "total_experiment_fingerprints": 18,
-  "new_revisions": 0,
+  "recorded_hypotheses": 30,
+  "total_experiment_fingerprints": 30,
+  "new_revisions": 30,
   "failure_patterns": {
-    "positive_with_double_costs": 18,
-    "positive_average_net": 17,
-    "enough_closed_trades": 14,
-    "beats_hold_in_most_folds": 5,
+    "positive_with_double_costs": 29,
+    "positive_average_net": 24,
+    "enough_closed_trades": 24,
+    "beats_hold_in_most_folds": 11,
     "drawdown_under_20_pct": 3
   },
   "research_agenda": [
     {
       "category": "cost_sensitivity",
-      "failed_historical_checks": 18,
-      "historical_population": 18,
+      "failed_historical_checks": 29,
+      "historical_population": 30,
       "hypothesis_to_falsify": "Tester moins d'ordres et des confirmations de volatilité, mais surveiller une perte de signaux utiles.",
       "experiment": "Comparer les règles simples et composées avec frais normaux/doublés sur des bougies futures.",
       "independent_future_data_required": true,
@@ -24,8 +24,8 @@
     },
     {
       "category": "net_return",
-      "failed_historical_checks": 17,
-      "historical_population": 18,
+      "failed_historical_checks": 24,
+      "historical_population": 30,
       "hypothesis_to_falsify": "Comparer familles de tendance, retour vers moyenne et abstention sans sélectionner sur le contrôle historique.",
       "experiment": "Conserver seulement les améliorations positives après frais sur de nouvelles journées distinctes.",
       "independent_future_data_required": true,
@@ -33,8 +33,8 @@
     },
     {
       "category": "trade_density",
-      "failed_historical_checks": 14,
-      "historical_population": 18,
+      "failed_historical_checks": 24,
+      "historical_population": 30,
       "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
       "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
       "independent_future_data_required": true,
@@ -42,8 +42,8 @@
     },
     {
       "category": "hold_comparison",
-      "failed_historical_checks": 5,
-      "historical_population": 18,
+      "failed_historical_checks": 11,
+      "historical_population": 30,
       "hypothesis_to_falsify": "Tester si un signal ajoute de la valeur au simple achat-conservation sur les mêmes dates.",
       "experiment": "Rejeter la supériorité si le différentiel futur au témoin Hold n'est pas positif.",
       "independent_future_data_required": true,
@@ -51,194 +51,188 @@
     }
   ],
   "tested_logic_families": {
-    "trend_following": 2,
-    "mean_reversion": 3,
-    "breakout": 11,
-    "ema_trend": 1,
-    "rsi_reversal": 1
+    "trend_following": 3,
+    "mean_reversion": 4,
+    "breakout": 14,
+    "ema_trend": 3,
+    "rsi_reversal": 6
   },
   "prospective_observed": 18,
   "recent_lessons": [
     {
-      "id": "43a92df4809f8f30fe",
-      "asset": "BTCUSD",
-      "logic": "breakout",
-      "confirmations": [],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "56bf169e5e3e751450",
-      "asset": "ETHUSD",
-      "logic": "breakout",
-      "confirmations": [],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "97bc58780a96065b2a",
-      "asset": "SOLUSD",
-      "logic": "breakout",
-      "confirmations": [],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "09fcd0e2b0dab27ef7",
-      "asset": "BTCUSD",
-      "logic": "trend_following",
-      "confirmations": [
-        "quiet_volatility",
-        "rsi_oversold"
-      ],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "1617d0b2ed93f1d786",
-      "asset": "BTCUSD",
-      "logic": "breakout",
-      "confirmations": [
-        "active_volatility",
-        "rsi_strength"
-      ],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "143da0502545044195",
-      "asset": "ETHUSD",
-      "logic": "mean_reversion",
-      "confirmations": [
-        "active_volatility",
-        "rsi_strength"
-      ],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "1cfcfb93666ed07769",
-      "asset": "ETHUSD",
-      "logic": "breakout",
-      "confirmations": [
-        "quiet_volatility",
-        "rsi_oversold"
-      ],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "2a687faaa0b654a26f",
-      "asset": "SOLUSD",
-      "logic": "breakout",
-      "confirmations": [
-        "quiet_volatility",
-        "rsi_oversold"
-      ],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "53633ea1a537b8579e",
-      "asset": "SOLUSD",
-      "logic": "breakout",
-      "confirmations": [
-        "quiet_volatility",
-        "rsi_strength"
-      ],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
-    },
-    {
-      "id": "64e754fd7d289d4131",
+      "id": "a3ce1363d50d7a645c",
       "asset": "BTCUSD",
       "logic": "ema_trend",
-      "confirmations": [
-        "ema_uptrend",
-        "quiet_volatility"
-      ],
+      "confirmations": [],
       "historical_failure_reasons": [
         "beats_hold_in_most_folds",
         "enough_closed_trades",
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
+      "historical_revisions": 1,
+      "forward_observed_days": 0
     },
     {
-      "id": "00e3f7125aee1b131d",
+      "id": "b311e984e978290b8e",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "confirmations": [],
+      "historical_failure_reasons": [
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "26c653a8086cf4b6ea",
+      "asset": "SOLUSD",
+      "logic": "rsi_reversal",
+      "confirmations": [],
+      "historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "3230ee642ee98dc381",
+      "asset": "BTCUSD",
+      "logic": "ema_trend",
+      "confirmations": [
+        "rsi_oversold"
+      ],
+      "historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "773bbb595aa60986f7",
       "asset": "ETHUSD",
       "logic": "rsi_reversal",
       "confirmations": [
         "rsi_oversold"
       ],
       "historical_failure_reasons": [
-        "beats_hold_in_most_folds",
-        "drawdown_under_20_pct",
-        "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
+      "historical_revisions": 1,
+      "forward_observed_days": 0
     },
     {
-      "id": "a5e69aa7e003a9b40a",
+      "id": "55ba36b25e044c0690",
       "asset": "SOLUSD",
-      "logic": "mean_reversion",
-      "confirmations": [],
+      "logic": "rsi_reversal",
+      "confirmations": [
+        "active_volatility"
+      ],
       "historical_failure_reasons": [
-        "beats_hold_in_most_folds",
-        "drawdown_under_20_pct",
+        "enough_closed_trades"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "1731a013603e791a42",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_oversold"
+      ],
+      "historical_failure_reasons": [
+        "enough_closed_trades",
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 8,
-      "forward_observed_days": 6
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "5ced24f9ff7a0ac221",
+      "asset": "BTCUSD",
+      "logic": "trend_following",
+      "confirmations": [
+        "active_volatility",
+        "rsi_strength"
+      ],
+      "historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "1b307e53045ecb74ee",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "confirmations": [
+        "ema_uptrend",
+        "positive_momentum"
+      ],
+      "historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "200ef27f626ba5bf8a",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_strength"
+      ],
+      "historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "789f1f39be90d7d84c",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_oversold"
+      ],
+      "historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "cced23855f81bf4885",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_strength"
+      ],
+      "historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
     }
   ],
   "no_causal_attribution": true,

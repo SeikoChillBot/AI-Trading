@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-04T23:45:01.547561+00:00",
+  "updated_at": "2026-11-05T02:36:46.719644+00:00",
   "candidates": [
     {
       "id": "2f2b7e8c605e3a5d03",
@@ -163,17 +163,179 @@
       "eligible_for_robot_promotion": false,
       "prospective_data_required": true,
       "created_at": "2026-10-29T19:23:35.770539+00:00"
+    },
+    {
+      "id": "a3ce1363d50d7a645c",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "selection_metrics": {
+        "score": -7.03163,
+        "avg_net_pct": -1.99114,
+        "avg_double_cost_net_pct": -3.97185,
+        "avg_excess_vs_hold_points": 10.05332,
+        "max_drawdown_pct": 7.96458,
+        "closed_trades": 5,
+        "positive_folds": 0,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": -12.58729,
+            "double_cost_net_pct": -21.53754,
+            "excess_vs_hold_points": -36.41022,
+            "drawdown_pct": 12.5874,
+            "closed_trades": 6
+          },
+          {
+            "net_pct": -1.16139,
+            "double_cost_net_pct": -2.9249,
+            "excess_vs_hold_points": -0.13091,
+            "drawdown_pct": 1.16152,
+            "closed_trades": 1
+          }
+        ],
+        "net_average_pct": -6.87434,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "grid_evaluated": 189,
+      "frozen_at_closed_day": 1793750400,
+      "source": "autonomous_grid_search",
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "eligible_for_robot_promotion": false,
+      "prospective_data_required": true,
+      "created_at": "2026-11-05T02:36:46.719644+00:00"
+    },
+    {
+      "id": "b311e984e978290b8e",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "selection_metrics": {
+        "score": -1.87458,
+        "avg_net_pct": 4.431,
+        "avg_double_cost_net_pct": -4.10093,
+        "avg_excess_vs_hold_points": 20.13667,
+        "max_drawdown_pct": 18.33897,
+        "closed_trades": 19,
+        "positive_folds": 3,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": -37.67119,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          },
+          {
+            "net_pct": -0.94236,
+            "double_cost_net_pct": -2.70977,
+            "excess_vs_hold_points": 3.10656,
+            "drawdown_pct": 1.91084,
+            "closed_trades": 1
+          }
+        ],
+        "net_average_pct": -0.47118,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "grid_evaluated": 189,
+      "frozen_at_closed_day": 1793750400,
+      "source": "autonomous_grid_search",
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "eligible_for_robot_promotion": false,
+      "prospective_data_required": true,
+      "created_at": "2026-11-05T02:36:46.719644+00:00"
+    },
+    {
+      "id": "26c653a8086cf4b6ea",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "selection_metrics": {
+        "score": 9.54624,
+        "avg_net_pct": 7.13332,
+        "avg_double_cost_net_pct": 0.74604,
+        "avg_excess_vs_hold_points": 23.32306,
+        "max_drawdown_pct": 9.76526,
+        "closed_trades": 13,
+        "positive_folds": 2,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": -25.82827,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          },
+          {
+            "net_pct": -4.45292,
+            "double_cost_net_pct": -6.1577,
+            "excess_vs_hold_points": 4.60417,
+            "drawdown_pct": 5.37005,
+            "closed_trades": 1
+          }
+        ],
+        "net_average_pct": -2.22646,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "grid_evaluated": 189,
+      "frozen_at_closed_day": 1793750400,
+      "source": "autonomous_grid_search",
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "eligible_for_robot_promotion": false,
+      "prospective_data_required": true,
+      "created_at": "2026-11-05T02:36:46.719644+00:00"
     }
   ],
   "latest_by_asset": {
-    "BTCUSD": "2f2b7e8c605e3a5d03",
-    "ETHUSD": "e921c860eb3b6e24a0",
-    "SOLUSD": "253095b8a9544ff8df"
+    "BTCUSD": "a3ce1363d50d7a645c",
+    "ETHUSD": "b311e984e978290b8e",
+    "SOLUSD": "26c653a8086cf4b6ea"
   },
   "last_search_closed_day": {
-    "BTCUSD": 1793145600,
-    "SOLUSD": 1793145600,
-    "ETHUSD": 1793145600
+    "BTCUSD": 1793750400,
+    "SOLUSD": 1793750400,
+    "ETHUSD": 1793750400
   },
   "real_orders": false,
   "robot_changes": false

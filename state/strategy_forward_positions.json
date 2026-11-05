@@ -1,7 +1,328 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-04T23:45:02.000594+00:00",
+  "updated_at": "2026-11-05T02:36:52.438007+00:00",
   "tracks": {
+    "cced23855f81bf4885": {
+      "id": "cced23855f81bf4885",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_strength"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "789f1f39be90d7d84c": {
+      "id": "789f1f39be90d7d84c",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "200ef27f626ba5bf8a": {
+      "id": "200ef27f626ba5bf8a",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_strength"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "1b307e53045ecb74ee": {
+      "id": "1b307e53045ecb74ee",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "ema_uptrend",
+          "positive_momentum"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "5ced24f9ff7a0ac221": {
+      "id": "5ced24f9ff7a0ac221",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "trend_following",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "active_volatility",
+          "rsi_strength"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "1731a013603e791a42": {
+      "id": "1731a013603e791a42",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "55ba36b25e044c0690": {
+      "id": "55ba36b25e044c0690",
+      "source": "bounded_evolution",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Composition vérifiable avec un indicateur additionnel à l'entrée pour réduire les faux signaux sans présumer du résultat.",
+        "confirmations": [
+          "active_volatility"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "773bbb595aa60986f7": {
+      "id": "773bbb595aa60986f7",
+      "source": "bounded_evolution",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Composition vérifiable avec un indicateur additionnel à l'entrée pour réduire les faux signaux sans présumer du résultat.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "3230ee642ee98dc381": {
+      "id": "3230ee642ee98dc381",
+      "source": "bounded_evolution",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Composition vérifiable avec un indicateur additionnel à l'entrée pour réduire les faux signaux sans présumer du résultat.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "26c653a8086cf4b6ea": {
+      "id": "26c653a8086cf4b6ea",
+      "source": "autonomous_grid_search",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "b311e984e978290b8e": {
+      "id": "b311e984e978290b8e",
+      "source": "autonomous_grid_search",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "a3ce1363d50d7a645c": {
+      "id": "a3ce1363d50d7a645c",
+      "source": "autonomous_grid_search",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
+      },
+      "started_at": "2026-11-05T02:36:52.438007+00:00",
+      "last_t": 1793750400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
     "a5e69aa7e003a9b40a": {
       "id": "a5e69aa7e003a9b40a",
       "source": "bounded_local_research_director",
@@ -14,21 +335,21 @@
         "rationale": "Une stratégie trop restrictive peut produire un échantillon insuffisant."
       },
       "started_at": "2026-10-29T22:57:17.525615+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 3,
-      "orders": 6,
-      "holding_days": 0,
-      "cash_usd": 17.02898561,
-      "units": 0.0,
+      "orders": 7,
+      "holding_days": 1,
+      "cash_usd": 0.0,
+      "units": 0.182022128817,
       "hold_units": 0.19370278070995364,
       "peak_usd": 20.0,
       "max_drawdown_pct": 14.85507,
       "status": "observing_paper_only",
-      "value_usd": 17.028986,
-      "net_pct": -14.85507,
-      "hold_net_pct": -11.01719,
-      "excess_vs_hold_points": -3.83788
+      "value_usd": 17.232077,
+      "net_pct": -13.83962,
+      "hold_net_pct": -8.31057,
+      "excess_vs_hold_points": -5.52905
     },
     "00e3f7125aee1b131d": {
       "id": "00e3f7125aee1b131d",
@@ -45,21 +366,21 @@
         ]
       },
       "started_at": "2026-10-29T22:57:17.525615+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 1,
       "orders": 3,
-      "holding_days": 1,
+      "holding_days": 2,
       "cash_usd": 0.0,
       "units": 0.008744687228,
       "hold_units": 0.008408748101630517,
-      "peak_usd": 20.0,
+      "peak_usd": 20.99906832,
       "max_drawdown_pct": 2.11324,
       "status": "observing_paper_only",
-      "value_usd": 19.684352,
-      "net_pct": -1.57824,
-      "hold_net_pct": -5.35925,
-      "excess_vs_hold_points": 3.78101
+      "value_usd": 20.999068,
+      "net_pct": 4.99534,
+      "hold_net_pct": 0.9618,
+      "excess_vs_hold_points": 4.03354
     },
     "64e754fd7d289d4131": {
       "id": "64e754fd7d289d4131",
@@ -77,8 +398,8 @@
         ]
       },
       "started_at": "2026-10-29T22:57:17.525615+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -90,8 +411,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -6.5631,
-      "excess_vs_hold_points": 6.5631
+      "hold_net_pct": -2.8065,
+      "excess_vs_hold_points": 2.8065
     },
     "53633ea1a537b8579e": {
       "id": "53633ea1a537b8579e",
@@ -109,8 +430,8 @@
         ]
       },
       "started_at": "2026-10-29T22:01:21.661243+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -122,8 +443,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -11.01719,
-      "excess_vs_hold_points": 11.01719
+      "hold_net_pct": -8.31057,
+      "excess_vs_hold_points": 8.31057
     },
     "2a687faaa0b654a26f": {
       "id": "2a687faaa0b654a26f",
@@ -141,8 +462,8 @@
         ]
       },
       "started_at": "2026-10-29T22:01:21.661243+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -154,8 +475,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -11.01719,
-      "excess_vs_hold_points": 11.01719
+      "hold_net_pct": -8.31057,
+      "excess_vs_hold_points": 8.31057
     },
     "1cfcfb93666ed07769": {
       "id": "1cfcfb93666ed07769",
@@ -173,8 +494,8 @@
         ]
       },
       "started_at": "2026-10-29T22:01:21.661243+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -186,8 +507,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -5.35925,
-      "excess_vs_hold_points": 5.35925
+      "hold_net_pct": 0.9618,
+      "excess_vs_hold_points": -0.9618
     },
     "143da0502545044195": {
       "id": "143da0502545044195",
@@ -205,8 +526,8 @@
         ]
       },
       "started_at": "2026-10-29T22:01:21.661243+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -218,8 +539,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -5.35925,
-      "excess_vs_hold_points": 5.35925
+      "hold_net_pct": 0.9618,
+      "excess_vs_hold_points": -0.9618
     },
     "1617d0b2ed93f1d786": {
       "id": "1617d0b2ed93f1d786",
@@ -237,8 +558,8 @@
         ]
       },
       "started_at": "2026-10-29T22:01:21.661243+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -250,8 +571,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -6.5631,
-      "excess_vs_hold_points": 6.5631
+      "hold_net_pct": -2.8065,
+      "excess_vs_hold_points": 2.8065
     },
     "09fcd0e2b0dab27ef7": {
       "id": "09fcd0e2b0dab27ef7",
@@ -269,8 +590,8 @@
         ]
       },
       "started_at": "2026-10-29T22:01:21.661243+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -282,8 +603,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -6.5631,
-      "excess_vs_hold_points": 6.5631
+      "hold_net_pct": -2.8065,
+      "excess_vs_hold_points": 2.8065
     },
     "97bc58780a96065b2a": {
       "id": "97bc58780a96065b2a",
@@ -297,8 +618,8 @@
         "rationale": "Mutation contrôlée de threshold_pct pour confronter une hypothèse historique au résultat de sa variante."
       },
       "started_at": "2026-10-29T20:55:20.972726+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -310,8 +631,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -11.01719,
-      "excess_vs_hold_points": 11.01719
+      "hold_net_pct": -8.31057,
+      "excess_vs_hold_points": 8.31057
     },
     "56bf169e5e3e751450": {
       "id": "56bf169e5e3e751450",
@@ -325,8 +646,8 @@
         "rationale": "Mutation contrôlée de lookback_days pour confronter une hypothèse historique au résultat de sa variante."
       },
       "started_at": "2026-10-29T20:55:20.972726+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -338,8 +659,8 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -5.35925,
-      "excess_vs_hold_points": 5.35925
+      "hold_net_pct": 0.9618,
+      "excess_vs_hold_points": -0.9618
     },
     "43a92df4809f8f30fe": {
       "id": "43a92df4809f8f30fe",
@@ -353,8 +674,8 @@
         "rationale": "Mutation contrôlée de threshold_pct pour confronter une hypothèse historique au résultat de sa variante."
       },
       "started_at": "2026-10-29T20:55:20.972726+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
+      "last_t": 1793750400,
+      "observed_days": 7,
       "closed_trades": 0,
       "orders": 0,
       "holding_days": 0,
@@ -366,178 +687,65 @@
       "status": "observing_paper_only",
       "value_usd": 20.0,
       "net_pct": 0.0,
-      "hold_net_pct": -6.5631,
-      "excess_vs_hold_points": 6.5631
-    },
-    "253095b8a9544ff8df": {
-      "id": "253095b8a9544ff8df",
-      "source": "autonomous_grid_search",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "breakout",
-        "lookback_days": 40,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
-      },
-      "started_at": "2026-10-29T19:23:36.280904+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.19370278070995364,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -11.01719,
-      "excess_vs_hold_points": 11.01719
-    },
-    "e921c860eb3b6e24a0": {
-      "id": "e921c860eb3b6e24a0",
-      "source": "autonomous_grid_search",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "breakout",
-        "lookback_days": 20,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
-      },
-      "started_at": "2026-10-29T19:23:36.280904+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.008408748101630517,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -5.35925,
-      "excess_vs_hold_points": 5.35925
-    },
-    "2f2b7e8c605e3a5d03": {
-      "id": "2f2b7e8c605e3a5d03",
-      "source": "autonomous_grid_search",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "breakout",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 1,
-        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
-      },
-      "started_at": "2026-10-29T19:23:36.280904+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.00024384687791850803,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -6.5631,
-      "excess_vs_hold_points": 6.5631
-    },
-    "0cafd059c30c6a3924": {
-      "id": "0cafd059c30c6a3924",
-      "source": "deterministic_reference",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "breakout",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Référence quantitative figée pour comparer cette logique au témoin Hold."
-      },
-      "started_at": "2026-10-29T19:23:36.280904+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.19370278070995364,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -11.01719,
-      "excess_vs_hold_points": 11.01719
-    },
-    "0a96651dc89ea61036": {
-      "id": "0a96651dc89ea61036",
-      "source": "deterministic_reference",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "mean_reversion",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Référence quantitative figée pour comparer cette logique au témoin Hold."
-      },
-      "started_at": "2026-10-29T19:23:36.280904+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
-      "closed_trades": 1,
-      "orders": 3,
-      "holding_days": 2,
-      "cash_usd": 0.0,
-      "units": 0.00818616043,
-      "hold_units": 0.008408748101630517,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 8.75645,
-      "status": "observing_paper_only",
-      "value_usd": 18.427104,
-      "net_pct": -7.86448,
-      "hold_net_pct": -5.35925,
-      "excess_vs_hold_points": -2.50523
-    },
-    "5191e3b657d1819654": {
-      "id": "5191e3b657d1819654",
-      "source": "deterministic_reference",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "trend_following",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Référence quantitative figée pour comparer cette logique au témoin Hold."
-      },
-      "started_at": "2026-10-29T19:23:36.280904+00:00",
-      "last_t": 1793664000,
-      "observed_days": 6,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.00024384687791850803,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -6.5631,
-      "excess_vs_hold_points": 6.5631
+      "hold_net_pct": -2.8065,
+      "excess_vs_hold_points": 2.8065
     }
   },
-  "archived": [],
+  "archived": [
+    {
+      "id": "253095b8a9544ff8df",
+      "source": "autonomous_grid_search",
+      "last_t": 1793664000,
+      "observed_days": 6,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-05T02:36:52.438007+00:00"
+    },
+    {
+      "id": "e921c860eb3b6e24a0",
+      "source": "autonomous_grid_search",
+      "last_t": 1793664000,
+      "observed_days": 6,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-05T02:36:52.438007+00:00"
+    },
+    {
+      "id": "2f2b7e8c605e3a5d03",
+      "source": "autonomous_grid_search",
+      "last_t": 1793664000,
+      "observed_days": 6,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-05T02:36:52.438007+00:00"
+    },
+    {
+      "id": "0cafd059c30c6a3924",
+      "source": "deterministic_reference",
+      "last_t": 1793664000,
+      "observed_days": 6,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-05T02:36:52.438007+00:00"
+    },
+    {
+      "id": "0a96651dc89ea61036",
+      "source": "deterministic_reference",
+      "last_t": 1793664000,
+      "observed_days": 6,
+      "net_pct": -7.86448,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-05T02:36:52.438007+00:00"
+    },
+    {
+      "id": "5191e3b657d1819654",
+      "source": "deterministic_reference",
+      "last_t": 1793664000,
+      "observed_days": 6,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-05T02:36:52.438007+00:00"
+    }
+  ],
   "real_orders": false
 }

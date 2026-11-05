@@ -1,20 +1,176 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-04T23:45:02.000594+00:00",
-  "tracked": 18,
-  "archived_trials": 0,
+  "generated_at": "2026-11-05T02:36:52.438007+00:00",
+  "tracked": 24,
+  "archived_trials": 6,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
+    {
+      "id": "cced23855f81bf4885",
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "789f1f39be90d7d84c",
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "200ef27f626ba5bf8a",
+      "source": "autonomous_crossover",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "1b307e53045ecb74ee",
+      "source": "autonomous_crossover",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "5ced24f9ff7a0ac221",
+      "source": "autonomous_crossover",
+      "asset": "BTCUSD",
+      "logic": "trend_following",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "1731a013603e791a42",
+      "source": "autonomous_crossover",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "55ba36b25e044c0690",
+      "source": "bounded_evolution",
+      "asset": "SOLUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "773bbb595aa60986f7",
+      "source": "bounded_evolution",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "3230ee642ee98dc381",
+      "source": "bounded_evolution",
+      "asset": "BTCUSD",
+      "logic": "ema_trend",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "26c653a8086cf4b6ea",
+      "source": "autonomous_grid_search",
+      "asset": "SOLUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "b311e984e978290b8e",
+      "source": "autonomous_grid_search",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "a3ce1363d50d7a645c",
+      "source": "autonomous_grid_search",
+      "asset": "BTCUSD",
+      "logic": "ema_trend",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
     {
       "id": "a5e69aa7e003a9b40a",
       "source": "bounded_local_research_director",
       "asset": "SOLUSD",
       "logic": "mean_reversion",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 3,
-      "net_pct": -14.85507,
-      "excess_vs_hold_points": -3.83788,
+      "net_pct": -13.83962,
+      "excess_vs_hold_points": -5.52905,
       "max_drawdown_pct": 14.85507,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -24,10 +180,10 @@
       "source": "bounded_local_research_director",
       "asset": "ETHUSD",
       "logic": "rsi_reversal",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 1,
-      "net_pct": -1.57824,
-      "excess_vs_hold_points": 3.78101,
+      "net_pct": 4.99534,
+      "excess_vs_hold_points": 4.03354,
       "max_drawdown_pct": 2.11324,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -37,10 +193,10 @@
       "source": "bounded_local_research_director",
       "asset": "BTCUSD",
       "logic": "ema_trend",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 6.5631,
+      "excess_vs_hold_points": 2.8065,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -50,10 +206,10 @@
       "source": "autonomous_crossover",
       "asset": "SOLUSD",
       "logic": "breakout",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 11.01719,
+      "excess_vs_hold_points": 8.31057,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -63,10 +219,10 @@
       "source": "autonomous_crossover",
       "asset": "SOLUSD",
       "logic": "breakout",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 11.01719,
+      "excess_vs_hold_points": 8.31057,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -76,10 +232,10 @@
       "source": "autonomous_crossover",
       "asset": "ETHUSD",
       "logic": "breakout",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 5.35925,
+      "excess_vs_hold_points": -0.9618,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -89,10 +245,10 @@
       "source": "autonomous_crossover",
       "asset": "ETHUSD",
       "logic": "mean_reversion",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 5.35925,
+      "excess_vs_hold_points": -0.9618,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -102,10 +258,10 @@
       "source": "autonomous_crossover",
       "asset": "BTCUSD",
       "logic": "breakout",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 6.5631,
+      "excess_vs_hold_points": 2.8065,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -115,10 +271,10 @@
       "source": "autonomous_crossover",
       "asset": "BTCUSD",
       "logic": "trend_following",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 6.5631,
+      "excess_vs_hold_points": 2.8065,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -128,10 +284,10 @@
       "source": "bounded_evolution",
       "asset": "SOLUSD",
       "logic": "breakout",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 11.01719,
+      "excess_vs_hold_points": 8.31057,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -141,10 +297,10 @@
       "source": "bounded_evolution",
       "asset": "ETHUSD",
       "logic": "breakout",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 5.35925,
+      "excess_vs_hold_points": -0.9618,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
@@ -154,93 +310,88 @@
       "source": "bounded_evolution",
       "asset": "BTCUSD",
       "logic": "breakout",
-      "observed_days": 6,
+      "observed_days": 7,
       "closed_trades": 0,
       "net_pct": 0.0,
-      "excess_vs_hold_points": 6.5631,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "253095b8a9544ff8df",
-      "source": "autonomous_grid_search",
-      "asset": "SOLUSD",
-      "logic": "breakout",
-      "observed_days": 6,
-      "closed_trades": 0,
-      "net_pct": 0.0,
-      "excess_vs_hold_points": 11.01719,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "e921c860eb3b6e24a0",
-      "source": "autonomous_grid_search",
-      "asset": "ETHUSD",
-      "logic": "breakout",
-      "observed_days": 6,
-      "closed_trades": 0,
-      "net_pct": 0.0,
-      "excess_vs_hold_points": 5.35925,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "2f2b7e8c605e3a5d03",
-      "source": "autonomous_grid_search",
-      "asset": "BTCUSD",
-      "logic": "breakout",
-      "observed_days": 6,
-      "closed_trades": 0,
-      "net_pct": 0.0,
-      "excess_vs_hold_points": 6.5631,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "0cafd059c30c6a3924",
-      "source": "deterministic_reference",
-      "asset": "SOLUSD",
-      "logic": "breakout",
-      "observed_days": 6,
-      "closed_trades": 0,
-      "net_pct": 0.0,
-      "excess_vs_hold_points": 11.01719,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "0a96651dc89ea61036",
-      "source": "deterministic_reference",
-      "asset": "ETHUSD",
-      "logic": "mean_reversion",
-      "observed_days": 6,
-      "closed_trades": 1,
-      "net_pct": -7.86448,
-      "excess_vs_hold_points": -2.50523,
-      "max_drawdown_pct": 8.75645,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "5191e3b657d1819654",
-      "source": "deterministic_reference",
-      "asset": "BTCUSD",
-      "logic": "trend_following",
-      "observed_days": 6,
-      "closed_trades": 0,
-      "net_pct": 0.0,
-      "excess_vs_hold_points": 6.5631,
+      "excess_vs_hold_points": 2.8065,
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "id": "cced23855f81bf4885",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "789f1f39be90d7d84c",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "200ef27f626ba5bf8a",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "1b307e53045ecb74ee",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "5ced24f9ff7a0ac221",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "1731a013603e791a42",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "55ba36b25e044c0690",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "773bbb595aa60986f7",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "3230ee642ee98dc381",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "26c653a8086cf4b6ea",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "b311e984e978290b8e",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "a3ce1363d50d7a645c",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "253095b8a9544ff8df",
+      "status": "archived_capacity_rotation"
+    },
+    {
+      "id": "e921c860eb3b6e24a0",
+      "status": "archived_capacity_rotation"
+    },
+    {
+      "id": "2f2b7e8c605e3a5d03",
+      "status": "archived_capacity_rotation"
+    },
+    {
+      "id": "0cafd059c30c6a3924",
+      "status": "archived_capacity_rotation"
+    },
+    {
+      "id": "0a96651dc89ea61036",
+      "status": "archived_capacity_rotation"
+    },
+    {
+      "id": "5191e3b657d1819654",
+      "status": "archived_capacity_rotation"
+    }
+  ],
   "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven."
 }
