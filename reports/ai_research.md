@@ -1,6 +1,6 @@
 # Seiko Trading Lab — analyse de robustesse et hypothèses IA
 
-Statut : **model_reflection_completed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
+Statut : **model_reflection_failed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
 
 ## Faits mesurés
 
@@ -10,7 +10,8 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais accrus sur Bitcoin** : Rejouer les ordres avec les frais normaux puis majorés de 100% sur les prochaines données indépendantes de paper trading. Critère d'abandon : Si le rendement net reste supérieur ou égal au cas de base après doublement des frais, l'hypothèse de sensibilité est réfutée.
-- **ETHUSD — Comparaison de filtrage de volatilité sur Ethereum** : Suivre en portefeuille fictif séparé une variante eth_reversion avec filtre actif sur 3 jours, comparée au hold de référence. Critère d'abandon : Si la variante surperforme systématiquement le hold sans augmentation disproportionnée du drawdown, l'hypothèse est réfutée.
+- **BTCUSD — Contrôler la robustesse historique de BTCUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
+- **ETHUSD — Contrôler la robustesse historique de ETHUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
+- **SOLUSD — Contrôler la robustesse historique de SOLUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
