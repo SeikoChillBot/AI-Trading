@@ -1,6 +1,6 @@
 # Seiko Trading Lab — analyse de robustesse et hypothèses IA
 
-Statut : **model_reflection_completed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
+Statut : **model_reflection_failed**. Données historiques uniquement. Aucune proposition n'a été validée en simulation prospective.
 
 ## Faits mesurés
 
@@ -10,7 +10,8 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais sur breakout** : Simuler l'exécution d'un robot breakout sur BTCUSD avec des frais normaux et doublés sur 7 jours de données forward non encore intégrées au moteur d'optimisation. Critère d'abandon : Si le rendement net après frais doublés chute de plus de 50% par rapport à la base de référence, l'hypothèse de robustesse aux coûts est rejetée.
-- **ETHUSD — Filtre de volatilité sur réversion RSI** : Observer le comportement du robot rsi_reversal sur ETHUSD sur 3 jours avec un filtre de volatilité désactivé versus activé, sans modifier la taille des positions. Critère d'abandon : Si le nombre de trades fructueux n'augmente pas tout en conservant un drawdown inférieur au témoin hold, l'hypothèse est réfutée.
+- **BTCUSD — Contrôler la robustesse historique de BTCUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
+- **ETHUSD — Contrôler la robustesse historique de ETHUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
+- **SOLUSD — Contrôler la robustesse historique de SOLUSD** : Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils. Critère d'abandon : Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
