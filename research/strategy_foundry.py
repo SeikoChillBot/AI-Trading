@@ -398,7 +398,7 @@ def compile_explicit_gemini_narratives(proposals):
         if not 20 <= len(statement) <= 2000:
             continue
         def mentions(token):
-            return re.search(r"(?<!\\w)" + re.escape(token) + r"(?!\\w)", statement) is not None
+            return re.search(r"(?<!\w)" + re.escape(token) + r"(?!\w)", statement) is not None
         logics = [logic for logic in LOGICS if mentions(logic)]
         # Ambiguous or non-declarative prose cannot become an executable rule.
         if len(logics) != 1:
