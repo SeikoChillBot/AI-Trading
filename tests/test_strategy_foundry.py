@@ -94,6 +94,35 @@ class FoundryTests(unittest.TestCase):
         self.assertNotIn("wallet", str(memory))
         self.assertFalse(repeat["no_live_trades"] is False)
 
+    def test_explicit_narrative_creates_separately_attributed_local_hypothesis(self):
+        data = {"BTCUSD": bars(), "ETHUSD": bars(), "SOLUSD": bars()}
+        narrative = {
+            "source": "gemini_generate_content", "provider": "gemini",
+            "state": "model_reflection_completed", "used_cache": False,
+            "model_last_called_at": NOW.isoformat(), "strategy_designs": [],
+            "experiments": [{"asset": "ETHUSD",
+                "hypothesis": "Une regle rsi_reversal peut etre amelioree avec rsi_oversold.",
+                "experiment": "Comparer prospectivement rsi_reversal + rsi_oversold au Hold."}],
+        }
+        ledger, report = foundry.build(NOW, narrative, data, {})
+        compiled = [x for x in ledger["ideas"]
+                    if x["source"] == "local_compilation_of_gemini_narrative"]
+        self.assertEqual(len(compiled), 1)
+        self.assertEqual(compiled[0]["spec"]["asset"], "ETHUSD")
+        self.assertEqual(compiled[0]["spec"]["confirmations"], ["rsi_oversold"])
+        self.assertEqual(report["gemini_hypotheses"], 0)
+        self.assertEqual(report["gemini_narratives_compiled_locally"], 1)
+        repeated, _ = foundry.build(NOW + timedelta(minutes=10), narrative, data, ledger)
+        self.assertEqual(len(repeated["ideas"]), len(ledger["ideas"]))
+        fake = {**narrative, "source": "quantitative_auto_fallback"}
+        self.assertEqual(foundry.compile_explicit_gemini_narratives(fake), [])
+        cached = {**narrative, "used_cache": True}
+        self.assertEqual(foundry.compile_explicit_gemini_narratives(cached), [])
+        ambiguous = {**narrative, "experiments": [{"asset": "ETHUSD",
+            "hypothesis": "Une idee rsi_reversal et breakout tres vague",
+            "experiment": "Une phrase sans parametres utilisables."}]}
+        self.assertEqual(foundry.compile_explicit_gemini_narratives(ambiguous), [])
+
     def test_unauthenticated_model_proposal_is_not_adopted(self):
         data = {"BTCUSD": bars(), "ETHUSD": bars(), "SOLUSD": bars()}
         ledger, report = foundry.build(NOW, {
