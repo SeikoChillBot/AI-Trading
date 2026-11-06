@@ -1,6 +1,6 @@
 # AIT — Atelier autonome de stratégies
 
-Bilan du 2026-11-06T15:14:20.682261+00:00. Simulation et recherche seulement.
+Bilan du 2026-11-06T15:58:02.270580+00:00. Simulation et recherche seulement.
 
 Hypothèses conservées : 30 ; proposées par Gemini : 0 ; rejouées sur l'histoire : 30.
 
