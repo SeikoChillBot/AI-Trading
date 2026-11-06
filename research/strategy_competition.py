@@ -21,6 +21,7 @@ MIN_TRADES = 12
 MIN_PASS_NEW_DAYS = 14
 MAX_DRAWDOWN = 10.
 MAX_HISTORY = 150
+MAX_EVALUATED_TRACKS = 36  # Keep in sync with strategy_forward.MAX_TRACKED
 
 
 def read(path):
@@ -67,7 +68,7 @@ def build(now, forward, knowledge, previous):
         }, {"schema": 1, "trails": trails, "real_orders": False})
     rankings = []
     updated = {}
-    for key, row in list(tracks.items())[:24]:
+    for key, row in list(tracks.items())[:MAX_EVALUATED_TRACKS]:
         if key not in allowed or not isinstance(row, dict):
             continue
         idea = allowed[key]
