@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-06T15:58:02.157556+00:00",
+  "generated_at": "2026-11-06T18:44:29.492166+00:00",
   "research_date_utc": "2026-11-06",
-  "review_slot": "2026-11-06T12:00Z",
-  "model_last_called_at": "2026-11-06T12:29:05.074494+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-06T18:00Z",
+  "model_last_called_at": "2026-11-06T18:44:29.492166+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-06T12:29:05.074494+00:00",
+  "last_attempt_at": "2026-11-06T18:44:29.492166+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des données Seiko: les robots affichent des performances nettes globalement négatives sur les horizons observés, en phase avec des régimes de marché baissiers et une volatilité prononcée sur les cryptomonnaies. Les robots de type 'hold' constituent des témoins immuables stables par rapport aux stratégies dynamiques qui subissent des drawdowns importants. Aucune stratégie ne prouve une rentabilité future garantie en raison des coûts de transaction, des sensibilités aux frais et de l'insuffisance des données hors échantillon. Aucune attribution causale ne peut être faite à un seul indicateur sans comparaison appariée.",
+  "summary": "Analyse critique des données de laboratoire Seiko : les robots de tendance, de momentum et de breakout enregistrent des pertes nettes et des drawdowns importants sur l'historique et en papier prospectif, rappelant qu'aucun indicateur technique ne garantit une rentabilité future. Les portefeuilles hold restent des témoins immuables et soulignent la difficulté de battre la simple détention spot. Aucun réglage de robot ne peut être considéré comme validé sans preuves prospectives rigoureuses.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés sur breakout",
-      "hypothesis": "Doubler les frais de transaction n'altère pas la sélectivité des ordres mais dégrade les rendements nets des stratégies basées sur les ruptures.",
-      "experiment": "Rejouer la stratégie breakout avec des frais standard puis doublés sur de nouvelles données journalières non utilisées de BTCUSD.",
-      "rejection_rule": "Si le rendement net après frais doublés dépasse ou égale le rendement de référence sans dégradation du drawdown, l'hypothèse de sensibilité est réfutée.",
+      "title": "Test de résistance aux coûts de transaction sur BTCUSD",
+      "hypothesis": "Doubler les frais de transaction n'altère pas la logique de signal mais élimine les stratégies dont la marge nette historique repose sur des fréquences de trades élevées.",
+      "experiment": "Exécuter une simulation hors échantillon avec frais doublés et comparer les retours nets obtenus sur BTCUSD avec de nouvelles données de marché non encore exploitées.",
+      "rejection_rule": "Si le rendement net après frais doublés dépasse la version à frais normaux de manière statistiquement significative, l'hypothèse est réfutée.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -117,10 +117,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Évaluation prospective du filtre de volatilité calme",
-      "hypothesis": "L'application d'un filtre de volatilité calme sur ETHUSD réduit la fréquence des trades perdants sans détériorer le rendement par rapport au maintien en détention (hold).",
-      "experiment": "Simuler une allocation fictive de 20 USD sur ETHUSD en position long spot sans levier pendant 3 jours en activant le filtre de volatilité calme.",
-      "rejection_rule": "Si le drawdown prospectif dépasse 15% ou si le rendement net est inférieur à la détention simple, l'hypothèse est réfutée.",
+      "title": "Évaluation de la réversibilité RSI sur ETHUSD",
+      "hypothesis": "L'ajout d'une condition de survente RSI réduit les faux signaux en régime de forte volatilité baissière sans détruire complètement le nombre de trades exécutés.",
+      "experiment": "Tester prospectivement la règle rsi_reversal avec la condition rsi_oversold sur ETHUSD sur une période de 7 jours de cotations inédites.",
+      "rejection_rule": "Si le nombre de transactions clôturées tombe à zéro ou si le drawdown dépasse la référence hold, l'hypothèse est invalidée.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -133,19 +133,13 @@
     {
       "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Modification du seuil de déclenchement du signal pour tester une sélectivité accrue face aux conditions de marché baissières, sans modifier la taille des sommes investies ni garantir le risque.",
+      "reason": "Modification du seuil de déclenchement du signal pour limiter la sensibilité aux variations de prix à court terme, à titre d'hypothèse exploratoire.",
       "evidence_state": "gemini_hypothesis_unverified"
     },
     {
-      "strategy": "eth_momentum",
+      "strategy": "eth_reversion",
       "entry_scale": 0.8,
-      "reason": "Ajustement du profil pour rendre la stratégie plus sensible aux variations de prix récentes de l'ETH, sous réserve de validation prospective et sans promesse de rendement.",
-      "evidence_state": "gemini_hypothesis_unverified"
-    },
-    {
-      "strategy": "sol_momentum",
-      "entry_scale": 1.2,
-      "reason": "Application d'un seuil de déclenchement conservateur pour limiter la sur-fréquence des trades perdants constatée sur SOLUSD, sans inférer de gains futurs.",
+      "reason": "Ajustement du seuil d'entrée pour tester une réactivité accrue face aux mouvements brusques de volatilité sur ETHUSD.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],

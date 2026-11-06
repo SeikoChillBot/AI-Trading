@@ -10,7 +10,7 @@ Statut : **model_reflection_completed**. Données historiques uniquement. Aucune
 
 ## Pistes d'expériences
 
-- **BTCUSD — Test de résistance aux frais doublés sur breakout** : Rejouer la stratégie breakout avec des frais standard puis doublés sur de nouvelles données journalières non utilisées de BTCUSD. Critère d'abandon : Si le rendement net après frais doublés dépasse ou égale le rendement de référence sans dégradation du drawdown, l'hypothèse de sensibilité est réfutée.
-- **ETHUSD — Évaluation prospective du filtre de volatilité calme** : Simuler une allocation fictive de 20 USD sur ETHUSD en position long spot sans levier pendant 3 jours en activant le filtre de volatilité calme. Critère d'abandon : Si le drawdown prospectif dépasse 15% ou si le rendement net est inférieur à la détention simple, l'hypothèse est réfutée.
+- **BTCUSD — Test de résistance aux coûts de transaction sur BTCUSD** : Exécuter une simulation hors échantillon avec frais doublés et comparer les retours nets obtenus sur BTCUSD avec de nouvelles données de marché non encore exploitées. Critère d'abandon : Si le rendement net après frais doublés dépasse la version à frais normaux de manière statistiquement significative, l'hypothèse est réfutée.
+- **ETHUSD — Évaluation de la réversibilité RSI sur ETHUSD** : Tester prospectivement la règle rsi_reversal avec la condition rsi_oversold sur ETHUSD sur une période de 7 jours de cotations inédites. Critère d'abandon : Si le nombre de transactions clôturées tombe à zéro ou si le drawdown dépasse la référence hold, l'hypothèse est invalidée.
 
 Aucun ordre réel, changement de portefeuille ou promotion automatique.
