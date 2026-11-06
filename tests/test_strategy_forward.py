@@ -119,6 +119,31 @@ class ForwardTests(unittest.TestCase):
         self.assertEqual(reinstated["tracked"], 0)
         self.assertEqual(reinstated["archived_trials"], 1)
 
+    def test_new_structured_gemini_task_gets_priority_without_evicting_old_trials(self):
+        values = candles()
+        specs = []
+        for logic in foundry.LOGICS:
+            for w in (10, 20, 40):
+                for threshold in (0.5, 1, 2):
+                    spec = foundry.normalise({
+                        "asset": "BTCUSD", "logic": logic,
+                        "lookback_days": w, "threshold_pct": threshold,
+                        "max_hold_days": 3,
+                        "rationale": "Etude scientifique fictive de comparaison prospective.",
+                    })
+                    specs.append({"id": foundry.identifier(spec),
+                                  "spec": spec, "source": "bounded_evolution"})
+        _, old = shadow.build(NOW, {"ideas": specs[:35]},
+                              {"BTCUSD": values}, {})
+        gemini = dict(specs[36], source="gemini_task_shadow")
+        updated, state = shadow.build(NOW + timedelta(minutes=10),
+            {"ideas": specs[:36] + [gemini]}, {"BTCUSD": values}, old)
+        self.assertEqual(updated["tracked"], 36)
+        self.assertEqual(updated["deferred_hypotheses"], 1)
+        self.assertIn(gemini["id"], state["tracks"])
+        self.assertNotIn(specs[35]["id"], state["tracks"])
+        self.assertTrue(all(x["id"] in state["tracks"] for x in specs[:35]))
+
     def test_never_accepts_or_executes_external_model_code(self):
         compromised = proposal()
         compromised["spec"]["logic"] = "exec"

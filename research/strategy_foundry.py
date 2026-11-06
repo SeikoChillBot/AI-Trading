@@ -437,6 +437,24 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
     submissions = [(x, "gemini_structured_hypothesis") for x in generated[:2]]
     submissions += [(x, "local_compilation_of_gemini_narrative")
                     for x in compile_explicit_gemini_narratives(proposals)]
+    # The three director slots may remain occupied for 90 prospective days.
+    # Admit VALIDATED Gemini research tasks to the independent shadow Foundry
+    # without replacing a frozen director plan or affecting any original bot.
+    tasks = (proposals.get("research_tasks", [])
+             if proposals.get("source") == "gemini_generate_content"
+             and proposals.get("provider") == "gemini"
+             and proposals.get("state") == "model_reflection_completed"
+             and isinstance(proposals.get("model_last_called_at"), str) else [])
+    if isinstance(tasks, list):
+        from research.research_director import _checked_plan
+        for task in tasks[:2]:
+            if not isinstance(task, dict):
+                continue
+            try:
+                _goal, _question, _rejection, spec = _checked_plan(task, task.get("asset"))
+                submissions.append((spec, "gemini_task_shadow"))
+            except (ValueError, TypeError, KeyError):
+                continue
     # Adaptive, deterministic search also contributes paper-only specifications.
     # Historical optimization provenance must not be relabelled as Gemini.
     if (isinstance(optimizer, dict)
@@ -642,6 +660,8 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
         "gemini_hypotheses": sum(x.get("source") == "gemini_structured_hypothesis" for x in ideas),
         "gemini_narratives_compiled_locally": sum(
             x.get("source") == "local_compilation_of_gemini_narrative" for x in ideas),
+        "gemini_task_shadow_hypotheses": sum(
+            x.get("source") == "gemini_task_shadow" for x in ideas),
         "auto_optimized_hypotheses": sum(x.get("source") == "autonomous_grid_search" for x in ideas),
         "evolved_hypotheses": sum(x.get("source") == "bounded_evolution" for x in ideas),
         "crossed_hypotheses": sum(x.get("source") == "autonomous_crossover" for x in ideas),

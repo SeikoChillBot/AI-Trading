@@ -386,11 +386,15 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         if getattr(response, "status_code", None) != 400:
             raise
         simple = json.loads(json.dumps(payload))
+        # If the provider rejects the full schema, keep the core research
+        # deliverable instead of silently dropping every strategy field.
+        # This is the SAME request slot, only a recovery from HTTP 400.
         simple["generationConfig"]["responseSchema"]["properties"] = {
-            key: schema["properties"][key] for key in ("summary", "experiments", "bot_adjustments")
+            key: schema["properties"][key] for key in
+            ("summary", "experiments", "strategy_designs")
         }
         simple["generationConfig"]["responseSchema"]["required"] = [
-            "summary", "experiments", "bot_adjustments"
+            "summary", "experiments", "strategy_designs"
         ]
         simple["generationConfig"]["maxOutputTokens"] = 2000
         response = requests.post(
@@ -411,8 +415,9 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
             json_only["generationConfig"]["maxOutputTokens"] = 5600
             json_only["systemInstruction"]["parts"][0]["text"] += (
                 " Réponds avec un objet JSON contenant obligatoirement "
-                "summary (texte), experiments (tableau), bot_adjustments "
-                "(tableau). Pas de commentaire hors JSON."
+                "summary (texte), experiments (tableau), strategy_designs "
+                "(tableau de strategies declaratives, vide si aucune idee valide). "
+                "Pas de commentaire hors JSON."
             )
             response = requests.post(
                 GEMINI_URL, headers={"x-goog-api-key":api_key,

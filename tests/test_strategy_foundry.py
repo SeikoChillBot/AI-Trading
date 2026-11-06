@@ -123,6 +123,58 @@ class FoundryTests(unittest.TestCase):
             "experiment": "Une phrase sans parametres utilisables."}]}
         self.assertEqual(foundry.compile_explicit_gemini_narratives(ambiguous), [])
 
+    def test_structured_gemini_task_bypasses_saturated_director_safely(self):
+        data = {"BTCUSD": bars(), "ETHUSD": bars(), "SOLUSD": bars()}
+        task = {"asset": "ETHUSD", "goal": "beat_hold",
+                "hypothesis": "Un retour RSI filtré devrait dépasser la détention ETH.",
+                "rejection_rule": "Rejeter si l'avantage net futur sur Hold est absent.",
+                "strategy": idea("rsi_reversal", "ETHUSD")}
+        model = {"source": "gemini_generate_content", "provider": "gemini",
+                 "state": "model_reflection_completed",
+                 "model_last_called_at": NOW.isoformat(),
+                 "strategy_designs": [], "experiments": [],
+                 "research_tasks": [task]}
+        ledger, report = foundry.build(NOW, model, data, {})
+        self.assertEqual(report["gemini_task_shadow_hypotheses"], 1)
+        self.assertEqual(report["gemini_hypotheses"], 0)
+        shadow_ideas = [x for x in ledger["ideas"] if x["source"] == "gemini_task_shadow"]
+        self.assertEqual(len(shadow_ideas), 1)
+        self.assertEqual(shadow_ideas[0]["spec"]["asset"], "ETHUSD")
+        duplicate, later = foundry.build(NOW + timedelta(minutes=10), model, data, ledger)
+        self.assertEqual(len(ledger["ideas"]), len(duplicate["ideas"]))
+        invalid = {**model, "provider": "other"}
+        rejected, status = foundry.build(NOW, invalid, data, {})
+        self.assertEqual(status["gemini_task_shadow_hypotheses"], 0)
+
+    def test_gemini_http_400_fallback_prioritizes_structured_designs(self):
+        import json
+        import requests
+        from unittest.mock import patch
+        from research import ai_reflection
+
+        class FakeResponse:
+            def __init__(self, code, data=None):
+                self.status_code = code
+                self.data = data
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    raise requests.HTTPError("HTTP 400")
+            def json(self):
+                return self.data
+        candidate = {"summary": "Analyse prudente BTC", "experiments": [],
+                     "strategy_designs": [idea()]}
+        output = {"candidates": [{"finishReason": "STOP",
+                   "content": {"parts": [{"text": json.dumps(candidate)}]}}]}
+        with patch.object(ai_reflection.requests, "post",
+                          side_effect=[FakeResponse(400), FakeResponse(200, output)]) as post:
+            with patch.object(ai_reflection, "safe_context", return_value={}):
+                result = ai_reflection.run_gemini("test-only", {}, {"assets": [{"asset": "BTCUSD"}]})
+        self.assertEqual(len(result["strategy_designs"]), 1)
+        self.assertEqual(post.call_count, 2)
+        keys = post.call_args_list[1].kwargs["json"]["generationConfig"]["responseSchema"]["required"]
+        self.assertIn("strategy_designs", keys)
+        self.assertNotIn("bot_adjustments", keys)
+
     def test_unauthenticated_model_proposal_is_not_adopted(self):
         data = {"BTCUSD": bars(), "ETHUSD": bars(), "SOLUSD": bars()}
         ledger, report = foundry.build(NOW, {
