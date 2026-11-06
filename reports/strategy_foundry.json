@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-05T23:40:39.839329+00:00",
+  "generated_at": "2026-11-06T02:29:20.018936+00:00",
   "total_hypotheses": 30,
   "gemini_hypotheses": 0,
   "auto_optimized_hypotheses": 6,
@@ -9,7 +9,128 @@
   "director_hypotheses": 3,
   "local_adversarial_controls": 0,
   "tested_historically": 30,
-  "events": [],
+  "events": [
+    {
+      "id": "5191e3b657d1819654",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "0a96651dc89ea61036",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "0cafd059c30c6a3924",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "2f2b7e8c605e3a5d03",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "e921c860eb3b6e24a0",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "253095b8a9544ff8df",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "43a92df4809f8f30fe",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "56bf169e5e3e751450",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "97bc58780a96065b2a",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "09fcd0e2b0dab27ef7",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "1617d0b2ed93f1d786",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "143da0502545044195",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "1cfcfb93666ed07769",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "2a687faaa0b654a26f",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "53633ea1a537b8579e",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "64e754fd7d289d4131",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "00e3f7125aee1b131d",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "a5e69aa7e003a9b40a",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "a3ce1363d50d7a645c",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "b311e984e978290b8e",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "26c653a8086cf4b6ea",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "3230ee642ee98dc381",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "773bbb595aa60986f7",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "55ba36b25e044c0690",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "1731a013603e791a42",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "5ced24f9ff7a0ac221",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "1b307e53045ecb74ee",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "200ef27f626ba5bf8a",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "789f1f39be90d7d84c",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "cced23855f81bf4885",
+      "status": "exploratory_replay_completed"
+    }
+  ],
   "recent_ideas": [
     {
       "id": "a3ce1363d50d7a645c",
@@ -28,17 +149,17 @@
         "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
         "model_has_seen_related_history": true,
         "asset": "BTCUSD",
-        "average_net_pct": -3.6189,
-        "average_excess_vs_hold_points": 0.612,
-        "average_double_cost_net_pct": -6.725,
-        "max_drawdown_pct": 12.5874,
-        "closed_trades": 12,
-        "folds_beating_hold": 3,
+        "average_net_pct": -4.1453,
+        "average_excess_vs_hold_points": 1.1042,
+        "average_double_cost_net_pct": -7.4583,
+        "max_drawdown_pct": 13.6026,
+        "closed_trades": 13,
+        "folds_beating_hold": 4,
         "checks": {
           "enough_closed_trades": false,
           "positive_average_net": false,
           "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
+          "beats_hold_in_most_folds": true,
           "drawdown_under_20_pct": true
         },
         "all_historical_checks_pass": false,
@@ -64,14 +185,14 @@
         "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
         "model_has_seen_related_history": true,
         "asset": "ETHUSD",
-        "average_net_pct": 2.7969,
-        "average_excess_vs_hold_points": 7.6637,
-        "average_double_cost_net_pct": -3.1856,
+        "average_net_pct": 2.8849,
+        "average_excess_vs_hold_points": 8.7868,
+        "average_double_cost_net_pct": -2.8538,
         "max_drawdown_pct": 18.33897,
-        "closed_trades": 20,
+        "closed_trades": 19,
         "folds_beating_hold": 4,
         "checks": {
-          "enough_closed_trades": true,
+          "enough_closed_trades": false,
           "positive_average_net": true,
           "positive_with_double_costs": false,
           "beats_hold_in_most_folds": true,
@@ -100,11 +221,11 @@
         "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
         "model_has_seen_related_history": true,
         "asset": "SOLUSD",
-        "average_net_pct": 4.0134,
-        "average_excess_vs_hold_points": 12.0114,
-        "average_double_cost_net_pct": -0.5289,
-        "max_drawdown_pct": 9.76526,
-        "closed_trades": 14,
+        "average_net_pct": 2.9196,
+        "average_excess_vs_hold_points": 11.7156,
+        "average_double_cost_net_pct": -1.8815,
+        "max_drawdown_pct": 12.34679,
+        "closed_trades": 15,
         "folds_beating_hold": 4,
         "checks": {
           "enough_closed_trades": false,
@@ -140,7 +261,7 @@
         "model_has_seen_related_history": true,
         "asset": "BTCUSD",
         "average_net_pct": 0.0,
-        "average_excess_vs_hold_points": 4.2309,
+        "average_excess_vs_hold_points": 5.2495,
         "average_double_cost_net_pct": 0.0,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
@@ -178,14 +299,14 @@
         "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
         "model_has_seen_related_history": true,
         "asset": "ETHUSD",
-        "average_net_pct": 2.7969,
-        "average_excess_vs_hold_points": 7.6637,
-        "average_double_cost_net_pct": -3.1856,
+        "average_net_pct": 2.8849,
+        "average_excess_vs_hold_points": 8.7868,
+        "average_double_cost_net_pct": -2.8538,
         "max_drawdown_pct": 18.33897,
-        "closed_trades": 20,
+        "closed_trades": 19,
         "folds_beating_hold": 4,
         "checks": {
-          "enough_closed_trades": true,
+          "enough_closed_trades": false,
           "positive_average_net": true,
           "positive_with_double_costs": false,
           "beats_hold_in_most_folds": true,
@@ -217,9 +338,9 @@
         "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
         "model_has_seen_related_history": true,
         "asset": "SOLUSD",
-        "average_net_pct": 4.7555,
-        "average_excess_vs_hold_points": 12.7535,
-        "average_double_cost_net_pct": 0.4974,
+        "average_net_pct": 4.9774,
+        "average_excess_vs_hold_points": 13.7734,
+        "average_double_cost_net_pct": 0.6929,
         "max_drawdown_pct": 9.76526,
         "closed_trades": 13,
         "folds_beating_hold": 4,
@@ -258,7 +379,7 @@
         "model_has_seen_related_history": true,
         "asset": "BTCUSD",
         "average_net_pct": 0.0,
-        "average_excess_vs_hold_points": 4.2309,
+        "average_excess_vs_hold_points": 5.2495,
         "average_double_cost_net_pct": 0.0,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
@@ -298,16 +419,16 @@
         "model_has_seen_related_history": true,
         "asset": "BTCUSD",
         "average_net_pct": -0.66,
-        "average_excess_vs_hold_points": 3.5709,
+        "average_excess_vs_hold_points": 4.5895,
         "average_double_cost_net_pct": -1.2261,
         "max_drawdown_pct": 3.96029,
         "closed_trades": 2,
-        "folds_beating_hold": 3,
+        "folds_beating_hold": 4,
         "checks": {
           "enough_closed_trades": false,
           "positive_average_net": false,
           "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
+          "beats_hold_in_most_folds": true,
           "drawdown_under_20_pct": true
         },
         "all_historical_checks_pass": false,
@@ -338,7 +459,7 @@
         "model_has_seen_related_history": true,
         "asset": "ETHUSD",
         "average_net_pct": 0.0,
-        "average_excess_vs_hold_points": 4.8667,
+        "average_excess_vs_hold_points": 5.9019,
         "average_double_cost_net_pct": 0.0,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
@@ -378,16 +499,16 @@
         "model_has_seen_related_history": true,
         "asset": "ETHUSD",
         "average_net_pct": -1.0497,
-        "average_excess_vs_hold_points": 3.817,
+        "average_excess_vs_hold_points": 4.8522,
         "average_double_cost_net_pct": -1.6257,
         "max_drawdown_pct": 5.59834,
         "closed_trades": 2,
-        "folds_beating_hold": 3,
+        "folds_beating_hold": 4,
         "checks": {
           "enough_closed_trades": false,
           "positive_average_net": false,
           "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
+          "beats_hold_in_most_folds": true,
           "drawdown_under_20_pct": true
         },
         "all_historical_checks_pass": false,
@@ -418,7 +539,7 @@
         "model_has_seen_related_history": true,
         "asset": "SOLUSD",
         "average_net_pct": 0.0,
-        "average_excess_vs_hold_points": 7.998,
+        "average_excess_vs_hold_points": 8.796,
         "average_double_cost_net_pct": 0.0,
         "max_drawdown_pct": 0.0,
         "closed_trades": 0,
@@ -458,7 +579,7 @@
         "model_has_seen_related_history": true,
         "asset": "SOLUSD",
         "average_net_pct": 0.1438,
-        "average_excess_vs_hold_points": 8.1418,
+        "average_excess_vs_hold_points": 8.9399,
         "average_double_cost_net_pct": -0.1561,
         "max_drawdown_pct": 0.02282,
         "closed_trades": 1,

@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-05T23:40:40.311736+00:00",
+  "generated_at": "2026-11-06T02:29:20.416013+00:00",
   "state": "research_memory_recorded",
   "recorded_hypotheses": 30,
   "total_experiment_fingerprints": 30,
-  "new_revisions": 0,
+  "new_revisions": 30,
   "failure_patterns": {
     "positive_with_double_costs": 29,
+    "enough_closed_trades": 26,
     "positive_average_net": 24,
-    "enough_closed_trades": 24,
-    "beats_hold_in_most_folds": 11,
+    "beats_hold_in_most_folds": 3,
     "drawdown_under_20_pct": 3
   },
   "research_agenda": [
@@ -23,6 +23,15 @@
       "causal_proof": false
     },
     {
+      "category": "trade_density",
+      "failed_historical_checks": 26,
+      "historical_population": 30,
+      "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
+      "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
+      "independent_future_data_required": true,
+      "causal_proof": false
+    },
+    {
       "category": "net_return",
       "failed_historical_checks": 24,
       "historical_population": 30,
@@ -32,20 +41,11 @@
       "causal_proof": false
     },
     {
-      "category": "trade_density",
-      "failed_historical_checks": 24,
+      "category": "drawdown",
+      "failed_historical_checks": 3,
       "historical_population": 30,
-      "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
-      "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
-      "independent_future_data_required": true,
-      "causal_proof": false
-    },
-    {
-      "category": "hold_comparison",
-      "failed_historical_checks": 11,
-      "historical_population": 30,
-      "hypothesis_to_falsify": "Tester si un signal ajoute de la valeur au simple achat-conservation sur les mêmes dates.",
-      "experiment": "Rejeter la supériorité si le différentiel futur au témoin Hold n'est pas positif.",
+      "hypothesis_to_falsify": "Tester des confirmations prudentes et leur coût d'opportunité sans attribuer une cause aux pertes.",
+      "experiment": "Rejeter si le drawdown fictif prospectif excède le seuil ou si le gain net se détériore.",
       "independent_future_data_required": true,
       "causal_proof": false
     }
@@ -57,7 +57,7 @@
     "ema_trend": 3,
     "rsi_reversal": 6
   },
-  "prospective_observed": 18,
+  "prospective_observed": 30,
   "recent_lessons": [
     {
       "id": "a3ce1363d50d7a645c",
@@ -65,13 +65,12 @@
       "logic": "ema_trend",
       "confirmations": [],
       "historical_failure_reasons": [
-        "beats_hold_in_most_folds",
         "enough_closed_trades",
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "b311e984e978290b8e",
@@ -79,10 +78,11 @@
       "logic": "rsi_reversal",
       "confirmations": [],
       "historical_failure_reasons": [
+        "enough_closed_trades",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "26c653a8086cf4b6ea",
@@ -93,8 +93,8 @@
         "enough_closed_trades",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "3230ee642ee98dc381",
@@ -108,8 +108,8 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "773bbb595aa60986f7",
@@ -119,10 +119,11 @@
         "rsi_oversold"
       ],
       "historical_failure_reasons": [
+        "enough_closed_trades",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "55ba36b25e044c0690",
@@ -134,8 +135,8 @@
       "historical_failure_reasons": [
         "enough_closed_trades"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "1731a013603e791a42",
@@ -150,8 +151,8 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "5ced24f9ff7a0ac221",
@@ -162,13 +163,12 @@
         "rsi_strength"
       ],
       "historical_failure_reasons": [
-        "beats_hold_in_most_folds",
         "enough_closed_trades",
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "1b307e53045ecb74ee",
@@ -183,8 +183,8 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "200ef27f626ba5bf8a",
@@ -195,13 +195,12 @@
         "rsi_strength"
       ],
       "historical_failure_reasons": [
-        "beats_hold_in_most_folds",
         "enough_closed_trades",
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "789f1f39be90d7d84c",
@@ -216,8 +215,8 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     },
     {
       "id": "cced23855f81bf4885",
@@ -231,8 +230,8 @@
         "enough_closed_trades",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
+      "historical_revisions": 2,
+      "forward_observed_days": 1
     }
   ],
   "no_causal_attribution": true,
