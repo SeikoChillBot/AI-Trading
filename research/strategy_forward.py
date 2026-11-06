@@ -158,7 +158,7 @@ def build(now, knowledge, candles, previous, leaderboard=None):
                   if item["id"] not in prior
                   and item.get("source") in (
                       "gemini_structured_hypothesis", "gemini_research_director",
-                      "local_compilation_of_gemini_narrative")]
+                      "gemini_task_shadow", "local_compilation_of_gemini_narrative")]
     new_other = [item for item in reversed(preferred) if item["id"] not in prior]
     mature = [item for item in preferred if item["id"] in prior]
     selected, selected_ids = [], set()
