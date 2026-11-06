@@ -156,7 +156,8 @@ class EvidenceTests(unittest.TestCase):
 
     def test_gemini_http_400_falls_back_only_to_smaller_same_provider_schema(self):
         completed = {"candidates":[{"finishReason":"STOP","content":{"parts":[{
-            "text":json.dumps({"summary":"Vérifier les frais","experiments":[],"bot_adjustments":[]})
+            "text":json.dumps({"summary":"Vérifier les frais","experiments":[],
+                               "strategy_designs":[]})
         }]}}]}
         class Reply:
             def __init__(self,code):
@@ -176,7 +177,10 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(out["experiments"],[])
         self.assertEqual(len(seen),2)
         self.assertEqual(set(seen[1]["generationConfig"]["responseSchema"]["properties"]),
-                         {"summary","experiments","bot_adjustments"})
+                         {"summary","experiments","strategy_designs"})
+        self.assertEqual(out["strategy_designs"], [])
+        self.assertEqual(seen[1]["generationConfig"]["responseSchema"]["required"],
+                         ["summary", "experiments", "strategy_designs"])
 
     def test_gemini_quota_has_no_retry_or_paid_fallback(self):
         class Reply:

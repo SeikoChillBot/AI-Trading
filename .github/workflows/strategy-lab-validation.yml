@@ -28,6 +28,7 @@ on:
       - 'tests/test_autonomous_optimizer.py'
       - 'tests/test_manual_live_review.py'
       - 'tests/test_strategy_foundry.py'
+      - 'tests/test_ai_decision_support.py'
       - 'tests/test_strategy_evolution.py'
       - 'tests/test_strategy_architect.py'
       - 'tests/test_scientific_memory.py'
@@ -67,6 +68,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_autonomous_optimizer.py' -v
           python -m unittest discover -s tests -p 'test_manual_live_review.py' -v
           python -m unittest discover -s tests -p 'test_strategy_foundry.py' -v
+          python -m unittest discover -s tests -p 'test_ai_decision_support.py' -v
           python -m unittest discover -s tests -p 'test_strategy_forward.py' -v
           python -m unittest discover -s tests -p 'test_market_knowledge.py' -v
           python -m unittest discover -s tests -p 'test_site_lab04.py' -v
