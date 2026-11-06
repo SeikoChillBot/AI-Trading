@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -368,6 +369,60 @@ def model_memory(ledger):
             "instruction": "Learn from failures; do not retest the same parameters just to claim success."}
 
 
+
+def compile_explicit_gemini_narratives(proposals):
+    """Interpret only literal grammar tokens; provenance remains LOCAL.
+
+    Narrative experiments are NOT structured Gemini strategy designs. Python
+    chooses conservative default parameters rather than attributing them to
+    Gemini. All outputs remain finite, auditable, paper-only hypotheses.
+    """
+    if (not isinstance(proposals, dict)
+            or proposals.get("source") != "gemini_generate_content"
+            or proposals.get("provider") != "gemini"
+            or proposals.get("state") != "model_reflection_completed"
+            or proposals.get("used_cache") is not False
+            or not isinstance(proposals.get("model_last_called_at"), str)):
+        return []
+    experiments = proposals.get("experiments", [])
+    if not isinstance(experiments, list):
+        return []
+    results, seen = [], set()
+    for item in experiments[:2]:
+        if not isinstance(item, dict) or item.get("asset") not in ASSETS:
+            continue
+        fragments = [item.get(name, "") for name in ("hypothesis", "experiment")]
+        if any(not isinstance(fragment, str) for fragment in fragments):
+            continue
+        statement = " ".join(fragments).lower()
+        if not 20 <= len(statement) <= 2000:
+            continue
+        def mentions(token):
+            return re.search(r"(?<!\w)" + re.escape(token) + r"(?!\w)", statement) is not None
+        logics = [logic for logic in LOGICS if mentions(logic)]
+        # Ambiguous or non-declarative prose cannot become an executable rule.
+        if len(logics) != 1:
+            continue
+        gates = [gate for gate in CONFIRMATIONS if mentions(gate)]
+        if len(gates) > MAX_CONFIRMATIONS:
+            continue
+        try:
+            spec = normalise({
+                "asset": item["asset"], "logic": logics[0],
+                "lookback_days": 20, "threshold_pct": 1,
+                "max_hold_days": 3, "confirmations": gates,
+                "rationale": ("Compilation locale de mots-clés explicites de Gemini. "
+                              "Fenêtre 20j, seuil 1% et horizon 3j définis par Python."),
+            })
+            key = identifier(spec)
+            if key not in seen:
+                seen.add(key)
+                results.append(spec)
+        except (ValueError, TypeError, KeyError):
+            continue
+    return results
+
+
 def build(now, proposals, candles, previous, optimizer=None, evolution=None, architect=None, director=None):
     ideas = [dict(x) for x in previous.get("ideas", [])
              if isinstance(x, dict) and isinstance(x.get("spec"), dict)][-MAX_IDEAS:]
@@ -380,6 +435,8 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
     if not isinstance(generated, list):
         generated = []
     submissions = [(x, "gemini_structured_hypothesis") for x in generated[:2]]
+    submissions += [(x, "local_compilation_of_gemini_narrative")
+                    for x in compile_explicit_gemini_narratives(proposals)]
     # Adaptive, deterministic search also contributes paper-only specifications.
     # Historical optimization provenance must not be relabelled as Gemini.
     if (isinstance(optimizer, dict)
@@ -583,6 +640,8 @@ def build(now, proposals, candles, previous, optimizer=None, evolution=None, arc
         "schema": 1, "generated_at": now.isoformat(),
         "total_hypotheses": len(ideas),
         "gemini_hypotheses": sum(x.get("source") == "gemini_structured_hypothesis" for x in ideas),
+        "gemini_narratives_compiled_locally": sum(
+            x.get("source") == "local_compilation_of_gemini_narrative" for x in ideas),
         "auto_optimized_hypotheses": sum(x.get("source") == "autonomous_grid_search" for x in ideas),
         "evolved_hypotheses": sum(x.get("source") == "bounded_evolution" for x in ideas),
         "crossed_hypotheses": sum(x.get("source") == "autonomous_crossover" for x in ideas),

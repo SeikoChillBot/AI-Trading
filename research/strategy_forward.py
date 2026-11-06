@@ -17,7 +17,8 @@ CANDLES = ROOT / "reports/challenger_candles.json"
 STATE = ROOT / "state/strategy_forward_positions.json"
 REPORT = ROOT / "reports/strategy_forward.json"
 CHAMPIONS = ROOT / "reports/strategy_competition.json"
-MAX_TRACKED = 24
+MAX_TRACKED = 36
+MIN_PRESERVE_DAYS = 120
 MAX_ARCHIVED = 120
 CAPITAL = foundry.CAPITAL
 COST = foundry.COST
@@ -116,11 +117,16 @@ def build(now, knowledge, candles, previous, leaderboard=None):
         ideas = []
     prior = previous.get("tracks", {}) if isinstance(previous, dict) else {}
     prior = prior if isinstance(prior, dict) else {}
+    archived_before = previous.get("archived", []) if isinstance(previous, dict) else []
+    archived_ids = {x.get("id") for x in archived_before
+                    if isinstance(x, dict) and isinstance(x.get("id"), str)}
     tracks = {}
     events = []
-    # Always admit recently invented strategies. Reserve places for validated
-    # paper champions, then rotate out the oldest trials as capacity fills.
-    # Archived trials are retained as *terminated paper studies*, not profits.
+    # Preserve immature prospective trials, even when the Foundry creates
+    # new hypotheses. Do not destroy weeks of evidence for a newer candidate.
+    # Use twelve extra slots (36 total) for structured/new Gemini research,
+    # and defer excess hypotheses instead of pretending their study started.
+    # Mature non-champions may rotate after >=120 real future observations.
     qualified = set()
     if (isinstance(leaderboard, dict) and leaderboard.get("schema") == 1
             and leaderboard.get("real_orders") is False
@@ -136,12 +142,33 @@ def build(now, knowledge, candles, previous, leaderboard=None):
             valid = foundry.normalise(idea["spec"])
             if idea.get("id") != foundry.identifier(valid):
                 continue
+            # Rotated-out hypotheses must not reset their forward test by
+            # re-entering as if they had never been studied.
+            if idea["id"] in archived_ids and idea["id"] not in prior:
+                continue
             preferred.append(idea)
         except (ValueError, TypeError, KeyError):
             continue
     pinned = [item for item in preferred if item["id"] in qualified]
-    newest = list(reversed([item for item in preferred if item["id"] not in qualified]))
-    selected = (pinned + newest)[:MAX_TRACKED]
+    immature = [item for item in preferred if item["id"] in prior
+                and item["id"] not in qualified
+                and type(prior[item["id"]].get("observed_days")) is int
+                and prior[item["id"]]["observed_days"] < MIN_PRESERVE_DAYS]
+    new_gemini = [item for item in reversed(preferred)
+                  if item["id"] not in prior
+                  and item.get("source") in (
+                      "gemini_structured_hypothesis", "gemini_research_director",
+                      "local_compilation_of_gemini_narrative")]
+    new_other = [item for item in reversed(preferred) if item["id"] not in prior]
+    mature = [item for item in preferred if item["id"] in prior]
+    selected, selected_ids = [], set()
+    for group in (pinned, immature, new_gemini, new_other, mature):
+        for item in group:
+            if len(selected) >= MAX_TRACKED:
+                break
+            if item["id"] not in selected_ids:
+                selected.append(item)
+                selected_ids.add(item["id"])
     # Iterate in priority order (champions, then most recently created).
     # Restoring original order before the cap can starve new entries.
     for idea in selected:
@@ -193,6 +220,10 @@ def build(now, knowledge, candles, previous, leaderboard=None):
     output = {
         "schema": 1, "generated_at": now.isoformat(),
         "tracked": len(tracks), "archived_trials": len(archive),
+        "capacity_limit": MAX_TRACKED,
+        "deferred_hypotheses": max(0, len(preferred) - len(selected)),
+        "protected_immature_tracks": sum(
+            item["id"] in selected_ids for item in immature),
         "robots_modified": False,
         "real_orders": False,
         "trials": [
