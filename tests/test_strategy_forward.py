@@ -90,13 +90,19 @@ class ForwardTests(unittest.TestCase):
                   "ranked": [{"id": champion, "stage": "paper_champion"}]}
         next_result, state = shadow.build(NOW + timedelta(minutes=15),
             {"ideas": specs[:26]}, {"BTCUSD": values}, state, league)
-        self.assertEqual(next_result["tracked"], 24)
-        self.assertEqual(next_result["archived_trials"], 2)
+        self.assertEqual(next_result["tracked"], 26)
+        self.assertEqual(next_result["archived_trials"], 0)
         self.assertIn(champion, state["tracks"])
         self.assertIn(specs[25]["id"], state["tracks"])
-        self.assertTrue(all(r["status"] == "archived_capacity_rotation"
-                            for r in state["archived"]))
         self.assertFalse(next_result["real_orders"])
+        # More ideas cannot evict immature observations, even at full capacity.
+        more, preserved = shadow.build(NOW + timedelta(minutes=20),
+            {"ideas": specs[:40]}, {"BTCUSD": values}, state, league)
+        self.assertEqual(more["tracked"], 36)
+        self.assertEqual(more["archived_trials"], 0)
+        self.assertEqual(more["deferred_hypotheses"], 4)
+        self.assertTrue(all(spec["id"] in preserved["tracks"] for spec in specs[:26]))
+        self.assertEqual(more["protected_immature_tracks"], 25)
 
     def test_never_accepts_or_executes_external_model_code(self):
         compromised = proposal()
