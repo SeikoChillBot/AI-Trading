@@ -104,6 +104,21 @@ class ForwardTests(unittest.TestCase):
         self.assertTrue(all(spec["id"] in preserved["tracks"] for spec in specs[:26]))
         self.assertEqual(more["protected_immature_tracks"], 25)
 
+    def test_archived_forward_trails_cannot_restart_as_new(self):
+        values = candles()
+        original, state = shadow.build(NOW, {"ideas": [proposal()]},
+                                       {"BTCUSD": values}, {})
+        self.assertEqual(original["tracked"], 1)
+        removed, state = shadow.build(NOW + timedelta(minutes=5),
+                                      {"ideas": []}, {"BTCUSD": values}, state)
+        self.assertEqual(removed["tracked"], 0)
+        self.assertEqual(removed["archived_trials"], 1)
+        reinstated, _ = shadow.build(NOW + timedelta(minutes=10),
+                                     {"ideas": [proposal()]},
+                                     {"BTCUSD": values}, state)
+        self.assertEqual(reinstated["tracked"], 0)
+        self.assertEqual(reinstated["archived_trials"], 1)
+
     def test_never_accepts_or_executes_external_model_code(self):
         compromised = proposal()
         compromised["spec"]["logic"] = "exec"
