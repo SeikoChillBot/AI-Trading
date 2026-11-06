@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-06T09:43:52.114386+00:00",
+  "generated_at": "2026-11-06T12:29:05.074494+00:00",
   "research_date_utc": "2026-11-06",
-  "review_slot": "2026-11-06T06:00Z",
-  "model_last_called_at": "2026-11-06T06:54:57.641625+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-06T12:00Z",
+  "model_last_called_at": "2026-11-06T12:29:05.074494+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-06T06:54:57.641625+00:00",
+  "last_attempt_at": "2026-11-06T12:29:05.074494+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse des observations de marché pour les cryptos (BTCUSD, ETHUSD, SOLUSD) sur l'horizon récent montre des rendements nets négatifs globaux et une sensibilité marquée aux frais de transaction. Aucun robot n'atteint les critères requis pour une promotion en production réelle. Les performances historiques hors échantillon (OOS) affichent des bilans défavorables, et les tests de robustesse avec doublement des frais confirment la fragilité des stratégies à haute fréquence. L'attention reste portée sur l'observation stricte, l'évitement de l'overfitting et l'évaluation prospective sans promesse de rendement.",
+  "summary": "Analyse critique des données Seiko: les robots affichent des performances nettes globalement négatives sur les horizons observés, en phase avec des régimes de marché baissiers et une volatilité prononcée sur les cryptomonnaies. Les robots de type 'hold' constituent des témoins immuables stables par rapport aux stratégies dynamiques qui subissent des drawdowns importants. Aucune stratégie ne prouve une rentabilité future garantie en raison des coûts de transaction, des sensibilités aux frais et de l'insuffisance des données hors échantillon. Aucune attribution causale ne peut être faite à un seul indicateur sans comparaison appariée.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -103,10 +103,10 @@
   "experiments": [
     {
       "asset": "BTCUSD",
-      "title": "Test de résistance aux frais doublés pour les signaux de momentum",
-      "hypothesis": "Doubler les frais de transaction supprime le peu de marge restante sur les stratégies de momentum sans altérer la fréquence des faux signaux.",
-      "experiment": "Rejouer les signaux avec des frais standard et des frais doublés sur des données futures indépendantes.",
-      "rejection_rule": "Si le rendement net avec frais doublés dépasse la performance du modèle à frais normaux de plus de 5% de manière persistante, l'hypothèse est réfutée.",
+      "title": "Test de résistance aux frais doublés sur breakout",
+      "hypothesis": "Doubler les frais de transaction n'altère pas la sélectivité des ordres mais dégrade les rendements nets des stratégies basées sur les ruptures.",
+      "experiment": "Rejouer la stratégie breakout avec des frais standard puis doublés sur de nouvelles données journalières non utilisées de BTCUSD.",
+      "rejection_rule": "Si le rendement net après frais doublés dépasse ou égale le rendement de référence sans dégradation du drawdown, l'hypothèse de sensibilité est réfutée.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -117,10 +117,10 @@
     },
     {
       "asset": "ETHUSD",
-      "title": "Évaluation prospective des filtres de volatilité et de retour à la moyenne",
-      "hypothesis": "L'ajout de conditions de volatilité active sur la stratégie rsi_reversal réduit le nombre de faux déclencheurs en période de tendance baissière.",
-      "experiment": "Suivre l'évolution de portefeuilles fictifs de 20 USD intégrant ou non le filtre rsi_oversold sur 7 jours.",
-      "rejection_rule": "Si le drawdown dépasse 15% ou si le rendement net est inférieur au modèle Hold de référence, l'hypothèse est rejetée.",
+      "title": "Évaluation prospective du filtre de volatilité calme",
+      "hypothesis": "L'application d'un filtre de volatilité calme sur ETHUSD réduit la fréquence des trades perdants sans détériorer le rendement par rapport au maintien en détention (hold).",
+      "experiment": "Simuler une allocation fictive de 20 USD sur ETHUSD en position long spot sans levier pendant 3 jours en activant le filtre de volatilité calme.",
+      "rejection_rule": "Si le drawdown prospectif dépasse 15% ou si le rendement net est inférieur à la détention simple, l'hypothèse est réfutée.",
       "evidence_state": "ai_hypothesis_not_tested",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
@@ -131,15 +131,21 @@
   ],
   "bot_adjustments": [
     {
-      "strategy": "btc_scalp_conservative",
+      "strategy": "btc_momentum",
       "entry_scale": 1.2,
-      "reason": "Ajustement du seuil de déclenchement du signal pour limiter la fréquence des ordres dans un régime de marché à volatilité modérée.",
+      "reason": "Modification du seuil de déclenchement du signal pour tester une sélectivité accrue face aux conditions de marché baissières, sans modifier la taille des sommes investies ni garantir le risque.",
       "evidence_state": "gemini_hypothesis_unverified"
     },
     {
-      "strategy": "eth_ema_cross",
+      "strategy": "eth_momentum",
       "entry_scale": 0.8,
-      "reason": "Modification du seuil d'entrée pour réagir plus rapidement aux fluctuations de tendance sur l'actif ETHUSD.",
+      "reason": "Ajustement du profil pour rendre la stratégie plus sensible aux variations de prix récentes de l'ETH, sous réserve de validation prospective et sans promesse de rendement.",
+      "evidence_state": "gemini_hypothesis_unverified"
+    },
+    {
+      "strategy": "sol_momentum",
+      "entry_scale": 1.2,
+      "reason": "Application d'un seuil de déclenchement conservateur pour limiter la sur-fréquence des trades perdants constatée sur SOLUSD, sans inférer de gains futurs.",
       "evidence_state": "gemini_hypothesis_unverified"
     }
   ],

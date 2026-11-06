@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-06T09:43:46.567816+00:00",
+  "generated_at": "2026-11-06T12:28:58.536102+00:00",
   "state": "observing",
   "source": "https://eth.blockscout.com/api/v2",
   "discovery_state": "observing",
@@ -11,11 +11,11 @@
     {
       "address": "0xea6df897fc8ea83d2b81391abec672ae1cfbae1c",
       "verified_identity": false,
-      "sample_count": 32,
-      "new_count": 0,
+      "sample_count": 28,
+      "new_count": 4,
       "baseline_at": "2026-11-05T05:28:45.951022+00:00",
       "last_detected_at": "2026-11-05T05:28:45.951022+00:00",
-      "last_polled_at": "2026-11-06T09:43:46.567816+00:00",
+      "last_polled_at": "2026-11-06T12:28:58.536102+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -27,7 +27,7 @@
       "new_count": 0,
       "baseline_at": "2026-11-05T05:28:45.951022+00:00",
       "last_detected_at": "2026-11-05T05:28:45.951022+00:00",
-      "last_polled_at": "2026-11-06T09:43:46.567816+00:00",
+      "last_polled_at": "2026-11-06T12:28:58.536102+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -35,11 +35,11 @@
     {
       "address": "0x654e9c94f3929b2a853345d015cdf3f5d8dd3816",
       "verified_identity": false,
-      "sample_count": 23,
+      "sample_count": 26,
       "new_count": 0,
       "baseline_at": "2026-11-05T12:38:27.001390+00:00",
       "last_detected_at": "2026-11-05T12:38:27.001390+00:00",
-      "last_polled_at": "2026-11-06T09:43:46.567816+00:00",
+      "last_polled_at": "2026-11-06T12:28:58.536102+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -51,13 +51,66 @@
       "new_count": 0,
       "baseline_at": "2026-11-05T12:38:27.001390+00:00",
       "last_detected_at": "2026-11-05T12:38:27.001390+00:00",
-      "last_polled_at": "2026-11-06T09:43:46.567816+00:00",
+      "last_polled_at": "2026-11-06T12:28:58.536102+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
     }
   ],
-  "new_transfers": [],
+  "new_transfers": [
+    {
+      "id": "3463bc3568dfae1a711d82a88b4d0bfa47b385ea5b51b53cbf99449da2e8c81a",
+      "token": "USDT",
+      "quantity": "49999997.852099",
+      "nominal_usd_approx": 49999997.852099,
+      "timestamp": "2026-11-06T09:55:11+00:00",
+      "tx_hash": "0x2c4d8888b404b511283d1e4f25ca7b80cb9049328ff79e0737c1f9f15a9a35bd",
+      "from_address": "0xea6df897fc8ea83d2b81391abec672ae1cfbae1c",
+      "to_address": "0xaa8ba7d4611437141192e7ceced531bc0a133efb",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "d3ab46379b4d3d73a0d94ba146871f3789fad0448b5b069ce1d084bcebb3dd4c",
+      "token": "USDT",
+      "quantity": "49999997.8521",
+      "nominal_usd_approx": 49999997.8521,
+      "timestamp": "2026-11-06T09:54:11+00:00",
+      "tx_hash": "0x25b8952b6a5863c04896db2d10b49f7c04145b9454f369bc4c28a6a3c7304ac4",
+      "from_address": "0x77134cbc06cb00b66f4c7e623d5fdbf6777635ec",
+      "to_address": "0xea6df897fc8ea83d2b81391abec672ae1cfbae1c",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "4648b0335d69393a6f5820760c70b2ed999576be61116b3574d805039f3e25bd",
+      "token": "USDT",
+      "quantity": "1737523.8521",
+      "nominal_usd_approx": 1737523.8521,
+      "timestamp": "2026-11-06T09:39:23+00:00",
+      "tx_hash": "0xc98ab4ba546a1011c50f71333b30e2802debcd6cca2e1b6b73e70e23c4db01d4",
+      "from_address": "0xea6df897fc8ea83d2b81391abec672ae1cfbae1c",
+      "to_address": "0xaa8ba7d4611437141192e7ceced531bc0a133efb",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "a14f281722572e5803cedab9b37412599fa2165dce13735e7e50e883267991f4",
+      "token": "USDT",
+      "quantity": "1737523.8521",
+      "nominal_usd_approx": 1737523.8521,
+      "timestamp": "2026-11-06T09:39:11+00:00",
+      "tx_hash": "0xddf1ec6c82f9c85ba05824a641f68e3be6732d61543960e93a7a7c2f8b72e545",
+      "from_address": "0x77134cbc06cb00b66f4c7e623d5fdbf6777635ec",
+      "to_address": "0xea6df897fc8ea83d2b81391abec672ae1cfbae1c",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
   "errors": {},
   "max_addresses": 4,
   "retention_days": 7,
