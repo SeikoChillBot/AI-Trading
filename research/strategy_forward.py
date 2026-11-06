@@ -117,6 +117,9 @@ def build(now, knowledge, candles, previous, leaderboard=None):
         ideas = []
     prior = previous.get("tracks", {}) if isinstance(previous, dict) else {}
     prior = prior if isinstance(prior, dict) else {}
+    archived_before = previous.get("archived", []) if isinstance(previous, dict) else []
+    archived_ids = {x.get("id") for x in archived_before
+                    if isinstance(x, dict) and isinstance(x.get("id"), str)}
     tracks = {}
     events = []
     # Preserve immature prospective trials, even when the Foundry creates
@@ -138,6 +141,10 @@ def build(now, knowledge, candles, previous, leaderboard=None):
         try:
             valid = foundry.normalise(idea["spec"])
             if idea.get("id") != foundry.identifier(valid):
+                continue
+            # Rotated-out hypotheses must not reset their forward test by
+            # re-entering as if they had never been studied.
+            if idea["id"] in archived_ids and idea["id"] not in prior:
                 continue
             preferred.append(idea)
         except (ValueError, TypeError, KeyError):
