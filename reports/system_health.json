@@ -1,8 +1,10 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-06T21:33:32.171423+00:00",
-  "status": "observing",
-  "alerts": [],
+  "generated_at": "2026-11-07T00:24:46.482710+00:00",
+  "status": "needs_attention",
+  "alerts": [
+    "Dernière analyse Gemini non confirmée"
+  ],
   "roadmap": [
     {
       "id": "robots",
@@ -13,14 +15,14 @@
     {
       "id": "intelligence",
       "title": "Analyses Gemini et recherche autonome",
-      "status": "active",
+      "status": "degraded",
       "detail": "Jusqu'à 4 analyses IA par jour, tests statistiques entre deux appels."
     },
     {
       "id": "scenarios",
       "title": "Expériences fictives en rotation",
       "status": "active",
-      "detail": "9 expériences en cours, jusqu'à 12 simultanées, au maximum 4 nouvelles par cycle."
+      "detail": "7 expériences en cours, jusqu'à 12 simultanées, au maximum 4 nouvelles par cycle."
     },
     {
       "id": "hourly",
@@ -64,22 +66,22 @@
     "workflows": {
       "Paper trading": {
         "state": "healthy",
-        "run_id": 42296359732,
-        "last_created_at": "2026-11-06T21:23:42Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42296359732",
+        "run_id": 42317957611,
+        "last_created_at": "2026-11-07T00:23:46Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42317957611",
         "last_result": "success"
       },
       "Seiko research — guarded automatic analysis": {
         "state": "running",
-        "run_id": 42297635379,
-        "last_created_at": "2026-11-06T21:32:59Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42297635379",
+        "run_id": 42317991899,
+        "last_created_at": "2026-11-07T00:24:06Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42317991899",
         "previous_completed_result": "success"
       }
     }
   },
-  "gemini_last_state": "model_reflection_completed",
-  "paper_experiments_active": 9,
+  "gemini_last_state": "model_reflection_failed",
+  "paper_experiments_active": 7,
   "robot_count": 36,
   "real_orders": false,
   "recommendation": "Les essais restent fictifs ; aucune rentabilité future n'est garantie."

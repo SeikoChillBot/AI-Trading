@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-06T21:33:30.901023+00:00",
+  "updated_at": "2026-11-07T00:24:43.941934+00:00",
   "days": [
     {
       "date_utc": "2026-10-29",
@@ -467,6 +467,59 @@
       "transfer_sample": {
         "state": "observing",
         "large_transfers_observed": 0,
+        "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
+        "not_verified_buy_sell": true,
+        "source": "Ethereum public Blockscout transfer sample"
+      },
+      "news_publisher_counts": {
+        "Fed": 0,
+        "BCE": 4,
+        "CoinDesk": 4
+      },
+      "source_quality": "observed_indicators_not_trading_signals",
+      "has_verified_trade_signal": false
+    },
+    {
+      "date_utc": "2026-11-07",
+      "observed_at": "2026-11-07T00:24:42.692315+00:00",
+      "assets": {
+        "BTCUSD": {
+          "source": "Kraken closed daily OHLC",
+          "last_closed_day": "2026-11-06",
+          "last_close_usd": 75741.6,
+          "change_1d_pct": -0.314,
+          "change_7d_pct": -1.895,
+          "change_30d_pct": -9.048,
+          "realized_volatility_30d_annualized_pct": 36.66
+        },
+        "ETHUSD": {
+          "source": "Kraken closed daily OHLC",
+          "last_closed_day": "2026-11-06",
+          "last_close_usd": 2235.43,
+          "change_1d_pct": 0.019,
+          "change_7d_pct": -0.265,
+          "change_30d_pct": -13.111,
+          "realized_volatility_30d_annualized_pct": 49.44
+        },
+        "SOLUSD": {
+          "source": "Kraken closed daily OHLC",
+          "last_closed_day": "2026-11-06",
+          "last_close_usd": 90.02,
+          "change_1d_pct": 0.897,
+          "change_7d_pct": -6.395,
+          "change_30d_pct": -22.563,
+          "realized_volatility_30d_annualized_pct": 48.42
+        }
+      },
+      "macro": {
+        "fear_greed_index": 25.0,
+        "tvl_ethereum_usd": 43269216938.6,
+        "tvl_solana_usd": 5250021773.32,
+        "stablecoin_supply_usd_estimate": 293012750815.52
+      },
+      "transfer_sample": {
+        "state": "observing",
+        "large_transfers_observed": 2,
         "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
         "not_verified_buy_sell": true,
         "source": "Ethereum public Blockscout transfer sample"
