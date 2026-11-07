@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-07T14:39:36.061521+00:00",
+  "generated_at": "2026-11-07T16:29:48.700260+00:00",
   "model": "market_context_observation_v1",
   "auto_trading": false,
   "whale_purchases_inferred": false,
@@ -14,23 +14,19 @@
     },
     "chain_tvl": {
       "tvl_usd_by_chain": {
-        "Ethereum": 43471532714.37,
-        "Base": 5810257230.22,
-        "Arbitrum": 1438676999.58,
-        "BSC": 5079730108.18,
-        "Solana": 5233586133.83
+        "Base": 5817028161.93,
+        "Arbitrum": 1439155849.13,
+        "Ethereum": 43491193698.49,
+        "BSC": 5084198862.15,
+        "Solana": 5239051982.97
       },
       "source": "https://api.llama.fi/v2/chains",
       "kind": "defi_tvl_not_capital_inflow"
-    },
-    "stablecoins": {
-      "circulating_usd_estimate": 293235960410.14,
-      "stablecoins_included": 355,
-      "source": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
-      "kind": "stablecoin_supply_not_immediate_buying_pressure"
     }
   },
-  "errors": {},
+  "errors": {
+    "stablecoins": "ReadTimeout: HTTPSConnectionPool(host='stablecoins.llama.fi', port=443): Read timed out. (read timeout=12)"
+  },
   "limitations": [
     "TVL is not the same as inflow or investment return.",
     "Stablecoin issuance does not prove an upcoming asset purchase.",
