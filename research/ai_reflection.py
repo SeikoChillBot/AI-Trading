@@ -448,8 +448,36 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         raise GeminiResponseError("invalid_json") from None
     try:
         return validate_model_ideas(ideas, evidence)
-    except (ValueError, TypeError, KeyError):
-        raise GeminiResponseError("invalid_research_schema") from None
+    except (ValueError, TypeError, KeyError) as error:
+        raise GeminiResponseError(schema_rejection_code(error)) from None
+
+
+# Fixed, non-sensitive categories: never include model output or raw exception text.
+_SCHEMA_REJECTION_CATEGORIES = {
+    "Invalid AI result": "summary",
+    "Invalid number of experiments": "experiment_count",
+    "Unrecognized research asset": "experiment_asset",
+    "Missing or oversized experiment field": "experiment_fields",
+    "Invalid number of robot suggestions": "robot_count",
+    "Invalid robot tuning payload": "robot_payload",
+    "Robot suggestion outside reviewed safe parameter grid": "robot_parameters",
+    "Invalid number of sandbox placement hypotheses": "scenario_count",
+    "Invalid sandbox hypothesis": "scenario_payload",
+    "Unapproved trial request": "scenario_parameters",
+    "Invalid note count": "note_count",
+    "Invalid research note": "note_fields",
+    "Invalid number of strategy designs": "design_count",
+    "Strategy outside approved research grammar": "design_grammar",
+    "Invalid research task count": "task_count",
+    "Invalid model research task": "task_payload",
+    "Model task outside approved research grammar": "task_grammar",
+}
+
+
+def schema_rejection_code(error: Exception) -> str:
+    """Classify validation failures without exposing model content or secrets."""
+    category = _SCHEMA_REJECTION_CATEGORIES.get(str(error), "unknown")
+    return "invalid_research_schema_" + category
 
 
 def readable(status, historical, proposals):
