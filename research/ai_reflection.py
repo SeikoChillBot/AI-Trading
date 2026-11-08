@@ -449,7 +449,43 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
     try:
         return validate_model_ideas(ideas, evidence)
     except (ValueError, TypeError, KeyError) as error:
-        raise GeminiResponseError(schema_rejection_code(error)) from None
+        first_failure = schema_rejection_code(error)
+
+    # One bounded recovery for a syntactically valid but locally rejected
+    # response. The same strict validator remains mandatory.
+    recovery = json.loads(json.dumps(payload))
+    recovery["generationConfig"]["responseSchema"]["properties"] = {
+        key: schema["properties"][key]
+        for key in ("summary", "experiments", "strategy_designs")
+    }
+    recovery["generationConfig"]["responseSchema"]["required"] = [
+        "summary", "experiments", "strategy_designs"
+    ]
+    recovery["generationConfig"]["maxOutputTokens"] = 2500
+    recovery["systemInstruction"]["parts"][0]["text"] += (
+        " La réponse précédente a été rejetée (" + first_failure
+        + "). Réponds uniquement avec summary, experiments et strategy_designs. "
+        "Utilise uniquement les valeurs autorisées et au maximum deux stratégies."
+    )
+    try:
+        retry = requests.post(
+            GEMINI_URL,
+            headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
+            json=recovery, timeout=50,
+        )
+        retry.raise_for_status()
+        data = retry.json()
+        candidates = data.get("candidates", [])
+        if (not isinstance(candidates, list) or not candidates
+                or candidates[0].get("finishReason") != "STOP"):
+            raise GeminiResponseError(first_failure)
+        parts = candidates[0].get("content", {}).get("parts", [])
+        retry_text = "\\n".join(
+            part.get("text", "") for part in parts if isinstance(part, dict)
+        ).strip()
+        return validate_model_ideas(json.loads(retry_text), evidence)
+    except (requests.RequestException, ValueError, TypeError, KeyError, AttributeError):
+        raise GeminiResponseError(first_failure) from None
 
 
 # Fixed, non-sensitive categories: never include model output or raw exception text.
