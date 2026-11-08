@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-08T01:28:55.352287+00:00",
+  "generated_at": "2026-11-08T04:20:31.865009+00:00",
   "state": "research_memory_recorded",
-  "recorded_hypotheses": 30,
-  "total_experiment_fingerprints": 30,
-  "new_revisions": 0,
+  "recorded_hypotheses": 32,
+  "total_experiment_fingerprints": 32,
+  "new_revisions": 2,
   "failure_patterns": {
-    "positive_with_double_costs": 29,
-    "positive_average_net": 24,
-    "enough_closed_trades": 24,
-    "beats_hold_in_most_folds": 5,
-    "drawdown_under_20_pct": 3
+    "positive_with_double_costs": 31,
+    "positive_average_net": 26,
+    "enough_closed_trades": 25,
+    "beats_hold_in_most_folds": 6,
+    "drawdown_under_20_pct": 5
   },
   "research_agenda": [
     {
       "category": "cost_sensitivity",
-      "failed_historical_checks": 29,
-      "historical_population": 30,
+      "failed_historical_checks": 31,
+      "historical_population": 32,
       "hypothesis_to_falsify": "Tester moins d'ordres et des confirmations de volatilité, mais surveiller une perte de signaux utiles.",
       "experiment": "Comparer les règles simples et composées avec frais normaux/doublés sur des bougies futures.",
       "independent_future_data_required": true,
@@ -24,8 +24,8 @@
     },
     {
       "category": "net_return",
-      "failed_historical_checks": 24,
-      "historical_population": 30,
+      "failed_historical_checks": 26,
+      "historical_population": 32,
       "hypothesis_to_falsify": "Comparer familles de tendance, retour vers moyenne et abstention sans sélectionner sur le contrôle historique.",
       "experiment": "Conserver seulement les améliorations positives après frais sur de nouvelles journées distinctes.",
       "independent_future_data_required": true,
@@ -33,8 +33,8 @@
     },
     {
       "category": "trade_density",
-      "failed_historical_checks": 24,
-      "historical_population": 30,
+      "failed_historical_checks": 25,
+      "historical_population": 32,
       "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
       "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
       "independent_future_data_required": true,
@@ -42,8 +42,8 @@
     },
     {
       "category": "hold_comparison",
-      "failed_historical_checks": 5,
-      "historical_population": 30,
+      "failed_historical_checks": 6,
+      "historical_population": 32,
       "hypothesis_to_falsify": "Tester si un signal ajoute de la valeur au simple achat-conservation sur les mêmes dates.",
       "experiment": "Rejeter la supériorité si le différentiel futur au témoin Hold n'est pas positif.",
       "independent_future_data_required": true,
@@ -54,35 +54,11 @@
     "trend_following": 3,
     "mean_reversion": 4,
     "breakout": 14,
-    "ema_trend": 3,
-    "rsi_reversal": 6
+    "ema_trend": 4,
+    "rsi_reversal": 7
   },
   "prospective_observed": 30,
   "recent_lessons": [
-    {
-      "id": "a3ce1363d50d7a645c",
-      "asset": "BTCUSD",
-      "logic": "ema_trend",
-      "confirmations": [],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 4,
-      "forward_observed_days": 3
-    },
-    {
-      "id": "b311e984e978290b8e",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "confirmations": [],
-      "historical_failure_reasons": [
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 4,
-      "forward_observed_days": 3
-    },
     {
       "id": "26c653a8086cf4b6ea",
       "asset": "SOLUSD",
@@ -230,6 +206,38 @@
       ],
       "historical_revisions": 4,
       "forward_observed_days": 3
+    },
+    {
+      "id": "a7dfc6a4871472fbc0",
+      "asset": "BTCUSD",
+      "logic": "rsi_reversal",
+      "confirmations": [
+        "quiet_volatility"
+      ],
+      "historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "drawdown_under_20_pct",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "844745f53eae58be7f",
+      "asset": "ETHUSD",
+      "logic": "ema_trend",
+      "confirmations": [
+        "ema_uptrend"
+      ],
+      "historical_failure_reasons": [
+        "drawdown_under_20_pct",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
     }
   ],
   "no_causal_attribution": true,
