@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-08T04:20:31.766912+00:00",
+  "updated_at": "2026-11-08T07:10:37.272793+00:00",
   "tracks": {
     "43a92df4809f8f30fe": {
       "id": "43a92df4809f8f30fe",
@@ -738,18 +738,18 @@
       "hold_net_pct": -7.78878,
       "excess_vs_hold_points": 7.78878
     },
-    "844745f53eae58be7f": {
-      "id": "844745f53eae58be7f",
+    "a7dfc6a4871472fbc0": {
+      "id": "a7dfc6a4871472fbc0",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "ETHUSD",
-        "logic": "ema_trend",
-        "lookback_days": 40,
+        "asset": "BTCUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
         "threshold_pct": 1.0,
-        "max_hold_days": 7,
-        "rationale": "Explorer une approche de suivi de tendance par EMA sur ETHUSD pour évaluer la fréquence de transaction et la résistance face au Hold.",
+        "max_hold_days": 3,
+        "rationale": "Tester un retour sur RSI avec filtre de volatilité calme sur BTCUSD afin d'observer la résistance aux frais sans présumer de gain.",
         "confirmations": [
-          "ema_uptrend"
+          "quiet_volatility"
         ]
       },
       "started_at": "2026-11-08T04:20:31.766912+00:00",
@@ -765,18 +765,18 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "a7dfc6a4871472fbc0": {
-      "id": "a7dfc6a4871472fbc0",
+    "844745f53eae58be7f": {
+      "id": "844745f53eae58be7f",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "BTCUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 20,
+        "asset": "ETHUSD",
+        "logic": "ema_trend",
+        "lookback_days": 40,
         "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Tester un retour sur RSI avec filtre de volatilité calme sur BTCUSD afin d'observer la résistance aux frais sans présumer de gain.",
+        "max_hold_days": 7,
+        "rationale": "Explorer une approche de suivi de tendance par EMA sur ETHUSD pour évaluer la fréquence de transaction et la résistance face au Hold.",
         "confirmations": [
-          "quiet_volatility"
+          "ema_uptrend"
         ]
       },
       "started_at": "2026-11-08T04:20:31.766912+00:00",
