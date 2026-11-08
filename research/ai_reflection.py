@@ -480,7 +480,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
                 or candidates[0].get("finishReason") != "STOP"):
             raise GeminiResponseError(first_failure)
         parts = candidates[0].get("content", {}).get("parts", [])
-        retry_text = "\\n".join(
+        retry_text = "\n".join(
             part.get("text", "") for part in parts if isinstance(part, dict)
         ).strip()
         return validate_model_ideas(json.loads(retry_text), evidence)
