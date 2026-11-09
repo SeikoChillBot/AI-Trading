@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-09T01:46:43.099050+00:00",
-  "tracked": 26,
+  "generated_at": "2026-11-09T04:32:00.158218+00:00",
+  "tracked": 28,
   "archived_trials": 6,
   "capacity_limit": 36,
   "deferred_hypotheses": 0,
@@ -346,8 +346,43 @@
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
+    },
+    {
+      "id": "ebc664344481f3a621",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "7beeb98cce02bd5c04",
+      "source": "gemini_structured_hypothesis",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "id": "ebc664344481f3a621",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "7beeb98cce02bd5c04",
+      "status": "forward_paper_registered"
+    }
+  ],
   "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven."
 }

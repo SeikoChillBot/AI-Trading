@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-09T01:46:43.099050+00:00",
+  "updated_at": "2026-11-09T04:32:00.158218+00:00",
   "tracks": {
     "43a92df4809f8f30fe": {
       "id": "43a92df4809f8f30fe",
@@ -799,6 +799,60 @@
       "net_pct": 0.0,
       "hold_net_pct": -6.7272,
       "excess_vs_hold_points": 6.7272
+    },
+    "ebc664344481f3a621": {
+      "id": "ebc664344481f3a621",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Explorer un retour à la moyenne à court terme sur ETH lors d'épisodes de survente pour évaluer la sensibilité aux frais et le contrôle du drawdown.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-09T04:32:00.158218+00:00",
+      "last_t": 1794096000,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "7beeb98cce02bd5c04": {
+      "id": "7beeb98cce02bd5c04",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Tester une logique de cassure sur BTC avec filtre de volatilité calme pour observer la résistance aux faux signaux en période de tendance baissière.",
+        "confirmations": [
+          "quiet_volatility"
+        ]
+      },
+      "started_at": "2026-11-09T04:32:00.158218+00:00",
+      "last_t": 1794096000,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
     }
   },
   "archived": [
