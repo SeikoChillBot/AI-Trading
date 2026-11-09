@@ -1,6 +1,6 @@
 # AIT — Atelier autonome de stratégies
 
-Bilan du 2026-11-08T22:12:40.589938+00:00. Simulation et recherche seulement.
+Bilan du 2026-11-09T01:02:04.599645+00:00. Simulation et recherche seulement.
 
 Hypothèses conservées : 32 ; proposées par Gemini : 2 ; rejouées sur l'histoire : 32.
 
@@ -12,7 +12,7 @@ Les 36 robots et leurs témoins ne sont jamais modifiés par cet atelier.
 
 - 3230ee642ee98dc381 BTCUSD / ema_trend / 20 j / 2.0% : moyenne historique 0.0%, 4/6 fenêtres au-dessus de Hold
 
-- 773bbb595aa60986f7 ETHUSD / rsi_reversal / 40 j / 1.0% : moyenne historique 2.7623%, 4/6 fenêtres au-dessus de Hold
+- 773bbb595aa60986f7 ETHUSD / rsi_reversal / 40 j / 1.0% : moyenne historique 1.9437%, 4/6 fenêtres au-dessus de Hold
 
 - 55ba36b25e044c0690 SOLUSD / rsi_reversal / 40 j / 1.0% : moyenne historique 5.1499%, 4/6 fenêtres au-dessus de Hold
 
@@ -28,6 +28,6 @@ Les 36 robots et leurs témoins ne sont jamais modifiés par cet atelier.
 
 - cced23855f81bf4885 SOLUSD / breakout / 40 j / 1.0% : moyenne historique 0.1438%, 4/6 fenêtres au-dessus de Hold
 
-- a7dfc6a4871472fbc0 BTCUSD / rsi_reversal / 20 j / 1.0% : moyenne historique -7.7517%, 3/6 fenêtres au-dessus de Hold
+- a7dfc6a4871472fbc0 BTCUSD / rsi_reversal / 20 j / 1.0% : moyenne historique -7.7517%, 2/6 fenêtres au-dessus de Hold
 
-- 844745f53eae58be7f ETHUSD / ema_trend / 40 j / 1.0% : moyenne historique -7.0188%, 4/6 fenêtres au-dessus de Hold
+- 844745f53eae58be7f ETHUSD / ema_trend / 40 j / 1.0% : moyenne historique -7.5026%, 4/6 fenêtres au-dessus de Hold
