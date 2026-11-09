@@ -43,12 +43,29 @@ STRATEGIES = [
 
 def fetch_candles(symbol, interval):
     pair = {"BTCUSDT": "XBTUSD", "ETHUSDT": "ETHUSD", "SOLUSDT": "SOLUSD"}[symbol]
-    response = requests.get(
-        "https://api.kraken.com/0/public/OHLC",
-        params={"pair": pair, "interval": interval},
-        timeout=20,
+    # Retry only transient network failures. Never use stale prices or
+    # continue the simulation if fresh market data cannot be verified.
+    from requests.adapters import HTTPAdapter
+    from urllib3.util.retry import Retry
+
+    retry_policy = Retry(
+        total=2,
+        connect=2,
+        read=2,
+        status=2,
+        backoff_factor=1,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset(("GET",)),
+        respect_retry_after_header=True,
     )
-    response.raise_for_status()
+    with requests.Session() as session:
+        session.mount("https://api.kraken.com/", HTTPAdapter(max_retries=retry_policy))
+        response = session.get(
+            "https://api.kraken.com/0/public/OHLC",
+            params={"pair": pair, "interval": interval},
+            timeout=(5, 20),
+        )
+        response.raise_for_status()
     payload = response.json()
     if payload.get("error"):
         raise ValueError("Kraken API: " + str(payload["error"]))
