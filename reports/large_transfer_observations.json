@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-10T04:10:03.760839+00:00",
+  "generated_at": "2026-11-10T07:03:17.112688+00:00",
   "source": "https://eth.blockscout.com/api/v2",
   "chain": "ethereum",
-  "state": "unavailable",
+  "state": "partial",
   "method": "sample_latest_public_token_transfers",
   "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
   "max_pages_per_token": 3,
   "minimum_nominal_usd": 1000000,
   "sampled_records": {
-    "USDC": 0,
+    "USDC": 150,
     "USDT": 0
   },
   "validated_records": {
-    "USDC": 0,
+    "USDC": 110,
     "USDT": 0
   },
   "large_transfers_observed": 0,
@@ -23,7 +23,6 @@
   "sampled_wallets_count": 0,
   "new_event_count": 0,
   "errors": {
-    "USDC": "HTTPError: 500 Server Error: Internal Server Error for url: https://eth.blockscout.com/api/v2/tokens/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb",
     "USDT": "ReadTimeout: HTTPSConnectionPool(host='eth.blockscout.com', port=443): Read timed out. (read timeout=12)"
   },
   "buy_sell_inference": false,
