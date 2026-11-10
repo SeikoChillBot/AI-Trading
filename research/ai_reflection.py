@@ -281,6 +281,33 @@ def run(api_key: str, model: str, research: dict, historical: dict) -> dict:
         raise ValueError("Empty or refused AI response")
     return validate_model_ideas(json.loads(output), evidence)
 
+def validate_with_experiment_isolation(ideas: dict, evidence: dict) -> dict:
+    """Preserve valid Gemini research when only narrative experiments are malformed.
+
+    Drop only malformed experiment entries, never synthesize evidence or bypass
+    the strict validator for the remaining research fields.
+    """
+    try:
+        return validate_model_ideas(ideas, evidence)
+    except ValueError as error:
+        if str(error) != "Missing or oversized experiment field":
+            raise
+    experiments = ideas.get("experiments")
+    if not isinstance(experiments, list):
+        raise ValueError("Invalid number of experiments")
+    keys = ("title", "hypothesis", "experiment", "rejection_rule")
+    accepted = [
+        item for item in experiments
+        if isinstance(item, dict)
+        and item.get("asset") in evidence
+        and all(isinstance(item.get(k), str)
+                and 8 <= len(item[k].strip()) <= 700 for k in keys)
+    ]
+    filtered = dict(ideas)
+    filtered["experiments"] = accepted
+    return validate_model_ideas(filtered, evidence)
+
+
 def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
     """One request to the named free-tier Gemini model; no paid-model fallback."""
     evidence = {x["asset"]: x for x in historical["assets"]}
@@ -447,7 +474,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
     except (ValueError, TypeError):
         raise GeminiResponseError("invalid_json") from None
     try:
-        return validate_model_ideas(ideas, evidence)
+        return validate_with_experiment_isolation(ideas, evidence)
     except (ValueError, TypeError, KeyError) as error:
         first_failure = schema_rejection_code(error)
 
@@ -483,7 +510,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         retry_text = "\n".join(
             part.get("text", "") for part in parts if isinstance(part, dict)
         ).strip()
-        return validate_model_ideas(json.loads(retry_text), evidence)
+        return validate_with_experiment_isolation(json.loads(retry_text), evidence)
     except (requests.RequestException, ValueError, TypeError, KeyError, AttributeError):
         raise GeminiResponseError(first_failure) from None
 
