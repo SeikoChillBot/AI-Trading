@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-11T07:34:17.060506+00:00",
+  "updated_at": "2026-11-11T09:30:26.614538+00:00",
   "tracks": {
     "43a92df4809f8f30fe": {
       "id": "43a92df4809f8f30fe",
@@ -862,19 +862,18 @@
       "hold_net_pct": -5.1957,
       "excess_vs_hold_points": 3.75011
     },
-    "e00a58e368c731d64a": {
-      "id": "e00a58e368c731d64a",
+    "e81c1b30f2c8072a8b": {
+      "id": "e81c1b30f2c8072a8b",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "ETHUSD",
-        "logic": "ema_trend",
-        "lookback_days": 40,
-        "threshold_pct": 0.5,
-        "max_hold_days": 7,
-        "rationale": "Identifier des tendances de moyen terme avec une confirmation par moyennes mobiles exponentielles pour réduire la fréquence des faux signaux.",
+        "asset": "BTCUSD",
+        "logic": "volatility_gate",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Filtrer les entrées en période de faible volatilité pour limiter l'impact des mouvements erratiques de marché.",
         "confirmations": [
-          "ema_uptrend",
-          "positive_momentum"
+          "quiet_volatility"
         ]
       },
       "started_at": "2026-11-11T07:34:17.060506+00:00",
@@ -890,18 +889,19 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "e81c1b30f2c8072a8b": {
-      "id": "e81c1b30f2c8072a8b",
+    "e00a58e368c731d64a": {
+      "id": "e00a58e368c731d64a",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "BTCUSD",
-        "logic": "volatility_gate",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Filtrer les entrées en période de faible volatilité pour limiter l'impact des mouvements erratiques de marché.",
+        "asset": "ETHUSD",
+        "logic": "ema_trend",
+        "lookback_days": 40,
+        "threshold_pct": 0.5,
+        "max_hold_days": 7,
+        "rationale": "Identifier des tendances de moyen terme avec une confirmation par moyennes mobiles exponentielles pour réduire la fréquence des faux signaux.",
         "confirmations": [
-          "quiet_volatility"
+          "ema_uptrend",
+          "positive_momentum"
         ]
       },
       "started_at": "2026-11-11T07:34:17.060506+00:00",

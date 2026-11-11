@@ -1,8 +1,11 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-11T07:34:17.509253+00:00",
-  "status": "observing",
-  "alerts": [],
+  "generated_at": "2026-11-11T09:30:27.065103+00:00",
+  "status": "needs_attention",
+  "alerts": [
+    "Transferts publics non accessibles",
+    "Le fournisseur de suivi des adresses est indisponible ; dernières adresses préservées"
+  ],
   "roadmap": [
     {
       "id": "robots",
@@ -31,8 +34,8 @@
     {
       "id": "whales",
       "title": "Surveillance des gros mouvements",
-      "status": "active",
-      "detail": "300 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (observing). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
+      "status": "partial",
+      "detail": "0 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (unavailable). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
     },
     {
       "id": "changes",
@@ -64,16 +67,16 @@
     "workflows": {
       "Paper trading": {
         "state": "healthy",
-        "run_id": 42980343928,
-        "last_created_at": "2026-11-11T07:33:23Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42980343928",
+        "run_id": 42994759958,
+        "last_created_at": "2026-11-11T09:23:24Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42994759958",
         "last_result": "success"
       },
       "Seiko research — guarded automatic analysis": {
         "state": "running",
-        "run_id": 42980392574,
-        "last_created_at": "2026-11-11T07:33:46Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42980392574",
+        "run_id": 42995678587,
+        "last_created_at": "2026-11-11T09:30:03Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/42995678587",
         "previous_completed_result": "success"
       }
     }
