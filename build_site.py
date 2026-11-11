@@ -599,6 +599,8 @@ if roster_path.exists():
                 "ready": True, "generated_at": roster.get("generated_at"),
                 "active_candidate_ids": roster.get("active_candidate_ids", [])[:12],
                 "active_candidate_count": roster.get("active_candidate_count", 0),
+                "research_archived_legacy_ids": roster.get("research_archived_legacy_ids", []),
+                "research_archived_legacy_count": roster.get("research_archived_legacy_count", 0),
                 "archived_candidates": roster.get("archived_candidates", [])[-30:],
                 "events": roster.get("events", [])[-30:][::-1],
                 "legacy_robots_modified": False, "real_orders": False,
