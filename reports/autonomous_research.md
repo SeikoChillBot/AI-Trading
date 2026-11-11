@@ -1,23 +1,17 @@
 # Seiko Trading Lab — Recherche automatique
 
-Date UTC : 2026-11-11T18:31:39.926429+00:00
+Date UTC : 2026-11-11T18:46:31.566426+00:00
 
 **État : analyse statistique automatique. La disponibilité de l’IA générative est indiquée séparément.**
 **Aucune stratégie modifiée ni aucun ordre réel.**
 
 ## Données observées
-- **crypto** : 18 robots, 13.996 jour(s) de données, 360.00 $ fictifs de référence, 91.8679 $ de frais déjà enregistrés, **0 éligibles à une revue**.
-- **multi** : 18 robots, 13.900 jour(s) de données, 360.00 $ fictifs de référence, 0.3773 $ de frais déjà enregistrés, **0 éligibles à une revue**.
+- **crypto** : 18 robots, 14.010 jour(s) de données, 360.00 $ fictifs de référence, 91.8679 $ de frais déjà enregistrés, **8 éligibles à une revue**.
+- **multi** : 18 robots, 13.915 jour(s) de données, 360.00 $ fictifs de référence, 0.3773 $ de frais déjà enregistrés, **0 éligibles à une revue**.
 
-**Conclusion : 0 stratégie(s) suffisamment documentée(s) pour une revue ; aucune rentabilité démontrée.**
+**Conclusion : 8 stratégie(s) suffisamment documentée(s) pour une revue ; aucune rentabilité démontrée.**
 
 ## Hypothèses proposées (non testées)
-
-### WAIT-000 — Priorité : observer sans modifier les stratégies
-- Pourquoi : Aucune des deux cohortes ne possède encore assez de transactions clôturées et de recul temporel.
-- Expérience : Accumuler des observations horodatées et vérifier que les données ne sont pas manquantes ou recalculées rétroactivement.
-- Condition de validation : Garder les 36 robots de référence inchangés et préparer des challengers indépendants.
-- Statut : active_research_gate
 
 ### COST-STRESS-001 — Éprouver la sensibilité des robots courts aux frais
 - Pourquoi : Avec des mises de 20 $, le coût aller-retour peut dominer le signal.
