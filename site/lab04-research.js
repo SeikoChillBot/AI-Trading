@@ -342,6 +342,24 @@ if(evolList){
  caution.textContent='Une perte historique ne démontre jamais qu’une stratégie ne remontera pas. Tout remplacement exige une comparaison prospective appariée après frais et Hold, sur plusieurs régimes, puis une décision tracée. Historique original conservé.';
  review.append(caution);
  evolList.parentNode.insertBefore(review,evolList);
+ const lifecycle=DATA.robot_lifecycle||{};
+ if(lifecycle.ready){
+   const lifecycleBox=document.createElement('section');
+   lifecycleBox.className='research-idea';
+   const h=document.createElement('strong');
+   h.textContent='Décisions vérifiables · cycle de vie des robots';
+   const intro=document.createElement('p');
+   intro.textContent=lifecycle.retirement_reviews+' robot(s) à réexaminer · '+lifecycle.automatic_archivals+' archivage(s) de robots · '+lifecycle.automatic_promotions+' promotion(s). Aucun retrait sans preuve prospective indépendante.';
+   lifecycleBox.append(h,intro);
+   const trials=Array.isArray(lifecycle.candidate_trials)?lifecycle.candidate_trials:[];
+   const waiting=document.createElement('p');
+   waiting.textContent=trials.length+' nouvelle(s) stratégie(s) suivie(s) en parallèle · '+trials.filter(x=>x.qualified).length+' qualifiée(s) · tests manquants : frais doublés, régimes appariés et audit d’exécution.';
+   lifecycleBox.append(waiting);
+   const caution=document.createElement('small');
+   caution.textContent='Ces décisions sont des recommandations en lecture seule. Une perte passée ne permet pas de prédire une perte permanente. Source : '+(lifecycle.source||'indisponible')+'.';
+   lifecycleBox.append(caution);
+   evolList.parentNode.insertBefore(lifecycleBox,evolList);
+ }
  const filter=get('evolution-filter');
  const renderEvol=()=>{
    const selected=filter?.value||'all';
