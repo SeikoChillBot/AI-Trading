@@ -71,21 +71,64 @@ def build(now,robots,competition,previous):
                            "candidate":key,"reason":"prospective_paper_champion",
                            "net_pct":row.get("net_pct"),"excess_vs_hold_points":row.get("excess_vs_hold_points")})
     events=events[-180:]
+    # Review legacy strategies over distinct research dates, not every rerun.
+    # Archival is reversible and applies ONLY to the independent research roster.
+    # Existing legacy paper portfolios remain untouched for historical comparison.
+    previous_evidence=previous.get("legacy_evidence",{}) if isinstance(previous,dict) else {}
+    previous_evidence=previous_evidence if isinstance(previous_evidence,dict) else {}
+    evidence={}
+    archived_legacy=[]
+    legacy_events=[]
+    date=now.date().isoformat()
+    for robot in all_robots:
+        name=robot["strategy"]
+        immutable=robot["role"]=="immutable_hold_benchmark"
+        old=previous_evidence.get(name,{})
+        old=old if isinstance(old,dict) else {}
+        dates=[d for d in old.get("review_dates",[]) if isinstance(d,str)][-30:]
+        try:
+            net=float(robot["paper_return_pct"])
+            dd=float(robot["drawdown_pct"])
+            trades=int(robot["closed_roundtrips"])
+        except (ValueError,TypeError,KeyError):
+            net=dd=0
+            trades=0
+        qualifies=not immutable and net<=-30 and dd>=30 and trades>=20
+        if qualifies and date not in dates:
+            dates.append(date)
+        if not qualifies:
+            dates=[]
+        previous_archived=old.get("research_archived") is True and not immutable
+        research_archived=qualifies and len(dates)>=7
+        if research_archived:
+            archived_legacy.append(name)
+        if research_archived!=previous_archived:
+            legacy_events.append({"at":now.isoformat(),"action":
+                                  "legacy_research_archived" if research_archived else "legacy_research_restored",
+                                  "robot":name,"reason":"seven_distinct_daily_reviews" if research_archived
+                                  else "retirement_review_conditions_no_longer_met",
+                                  "net_pct":net,"drawdown_pct":dd,"closed_roundtrips":trades})
+        evidence[name]={"review_dates":dates[-30:],"research_archived":research_archived}
+    events.extend(legacy_events)
+    events=events[-180:]
     legacy=[{"id":r["strategy"],"role":r["role"],
              "status":"immutable_hold" if r["role"]=="immutable_hold_benchmark"
              else "legacy_reference_retained",
-             "historical_net_pct":r.get("paper_return_pct")}
+             "historical_net_pct":r.get("paper_return_pct"),
+             "research_archived":r["strategy"] in archived_legacy}
             for r in all_robots]
     report={"schema":1,"generated_at":now.isoformat(),
             "mode":"autonomous_independent_paper_research_roster",
             "active_candidate_ids":active,
             "active_candidate_count":len(active),
+            "research_archived_legacy_ids":archived_legacy,
+            "research_archived_legacy_count":len(archived_legacy),
             "historical_robots":legacy,
             "archived_candidates":[e for e in events if e.get("action")=="paper_candidate_revoked"],
             "events":events[-60:],
             "legacy_robots_modified":False,"real_orders":False,
             "warning":"Research roster only; no original robot retired, no broker execution, no profit guaranteed."}
-    state={"schema":1,"active":active,"events":events,"real_orders":False}
+    state={"schema":1,"active":active,"events":events,"legacy_evidence":evidence,"real_orders":False}
     return report,state
 
 def main():
