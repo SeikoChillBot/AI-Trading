@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-11T04:44:12.824984+00:00",
+  "updated_at": "2026-11-11T07:34:17.060506+00:00",
   "tracks": {
     "43a92df4809f8f30fe": {
       "id": "43a92df4809f8f30fe",
@@ -861,6 +861,61 @@
       "net_pct": -1.44559,
       "hold_net_pct": -5.1957,
       "excess_vs_hold_points": 3.75011
+    },
+    "e00a58e368c731d64a": {
+      "id": "e00a58e368c731d64a",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "ema_trend",
+        "lookback_days": 40,
+        "threshold_pct": 0.5,
+        "max_hold_days": 7,
+        "rationale": "Identifier des tendances de moyen terme avec une confirmation par moyennes mobiles exponentielles pour réduire la fréquence des faux signaux.",
+        "confirmations": [
+          "ema_uptrend",
+          "positive_momentum"
+        ]
+      },
+      "started_at": "2026-11-11T07:34:17.060506+00:00",
+      "last_t": 1794268800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "e81c1b30f2c8072a8b": {
+      "id": "e81c1b30f2c8072a8b",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "volatility_gate",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Filtrer les entrées en période de faible volatilité pour limiter l'impact des mouvements erratiques de marché.",
+        "confirmations": [
+          "quiet_volatility"
+        ]
+      },
+      "started_at": "2026-11-11T07:34:17.060506+00:00",
+      "last_t": 1794268800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
     }
   },
   "archived": [

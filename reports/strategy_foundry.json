@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-11T04:44:12.581700+00:00",
-  "total_hypotheses": 34,
-  "gemini_hypotheses": 4,
+  "generated_at": "2026-11-11T07:34:16.688102+00:00",
+  "total_hypotheses": 36,
+  "gemini_hypotheses": 6,
   "gemini_narratives_compiled_locally": 0,
   "gemini_task_shadow_hypotheses": 0,
   "auto_optimized_hypotheses": 6,
@@ -10,87 +10,28 @@
   "crossed_hypotheses": 12,
   "director_hypotheses": 3,
   "local_adversarial_controls": 0,
-  "tested_historically": 34,
-  "events": [],
+  "tested_historically": 36,
+  "events": [
+    {
+      "id": "e81c1b30f2c8072a8b",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
+    },
+    {
+      "id": "e00a58e368c731d64a",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
+    },
+    {
+      "id": "e81c1b30f2c8072a8b",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "e00a58e368c731d64a",
+      "status": "exploratory_replay_completed"
+    }
+  ],
   "recent_ideas": [
-    {
-      "id": "773bbb595aa60986f7",
-      "source": "bounded_evolution",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Composition vérifiable avec un indicateur additionnel à l'entrée pour réduire les faux signaux sans présumer du résultat.",
-        "confirmations": [
-          "rsi_oversold"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "ETHUSD",
-        "average_net_pct": 1.0982,
-        "average_excess_vs_hold_points": 6.7003,
-        "average_double_cost_net_pct": -5.1331,
-        "max_drawdown_pct": 18.33897,
-        "closed_trades": 21,
-        "folds_beating_hold": 3,
-        "checks": {
-          "enough_closed_trades": true,
-          "positive_average_net": true,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": true
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
-    },
-    {
-      "id": "55ba36b25e044c0690",
-      "source": "bounded_evolution",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Composition vérifiable avec un indicateur additionnel à l'entrée pour réduire les faux signaux sans présumer du résultat.",
-        "confirmations": [
-          "active_volatility"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "SOLUSD",
-        "average_net_pct": 6.2517,
-        "average_excess_vs_hold_points": 13.4086,
-        "average_double_cost_net_pct": 1.8889,
-        "max_drawdown_pct": 8.7429,
-        "closed_trades": 13,
-        "folds_beating_hold": 4,
-        "checks": {
-          "enough_closed_trades": false,
-          "positive_average_net": true,
-          "positive_with_double_costs": true,
-          "beats_hold_in_most_folds": true,
-          "drawdown_under_20_pct": true
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
-    },
     {
       "id": "1731a013603e791a42",
       "source": "autonomous_crossover",
@@ -474,6 +415,85 @@
         "max_drawdown_pct": 35.43111,
         "closed_trades": 57,
         "folds_beating_hold": 1,
+        "checks": {
+          "enough_closed_trades": true,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": false
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "e81c1b30f2c8072a8b",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "volatility_gate",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Filtrer les entrées en période de faible volatilité pour limiter l'impact des mouvements erratiques de marché.",
+        "confirmations": [
+          "quiet_volatility"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "BTCUSD",
+        "average_net_pct": -8.4116,
+        "average_excess_vs_hold_points": -4.0396,
+        "average_double_cost_net_pct": -16.4246,
+        "max_drawdown_pct": 16.56225,
+        "closed_trades": 31,
+        "folds_beating_hold": 2,
+        "checks": {
+          "enough_closed_trades": true,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": true
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "e00a58e368c731d64a",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "ema_trend",
+        "lookback_days": 40,
+        "threshold_pct": 0.5,
+        "max_hold_days": 7,
+        "rationale": "Identifier des tendances de moyen terme avec une confirmation par moyennes mobiles exponentielles pour réduire la fréquence des faux signaux.",
+        "confirmations": [
+          "ema_uptrend",
+          "positive_momentum"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "average_net_pct": -6.1767,
+        "average_excess_vs_hold_points": -0.5746,
+        "average_double_cost_net_pct": -11.7091,
+        "max_drawdown_pct": 23.78897,
+        "closed_trades": 21,
+        "folds_beating_hold": 3,
         "checks": {
           "enough_closed_trades": true,
           "positive_average_net": false,
