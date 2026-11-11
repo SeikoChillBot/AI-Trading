@@ -313,6 +313,53 @@ if(evolList){
  put('evolution-summary',evolution.ready?
   'Les robots cherchent des améliorations, mais aucune idée n’est appliquée sans avoir montré de meilleurs résultats sur de nouvelles données, frais compris.':
   'Le suivi des améliorations est en attente. Aucune modification supposée.');
+ // Read-only strategic review: a losing robot is NOT proven unable to recover.
+ // This shortlist is an audit signal, never an archival or trading command.
+ const reviewCandidates=entries.filter(item=>
+   item.role!=='immutable_hold_benchmark' &&
+   Number.isFinite(Number(item.paper_return_pct)) &&
+   Number(item.paper_return_pct)<=-30 &&
+   Number(item.drawdown_pct)>=30 &&
+   Number(item.closed_roundtrips)>=20);
+ const review=document.createElement('section');
+ review.className='research-idea';
+ const reviewTitle=document.createElement('strong');
+ reviewTitle.textContent='Revue stratégique · candidats à réexaminer ('+reviewCandidates.length+')';
+ const reviewIntro=document.createElement('p');
+ reviewIntro.textContent='Signal de diagnostic uniquement : rendement fictif ≤ −30 %, baisse maximale ≥ 30 % et au moins 20 allers-retours clôturés. Aucun robot n’est archivé ou remplacé automatiquement. Les témoins Hold sont exclus.';
+ review.append(reviewTitle,reviewIntro);
+ for(const item of reviewCandidates){
+   const line=document.createElement('p');
+   line.textContent=item.strategy.replaceAll('_',' ')+' · net '+Number(item.paper_return_pct).toFixed(2)+' % · baisse maximale '+Number(item.drawdown_pct).toFixed(2)+' % · '+Number(item.closed_roundtrips)+' opérations clôturées · décision : examen, preuve prospective insuffisante';
+   review.append(line);
+ }
+ if(!reviewCandidates.length){
+   const none=document.createElement('p');
+   none.textContent='Aucun robot ne franchit actuellement ces seuils descriptifs.';
+   review.append(none);
+ }
+ const caution=document.createElement('small');
+ caution.textContent='Une perte historique ne démontre jamais qu’une stratégie ne remontera pas. Tout remplacement exige une comparaison prospective appariée après frais et Hold, sur plusieurs régimes, puis une décision tracée. Historique original conservé.';
+ review.append(caution);
+ evolList.parentNode.insertBefore(review,evolList);
+ const lifecycle=DATA.robot_lifecycle||{};
+ if(lifecycle.ready){
+   const lifecycleBox=document.createElement('section');
+   lifecycleBox.className='research-idea';
+   const h=document.createElement('strong');
+   h.textContent='Décisions vérifiables · cycle de vie des robots';
+   const intro=document.createElement('p');
+   intro.textContent=lifecycle.retirement_reviews+' robot(s) à réexaminer · '+lifecycle.automatic_archivals+' archivage(s) de robots · '+lifecycle.automatic_promotions+' promotion(s). Aucun retrait sans preuve prospective indépendante.';
+   lifecycleBox.append(h,intro);
+   const trials=Array.isArray(lifecycle.candidate_trials)?lifecycle.candidate_trials:[];
+   const waiting=document.createElement('p');
+   waiting.textContent=trials.length+' nouvelle(s) stratégie(s) suivie(s) en parallèle · '+trials.filter(x=>x.qualified).length+' qualifiée(s) · tests manquants : frais doublés, régimes appariés et audit d’exécution.';
+   lifecycleBox.append(waiting);
+   const caution=document.createElement('small');
+   caution.textContent='Ces décisions sont des recommandations en lecture seule. Une perte passée ne permet pas de prédire une perte permanente. Source : '+(lifecycle.source||'indisponible')+'.';
+   lifecycleBox.append(caution);
+   evolList.parentNode.insertBefore(lifecycleBox,evolList);
+ }
  const filter=get('evolution-filter');
  const renderEvol=()=>{
    const selected=filter?.value||'all';
