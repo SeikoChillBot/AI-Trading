@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-11T09:30:26.103856+00:00",
+  "generated_at": "2026-11-11T12:24:29.809528+00:00",
   "research_date_utc": "2026-11-11",
-  "review_slot": "2026-11-11T06:00Z",
-  "model_last_called_at": "2026-11-11T07:34:14.015662+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-11T12:00Z",
+  "model_last_called_at": "2026-11-11T12:24:29.809528+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-11T07:34:14.015662+00:00",
+  "last_attempt_at": "2026-11-11T12:24:29.809528+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse quantitative du laboratoire Seiko au 11 novembre 2026. Les robots témoins (hold) affichent des performances négatives sur les actifs crypto (BTCUSD à -10.21%, ETHUSD à -13.59%, SOLUSD à -19.67%), reflétant un régime de marché baissier global. Les stratégies alternatives (momentum, breakout, RSI, scalping) subissent des pertes importantes et des drawdowns élevés, alourdies par les frictions de transaction et le coût des frais. Aucun robot n'atteint les critères stricts de validation prospective. Les tests historiques soulignent une sensibilité critique aux coûts doublés (33 échecs) et un manque récurrent de transactions fermées suffisantes. Aucune stratégie n'est déclarée robuste ni rentable de manière avérée. Le capital fictif reste fixé à 20 USD par scénario sans effet de levier ni exécution réelle.",
+  "summary": "L'analyse des robots du laboratoire Seiko montre des rendements nets négatifs généralisés sur l'ensemble des actifs cryptographiques (BTCUSD, ETHUSD, SOLUSD) sur l'historique disponible. Les robots de type 'hold' affichent des pertes modérées, tandis que les stratégies actives (momentum, breakout, RSI, scalp) subissent des drawdowns plus importants et des performances nettes détériorées après frais. Les tests historiques sur replays ne garantissent aucune profitabilité future et échouent souvent aux critères de résistance aux coûts (frais doublés) et de fréquence de transactions. Aucune stratégie n'est prouvée robuste à ce stade ; la prudence et l'observation prospective priment.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -111,7 +111,7 @@
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Filtrer les entrées en période de faible volatilité pour limiter l'impact des mouvements erratiques de marché.",
+      "rationale": "Filtrer les périodes de faible volatilité sur BTCUSD pour limiter l'exposition aux faux signaux en période de tendance baissière.",
       "confirmations": [
         "quiet_volatility"
       ]
@@ -122,10 +122,9 @@
       "lookback_days": 40,
       "threshold_pct": 0.5,
       "max_hold_days": 7,
-      "rationale": "Identifier des tendances de moyen terme avec une confirmation par moyennes mobiles exponentielles pour réduire la fréquence des faux signaux.",
+      "rationale": "Rechercher une confirmation de tendance par moyenne mobile exponentielle sur ETHUSD avec un horizon de détention plus long pour amortir les coûts de transaction.",
       "confirmations": [
-        "ema_uptrend",
-        "positive_momentum"
+        "ema_uptrend"
       ]
     }
   ],
