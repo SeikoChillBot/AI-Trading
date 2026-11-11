@@ -16,6 +16,7 @@ on:
       - 'research/research_director.py'
       - 'research/creative_review.py'
       - 'research/strategy_competition.py'
+      - 'research/autonomous_paper_roster.py'
       - 'research/strategy_foundry.py'
       - 'research/strategy_forward.py'
       - 'research/market_knowledge.py'
@@ -123,6 +124,10 @@ jobs:
         run: python -m research.strategy_forward
       - name: Rank paper strategies on future evidence and revoke decayed candidates
         run: python -m research.strategy_competition
+      - name: Maintain autonomous reversible paper research roster
+        run: |
+          python -m unittest discover -s tests -p 'test_autonomous_paper_roster.py' -v
+          python -m research.autonomous_paper_roster
       - name: Summarize persistent scientific failures
         run: python -m research.scientific_memory
       - name: Evaluate prospectively tested candidates for HUMAN review only
@@ -172,6 +177,7 @@ jobs:
           git add reports/scientific_memory.json state/scientific_memory.json
           git add reports/research_director.json state/research_director.json
           git add reports/strategy_competition.json state/strategy_competition.json
+          git add reports/autonomous_paper_roster.json state/autonomous_paper_roster.json
           git add site/dashboard.html docs/index.html
           for artifact in state/whale_watch_state.json state/whale_follow_state.json state/large_transfer_cursor.json state/challenger_incubator.json state/robot_evolution_state.json state/robot_tuning_active.json state/ai_placement_experiments.json state/ai_journal_state.json state/ai_daily_brief_state.json state/intraday_paper.json reports/robot_evolution_events.jsonl reports/challenger_incubator_history.jsonl reports/whale_transfer_events.jsonl; do
             if [ -f "$artifact" ]; then git add -- "$artifact"; fi
