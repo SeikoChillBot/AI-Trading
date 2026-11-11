@@ -570,6 +570,21 @@ if evolution_path.exists():
             }
     except (ValueError, KeyError, TypeError):
         pass
+# Explainable, read-only robot lifecycle decisions, never portfolio inputs.
+from research.robot_lifecycle import evaluate as evaluate_robot_lifecycle
+data["robot_lifecycle"] = {"ready": False}
+forward_path = Path("reports/strategy_forward.json")
+if data["robot_evolution"].get("ready") and forward_path.exists():
+    try:
+        forward = json.loads(forward_path.read_text(encoding="utf-8"))
+        if (forward.get("schema") == 1 and forward.get("real_orders") is False
+                and forward.get("robots_modified") is False):
+            data["robot_lifecycle"] = evaluate_robot_lifecycle(
+                data["robot_evolution"]["robots"], forward,
+                data["robot_evolution"].get("generated_at"))
+            data["robot_lifecycle"]["ready"] = True
+    except (ValueError, TypeError, KeyError):
+        pass
 # Gemini notes and external headlines never enter portfolio calculations.
 desk_path = Path("reports/ai_journal.json")
 data["gemini_desk"] = {"ready": False}
