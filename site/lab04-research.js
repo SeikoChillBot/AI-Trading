@@ -367,6 +367,7 @@ if(evolList){
    const info=document.createElement('p');
    info.textContent=Number(roster.active_candidate_count||0)+' stratégie(s) expérimentale(s) actives · 36 robots historiques conservés · aucun ordre réel.';
    box.append(title,info);
+   const archived=document.createElement('p');archived.textContent=Number(roster.research_archived_legacy_count||0)+' ancien(s) robot(s) archivé(s) dans la sélection de recherche, sans arrêt de leurs historiques papier.';box.append(archived);
    const events=Array.isArray(roster.events)?roster.events:[];
    for(const event of events.slice(0,10)){
      const line=document.createElement('p');

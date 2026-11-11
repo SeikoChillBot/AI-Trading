@@ -34,6 +34,26 @@ class RosterTests(unittest.TestCase):
         c["ranked"][0]["consecutive_qualified_days"]=0
         result,_=build(self.now,robots(),c,{})
         self.assertEqual(result["active_candidate_count"],0)
+    def test_research_archives_after_seven_distinct_days_only(self):
+        from datetime import timedelta
+        r=robots()
+        r["robots"][12].update(paper_return_pct=-60,drawdown_pct=65,closed_roundtrips=30)
+        state={}
+        for day in range(7):
+            report,state=build(self.now+timedelta(days=day),r,
+                               {"schema":1,"real_orders":False,"robots_modified":False,"ranked":[]},state)
+            if day<6:
+                self.assertEqual(report["research_archived_legacy_count"],0)
+        self.assertEqual(report["research_archived_legacy_ids"],["bot0"])
+        self.assertFalse(report["legacy_robots_modified"])
+        same_day,_=build(self.now+timedelta(days=6),r,
+                         {"schema":1,"real_orders":False,"robots_modified":False,"ranked":[]},state)
+        self.assertEqual(same_day["research_archived_legacy_count"],1)
+        r["robots"][12]["paper_return_pct"]=-2
+        restored,_=build(self.now+timedelta(days=7),r,
+                         {"schema":1,"real_orders":False,"robots_modified":False,"ranked":[]},state)
+        self.assertEqual(restored["research_archived_legacy_count"],0)
+        self.assertTrue(any(e["action"]=="legacy_research_restored" for e in restored["events"]))
     def test_fail_closed_on_modified_hold(self):
         r=robots()
         r["robots"][0]["role"]="tunable_paper_robot"
