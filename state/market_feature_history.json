@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-10T23:44:41.884331+00:00",
+  "updated_at": "2026-11-11T01:57:57.614333+00:00",
   "days": [
     {
       "date_utc": "2026-10-29",
@@ -675,6 +675,59 @@
         "tvl_ethereum_usd": 40928918258.99,
         "tvl_solana_usd": 5057883978.73,
         "stablecoin_supply_usd_estimate": 292392024684.15
+      },
+      "transfer_sample": {
+        "state": "observing",
+        "large_transfers_observed": 0,
+        "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
+        "not_verified_buy_sell": true,
+        "source": "Ethereum public Blockscout transfer sample"
+      },
+      "news_publisher_counts": {
+        "Fed": 0,
+        "BCE": 3,
+        "CoinDesk": 4
+      },
+      "source_quality": "observed_indicators_not_trading_signals",
+      "has_verified_trade_signal": false
+    },
+    {
+      "date_utc": "2026-11-11",
+      "observed_at": "2026-11-11T01:57:56.700619+00:00",
+      "assets": {
+        "BTCUSD": {
+          "source": "Kraken closed daily OHLC",
+          "last_closed_day": "2026-11-10",
+          "last_close_usd": 73700.3,
+          "change_1d_pct": -2.063,
+          "change_7d_pct": -4.696,
+          "change_30d_pct": -11.921,
+          "realized_volatility_30d_annualized_pct": 36.38
+        },
+        "ETHUSD": {
+          "source": "Kraken closed daily OHLC",
+          "last_closed_day": "2026-11-10",
+          "last_close_usd": 2051.0,
+          "change_1d_pct": -3.829,
+          "change_7d_pct": -9.705,
+          "change_30d_pct": -19.067,
+          "realized_volatility_30d_annualized_pct": 51.43
+        },
+        "SOLUSD": {
+          "source": "Kraken closed daily OHLC",
+          "last_closed_day": "2026-11-10",
+          "last_close_usd": 83.24,
+          "change_1d_pct": -3.891,
+          "change_7d_pct": -10.215,
+          "change_30d_pct": -25.157,
+          "realized_volatility_30d_annualized_pct": 46.47
+        }
+      },
+      "macro": {
+        "fear_greed_index": 29.0,
+        "tvl_ethereum_usd": 40826528305.84,
+        "tvl_solana_usd": 5060996537.2,
+        "stablecoin_supply_usd_estimate": 291807430636.79
       },
       "transfer_sample": {
         "state": "observing",
