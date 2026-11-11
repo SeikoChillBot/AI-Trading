@@ -360,6 +360,28 @@ if(evolList){
    lifecycleBox.append(caution);
    evolList.parentNode.insertBefore(lifecycleBox,evolList);
  }
+ const roster=DATA.autonomous_paper_roster||{};
+ if(roster.ready){
+   const box=document.createElement('section');box.className='research-idea';
+   const title=document.createElement('strong');title.textContent='Sélection autonome · laboratoire parallèle';
+   const info=document.createElement('p');
+   info.textContent=Number(roster.active_candidate_count||0)+' stratégie(s) expérimentale(s) actives · 36 robots historiques conservés · aucun ordre réel.';
+   box.append(title,info);
+   const events=Array.isArray(roster.events)?roster.events:[];
+   for(const event of events.slice(0,10)){
+     const line=document.createElement('p');
+     line.textContent=(event.at?stamp(event.at)+' · ':'')+
+       (event.action==='paper_candidate_activated'?'Candidat activé en recherche': 'Candidat retiré de la sélection')+
+       ' · '+String(event.candidate||'inconnu')+' · '+String(event.reason||'');
+     box.append(line);
+   }
+   if(!events.length){
+     const empty=document.createElement('small');
+     empty.textContent='Aucun candidat n’a encore franchi les critères prospectifs. Les nouvelles hypothèses restent en test.';
+     box.append(empty);
+   }
+   evolList.parentNode.insertBefore(box,evolList);
+ }
  const filter=get('evolution-filter');
  const renderEvol=()=>{
    const selected=filter?.value||'all';
