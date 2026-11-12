@@ -125,6 +125,7 @@ jobs:
       - name: Record per-strategy prospective equity charts
         run: |
           python -m unittest discover -s tests -p 'test_strategy_forward_charts.py' -v
+          node --check site/lab04-candidates.js
           python -m research.strategy_forward_charts
       - name: Rank paper strategies on future evidence and revoke decayed candidates
         run: python -m research.strategy_competition
