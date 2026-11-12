@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-12T00:47:52.525080+00:00",
+  "generated_at": "2026-11-12T03:39:54.767207+00:00",
   "type": "independent_forward_only_paper_scenarios",
-  "active": 9,
+  "active": 10,
   "trials": [
     {
       "id": "43d60aa4af77f7e",
@@ -823,14 +823,41 @@
       "observation_reason": "fresh_observation_present_not_predictive",
       "paper_only": true,
       "execution_type": "modeled_fills_at_later_observed_daily_close"
+    },
+    {
+      "id": "16f61f10ce594c4",
+      "asset": "BTCUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 1,
+      "created_at": "2026-11-12T03:39:54.767207+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1794355200,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Test automatique sur 1 jour(s) après évolution 7j -8.1 %, sans prévision de bénéfice.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "asset": "BTCUSD",
+      "id": "16f61f10ce594c4",
+      "status": "paper_experiment_registered",
+      "actor": "quantitative_auto_fallback"
+    }
+  ],
   "capacity": {
     "max_active": 12,
     "max_new_per_cycle": 4,
-    "created_this_cycle": 0,
-    "total_retained": 41
+    "created_this_cycle": 1,
+    "total_retained": 42
   },
   "no_user_approval_required": true,
   "model_decisions_executed_automatically": true,
