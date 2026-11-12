@@ -64,7 +64,7 @@ const css=document.createElement('style');css.id='seiko-candidates-v2';css.textC
 '#view-candidates .cv-snapshot>span{height:100%;min-width:0}',
 '#view-candidates .cv-snapshot-legend{display:flex;flex-wrap:wrap;gap:12px;color:#aac5be;font-size:10px}',
 '#view-candidates .cv-ranking{max-height:300px;overflow:auto;padding-right:5px}',
-'#view-candidates .cv-rank-row{display:grid;grid-template-columns:28px minmax(95px,1fr) minmax(110px,1.5fr) 76px;gap:8px;align-items:center;font-size:11px;padding:9px 0;border-bottom:1px solid #2b4749}',
+'#view-candidates .cv-rank-row{display:grid;grid-template-columns:28px minmax(95px,1fr) minmax(110px,1.5fr) 76px;gap:8px;align-items:center;font-size:11px;padding:9px 0;border:0;border-bottom:1px solid #2b4749;background:transparent;color:inherit;width:100%;font-family:inherit;text-align:left;cursor:pointer}#view-candidates .cv-rank-row:hover{background:#23423d}',
 '#view-candidates .cv-rank-track{position:relative;height:12px;background:#253c42;border-radius:6px}',
 '#view-candidates .cv-zero{position:absolute;top:-3px;bottom:-3px;left:50%;border-left:1px dashed #d7e5e0;opacity:.65}',
 '#view-candidates .cv-rank-bar{position:absolute;top:2px;bottom:2px;border-radius:3px;background:#87ddb4}',
@@ -119,7 +119,7 @@ const metrics=[
 ];
 for(const [label,value,extra] of metrics){const el=h('div','cv-kpi');put(el,h('small','',label),h('strong','',value),h('span','',extra));kpiRow.append(el)}
 view.append(kpiRow);
-const top=h('div','cv-two'),growth=card('Évolution globale des candidats','Courbe de la même cohorte, avec de vrais relevés datés seulement.'),right=card('Répartition par marché','Rendement moyen observé par univers. Chaque marché reste comparé séparément.');
+const top=h('div','cv-two'),growth=card('Évolution globale des candidats','Courbe de la même cohorte, avec de vrais relevés datés seulement.'),right=card('Répartition par marché','Barres : part des robots avec relevé ; chiffres : rendement moyen observé par marché.');
 const growthChart=h('div','cv-chart');put(growth,growthChart);
 const growthNote=h('p','cv-foot');put(growth,growthNote);
 const assetHost=h('div','');put(right,assetHost);
@@ -183,7 +183,9 @@ const rankHost=h('div','cv-ranking');put(rank,rankHost);view.append(rank);
 const ordered=[...items].sort((a,b)=>(net(b)??-Infinity)-(net(a)??-Infinity));
 const range=Math.max(1,...observed.map(t=>Math.abs(t.net_pct)));
 ordered.forEach((t,i)=>{
- const v=net(t),row=h('div','cv-rank-row'),track=h('div','cv-rank-track'),zero=h('span','cv-zero');
+ const v=net(t),row=h('button','cv-rank-row'),track=h('div','cv-rank-track'),zero=h('span','cv-zero');
+ row.type='button';row.title='Ouvrir la fiche de '+short(t);row.setAttribute('aria-label','Voir '+short(t));
+ row.addEventListener('click',()=>{search.value='';market.value='all';origin.value='all';render();show(t);explorer.scrollIntoView({behavior:'smooth',block:'start'});});
  track.append(zero);
  if(v!==null){const bar=h('span','cv-rank-bar'+(v<0?' cv-negative':''));const w=Math.min(50,Math.abs(v)/range*49);
  bar.style.left=(v>=0?50:50-w)+'%';bar.style.width=Math.max(v===0?0:1,w)+'%';track.append(bar)}
