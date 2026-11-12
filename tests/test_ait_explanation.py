@@ -17,7 +17,7 @@ class ExplanationTests(unittest.TestCase):
         self.assertIn('ait-gemini-ideas',html)
         nav=html.split('<nav class="bottom-nav"',1)[1].split("</nav>",1)[0]
         self.assertEqual(re.findall(r'data-view="([^"]+)"',nav),
-                         ["home","robots","analysis","desk","explore"])
+                         ["home","robots","candidates","analysis","desk","explore"])
         ids=re.findall(r'\bid="([^"]+)"',html)
         self.assertEqual(len(ids),len(set(ids)))
         self.assertEqual(html.count("<details"),html.count("</details>"))
