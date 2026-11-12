@@ -122,6 +122,11 @@ jobs:
         run: python -m research.strategy_foundry
       - name: Observe AI strategy candidates on new daily candles only
         run: python -m research.strategy_forward
+      - name: Record per-strategy prospective equity charts
+        run: |
+          python -m unittest discover -s tests -p 'test_strategy_forward_charts.py' -v
+          node --check site/lab04-candidates.js
+          python -m research.strategy_forward_charts
       - name: Rank paper strategies on future evidence and revoke decayed candidates
         run: python -m research.strategy_competition
       - name: Maintain autonomous reversible paper research roster
@@ -170,6 +175,7 @@ jobs:
           git add reports/strategy_foundry.json reports/strategy_foundry.md state/strategy_knowledge_base.json
           git add reports/market_knowledge.json state/market_feature_history.json
           git add reports/strategy_forward.json state/strategy_forward_positions.json
+          git add reports/strategy_forward_equity_charts.json state/strategy_forward_equity_history.json
           git add reports/autonomous_optimizer.json state/autonomous_optimizer.json
           git add reports/manual_live_review.json
           git add reports/strategy_evolution.json state/strategy_evolution.json

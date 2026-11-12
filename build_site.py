@@ -187,12 +187,27 @@ if shadow_path.exists():
                      ("id", "source", "asset", "logic", "observed_days",
                       "closed_trades", "net_pct", "excess_vs_hold_points",
                       "max_drawdown_pct", "status", "sufficient_evidence")}
-                    for item in shadow.get("trials", [])[:24]
+                    for item in shadow.get("trials", [])[:36]
                     if isinstance(item, dict) and item.get("sufficient_evidence") is False
                 ],
                 "no_robot_modification": True,
             }
     except (ValueError, TypeError, KeyError):
+        pass
+# Prospective paper-equity curves for each independently tracked new strategy.
+charts_path=Path("reports/strategy_forward_equity_charts.json")
+data["strategy_forward_charts"]={"ready":False}
+if charts_path.exists():
+    try:
+        charts=json.loads(charts_path.read_text(encoding="utf-8"))
+        if (charts.get("schema")==1 and charts.get("real_orders") is False
+                and charts.get("no_backfilled_points") is True
+                and isinstance(charts.get("series"),dict)):
+            data["strategy_forward_charts"]={
+                "ready":True,"series":{key:rows[-365:] for key,rows in
+                list(charts["series"].items())[:36] if isinstance(rows,list)}
+            }
+    except (ValueError,TypeError,KeyError):
         pass
 # Autonomous search and manual-only live-screen progress: display only.
 auto_path = Path("reports/autonomous_optimizer.json")
