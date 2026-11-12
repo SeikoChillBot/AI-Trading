@@ -6,13 +6,13 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 class UIChecks(unittest.TestCase):
-    def test_unique_ids_and_five_bottom_tabs(self):
+    def test_unique_ids_and_six_bottom_tabs(self):
         page=(ROOT/"site/index.html").read_text(encoding="utf8")
         ids=re.findall(r'\bid="([^"]+)"',page)
         self.assertEqual(len(ids),len(set(ids)))
         nav=page.split('<nav class="bottom-nav"',1)[1].split('</nav>',1)[0]
         self.assertEqual(re.findall(r'data-view="([^"]+)"',nav),
-                         ['home','robots','analysis','desk','explore'])
+                         ['home','robots','candidates','analysis','desk','explore'])
     def test_sections_and_optional_details(self):
         page=(ROOT/"site/index.html").read_text(encoding="utf8")
         self.assertEqual(page.count("<details"),page.count("</details>"))
