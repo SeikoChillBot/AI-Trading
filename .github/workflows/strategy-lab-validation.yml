@@ -37,6 +37,9 @@ on:
       - 'tests/test_strategy_competition.py'
       - 'tests/test_strategy_forward.py'
       - 'tests/test_market_knowledge.py'
+      - 'site/index.html'
+      - 'site/lab04-focus.js'
+      - 'site/lab04-focus.css'
       - 'tests/test_site_lab04.py'
   workflow_dispatch:
 
@@ -62,6 +65,7 @@ jobs:
         run: |
           python -m py_compile research/publication_recovery.py research/autonomous_optimizer.py research/strategy_evolution.py research/strategy_architect.py research/scientific_memory.py research/research_director.py research/ops_status.py research/creative_review.py research/strategy_competition.py research/strategy_foundry.py research/strategy_forward.py research/manual_live_review.py research/market_knowledge.py research/ai_reflection.py research/ai_decision_support.py build_site.py
           node --check site/lab04-research.js
+          node --check site/lab04-focus.js
       - name: Test bounded optimizer and publication gates
         run: |
           python -m unittest discover -s tests -p 'test_publication_recovery.py' -v
