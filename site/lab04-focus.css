@@ -1,0 +1,55 @@
+/* Seiko Lab V8 : tableau de bord simple, tous les anciens écrans conservés. */
+.ait-focus-panel{border:1px solid #3d6461;background:linear-gradient(145deg,#192f33,#112329 70%);border-radius:22px;padding:21px;margin:0 0 18px;color:#e9f8f2;box-shadow:0 10px 32px #0002}
+.ait-focus-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:12px}
+.ait-focus-eyebrow{display:block;font-size:10px;font-weight:800;letter-spacing:.13em;color:#a8d8c9}
+.ait-focus-title{font-size:clamp(21px,3.5vw,29px);line-height:1.2;letter-spacing:-.035em;margin:8px 0;color:#f1fff7}
+.ait-focus-intro{font-size:12px;line-height:1.65;color:#bed7cf;max-width:560px;margin:0}
+.ait-focus-mode{flex:none;color:#d9f9e4;background:#25473d;border:1px solid #608975;border-radius:11px;padding:10px 12px;cursor:pointer;font-size:11px;font-weight:750}
+.ait-focus-mode:hover,.ait-focus-link:hover{background:#345747}
+.ait-focus-mode:focus-visible,.ait-focus-link:focus-visible,.ait-focus-wallet:focus-visible{outline:3px solid #b9f477;outline-offset:3px}
+.ait-focus-freshness{color:#a9c9c0;font-size:11px;line-height:1.6;margin:10px 0 16px}
+.ait-focus-freshness.ait-focus-warning{color:#f4c49f}
+.ait-focus-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.ait-focus-wallet,.ait-focus-research{border:1px solid #426b64;border-radius:15px;padding:15px;background:#20373a;min-width:0;color:inherit;text-align:left;display:flex;flex-direction:column;gap:8px}
+.ait-focus-wallet{cursor:pointer;transition:background .12s,border-color .12s}
+.ait-focus-wallet.is-selected{border-color:#a4edbd;box-shadow:inset 0 0 0 1px #a4edbd}
+.ait-focus-wallet:hover:not(:disabled){background:#284747}
+.ait-focus-wallet:disabled{cursor:default;opacity:.8}
+.ait-focus-wallet small,.ait-focus-research small{font-size:10px;line-height:1.4;color:#b2d3c9;font-weight:750;letter-spacing:.025em}
+.ait-focus-value{font-size:clamp(20px,2.8vw,27px);line-height:1.18;letter-spacing:-.025em;overflow-wrap:anywhere;color:#f4fff8}
+.ait-focus-delta{font-size:11px;font-weight:800;color:#aac9c1;line-height:1.55}
+.ait-focus-wallet.ait-down .ait-focus-delta{color:#ffadb9}
+.ait-focus-wallet.ait-up .ait-focus-delta{color:#a6eab6}
+.ait-focus-research .ait-focus-delta{color:#b7dcf0}
+.ait-focus-spark{display:block;width:100%;height:58px;overflow:visible}
+.ait-focus-start,.ait-focus-nodata{font-size:10px;color:#a8c5c0;line-height:1.4}
+.ait-focus-research p{font-size:11px;color:#b4d0c8;line-height:1.65;margin:auto 0 0}
+.ait-focus-takeaway{background:#172d30;border:1px solid #385952;border-radius:14px;padding:14px 16px;margin-top:12px}
+.ait-focus-takeaway strong{font-size:13px;color:#f1fbe9}
+.ait-focus-takeaway p{margin:7px 0 0;font-size:12px;line-height:1.6;color:#b7d2c6}
+.ait-focus-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.ait-focus-link{cursor:pointer;text-align:center;border:1px solid #577d70;background:#203b37;color:#e7f5e5;font-size:11px;font-weight:800;line-height:1.4;border-radius:11px;padding:12px 8px}
+.ait-route-guide{background:#18312f;border-left:3px solid #89cca2;border-radius:0 10px 10px 0;padding:11px 14px;margin:0 0 15px;color:#d7eade;font-size:12px;line-height:1.6}
+.ait-route-guide[hidden]{display:none!important}
+/* Mode clair : placer la décision et les chiffres avant les longues explications. */
+body.ait-reading-simple #view-home .ait-beginner-note,
+body.ait-reading-simple #view-home .ait-journey,
+body.ait-reading-simple #view-home .lab-overview,
+body.ait-reading-simple #view-home .quick-stats,
+body.ait-reading-simple #view-home .journey-card,
+body.ait-reading-simple #view-home > .section-header,
+body.ait-reading-simple #view-home > .highlights{display:none!important}
+body.ait-reading-simple .page-heading{margin-bottom:12px}
+@media(max-width:900px){.ait-focus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ait-focus-research{grid-column:1/-1}}
+@media(max-width:570px){
+ .ait-focus-panel{padding:16px 13px;border-radius:17px}
+ .ait-focus-head{flex-direction:column;gap:12px}
+ .ait-focus-mode{align-self:flex-start;padding:9px 11px}
+ .ait-focus-grid{gap:8px}
+ .ait-focus-wallet,.ait-focus-research{padding:12px 10px;border-radius:12px}
+ .ait-focus-value{font-size:clamp(17px,5.1vw,23px)}
+ .ait-focus-wallet small,.ait-focus-research small{font-size:9px}
+ .ait-focus-links{grid-template-columns:1fr;gap:7px}
+ .ait-focus-link{padding:10px}
+ .ait-focus-spark{height:44px}
+}
