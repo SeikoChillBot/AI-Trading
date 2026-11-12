@@ -98,7 +98,7 @@ setText('stat-bots',rows.length.toString().padStart(2,'0'));
 setText('stat-trades',totalTrades.toLocaleString('fr-FR'));
 
 function toView(next,updateHash=true) {
- const titles={home:['PAPER TRADING · LABORATOIRE','Vue d’ensemble','Les résultats de votre expérience, au même endroit.'],robots:['LES STRATÉGIES','Vos robots','18 approches, une seule expérience.'],analysis:['LES STATISTIQUES','Analyse','Comprendre la performance, sans raccourcis.'],explore:['PANORAMA DES INVESTISSEMENTS','Explorer','13 marchés à explorer, aucune promesse de rendement.'],desk:['JOURNAL IA · VEILLE SOURCÉE','Journal IA','Actualités, expériences fictives et décisions de Gemini.']};
+ const titles={home:['PAPER TRADING · LABORATOIRE','Vue d’ensemble','Les résultats de votre expérience, au même endroit.'],robots:['LES STRATÉGIES','Vos robots','18 approches, une seule expérience.'],candidates:['RECHERCHE · ROBOTS EXPÉRIMENTAUX','Nouveaux robots','36 stratégies expérimentales suivies indépendamment des robots historiques.'],analysis:['LES STATISTIQUES','Analyse','Comprendre la performance, sans raccourcis.'],explore:['PANORAMA DES INVESTISSEMENTS','Explorer','13 marchés à explorer, aucune promesse de rendement.'],desk:['JOURNAL IA · VEILLE SOURCÉE','Journal IA','Actualités, expériences fictives et décisions de Gemini.']};
  if(!titles[next])next='home';view=next;
  for(const item of ['home','robots','candidates','analysis','explore','desk']){const el=$('view-'+item);el.hidden=item!==next;el.classList.toggle('is-visible',item===next);}
  document.querySelectorAll('[data-view]').forEach(el=>{const active=el.dataset.view===next;el.classList.toggle('is-active',active);if(active)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});
