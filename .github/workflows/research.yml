@@ -123,7 +123,9 @@ jobs:
       - name: Observe AI strategy candidates on new daily candles only
         run: python -m research.strategy_forward
       - name: Record per-strategy prospective equity charts
-        run: python -m research.strategy_forward_charts
+        run: |
+          python -m unittest discover -s tests -p 'test_strategy_forward_charts.py' -v
+          python -m research.strategy_forward_charts
       - name: Rank paper strategies on future evidence and revoke decayed candidates
         run: python -m research.strategy_competition
       - name: Maintain autonomous reversible paper research roster
