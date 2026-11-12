@@ -51,7 +51,7 @@ const css=document.createElement('style');css.id='seiko-candidates-v2';css.textC
 '#view-candidates .cv-panel{border:1px solid #35565a;background:#14282e;border-radius:17px;padding:19px;min-width:0;overflow:hidden}',
 '#view-candidates .cv-section-title{margin:0 0 8px;color:#e7f9ed;font-size:18px;letter-spacing:-.02em}',
 '#view-candidates .cv-chart{height:235px;min-height:160px;margin:15px 0 5px}',
-'#view-candidates .cv-chart svg{width:100%;height:100%;display:block;overflow:visible}',
+'#view-candidates .cv-chart svg{width:100%;height:calc(100% - 26px);display:block;overflow:visible}',
 '#view-candidates .cv-chart.cv-no-curve{display:flex;align-items:center;justify-content:center;padding:20px;text-align:center;background:rgba(144,203,190,.04);border:1px dashed #456166;border-radius:12px}',
 '#view-candidates .cv-legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:#b9d3cd;margin:8px 0}',
 '#view-candidates .cv-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--cv-color)}',
@@ -111,10 +111,10 @@ const kpiRow=h('div','cv-kpis');
 const withPoints=items.filter(t=>points(t).length>0).length;
 const metrics=[
 ['STRATÉGIES SUIVIES',String(items.length),'En parallèle des 36 robots originaux'],
-['CAPITAL MESURÉ',observed.length?money(total):'En attente',observed.length+' robots mesurés · '+money(initial)+' de départ'],
+['CAPITAL ESTIMÉ',observed.length?money(total):'En attente',observed.length+' robots suivis · '+money(initial)+' de départ'],
 ['RÉSULTAT MESURÉ',observed.length?percent((total/initial-1)*100):'En attente','Calcul uniquement sur les robots observés'],
 ['TRANSACTIONS CLÔTURÉES',String(items.reduce((sum,t)=>sum+(valid(t.closed_trades)?t.closed_trades:0),0)),'Simulations, après clôture'],
-['POINTS DE COURBE',withPoints+' / '+items.length,'Chaque robot a son propre historique'],
+['ROBOTS AVEC RELEVÉ',withPoints+' / '+items.length,'Nombre de robots avec au moins un point daté'],
 ['DOSSIERS EXAMINABLES',String(items.filter(t=>t.sufficient_evidence).length),'Ne signifie pas investissement approuvé']
 ];
 for(const [label,value,extra] of metrics){const el=h('div','cv-kpi');put(el,h('small','',label),h('strong','',value),h('span','',extra));kpiRow.append(el)}
@@ -218,7 +218,7 @@ function show(t){
  const stats=h('div','cv-detail-grid'),v=net(t);
  for(const entry of [
  ['Capital fictif',money(capital(t))],['Rendement net',percent(v)],
- ['Écart vs Hold',percent(valid(t.excess_vs_hold_points)?t.excess_vs_hold_points:null)+' pts'],
+ ['Écart vs Hold',valid(t.excess_vs_hold_points)?(t.excess_vs_hold_points>0?'+':'')+fmt(t.excess_vs_hold_points)+' pts':'En attente'],
  ['Trades clôturés',valid(t.closed_trades)?String(t.closed_trades):'—'],
  ['Jours suivis',valid(t.observed_days)?String(t.observed_days):'—'],
  ['Baisse maximale',valid(t.max_drawdown_pct)?percent(t.max_drawdown_pct):'—']
