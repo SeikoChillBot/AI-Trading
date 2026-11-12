@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-12T18:22:55.573005+00:00",
-  "total_hypotheses": 49,
-  "gemini_hypotheses": 9,
+  "generated_at": "2026-11-12T21:15:58.648593+00:00",
+  "total_hypotheses": 51,
+  "gemini_hypotheses": 11,
   "gemini_narratives_compiled_locally": 0,
   "gemini_task_shadow_hypotheses": 0,
   "auto_optimized_hypotheses": 7,
@@ -10,89 +10,28 @@
   "crossed_hypotheses": 18,
   "director_hypotheses": 3,
   "local_adversarial_controls": 0,
-  "tested_historically": 49,
-  "events": [],
+  "tested_historically": 51,
+  "events": [
+    {
+      "id": "943e7b4ddcce1dfb57",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
+    },
+    {
+      "id": "2a196674ecbf1ed7f4",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
+    },
+    {
+      "id": "943e7b4ddcce1dfb57",
+      "status": "exploratory_replay_completed"
+    },
+    {
+      "id": "2a196674ecbf1ed7f4",
+      "status": "exploratory_replay_completed"
+    }
+  ],
   "recent_ideas": [
-    {
-      "id": "413b170a6a6a2c4ec2",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "mean_reversion",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Tester une approche de retour à la moyenne sur BTC lors de phases de faible volatilité et de survente mesurée par le RSI, afin de limiter la fréquence des faux signaux constatés en tendance baissière.",
-        "confirmations": [
-          "quiet_volatility",
-          "rsi_oversold"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "BTCUSD",
-        "average_net_pct": -11.1266,
-        "average_excess_vs_hold_points": -6.4228,
-        "average_double_cost_net_pct": -16.5793,
-        "max_drawdown_pct": 29.87548,
-        "closed_trades": 22,
-        "folds_beating_hold": 1,
-        "checks": {
-          "enough_closed_trades": true,
-          "positive_average_net": false,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": false
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
-    },
-    {
-      "id": "df778607f3ebd40009",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "ema_trend",
-        "lookback_days": 40,
-        "threshold_pct": 0.5,
-        "max_hold_days": 7,
-        "rationale": "Explorer un filtre de suivi de tendance de moyen terme avec confirmation de momentum positif pour éviter les faux breakouts répétés sur Solana.",
-        "confirmations": [
-          "ema_uptrend",
-          "positive_momentum"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "SOLUSD",
-        "average_net_pct": -6.18,
-        "average_excess_vs_hold_points": 1.509,
-        "average_double_cost_net_pct": -10.2439,
-        "max_drawdown_pct": 15.76735,
-        "closed_trades": 15,
-        "folds_beating_hold": 3,
-        "checks": {
-          "enough_closed_trades": false,
-          "positive_average_net": false,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": true
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
-    },
     {
       "id": "417c3004c903eaa018",
       "source": "autonomous_grid_search",
@@ -480,6 +419,84 @@
           "positive_with_double_costs": false,
           "beats_hold_in_most_folds": true,
           "drawdown_under_20_pct": true
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "943e7b4ddcce1dfb57",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Explorer une logique de retour à la moyenne sur Bitcoin combinée à un filtre de survente RSI pour limiter les entrées en tendance baissière forte, mesurée sur des données historiques sans garantie de profit.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "BTCUSD",
+        "average_net_pct": -12.7184,
+        "average_excess_vs_hold_points": -8.0146,
+        "average_double_cost_net_pct": -19.3719,
+        "max_drawdown_pct": 40.2579,
+        "closed_trades": 29,
+        "folds_beating_hold": 0,
+        "checks": {
+          "enough_closed_trades": true,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": false
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "2a196674ecbf1ed7f4",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "ema_trend",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 7,
+        "rationale": "Tester un suivi de tendance par moyenne mobile exponentielle sur Ethereum avec un filtre de volatilité active afin d'évaluer la résilience face aux faux signaux en période de repli.",
+        "confirmations": [
+          "active_volatility"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "average_net_pct": -3.1386,
+        "average_excess_vs_hold_points": 3.1292,
+        "average_double_cost_net_pct": -6.0213,
+        "max_drawdown_pct": 26.50903,
+        "closed_trades": 11,
+        "folds_beating_hold": 3,
+        "checks": {
+          "enough_closed_trades": false,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": false
         },
         "all_historical_checks_pass": false,
         "qualified_for_live_trading": false,
