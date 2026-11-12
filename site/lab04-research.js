@@ -138,45 +138,7 @@ if(foundryList && forward.ready && Array.isArray(forward.trials)){
   line.append(title,p);foundryList.append(line);
  }
 }
-// Full read-only gallery for all prospective candidate robots.
-const candidateCharts=DATA.strategy_forward_charts||{};
-if(forward.ready&&Array.isArray(forward.trials)&&foundryList){
- const gallery=document.createElement('section');
- gallery.className='research-idea';
- const h=document.createElement('h3');h.textContent='Nouveaux robots expérimentaux · graphiques individuels';
- const description=document.createElement('p');
- description.textContent='Chaque courbe montre uniquement les journées réellement observées depuis la création de la stratégie. Capital fictif initial : 20 $. Comparaison avec Hold. Aucun ordre réel.';
- const selector=document.createElement('select');selector.setAttribute('aria-label','Choisir une stratégie expérimentale');
- selector.style.maxWidth='100%';
- const trials=forward.trials.filter(t=>t&&typeof t.id==='string');
- trials.forEach((t,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=(t.asset||'?')+' · '+(t.logic||'?')+' · '+t.id;selector.append(option)});
- const detail=document.createElement('div');
- const svgNS='http://www.w3.org/2000/svg';
- const draw=()=>{
-  detail.replaceChildren();
-  const trial=trials[Number(selector.value)||0];if(!trial)return;
-  const summary=document.createElement('p');
-  summary.textContent='Capital : '+(20*(1+Number(trial.net_pct||0)/100)).toFixed(2)+' $ · rendement net '+Number(trial.net_pct||0).toFixed(2)+' % · '+Number(trial.closed_trades||0)+' trades clôturés · drawdown '+Number(trial.max_drawdown_pct||0).toFixed(2)+' % · '+Number(trial.observed_days||0)+' journées observées · '+(trial.sufficient_evidence?'Évalué':'Non qualifié');
-  detail.append(summary);
-  const points=(candidateCharts.series&&candidateCharts.series[trial.id])||[];
-  if(!Array.isArray(points)||points.length<2){
-   const empty=document.createElement('p');empty.textContent='Graphique en construction : deux observations prospectives distinctes sont nécessaires. Aucun historique inventé.';detail.append(empty);return;
-  }
-  const valid=points.filter(p=>p&&Number.isFinite(p.equity_usd)&&Number.isFinite(p.hold_equity_usd));
-  if(valid.length<2)return;
-  const values=valid.flatMap(p=>[p.equity_usd,p.hold_equity_usd]);
-  let min=Math.min(...values),max=Math.max(...values);
-  if(min===max){min-=0.5;max+=0.5}
-  const graph=document.createElementNS(svgNS,'svg');graph.setAttribute('viewBox','0 0 600 200');graph.setAttribute('role','img');graph.setAttribute('aria-label','Courbes du capital fictif et du témoin Hold en dollars');graph.style.width='100%';graph.style.maxHeight='240px';
-  const line=(key,color)=>{
-   const path=document.createElementNS(svgNS,'polyline');
-   path.setAttribute('points',valid.map((p,i)=>(30+i*550/(valid.length-1)).toFixed(1)+','+(175-(p[key]-min)/(max-min)*150).toFixed(1)).join(' '));
-   path.setAttribute('fill','none');path.setAttribute('stroke',color);path.setAttribute('stroke-width','2.5');
-   graph.append(path);
-  };
-  line('hold_equity_usd','#94a3b8');line('equity_usd','#22c55e');
-  detail.append(graph);
-  const legend=document.createElement('small');legend.textContent='Vert : stratégie · Gris : Hold · échelle automatique, capital fictif en 
+const optimizer=DATA.autonomous_optimizer||{};
 put('strategy-optimizer-status',optimizer.ready?
     'Recherche quantitative autonome : '+Number(optimizer.candidate_count||0)+
     ' configurations archivées, '+Number(optimizer.new_candidates||0)+
