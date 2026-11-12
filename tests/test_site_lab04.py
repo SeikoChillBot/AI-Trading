@@ -176,5 +176,23 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("cp site/lab04-*.js docs/",workflow)
   self.assertIn("cp site/lab04-*.css docs/",workflow)
 
+ def test_plain_language_focus_mode(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  script=(ROOT/"site/lab04-focus.js").read_text(encoding="utf8")
+  css=(ROOT/"site/lab04-focus.css").read_text(encoding="utf8")
+  self.assertIn('lab04-focus.css?v=8',html)
+  self.assertIn('lab04-focus.js?v=8',html)
+  for view in ("home","robots","candidates","analysis","desk","explore"):
+   self.assertIn('id="view-'+view+'"',html)
+   self.assertIn('data-view="'+view+'"',html)
+  self.assertIn('L.selectWallet',script)
+  self.assertIn('L.history[scope]',script)
+  self.assertIn('sufficient_evidence===true',script)
+  self.assertIn('aucun argent réel',script)
+  self.assertIn('body.ait-reading-simple',css)
+  self.assertIn('mode.addEventListener',script)
+  self.assertNotIn('innerHTML',script)
+  self.assertNotIn('fetch(',script)
+
 if __name__=="__main__":
  unittest.main()
