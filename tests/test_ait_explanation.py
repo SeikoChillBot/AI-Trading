@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 class ExplanationTests(unittest.TestCase):
-    def test_five_original_tabs_and_guides_are_present(self):
+    def test_six_tabs_and_guides_are_present(self):
         html=(ROOT/"site/index.html").read_text(encoding="utf8")
         self.assertIn('lab04-guide.js?v=7',html)
         self.assertIn('lab04-guide.css?v=7',html)
