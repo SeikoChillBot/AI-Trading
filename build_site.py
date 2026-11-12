@@ -188,7 +188,7 @@ if shadow_path.exists():
                       "closed_trades", "net_pct", "excess_vs_hold_points",
                       "max_drawdown_pct", "status", "sufficient_evidence")}
                     for item in shadow.get("trials", [])[:36]
-                    if isinstance(item, dict) and item.get("sufficient_evidence") is False
+                    if isinstance(item, dict) and isinstance(item.get("id"), str)
                 ],
                 "no_robot_modification": True,
             }
