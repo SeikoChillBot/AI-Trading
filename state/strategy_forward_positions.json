@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-12T00:20:30.570115+00:00",
+  "updated_at": "2026-11-12T00:47:52.274410+00:00",
   "tracks": {
     "43a92df4809f8f30fe": {
       "id": "43a92df4809f8f30fe",
@@ -956,34 +956,6 @@
       "hold_net_pct": -1.6484,
       "excess_vs_hold_points": 1.6484
     },
-    "df778607f3ebd40009": {
-      "id": "df778607f3ebd40009",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "ema_trend",
-        "lookback_days": 40,
-        "threshold_pct": 0.5,
-        "max_hold_days": 7,
-        "rationale": "Explorer un filtre de suivi de tendance de moyen terme avec confirmation de momentum positif pour éviter les faux breakouts répétés sur Solana.",
-        "confirmations": [
-          "ema_uptrend",
-          "positive_momentum"
-        ]
-      },
-      "started_at": "2026-11-12T00:20:30.570115+00:00",
-      "last_t": 1794355200,
-      "observed_days": 0,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": null,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle"
-    },
     "413b170a6a6a2c4ec2": {
       "id": "413b170a6a6a2c4ec2",
       "source": "gemini_structured_hypothesis",
@@ -1012,18 +984,46 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "550d7c914f03a68af7": {
-      "id": "550d7c914f03a68af7",
-      "source": "autonomous_crossover",
+    "df778607f3ebd40009": {
+      "id": "df778607f3ebd40009",
+      "source": "gemini_structured_hypothesis",
       "spec": {
         "asset": "SOLUSD",
-        "logic": "breakout",
+        "logic": "ema_trend",
+        "lookback_days": 40,
+        "threshold_pct": 0.5,
+        "max_hold_days": 7,
+        "rationale": "Explorer un filtre de suivi de tendance de moyen terme avec confirmation de momentum positif pour éviter les faux breakouts répétés sur Solana.",
+        "confirmations": [
+          "ema_uptrend",
+          "positive_momentum"
+        ]
+      },
+      "started_at": "2026-11-12T00:20:30.570115+00:00",
+      "last_t": 1794355200,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "15e7dd6e622025250a": {
+      "id": "15e7dd6e622025250a",
+      "source": "autonomous_crossover",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
         "lookback_days": 40,
         "threshold_pct": 1.0,
         "max_hold_days": 3,
         "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
         "confirmations": [
-          "active_volatility",
+          "quiet_volatility",
           "rsi_strength"
         ]
       },
@@ -1068,18 +1068,18 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "15e7dd6e622025250a": {
-      "id": "15e7dd6e622025250a",
+    "550d7c914f03a68af7": {
+      "id": "550d7c914f03a68af7",
       "source": "autonomous_crossover",
       "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
+        "asset": "SOLUSD",
+        "logic": "breakout",
         "lookback_days": 40,
         "threshold_pct": 1.0,
         "max_hold_days": 3,
         "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
         "confirmations": [
-          "quiet_volatility",
+          "active_volatility",
           "rsi_strength"
         ]
       },

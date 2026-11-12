@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-12T00:20:30.570115+00:00",
+  "generated_at": "2026-11-12T00:47:52.274410+00:00",
   "tracked": 36,
   "archived_trials": 6,
   "capacity_limit": 36,
   "deferred_hypotheses": 7,
-  "protected_immature_tracks": 31,
+  "protected_immature_tracks": 36,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
@@ -413,19 +413,6 @@
       "sufficient_evidence": false
     },
     {
-      "id": "df778607f3ebd40009",
-      "source": "gemini_structured_hypothesis",
-      "asset": "SOLUSD",
-      "logic": "ema_trend",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
       "id": "413b170a6a6a2c4ec2",
       "source": "gemini_structured_hypothesis",
       "asset": "BTCUSD",
@@ -439,23 +426,10 @@
       "sufficient_evidence": false
     },
     {
-      "id": "550d7c914f03a68af7",
-      "source": "autonomous_crossover",
+      "id": "df778607f3ebd40009",
+      "source": "gemini_structured_hypothesis",
       "asset": "SOLUSD",
-      "logic": "breakout",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "1255643f6b319557ba",
-      "source": "autonomous_crossover",
-      "asset": "SOLUSD",
-      "logic": "breakout",
+      "logic": "ema_trend",
       "observed_days": 0,
       "closed_trades": 0,
       "net_pct": null,
@@ -476,29 +450,34 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle",
       "sufficient_evidence": false
-    }
-  ],
-  "events": [
-    {
-      "id": "df778607f3ebd40009",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "413b170a6a6a2c4ec2",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "550d7c914f03a68af7",
-      "status": "forward_paper_registered"
     },
     {
       "id": "1255643f6b319557ba",
-      "status": "forward_paper_registered"
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
     },
     {
-      "id": "15e7dd6e622025250a",
-      "status": "forward_paper_registered"
+      "id": "550d7c914f03a68af7",
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
     }
   ],
+  "events": [],
   "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven."
 }
