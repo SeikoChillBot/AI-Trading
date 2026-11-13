@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-13T00:01:27.548092+00:00",
+  "generated_at": "2026-11-13T01:08:55.145516+00:00",
   "model": "kraken_daily_walkforward_v1",
   "instruments": {
     "BTCUSD": {
       "source": "Kraken public daily OHLC (USD spot)",
-      "source_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+      "source_sha256": "138ad2c4d268807d2ba2b3ff05ebb8caf3c173f5894cd4e0a41aee8a2b0f50a5",
       "first_closed_day": 1732320000,
-      "last_closed_day": 1794355200,
-      "bars": 719,
+      "last_closed_day": 1794441600,
+      "bars": 720,
       "folds": [
         {
           "train_first": 1732320000,
@@ -128,15 +128,32 @@
           "observed_drawdown_pct": 5.82471,
           "completed_trades": 0,
           "orders": 1
+        },
+        {
+          "train_first": 1768608000,
+          "train_last": 1789257600,
+          "test_first": 1789344000,
+          "test_last": 1794441600,
+          "parameters": {
+            "window": 40,
+            "buffer": 0.02
+          },
+          "oos_return_pct": 3.2954,
+          "hold_return_pct": -8.72747,
+          "excess_vs_hold_points": 12.02287,
+          "cost_x2_return_pct": 1.45237,
+          "observed_drawdown_pct": 6.72323,
+          "completed_trades": 1,
+          "orders": 2
         }
       ],
-      "fold_count": 7,
+      "fold_count": 8,
       "train_days": 240,
       "test_days": 60,
-      "average_oos_return_pct": -3.97743,
-      "average_oos_excess_vs_hold_points": 2.46967,
-      "average_oos_return_double_cost_pct": -7.25982,
-      "total_oos_closed_trades": 8,
+      "average_oos_return_pct": -3.06832,
+      "average_oos_excess_vs_hold_points": 3.66382,
+      "average_oos_return_double_cost_pct": -6.1708,
+      "total_oos_closed_trades": 9,
       "max_oos_drawdown_pct": 19.91799,
       "candidate_parameters": {
         "window": 40,
@@ -146,10 +163,10 @@
     },
     "ETHUSD": {
       "source": "Kraken public daily OHLC (USD spot)",
-      "source_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+      "source_sha256": "0fb4513392679e763428a67620019ffb4dc445227429a387e51085ac222b4adc",
       "first_closed_day": 1732320000,
-      "last_closed_day": 1794355200,
-      "bars": 719,
+      "last_closed_day": 1794441600,
+      "bars": 720,
       "folds": [
         {
           "train_first": 1732320000,
@@ -269,15 +286,32 @@
           "observed_drawdown_pct": 5.68159,
           "completed_trades": 0,
           "orders": 1
+        },
+        {
+          "train_first": 1768608000,
+          "train_last": 1789257600,
+          "test_first": 1789344000,
+          "test_last": 1794441600,
+          "parameters": {
+            "window": 40,
+            "buffer": 0.005
+          },
+          "oos_return_pct": -1.90493,
+          "hold_return_pct": -19.98364,
+          "excess_vs_hold_points": 18.07871,
+          "cost_x2_return_pct": -3.65517,
+          "observed_drawdown_pct": 10.91345,
+          "completed_trades": 1,
+          "orders": 2
         }
       ],
-      "fold_count": 7,
+      "fold_count": 8,
       "train_days": 240,
       "test_days": 60,
-      "average_oos_return_pct": 1.35289,
-      "average_oos_excess_vs_hold_points": 6.17084,
-      "average_oos_return_double_cost_pct": -1.34882,
-      "total_oos_closed_trades": 6,
+      "average_oos_return_pct": 0.94566,
+      "average_oos_excess_vs_hold_points": 7.65932,
+      "average_oos_return_double_cost_pct": -1.63711,
+      "total_oos_closed_trades": 7,
       "max_oos_drawdown_pct": 24.4619,
       "candidate_parameters": {
         "window": 40,
@@ -287,10 +321,10 @@
     },
     "SOLUSD": {
       "source": "Kraken public daily OHLC (USD spot)",
-      "source_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+      "source_sha256": "5d92d02afcbf0e80f5b4ac570462907543c1630dc489cf213adc26b2faa61f77",
       "first_closed_day": 1732320000,
-      "last_closed_day": 1794355200,
-      "bars": 719,
+      "last_closed_day": 1794441600,
+      "bars": 720,
       "folds": [
         {
           "train_first": 1732320000,
@@ -410,15 +444,32 @@
           "observed_drawdown_pct": 10.78782,
           "completed_trades": 2,
           "orders": 5
+        },
+        {
+          "train_first": 1768608000,
+          "train_last": 1789257600,
+          "test_first": 1789344000,
+          "test_last": 1794441600,
+          "parameters": {
+            "window": 10,
+            "buffer": 0.02
+          },
+          "oos_return_pct": 1.31009,
+          "hold_return_pct": -19.23028,
+          "excess_vs_hold_points": 20.54037,
+          "cost_x2_return_pct": -0.49751,
+          "observed_drawdown_pct": 4.83052,
+          "completed_trades": 1,
+          "orders": 2
         }
       ],
-      "fold_count": 7,
+      "fold_count": 8,
       "train_days": 240,
       "test_days": 60,
-      "average_oos_return_pct": -6.47895,
-      "average_oos_excess_vs_hold_points": -1.11364,
-      "average_oos_return_double_cost_pct": -10.67417,
-      "total_oos_closed_trades": 13,
+      "average_oos_return_pct": -5.50532,
+      "average_oos_excess_vs_hold_points": 1.59311,
+      "average_oos_return_double_cost_pct": -9.40209,
+      "total_oos_closed_trades": 14,
       "max_oos_drawdown_pct": 36.1653,
       "candidate_parameters": {
         "window": 10,
