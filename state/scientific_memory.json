@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-12T21:15:59.745556+00:00",
+  "updated_at": "2026-11-13T00:01:34.143003+00:00",
   "lessons": [
     {
       "id": "5191e3b657d1819654",
@@ -9,23 +9,9 @@
       "confirmations": [],
       "source": "deterministic_reference",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
-          "net_pct": -4.2543,
-          "double_cost_net_pct": -13.1557,
-          "excess_vs_hold": 0.7504,
-          "drawdown_pct": 10.51215,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -177,10 +163,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -5.5141,
+          "double_cost_net_pct": -14.1911,
+          "excess_vs_hold": -0.8103,
+          "drawdown_pct": 23.05607,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
         "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
         "947c9b27ed5b10a13459152cf1b8854cbaf1c66058c6752db3d6fb1d9fdae3f6",
         "6895b99dff00f98682846edeac19e5fa829f7b9d8fefd2b6feab8231d38e502e",
@@ -191,7 +191,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -218,24 +219,9 @@
       "confirmations": [],
       "source": "deterministic_reference",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
-          "net_pct": -17.802,
-          "double_cost_net_pct": -28.6631,
-          "excess_vs_hold": -12.1862,
-          "drawdown_pct": 36.12343,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "drawdown_under_20_pct",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -400,10 +386,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -20.6531,
+          "double_cost_net_pct": -31.2586,
+          "excess_vs_hold": -14.3853,
+          "drawdown_pct": 36.12343,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
         "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
         "23ba996a5adf4bdfd3deccea51bc02167dfbf197cd0f3c280fd2673750a64744",
         "0994ff14f8c9b408ad109e5775bb2ac1adf768b6abcc10c8d3fb624704c7cb31",
@@ -414,7 +414,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -441,22 +442,9 @@
       "confirmations": [],
       "source": "deterministic_reference",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
-          "net_pct": 0.3017,
-          "double_cost_net_pct": -3.5605,
-          "excess_vs_hold": 8.9302,
-          "drawdown_pct": 13.79513,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -613,10 +601,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": -1.5343,
+          "double_cost_net_pct": -5.5957,
+          "excess_vs_hold": 6.1547,
+          "drawdown_pct": 16.88538,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
         "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
         "a545f98b791cb691429ba9c14f917b3d38a9f129a00d0c1884524c753d7121b4",
         "13b9d6aab93dd0ef051f8146894a34c2fc2f8186fe78c37fc5794a0a1233c082",
@@ -627,7 +629,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -654,24 +657,9 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
-          "net_pct": -3.2174,
-          "double_cost_net_pct": -6.0056,
-          "excess_vs_hold": 1.7872,
-          "drawdown_pct": 8.0598,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -827,10 +815,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -3.1955,
+          "double_cost_net_pct": -5.9049,
+          "excess_vs_hold": 1.5083,
+          "drawdown_pct": 11.35839,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
         "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
         "947c9b27ed5b10a13459152cf1b8854cbaf1c66058c6752db3d6fb1d9fdae3f6",
         "6895b99dff00f98682846edeac19e5fa829f7b9d8fefd2b6feab8231d38e502e",
@@ -841,7 +842,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -867,23 +869,9 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
-          "net_pct": -2.6863,
-          "double_cost_net_pct": -5.8046,
-          "excess_vs_hold": 2.9295,
-          "drawdown_pct": 8.13239,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -1040,10 +1028,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -3.1399,
+          "double_cost_net_pct": -6.5052,
+          "excess_vs_hold": 3.1278,
+          "drawdown_pct": 11.09555,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
         "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
         "23ba996a5adf4bdfd3deccea51bc02167dfbf197cd0f3c280fd2673750a64744",
         "0994ff14f8c9b408ad109e5775bb2ac1adf768b6abcc10c8d3fb624704c7cb31",
@@ -1054,7 +1056,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -1081,23 +1084,9 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
-          "net_pct": -2.2374,
-          "double_cost_net_pct": -5.3668,
-          "excess_vs_hold": 6.391,
-          "drawdown_pct": 7.4672,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -1253,10 +1242,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": -2.2292,
+          "double_cost_net_pct": -5.3248,
+          "excess_vs_hold": 5.4597,
+          "drawdown_pct": 7.4672,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
         "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
         "a545f98b791cb691429ba9c14f917b3d38a9f129a00d0c1884524c753d7121b4",
         "13b9d6aab93dd0ef051f8146894a34c2fc2f8186fe78c37fc5794a0a1233c082",
@@ -1267,7 +1269,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1293,24 +1296,9 @@
       "confirmations": [],
       "source": "bounded_evolution",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
-          "net_pct": -1.4497,
-          "double_cost_net_pct": -2.8812,
-          "excess_vs_hold": 3.555,
-          "drawdown_pct": 6.48444,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -1466,10 +1454,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -1.4497,
+          "double_cost_net_pct": -2.8812,
+          "excess_vs_hold": 3.2542,
+          "drawdown_pct": 6.48444,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
         "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
         "947c9b27ed5b10a13459152cf1b8854cbaf1c66058c6752db3d6fb1d9fdae3f6",
         "6895b99dff00f98682846edeac19e5fa829f7b9d8fefd2b6feab8231d38e502e",
@@ -1480,7 +1481,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1506,23 +1508,9 @@
       "confirmations": [],
       "source": "bounded_evolution",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
-          "net_pct": -2.6069,
-          "double_cost_net_pct": -4.5571,
-          "excess_vs_hold": 3.0088,
-          "drawdown_pct": 7.65209,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -1679,10 +1667,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -2.6069,
+          "double_cost_net_pct": -4.5571,
+          "excess_vs_hold": 3.6609,
+          "drawdown_pct": 7.65209,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
         "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
         "23ba996a5adf4bdfd3deccea51bc02167dfbf197cd0f3c280fd2673750a64744",
         "0994ff14f8c9b408ad109e5775bb2ac1adf768b6abcc10c8d3fb624704c7cb31",
@@ -1693,7 +1695,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -1720,23 +1723,9 @@
       "confirmations": [],
       "source": "bounded_evolution",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
-          "net_pct": -1.1972,
-          "double_cost_net_pct": -4.3988,
-          "excess_vs_hold": 7.4312,
-          "drawdown_pct": 7.4672,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -1892,10 +1881,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": -1.189,
+          "double_cost_net_pct": -4.3569,
+          "excess_vs_hold": 6.4999,
+          "drawdown_pct": 7.4672,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
         "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
         "a545f98b791cb691429ba9c14f917b3d38a9f129a00d0c1884524c753d7121b4",
         "13b9d6aab93dd0ef051f8146894a34c2fc2f8186fe78c37fc5794a0a1233c082",
@@ -1906,7 +1908,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -1935,23 +1938,9 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
-          "net_pct": -0.3859,
-          "double_cost_net_pct": -0.6764,
-          "excess_vs_hold": 4.6188,
-          "drawdown_pct": 2.31541,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -2105,10 +2094,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -0.3859,
+          "double_cost_net_pct": -0.6764,
+          "excess_vs_hold": 4.318,
+          "drawdown_pct": 2.31541,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
         "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
         "947c9b27ed5b10a13459152cf1b8854cbaf1c66058c6752db3d6fb1d9fdae3f6",
         "6895b99dff00f98682846edeac19e5fa829f7b9d8fefd2b6feab8231d38e502e",
@@ -2119,7 +2121,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -2148,24 +2151,9 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
-          "net_pct": -0.3727,
-          "double_cost_net_pct": -0.6634,
-          "excess_vs_hold": 4.632,
-          "drawdown_pct": 2.23908,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -2321,10 +2309,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -0.3727,
+          "double_cost_net_pct": -0.6634,
+          "excess_vs_hold": 4.3312,
+          "drawdown_pct": 2.23908,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
         "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
         "947c9b27ed5b10a13459152cf1b8854cbaf1c66058c6752db3d6fb1d9fdae3f6",
         "6895b99dff00f98682846edeac19e5fa829f7b9d8fefd2b6feab8231d38e502e",
@@ -2335,7 +2336,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -2364,23 +2366,9 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
-          "net_pct": 0.0,
-          "double_cost_net_pct": 0.0,
-          "excess_vs_hold": 5.6157,
-          "drawdown_pct": 0.0,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -2536,10 +2524,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 6.2678,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
         "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
         "23ba996a5adf4bdfd3deccea51bc02167dfbf197cd0f3c280fd2673750a64744",
         "0994ff14f8c9b408ad109e5775bb2ac1adf768b6abcc10c8d3fb624704c7cb31",
@@ -2550,7 +2551,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -2579,23 +2581,9 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
-          "net_pct": 0.0,
-          "double_cost_net_pct": 0.0,
-          "excess_vs_hold": 5.6157,
-          "drawdown_pct": 0.0,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -2751,10 +2739,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 6.2678,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
         "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
         "23ba996a5adf4bdfd3deccea51bc02167dfbf197cd0f3c280fd2673750a64744",
         "0994ff14f8c9b408ad109e5775bb2ac1adf768b6abcc10c8d3fb624704c7cb31",
@@ -2765,7 +2766,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -2794,23 +2796,9 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
-          "net_pct": 0.0,
-          "double_cost_net_pct": 0.0,
-          "excess_vs_hold": 8.6284,
-          "drawdown_pct": 0.0,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -2965,10 +2953,23 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 7.689,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
         "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
         "a545f98b791cb691429ba9c14f917b3d38a9f129a00d0c1884524c753d7121b4",
         "13b9d6aab93dd0ef051f8146894a34c2fc2f8186fe78c37fc5794a0a1233c082",
@@ -2979,7 +2980,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -3008,22 +3010,9 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-10-29T22:02:35.485957+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
-          "net_pct": 0.1438,
-          "double_cost_net_pct": -0.1561,
-          "excess_vs_hold": 8.7723,
-          "drawdown_pct": 0.02282,
-          "failed_checks": [
-            "enough_closed_trades",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -3167,10 +3156,22 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 0.1438,
+          "double_cost_net_pct": -0.1561,
+          "excess_vs_hold": 7.8328,
+          "drawdown_pct": 0.02282,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
         "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
         "a545f98b791cb691429ba9c14f917b3d38a9f129a00d0c1884524c753d7121b4",
         "13b9d6aab93dd0ef051f8146894a34c2fc2f8186fe78c37fc5794a0a1233c082",
@@ -3181,7 +3182,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -3209,24 +3211,9 @@
       ],
       "source": "bounded_local_research_director",
       "first_seen_at": "2026-10-29T22:57:17.628776+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
-          "net_pct": -2.3072,
-          "double_cost_net_pct": -5.4965,
-          "excess_vs_hold": 2.6974,
-          "drawdown_pct": 13.21277,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "enough_closed_trades",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -3389,10 +3376,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -1.223,
+          "double_cost_net_pct": -4.3699,
+          "excess_vs_hold": 3.4808,
+          "drawdown_pct": 10.17642,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "a7676dac6bc09260fe841ae5e71de1eab62463cb569a9bc7ce6f6e5fa0b70fd2",
         "c395abe9810af58e03e7c6df64da46b892e7ffcfcccb546356d6ed86f1a3f7ab",
         "947c9b27ed5b10a13459152cf1b8854cbaf1c66058c6752db3d6fb1d9fdae3f6",
         "6895b99dff00f98682846edeac19e5fa829f7b9d8fefd2b6feab8231d38e502e",
@@ -3403,7 +3404,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -3432,24 +3434,9 @@
       ],
       "source": "bounded_local_research_director",
       "first_seen_at": "2026-10-29T22:57:17.628776+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
-          "net_pct": -15.5933,
-          "double_cost_net_pct": -20.9025,
-          "excess_vs_hold": -9.9776,
-          "drawdown_pct": 35.46133,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "drawdown_under_20_pct",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -3614,10 +3601,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -15.9348,
+          "double_cost_net_pct": -21.3613,
+          "excess_vs_hold": -9.667,
+          "drawdown_pct": 35.46133,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "b3fe61f347e2a733f77472572e0b414c90894d37c40f22c0d494cf57f450730b",
         "3279244ef1cd74b66636882556a24124ad4e97fa03f8eb9e0f5ac94aceffbe77",
         "23ba996a5adf4bdfd3deccea51bc02167dfbf197cd0f3c280fd2673750a64744",
         "0994ff14f8c9b408ad109e5775bb2ac1adf768b6abcc10c8d3fb624704c7cb31",
@@ -3628,7 +3629,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -3655,24 +3657,9 @@
       "confirmations": [],
       "source": "bounded_local_research_director",
       "first_seen_at": "2026-10-29T22:57:17.628776+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 16,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 17,
       "historical_snapshots": [
-        {
-          "evidence_kind": "reused_historical_exploration",
-          "observed_at": "2026-11-01T02:12:01.117836+00:00",
-          "data_sha256": "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
-          "net_pct": -30.513,
-          "double_cost_net_pct": -48.753,
-          "excess_vs_hold": -21.8846,
-          "drawdown_pct": 42.26872,
-          "failed_checks": [
-            "beats_hold_in_most_folds",
-            "drawdown_under_20_pct",
-            "positive_average_net",
-            "positive_with_double_costs"
-          ]
-        },
         {
           "evidence_kind": "reused_historical_exploration",
           "observed_at": "2026-11-02T02:32:14.625562+00:00",
@@ -3837,10 +3824,24 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": -31.5406,
+          "double_cost_net_pct": -49.2372,
+          "excess_vs_hold": -23.8516,
+          "drawdown_pct": 47.16461,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "4a3dc92a60714a8a9405565d3954cb69a5c6f52a0c352c6fb6563bd4c82927e0",
         "0120ed4d0bc1fbd557d0d0eae7606a58cb0dc667ede1538fcb08d1a3eaab8b60",
         "a545f98b791cb691429ba9c14f917b3d38a9f129a00d0c1884524c753d7121b4",
         "13b9d6aab93dd0ef051f8146894a34c2fc2f8186fe78c37fc5794a0a1233c082",
@@ -3851,7 +3852,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -3878,8 +3880,8 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -3993,6 +3995,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -3.5945,
+          "double_cost_net_pct": -6.62,
+          "excess_vs_hold": 1.1093,
+          "drawdown_pct": 13.6026,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -4003,7 +4019,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -4029,8 +4046,8 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -4130,6 +4147,18 @@
           "failed_checks": [
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.253,
+          "double_cost_net_pct": -5.9487,
+          "excess_vs_hold": 6.5207,
+          "drawdown_pct": 18.33897,
+          "failed_checks": [
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -4140,7 +4169,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "positive_with_double_costs"
@@ -4164,8 +4194,8 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -4271,6 +4301,19 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 3.3071,
+          "double_cost_net_pct": -1.7771,
+          "excess_vs_hold": 10.9961,
+          "drawdown_pct": 16.72976,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -4281,7 +4324,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -4308,8 +4352,8 @@
       ],
       "source": "bounded_evolution",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -4422,6 +4466,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 4.7038,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -4432,7 +4490,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -4460,8 +4519,8 @@
       ],
       "source": "bounded_evolution",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -4561,6 +4620,18 @@
           "failed_checks": [
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.253,
+          "double_cost_net_pct": -5.9487,
+          "excess_vs_hold": 6.5207,
+          "drawdown_pct": 18.33897,
+          "failed_checks": [
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -4571,7 +4642,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "positive_with_double_costs"
@@ -4597,8 +4669,8 @@
       ],
       "source": "bounded_evolution",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -4696,6 +4768,18 @@
           "failed_checks": [
             "enough_closed_trades"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 6.0954,
+          "double_cost_net_pct": 1.7408,
+          "excess_vs_hold": 13.7844,
+          "drawdown_pct": 8.7429,
+          "failed_checks": [
+            "enough_closed_trades"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -4706,7 +4790,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades"
@@ -4733,8 +4818,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -4847,6 +4932,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 4.7038,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -4857,7 +4956,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -4886,8 +4986,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5002,6 +5102,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -0.66,
+          "double_cost_net_pct": -1.2261,
+          "excess_vs_hold": 4.0438,
+          "drawdown_pct": 3.96029,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -5012,7 +5126,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -5041,8 +5156,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5157,6 +5272,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 6.2678,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -5167,7 +5296,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -5196,8 +5326,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5313,6 +5443,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -1.0497,
+          "double_cost_net_pct": -1.6257,
+          "excess_vs_hold": 5.218,
+          "drawdown_pct": 5.59834,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -5323,7 +5467,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -5352,8 +5497,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5467,6 +5612,20 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 7.689,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -5477,7 +5636,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -5506,8 +5666,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-05T02:36:52.515727+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 8,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 9,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5613,6 +5773,19 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 0.1438,
+          "double_cost_net_pct": -0.1561,
+          "excess_vs_hold": 7.8328,
+          "drawdown_pct": 0.02282,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -5623,7 +5796,8 @@
         "c75d88c571c8772053a61fb81be65b1a36a46e52deb461f28223d89f78a753c2",
         "61fd5b58104a7903537e30232bd549e5d51b251284ee735fc6c23c8113678705",
         "2deab7f8d9ac42c5b440a41ed4fea3bb0abb128920de9f76ece3553c8a5de1e0",
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -5650,8 +5824,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-08T04:20:31.865009+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5732,6 +5906,22 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -8.2032,
+          "double_cost_net_pct": -11.8295,
+          "excess_vs_hold": -3.4994,
+          "drawdown_pct": 27.79117,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -5739,7 +5929,8 @@
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -5769,8 +5960,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-08T04:20:31.865009+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 5,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 6,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5844,6 +6035,21 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -6.0617,
+          "double_cost_net_pct": -11.7559,
+          "excess_vs_hold": 0.206,
+          "drawdown_pct": 27.2903,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
@@ -5851,7 +6057,8 @@
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -5880,8 +6087,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-09T04:32:00.245936+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 4,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 5,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -5941,13 +6148,29 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -1.8005,
+          "double_cost_net_pct": -4.3199,
+          "excess_vs_hold": 2.9033,
+          "drawdown_pct": 8.59128,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
         "6ea9b4ba5e3dcb0dd58e038fb701edf021cc768363bc21f5b16ef825c962586b",
         "13ad9cf6ce0cb93c7d0cd97997f1b2f02f2ae160bd6665f02467f05766926e7a",
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -5976,8 +6199,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-09T04:32:00.245936+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 4,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 5,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6038,13 +6261,29 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -15.4911,
+          "double_cost_net_pct": -26.581,
+          "excess_vs_hold": -9.2234,
+          "drawdown_pct": 35.43111,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
         "d604ef46b70c040e4d4feed71c49e6f1a7a36a9fab068fa23a738eba36a0551e",
         "430568cb19589eb0c338880ac9bb1b7852a6011ea2be2197dfc836d76fb0b698",
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -6073,8 +6312,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-11T07:34:17.168362+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 2,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 3,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6103,11 +6342,26 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -7.4037,
+          "double_cost_net_pct": -15.0228,
+          "excess_vs_hold": -2.6999,
+          "drawdown_pct": 16.56225,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
         "3ae953465c49f3227c6ed34630ba0418939a46271b1a07f7e07dbb204cdebd6a",
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -6136,8 +6390,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-11T07:34:17.168362+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 2,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 3,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6168,11 +6422,27 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -4.4554,
+          "double_cost_net_pct": -10.0953,
+          "excess_vs_hold": 1.8124,
+          "drawdown_pct": 27.08679,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -6201,8 +6471,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-11T12:24:33.278303+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 2,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 3,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6233,11 +6503,27 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -8.183,
+          "double_cost_net_pct": -15.198,
+          "excess_vs_hold": -1.9153,
+          "drawdown_pct": 27.45135,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
         "8f38dd3c92014f0fa9a516e457f7b7e501043039e0790ec4d2dd59554d656df8",
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -6267,8 +6553,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6284,10 +6570,26 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -11.1266,
+          "double_cost_net_pct": -16.5793,
+          "excess_vs_hold": -6.4228,
+          "drawdown_pct": 29.87548,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -6308,8 +6610,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6325,10 +6627,26 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": -6.18,
+          "double_cost_net_pct": -10.2439,
+          "excess_vs_hold": 1.509,
+          "drawdown_pct": 15.76735,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -6346,8 +6664,8 @@
       "confirmations": [],
       "source": "autonomous_grid_search",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6361,10 +6679,24 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.6795,
+          "double_cost_net_pct": -2.2175,
+          "excess_vs_hold": 6.9473,
+          "drawdown_pct": 19.19988,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6382,8 +6714,8 @@
       ],
       "source": "bounded_evolution",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6398,10 +6730,25 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 4.7038,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6421,8 +6768,8 @@
       ],
       "source": "bounded_evolution",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6437,10 +6784,25 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 6.2678,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6459,8 +6821,8 @@
       ],
       "source": "bounded_evolution",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6474,10 +6836,24 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 3.3071,
+          "double_cost_net_pct": -1.7771,
+          "excess_vs_hold": 10.9961,
+          "drawdown_pct": 16.72976,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6496,8 +6872,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6512,10 +6888,25 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 4.7038,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6535,8 +6926,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6551,10 +6942,25 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -0.9304,
+          "double_cost_net_pct": -2.0238,
+          "excess_vs_hold": 3.7735,
+          "drawdown_pct": 6.95713,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6574,8 +6980,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6590,10 +6996,25 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 6.2678,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6613,8 +7034,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6629,10 +7050,25 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": 0.0,
+          "double_cost_net_pct": 0.0,
+          "excess_vs_hold": 6.2678,
+          "drawdown_pct": 0.0,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6652,8 +7088,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6667,10 +7103,24 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 1.1414,
+          "double_cost_net_pct": -0.6616,
+          "excess_vs_hold": 8.8304,
+          "drawdown_pct": 8.45105,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6689,8 +7139,8 @@
       ],
       "source": "autonomous_crossover",
       "first_seen_at": "2026-11-12T00:20:30.848986+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6704,10 +7154,24 @@
             "enough_closed_trades",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a",
+          "net_pct": 1.387,
+          "double_cost_net_pct": -0.1268,
+          "excess_vs_hold": 9.0759,
+          "drawdown_pct": 4.59001,
+          "failed_checks": [
+            "enough_closed_trades",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3"
+        "8a026a768126960db4024bd864e3674b78741956375235b55e76438f18a0a0c3",
+        "d7f1726180a619122be95a33480a9f97f07f0a7dda3b1ae0a8fde22d69738c3a"
       ],
       "latest_historical_failure_reasons": [
         "enough_closed_trades",
@@ -6725,8 +7189,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-12T21:15:59.745556+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6742,10 +7206,26 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e",
+          "net_pct": -12.7184,
+          "double_cost_net_pct": -19.3719,
+          "excess_vs_hold": -8.0146,
+          "drawdown_pct": 40.2579,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5"
+        "976f1af0c3ddd761c9065a5e98f4e379ade67d30cded5b28adb6fea0ae2b79b5",
+        "549aee418b97da0154b4d3364a14e7a2cd32f09537922e2314cd513711b9082e"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
@@ -6765,8 +7245,8 @@
       ],
       "source": "gemini_structured_hypothesis",
       "first_seen_at": "2026-11-12T21:15:59.745556+00:00",
-      "last_reviewed_at": "2026-11-12T21:15:59.745556+00:00",
-      "historical_revisions": 1,
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 2,
       "historical_snapshots": [
         {
           "evidence_kind": "reused_historical_exploration",
@@ -6783,15 +7263,72 @@
             "positive_average_net",
             "positive_with_double_costs"
           ]
+        },
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -3.1386,
+          "double_cost_net_pct": -6.0213,
+          "excess_vs_hold": 3.1292,
+          "drawdown_pct": 26.50903,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "enough_closed_trades",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
         }
       ],
       "seen_data_sha256": [
-        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d"
+        "46ee21559c333eb8114823a82f42356ebc150317b675a10e62badf6929ccc17d",
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
       ],
       "latest_historical_failure_reasons": [
         "beats_hold_in_most_folds",
         "drawdown_under_20_pct",
         "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "latest_prospective": {},
+      "hypothesis_only": true
+    },
+    {
+      "id": "f69e4c764448028be0",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "confirmations": [
+        "rsi_oversold"
+      ],
+      "source": "gemini_structured_hypothesis",
+      "first_seen_at": "2026-11-13T00:01:34.143003+00:00",
+      "last_reviewed_at": "2026-11-13T00:01:34.143003+00:00",
+      "historical_revisions": 1,
+      "historical_snapshots": [
+        {
+          "evidence_kind": "reused_historical_exploration",
+          "observed_at": "2026-11-13T00:01:34.143003+00:00",
+          "data_sha256": "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8",
+          "net_pct": -20.5373,
+          "double_cost_net_pct": -30.8497,
+          "excess_vs_hold": -14.2695,
+          "drawdown_pct": 38.56574,
+          "failed_checks": [
+            "beats_hold_in_most_folds",
+            "drawdown_under_20_pct",
+            "positive_average_net",
+            "positive_with_double_costs"
+          ]
+        }
+      ],
+      "seen_data_sha256": [
+        "86ca84bfbb8cdc8e3b8e4f178b09b3f3098343cdce3bb712a822e8e501f140b8"
+      ],
+      "latest_historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "drawdown_under_20_pct",
         "positive_average_net",
         "positive_with_double_costs"
       ],
@@ -6850,7 +7387,8 @@
     "1255643f6b319557ba",
     "550d7c914f03a68af7",
     "943e7b4ddcce1dfb57",
-    "2a196674ecbf1ed7f4"
+    "2a196674ecbf1ed7f4",
+    "f69e4c764448028be0"
   ],
   "real_orders": false,
   "robots_modified": false

@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-12T21:15:59.745556+00:00",
+  "generated_at": "2026-11-13T00:01:34.143003+00:00",
   "state": "research_memory_recorded",
-  "recorded_hypotheses": 51,
-  "total_experiment_fingerprints": 51,
-  "new_revisions": 2,
+  "recorded_hypotheses": 52,
+  "total_experiment_fingerprints": 52,
+  "new_revisions": 52,
   "failure_patterns": {
-    "positive_with_double_costs": 50,
-    "positive_average_net": 41,
+    "positive_with_double_costs": 51,
+    "positive_average_net": 42,
     "enough_closed_trades": 38,
-    "beats_hold_in_most_folds": 19,
-    "drawdown_under_20_pct": 12
+    "beats_hold_in_most_folds": 20,
+    "drawdown_under_20_pct": 13
   },
   "research_agenda": [
     {
       "category": "cost_sensitivity",
-      "failed_historical_checks": 50,
-      "historical_population": 51,
+      "failed_historical_checks": 51,
+      "historical_population": 52,
       "hypothesis_to_falsify": "Tester moins d'ordres et des confirmations de volatilité, mais surveiller une perte de signaux utiles.",
       "experiment": "Comparer les règles simples et composées avec frais normaux/doublés sur des bougies futures.",
       "independent_future_data_required": true,
@@ -24,8 +24,8 @@
     },
     {
       "category": "net_return",
-      "failed_historical_checks": 41,
-      "historical_population": 51,
+      "failed_historical_checks": 42,
+      "historical_population": 52,
       "hypothesis_to_falsify": "Comparer familles de tendance, retour vers moyenne et abstention sans sélectionner sur le contrôle historique.",
       "experiment": "Conserver seulement les améliorations positives après frais sur de nouvelles journées distinctes.",
       "independent_future_data_required": true,
@@ -34,7 +34,7 @@
     {
       "category": "trade_density",
       "failed_historical_checks": 38,
-      "historical_population": 51,
+      "historical_population": 52,
       "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
       "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
       "independent_future_data_required": true,
@@ -42,8 +42,8 @@
     },
     {
       "category": "hold_comparison",
-      "failed_historical_checks": 19,
-      "historical_population": 51,
+      "failed_historical_checks": 20,
+      "historical_population": 52,
       "hypothesis_to_falsify": "Tester si un signal ajoute de la valeur au simple achat-conservation sur les mêmes dates.",
       "experiment": "Rejeter la supériorité si le différentiel futur au témoin Hold n'est pas positif.",
       "independent_future_data_required": true,
@@ -52,7 +52,7 @@
   ],
   "tested_logic_families": {
     "trend_following": 4,
-    "mean_reversion": 7,
+    "mean_reversion": 8,
     "breakout": 17,
     "ema_trend": 10,
     "rsi_reversal": 12,
@@ -60,18 +60,6 @@
   },
   "prospective_observed": 37,
   "recent_lessons": [
-    {
-      "id": "417c3004c903eaa018",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "confirmations": [],
-      "historical_failure_reasons": [
-        "enough_closed_trades",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 1,
-      "forward_observed_days": 0
-    },
     {
       "id": "04d0f7c21e07fcfdb3",
       "asset": "BTCUSD",
@@ -84,7 +72,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -100,7 +88,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -114,7 +102,7 @@
         "enough_closed_trades",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -130,7 +118,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -146,7 +134,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -162,7 +150,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -178,7 +166,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -193,7 +181,7 @@
         "enough_closed_trades",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -208,7 +196,7 @@
         "enough_closed_trades",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -224,7 +212,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -238,6 +226,22 @@
         "beats_hold_in_most_folds",
         "drawdown_under_20_pct",
         "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 2,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "f69e4c764448028be0",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "confirmations": [
+        "rsi_oversold"
+      ],
+      "historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "drawdown_under_20_pct",
         "positive_average_net",
         "positive_with_double_costs"
       ],
