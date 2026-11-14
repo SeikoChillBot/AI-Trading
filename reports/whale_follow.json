@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-14T20:46:37.584125+00:00",
+  "generated_at": "2026-11-14T23:40:20.009816+00:00",
   "state": "observing",
   "source": "https://eth.blockscout.com/api/v2",
   "discovery_state": "unavailable",
@@ -15,7 +15,7 @@
       "new_count": 0,
       "baseline_at": "2026-11-12T09:54:06.041833+00:00",
       "last_detected_at": "2026-11-12T09:54:06.041833+00:00",
-      "last_polled_at": "2026-11-14T20:46:37.584125+00:00",
+      "last_polled_at": "2026-11-14T23:40:20.009816+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -27,7 +27,7 @@
       "new_count": 0,
       "baseline_at": "2026-11-12T09:54:06.041833+00:00",
       "last_detected_at": "2026-11-12T09:54:06.041833+00:00",
-      "last_polled_at": "2026-11-14T20:46:37.584125+00:00",
+      "last_polled_at": "2026-11-14T23:40:20.009816+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -35,11 +35,11 @@
     {
       "address": "0x7b26d51202bb17d8cb1bd258e3dabbbeab15eeae",
       "verified_identity": false,
-      "sample_count": 2,
-      "new_count": 0,
+      "sample_count": 5,
+      "new_count": 1,
       "baseline_at": "2026-11-12T12:40:14.135847+00:00",
       "last_detected_at": "2026-11-12T12:40:14.135847+00:00",
-      "last_polled_at": "2026-11-14T20:46:37.584125+00:00",
+      "last_polled_at": "2026-11-14T23:40:20.009816+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -51,13 +51,27 @@
       "new_count": 0,
       "baseline_at": "2026-11-12T12:40:14.135847+00:00",
       "last_detected_at": "2026-11-12T12:40:14.135847+00:00",
-      "last_polled_at": "2026-11-14T20:46:37.584125+00:00",
+      "last_polled_at": "2026-11-14T23:40:20.009816+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
     }
   ],
-  "new_transfers": [],
+  "new_transfers": [
+    {
+      "id": "86a48675dfa45d743be6306c09683f49f4f0bf0be554f9764b8ef4a10e39a7b1",
+      "token": "USDC",
+      "quantity": "1000000",
+      "nominal_usd_approx": 1000000.0,
+      "timestamp": "2026-11-14T23:01:47+00:00",
+      "tx_hash": "0xc9cac6b3aa3108ddb75dbc9ef349abbc5ea0ddf20edd2b4ca37798cf55b95cec",
+      "from_address": "0x7b26d51202bb17d8cb1bd258e3dabbbeab15eeae",
+      "to_address": "0xe2c70fa0bf188365a35440836f01367ca7802fe6",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
   "errors": {},
   "max_addresses": 4,
   "retention_days": 7,
