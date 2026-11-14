@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-14T17:54:50.048633+00:00",
-  "state": "observing",
+  "generated_at": "2026-11-14T20:45:17.830496+00:00",
+  "state": "partial",
   "source": "https://eth.blockscout.com/api/v2",
-  "discovery_state": "unavailable",
+  "discovery_state": "partial",
   "selection": "public_sample_not_verified_whale_identity",
   "method": "latest_one_page_per_selected_public_address",
   "coverage": "bounded_non_exhaustive_pseudonymous_addresses",
@@ -15,7 +15,7 @@
       "new_count": 0,
       "baseline_at": "2026-11-12T09:54:06.041833+00:00",
       "last_detected_at": "2026-11-12T09:54:06.041833+00:00",
-      "last_polled_at": "2026-11-14T17:54:50.048633+00:00",
+      "last_polled_at": "2026-11-14T20:45:17.830496+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -23,23 +23,23 @@
     {
       "address": "0x83a1a5842563efc4cd6203457b71fa61ea504395",
       "verified_identity": false,
-      "sample_count": 6,
+      "sample_count": null,
       "new_count": 0,
       "baseline_at": "2026-11-12T09:54:06.041833+00:00",
       "last_detected_at": "2026-11-12T09:54:06.041833+00:00",
       "last_polled_at": "2026-11-14T17:54:50.048633+00:00",
-      "collection_state": "ok",
-      "monitoring": "active",
+      "collection_state": "unavailable",
+      "monitoring": "temporarily_unavailable",
       "discovered_this_scan": false
     },
     {
       "address": "0x7b26d51202bb17d8cb1bd258e3dabbbeab15eeae",
       "verified_identity": false,
-      "sample_count": 9,
+      "sample_count": 2,
       "new_count": 0,
       "baseline_at": "2026-11-12T12:40:14.135847+00:00",
       "last_detected_at": "2026-11-12T12:40:14.135847+00:00",
-      "last_polled_at": "2026-11-14T17:54:50.048633+00:00",
+      "last_polled_at": "2026-11-14T20:45:17.830496+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -51,14 +51,16 @@
       "new_count": 0,
       "baseline_at": "2026-11-12T12:40:14.135847+00:00",
       "last_detected_at": "2026-11-12T12:40:14.135847+00:00",
-      "last_polled_at": "2026-11-14T17:54:50.048633+00:00",
+      "last_polled_at": "2026-11-14T20:45:17.830496+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
     }
   ],
   "new_transfers": [],
-  "errors": {},
+  "errors": {
+    "0x83a1a5842563efc4cd6203457b71fa61ea504395": "HTTPError"
+  },
   "max_addresses": 4,
   "retention_days": 7,
   "can_infer_owner": false,
