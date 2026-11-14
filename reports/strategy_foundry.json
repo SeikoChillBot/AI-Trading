@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-14T05:19:59.277451+00:00",
-  "total_hypotheses": 52,
-  "gemini_hypotheses": 12,
+  "generated_at": "2026-11-14T06:34:07.739075+00:00",
+  "total_hypotheses": 53,
+  "gemini_hypotheses": 13,
   "gemini_narratives_compiled_locally": 0,
   "gemini_task_shadow_hypotheses": 0,
   "auto_optimized_hypotheses": 7,
@@ -10,48 +10,19 @@
   "crossed_hypotheses": 18,
   "director_hypotheses": 3,
   "local_adversarial_controls": 0,
-  "tested_historically": 52,
-  "events": [],
-  "recent_ideas": [
+  "tested_historically": 53,
+  "events": [
     {
-      "id": "04d0f7c21e07fcfdb3",
-      "source": "bounded_evolution",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "ema_trend",
-        "lookback_days": 10,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Mutation contrôlée de lookback_days pour confronter une hypothèse historique au résultat de sa variante.",
-        "confirmations": [
-          "rsi_oversold"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "BTCUSD",
-        "average_net_pct": 0.0,
-        "average_excess_vs_hold_points": 5.3673,
-        "average_double_cost_net_pct": 0.0,
-        "max_drawdown_pct": 0.0,
-        "closed_trades": 0,
-        "folds_beating_hold": 3,
-        "checks": {
-          "enough_closed_trades": false,
-          "positive_average_net": false,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": true
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
+      "id": "e5824456e9d5a210cf",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
     },
+    {
+      "id": "e5824456e9d5a210cf",
+      "status": "exploratory_replay_completed"
+    }
+  ],
+  "recent_ideas": [
     {
       "id": "2cf7bca8979a37c040",
       "source": "bounded_evolution",
@@ -474,6 +445,45 @@
         "average_double_cost_net_pct": -31.1398,
         "max_drawdown_pct": 38.56574,
         "closed_trades": 53,
+        "folds_beating_hold": 0,
+        "checks": {
+          "enough_closed_trades": true,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": false
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "e5824456e9d5a210cf",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 10,
+        "threshold_pct": 0.5,
+        "max_hold_days": 1,
+        "rationale": "Explorer une logique de retour à la moyenne à court terme sur ETHUSD lorsque le RSI indique une situation de survente prononcée en régime baissier.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "average_net_pct": -18.8046,
+        "average_excess_vs_hold_points": -11.8478,
+        "average_double_cost_net_pct": -28.1574,
+        "max_drawdown_pct": 38.01864,
+        "closed_trades": 48,
         "folds_beating_hold": 0,
         "checks": {
           "enough_closed_trades": true,
