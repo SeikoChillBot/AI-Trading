@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-13T23:38:03.749205+00:00",
-  "research_date_utc": "2026-11-13",
-  "review_slot": "2026-11-13T18:00Z",
+  "generated_at": "2026-11-14T02:29:49.787794+00:00",
+  "research_date_utc": "2026-11-14",
+  "review_slot": "2026-11-14T00:00Z",
   "model_last_called_at": null,
-  "used_cache": true,
-  "last_http_status": 503,
-  "error_type": "HTTPError",
-  "error_code": "UNAVAILABLE",
-  "attempts_in_slot": 2,
-  "last_attempt_at": "2026-11-13T23:24:30.292805+00:00",
+  "used_cache": false,
+  "last_http_status": null,
+  "error_type": "GeminiResponseError",
+  "error_code": "invalid_research_schema_experiment_asset",
+  "attempts_in_slot": 1,
+  "last_attempt_at": "2026-11-14T02:29:49.787794+00:00",
   "source": "deterministic_fallback",
   "state": "model_reflection_failed",
   "provider": "gemini",
-  "summary": "Tentative IA déjà effectuée dans ce créneau de six heures ; repli statistique.",
+  "summary": "Analyse Gemini indisponible (GeminiResponseError). Repli sur les tests statistiques.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -23,12 +23,12 @@
         "folds": 8,
         "positive_oos_folds": 3,
         "beats_hold_folds": 5,
-        "positive_double_cost_folds": 3,
-        "closed_trades": 9,
-        "avg_net_return_pct": -3.0683,
-        "avg_excess_vs_hold_points": 3.6638,
-        "avg_net_return_double_cost_pct": -6.1708,
-        "worst_drawdown_pct": 19.918,
+        "positive_double_cost_folds": 2,
+        "closed_trades": 7,
+        "avg_net_return_pct": -2.2401,
+        "avg_excess_vs_hold_points": 4.8281,
+        "avg_net_return_double_cost_pct": -4.9596,
+        "worst_drawdown_pct": 16.9302,
         "latest_research_parameters": {
           "window": 40,
           "buffer": 0.02
@@ -50,11 +50,11 @@
         "positive_oos_folds": 3,
         "beats_hold_folds": 4,
         "positive_double_cost_folds": 3,
-        "closed_trades": 7,
-        "avg_net_return_pct": 0.9457,
-        "avg_excess_vs_hold_points": 7.6593,
-        "avg_net_return_double_cost_pct": -1.6371,
-        "worst_drawdown_pct": 24.4619,
+        "closed_trades": 6,
+        "avg_net_return_pct": 1.7372,
+        "avg_excess_vs_hold_points": 8.7996,
+        "avg_net_return_double_cost_pct": -0.6939,
+        "worst_drawdown_pct": 18.1671,
         "latest_research_parameters": {
           "window": 40,
           "buffer": 0.005
@@ -65,7 +65,7 @@
           "positive_average_net_return": true,
           "beats_hold_in_most_folds": false,
           "positive_average_with_double_costs": false,
-          "drawdown_below_20_pct": false
+          "drawdown_below_20_pct": true
         },
         "status": "fails_one_or_more_research_checks",
         "automatic_promotion": false
@@ -73,14 +73,14 @@
       {
         "asset": "SOLUSD",
         "folds": 8,
-        "positive_oos_folds": 5,
-        "beats_hold_folds": 4,
+        "positive_oos_folds": 4,
+        "beats_hold_folds": 5,
         "positive_double_cost_folds": 2,
         "closed_trades": 14,
-        "avg_net_return_pct": -5.5053,
-        "avg_excess_vs_hold_points": 1.5931,
-        "avg_net_return_double_cost_pct": -9.4021,
-        "worst_drawdown_pct": 36.1653,
+        "avg_net_return_pct": -6.0105,
+        "avg_excess_vs_hold_points": 3.0096,
+        "avg_net_return_double_cost_pct": -9.8682,
+        "worst_drawdown_pct": 33.7273,
         "latest_research_parameters": {
           "window": 10,
           "buffer": 0.02
@@ -89,7 +89,7 @@
           "six_or_more_oos_folds": true,
           "twenty_or_more_closed_trades": false,
           "positive_average_net_return": false,
-          "beats_hold_in_most_folds": false,
+          "beats_hold_in_most_folds": true,
           "positive_average_with_double_costs": false,
           "drawdown_below_20_pct": false
         },
@@ -124,8 +124,7 @@
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "beats_hold_in_most_folds",
-        "positive_average_with_double_costs",
-        "drawdown_below_20_pct"
+        "positive_average_with_double_costs"
       ]
     },
     {
@@ -138,7 +137,6 @@
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
-        "beats_hold_in_most_folds",
         "positive_average_with_double_costs",
         "drawdown_below_20_pct"
       ]
