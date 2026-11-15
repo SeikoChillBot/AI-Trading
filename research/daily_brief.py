@@ -75,7 +75,7 @@ def create_day(now, sources, historical_events):
     model_today = date_of(model.get("generated_at")) == day
     latest_model_state = model.get("state") if model_today else "unverified_for_day"
     actual_ai = next((e for e in ai_notes if e.get("title") == "Analyse Gemini — synthèse"), None)
-    model_summary = str(actual_ai.get("details", ""))[:620] if actual_ai else None
+    # A same-day journal note may predate a failed Gemini cycle. Do not\n    # attribute it to the latest cycle unless its provenance is verified.\n    proposals = sources.get("proposals", {})\n    genuine_model = (latest_model_state == "model_reflection_completed"\n                     and proposals.get("source") == "gemini_generate_content"\n                     and proposals.get("state") == "model_reflection_completed")\n    model_summary = (str(actual_ai.get("details", ""))[:620]\n                     if actual_ai and genuine_model else None)
 
     experiments = sources.get("experiments", {})
     trials = experiments.get("trials", [])
