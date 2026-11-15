@@ -1,8 +1,9 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-15T09:33:08.250999+00:00",
+  "generated_at": "2026-11-15T12:21:28.331701+00:00",
   "status": "needs_attention",
   "alerts": [
+    "Dernière analyse Gemini non confirmée",
     "Transferts publics non accessibles"
   ],
   "roadmap": [
@@ -15,7 +16,7 @@
     {
       "id": "intelligence",
       "title": "Analyses Gemini et recherche autonome",
-      "status": "active",
+      "status": "degraded",
       "detail": "Jusqu'à 4 analyses IA par jour, tests statistiques entre deux appels."
     },
     {
@@ -34,7 +35,7 @@
       "id": "whales",
       "title": "Surveillance des gros mouvements",
       "status": "partial",
-      "detail": "150 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (partial). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
+      "detail": "50 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (observing). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
     },
     {
       "id": "changes",
@@ -66,21 +67,21 @@
     "workflows": {
       "Paper trading": {
         "state": "healthy",
-        "run_id": 43699471997,
-        "last_created_at": "2026-11-15T09:29:14Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43699471997",
+        "run_id": 43713248452,
+        "last_created_at": "2026-11-15T12:19:26Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43713248452",
         "last_result": "success"
       },
       "Seiko research — guarded automatic analysis": {
         "state": "running",
-        "run_id": 43699676288,
-        "last_created_at": "2026-11-15T09:31:43Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43699676288",
+        "run_id": 43713286975,
+        "last_created_at": "2026-11-15T12:19:55Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43713286975",
         "previous_completed_result": "success"
       }
     }
   },
-  "gemini_last_state": "model_reflection_completed",
+  "gemini_last_state": "model_reflection_failed",
   "paper_experiments_active": 9,
   "robot_count": 36,
   "real_orders": false,
