@@ -46,7 +46,7 @@ class DailyBriefTests(unittest.TestCase):
     def test_real_model_summary_requires_recorded_same_day_note(self):
         data=self.sample()
         data["model"]["state"]="model_reflection_completed"
-        data["proposals"]["source"]="gemini_generate_content"
+        data["proposals"]["source"]="gemini_generate_content"\n        data["proposals"]["state"]="model_reflection_completed"
         data["journal"]["entries"].append({
             "type":"ai_note","at":NOW.isoformat(),
             "title":"Analyse Gemini — synthèse",
@@ -61,7 +61,7 @@ class DailyBriefTests(unittest.TestCase):
         out,_=journal.build(NOW,data,[],{})
         self.assertIsNone(out["days"][0]["gemini_authored_summary"])
 
-    def test_multiple_runs_update_same_day_and_archive_previous(self):
+    def test_earlier_gemini_note_not_claimed_after_latest_503(self):\n        data=self.sample()\n        data["journal"]["entries"].append({\n            "type":"ai_note","at":NOW.isoformat(),\n            "title":"Analyse Gemini — synthèse",\n            "details":"Ancienne synthèse Gemini du jour."\n        })\n        data["model"]["last_http_status"]=503\n        out,_=journal.build(NOW,data,[],{})\n        day=out["days"][0]\n        self.assertIsNone(day["gemini_authored_summary"])\n        self.assertNotIn("réellement publiée par Gemini", " ".join(day["conclusions"]))\n        self.assertIn("échec API", " ".join(day["conclusions"]))\n\n    def test_multiple_runs_update_same_day_and_archive_previous(self):
         initial,state=journal.build(NOW,self.sample(),[],{})
         again,state2=journal.build(NOW+timedelta(minutes=20),self.sample(),[],state)
         self.assertEqual(len(again["days"]),1)
