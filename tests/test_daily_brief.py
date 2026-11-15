@@ -47,6 +47,7 @@ class DailyBriefTests(unittest.TestCase):
         data=self.sample()
         data["model"]["state"]="model_reflection_completed"
         data["proposals"]["source"]="gemini_generate_content"
+        data["proposals"]["state"]="model_reflection_completed"
         data["journal"]["entries"].append({
             "type":"ai_note","at":NOW.isoformat(),
             "title":"Analyse Gemini — synthèse",
@@ -60,6 +61,20 @@ class DailyBriefTests(unittest.TestCase):
         data["journal"]["entries"][-1]["at"]=(NOW-timedelta(days=1)).isoformat()
         out,_=journal.build(NOW,data,[],{})
         self.assertIsNone(out["days"][0]["gemini_authored_summary"])
+
+    def test_earlier_gemini_note_not_claimed_after_latest_503(self):
+        data=self.sample()
+        data["journal"]["entries"].append({
+            "type":"ai_note","at":NOW.isoformat(),
+            "title":"Analyse Gemini — synthèse",
+            "details":"Ancienne synthèse Gemini du jour."
+        })
+        data["model"]["last_http_status"]=503
+        out,_=journal.build(NOW,data,[],{})
+        day=out["days"][0]
+        self.assertIsNone(day["gemini_authored_summary"])
+        self.assertNotIn("réellement publiée par Gemini", " ".join(day["conclusions"]))
+        self.assertIn("échec API", " ".join(day["conclusions"]))
 
     def test_multiple_runs_update_same_day_and_archive_previous(self):
         initial,state=journal.build(NOW,self.sample(),[],{})
