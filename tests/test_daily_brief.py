@@ -46,7 +46,8 @@ class DailyBriefTests(unittest.TestCase):
     def test_real_model_summary_requires_recorded_same_day_note(self):
         data=self.sample()
         data["model"]["state"]="model_reflection_completed"
-        data["proposals"]["source"]="gemini_generate_content"\n        data["proposals"]["state"]="model_reflection_completed"
+        data["proposals"]["source"]="gemini_generate_content"
+        data["proposals"]["state"]="model_reflection_completed"
         data["journal"]["entries"].append({
             "type":"ai_note","at":NOW.isoformat(),
             "title":"Analyse Gemini — synthèse",
