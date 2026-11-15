@@ -154,6 +154,44 @@ class EvidenceTests(unittest.TestCase):
             self.assertEqual(research["source"], "gemini_generate_content")
             self.assertFalse(research["real_orders_enabled"])
 
+    def test_gemini_isolates_invalid_experiment_asset_without_losing_designs(self):
+        historical = support.summarize_challengers(sample_report(), NOW)
+        evidence = {row["asset"]: row for row in historical["assets"]}
+        design = {"asset": "ETHUSD", "logic": "ema_trend",
+                  "lookback_days": 20, "threshold_pct": 1,
+                  "max_hold_days": 3,
+                  "rationale": "Test a bounded trend hypothesis prospectively."}
+        payload = {"summary": "Research is exploratory only.",
+                   "experiments": [
+                       {"asset": "DOGEUSD", "title": "Unsupported asset",
+                        "hypothesis": "This should not be accepted.",
+                        "experiment": "Do not execute this proposal.",
+                        "rejection_rule": "Reject unknown instruments."},
+                       {"asset": "ETHUSD", "title": "Check ETH signal",
+                        "hypothesis": "The signal may be weak.",
+                        "experiment": "Compare net fees and Hold.",
+                        "rejection_rule": "Reject if net performance fails."}],
+                   "strategy_designs": [design]}
+        with self.assertRaisesRegex(ValueError, "Unrecognized research asset"):
+            support.validate_model_ideas(payload, evidence)
+        clean = ai.validate_with_experiment_isolation(payload, evidence)
+        self.assertEqual(len(clean["experiments"]), 1)
+        self.assertEqual(clean["experiments"][0]["asset"], "ETHUSD")
+        self.assertEqual(len(clean["strategy_designs"]), 1)
+        self.assertEqual(clean["strategy_designs"][0]["asset"], "ETHUSD")
+
+    def test_gemini_isolation_does_not_bypass_strategy_validation(self):
+        historical = support.summarize_challengers(sample_report(), NOW)
+        evidence = {row["asset"]: row for row in historical["assets"]}
+        payload = {"summary": "Unverified research.",
+                   "experiments": [{"asset": "DOGEUSD", "title": "Unknown asset",
+                                    "hypothesis": "No evidence exists here.",
+                                    "experiment": "Reject this experiment.",
+                                    "rejection_rule": "Unsupported asset."}],
+                   "strategy_designs": [{"asset": "DOGEUSD", "logic": "ema_trend"}]}
+        with self.assertRaises(ValueError):
+            ai.validate_with_experiment_isolation(payload, evidence)
+
     def test_gemini_http_400_falls_back_only_to_smaller_same_provider_schema(self):
         completed = {"candidates":[{"finishReason":"STOP","content":{"parts":[{
             "text":json.dumps({"summary":"Vérifier les frais","experiments":[],
