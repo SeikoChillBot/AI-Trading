@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-16T04:31:08.007330+00:00",
+  "generated_at": "2026-11-16T06:39:35.172517+00:00",
   "research_date_utc": "2026-11-16",
-  "review_slot": "2026-11-16T00:00Z",
-  "model_last_called_at": "2026-11-16T01:41:03.496933+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-16T06:00Z",
+  "model_last_called_at": null,
+  "used_cache": false,
   "last_http_status": null,
-  "error_type": null,
-  "error_code": null,
+  "error_type": "GeminiResponseError",
+  "error_code": "invalid_research_schema_experiment_asset",
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-16T01:41:03.496933+00:00",
-  "source": "gemini_generate_content",
-  "state": "model_reflection_completed",
+  "last_attempt_at": "2026-11-16T06:39:35.172517+00:00",
+  "source": "deterministic_fallback",
+  "state": "model_reflection_failed",
   "provider": "gemini",
-  "summary": "Analyse du laboratoire Seiko au 16 novembre 2026 : Le marché crypto subit un régime baissier prononcé et une volatilité élevée (volatilité annualisée sur 30 jours entre 44 % et 59 %), couplé à un sentiment de peur extrême (Fear & Greed Index à 10). L'examen des 36 robots montre des performances globalement négatives en net return, avec des drawdowns importants, en particulier sur les stratégies de momentum et de breakout (ex: sol_momentum à -75.9 %, sol_scalp_microtrend à -80.0 %). Les robots hold témoins (btc_hold, eth_hold, sol_hold) affichent également des pertes (-21.2 %, -24.1 % et -30.8 %), mais résistent mieux que la majorité des robots actifs excessivement sollicités par les frais. L'historique des tests et la mémoire des stratégies montrent que les rejoueurs et l'optimiseur indépendant échouent systématiquement à valider une rentabilité nette positive robuste face aux doubles coûts de transaction et au test du doublement des frais. Aucune stratégie n'a prouvé sa robustesse fut",
+  "summary": "Analyse Gemini indisponible (GeminiResponseError). Repli sur les tests statistiques.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -100,35 +100,52 @@
     "eligible_for_automatic_promotion": false,
     "risk_note": "Repeated research on the same holdouts can overfit. Further untouched data and prospective validation are required."
   },
-  "experiments": [],
-  "bot_adjustments": [],
-  "scenario_proposals": [],
-  "desk_notes": [],
-  "strategy_designs": [
+  "experiments": [
     {
       "asset": "BTCUSD",
-      "logic": "volatility_gate",
-      "lookback_days": 20,
-      "threshold_pct": 1.0,
-      "max_hold_days": 3,
-      "rationale": "Filtrer les entrées sur BTCUSD en période de panique en exigeant une volatilité calme et un momentum positif pour éviter les faux signaux de rupture baissière.",
-      "confirmations": [
-        "positive_momentum",
-        "quiet_volatility"
+      "title": "Contrôler la robustesse historique de BTCUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_net_return",
+        "beats_hold_in_most_folds",
+        "positive_average_with_double_costs"
+      ]
+    },
+    {
+      "asset": "ETHUSD",
+      "title": "Contrôler la robustesse historique de ETHUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_with_double_costs"
       ]
     },
     {
       "asset": "SOLUSD",
-      "logic": "trend_following",
-      "lookback_days": 40,
-      "threshold_pct": 2.0,
-      "max_hold_days": 7,
-      "rationale": "Appliquer une règle de suivi de tendance de moyen terme sur SOLUSD avec un seuil strict pour limiter la sur-fréquentation des transactions et réduire l'impact des frais de courtage.",
-      "confirmations": [
-        "ema_uptrend"
+      "title": "Contrôler la robustesse historique de SOLUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_net_return",
+        "positive_average_with_double_costs",
+        "drawdown_below_20_pct"
       ]
     }
   ],
+  "bot_adjustments": [],
+  "scenario_proposals": [],
+  "desk_notes": [],
+  "strategy_designs": [],
   "research_tasks": [],
   "experiments_validated": false,
   "live_strategy_changes_enabled": false,

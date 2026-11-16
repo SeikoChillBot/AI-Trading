@@ -1,8 +1,10 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-16T04:31:09.693834+00:00",
-  "status": "observing",
-  "alerts": [],
+  "generated_at": "2026-11-16T06:39:39.370685+00:00",
+  "status": "needs_attention",
+  "alerts": [
+    "Dernière analyse Gemini non confirmée"
+  ],
   "roadmap": [
     {
       "id": "robots",
@@ -13,7 +15,7 @@
     {
       "id": "intelligence",
       "title": "Analyses Gemini et recherche autonome",
-      "status": "active",
+      "status": "degraded",
       "detail": "Jusqu'à 4 analyses IA par jour, tests statistiques entre deux appels."
     },
     {
@@ -64,21 +66,21 @@
     "workflows": {
       "Paper trading": {
         "state": "healthy",
-        "run_id": 43804477809,
-        "last_created_at": "2026-11-16T04:30:08Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43804477809",
+        "run_id": 43817166952,
+        "last_created_at": "2026-11-16T06:30:07Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43817166952",
         "last_result": "success"
       },
       "Seiko research — guarded automatic analysis": {
         "state": "running",
-        "run_id": 43804521539,
-        "last_created_at": "2026-11-16T04:30:30Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43804521539",
+        "run_id": 43818205277,
+        "last_created_at": "2026-11-16T06:39:01Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/43818205277",
         "previous_completed_result": "success"
       }
     }
   },
-  "gemini_last_state": "model_reflection_completed",
+  "gemini_last_state": "model_reflection_failed",
   "paper_experiments_active": 9,
   "robot_count": 36,
   "real_orders": false,
