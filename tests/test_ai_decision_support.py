@@ -76,6 +76,7 @@ class EvidenceTests(unittest.TestCase):
                                 "experiments": []})
         }]}]}
         class FakeResponse:
+            status_code = 200
             def raise_for_status(self):
                 pass
             def json(self):
@@ -97,6 +98,7 @@ class EvidenceTests(unittest.TestCase):
             "text": json.dumps({"summary": "Preuves historiques insuffisantes", "experiments": []})
         }]}}]}
         class FakeResponse:
+            status_code = 200
             def raise_for_status(self):
                 pass
             def json(self):
@@ -117,6 +119,7 @@ class EvidenceTests(unittest.TestCase):
     def test_gemini_refuses_partial_or_unverified_answer(self):
         historical = support.summarize_challengers(sample_report(), NOW)
         class FakeResponse:
+            status_code = 200
             def raise_for_status(self):
                 pass
             def json(self):
