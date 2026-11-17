@@ -76,6 +76,7 @@ class EvidenceTests(unittest.TestCase):
                                 "experiments": []})
         }]}]}
         class FakeResponse:
+            status_code = 200
             def raise_for_status(self):
                 pass
             def json(self):
@@ -97,6 +98,7 @@ class EvidenceTests(unittest.TestCase):
             "text": json.dumps({"summary": "Preuves historiques insuffisantes", "experiments": []})
         }]}}]}
         class FakeResponse:
+            status_code = 200
             def raise_for_status(self):
                 pass
             def json(self):
@@ -117,6 +119,7 @@ class EvidenceTests(unittest.TestCase):
     def test_gemini_refuses_partial_or_unverified_answer(self):
         historical = support.summarize_challengers(sample_report(), NOW)
         class FakeResponse:
+            status_code = 200
             def raise_for_status(self):
                 pass
             def json(self):
@@ -181,6 +184,44 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(out["strategy_designs"], [])
         self.assertEqual(seen[1]["generationConfig"]["responseSchema"]["required"],
                          ["summary", "experiments", "strategy_designs"])
+
+    def test_gemini_503_retries_with_bounded_backoff(self):
+        historical = support.summarize_challengers(sample_report(), NOW)
+        success = {"candidates": [{"finishReason": "STOP", "content": {"parts": [{
+            "text": json.dumps({"summary": "No verified edge.", "experiments": []})
+        }]}}]}
+        class Reply:
+            def __init__(self, status):
+                self.status_code = status
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    raise ai.requests.HTTPError("Service unavailable", response=self)
+            def json(self):
+                return success
+        calls = []
+        def post(url, **kwargs):
+            calls.append(url)
+            return Reply(503 if len(calls) < 3 else 200)
+        with (patch.object(ai.requests, "post", post),
+              patch.object(ai.time, "sleep") as sleep):
+            out = ai.run_gemini("mock", {}, historical)
+        self.assertEqual(out["experiments"], [])
+        self.assertEqual(len(calls), 3)
+        self.assertEqual(sleep.call_args_list[0].args, (5,))
+        self.assertEqual(sleep.call_args_list[1].args, (15,))
+
+    def test_gemini_503_exhaustion_keeps_failure_visible(self):
+        historical = support.summarize_challengers(sample_report(), NOW)
+        class Reply:
+            status_code = 503
+            def raise_for_status(self):
+                raise ai.requests.HTTPError("Unavailable", response=self)
+        with (patch.object(ai.requests, "post", return_value=Reply()) as post,
+              patch.object(ai.time, "sleep") as sleep):
+            with self.assertRaises(ai.requests.HTTPError):
+                ai.run_gemini("mock", {}, historical)
+        self.assertEqual(post.call_count, 3)
+        self.assertEqual(sleep.call_count, 2)
 
     def test_gemini_quota_has_no_retry_or_paid_fallback(self):
         class Reply:

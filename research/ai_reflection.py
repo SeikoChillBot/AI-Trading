@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -308,6 +309,26 @@ def validate_with_experiment_isolation(ideas: dict, evidence: dict) -> dict:
     return validate_model_ideas(filtered, evidence)
 
 
+def _gemini_post_with_503_backoff(url, **kwargs):
+    """Retry only transient 503; never retry quota/auth or switch providers.
+
+    Short delays keep the GitHub Actions job bounded. The outer six-hour
+    review slot remains the authority for subsequent scheduled attempts.
+    """
+    for attempt in range(3):
+        try:
+            response = requests.post(url, **kwargs)
+            if response.status_code != 503:
+                return response
+            if attempt == 2:
+                return response
+        except (requests.Timeout, requests.ConnectionError):
+            # Network errors are not a confirmed HTTP 503: preserve existing
+            # error handling instead of silently multiplying requests.
+            raise
+        time.sleep((5, 15)[attempt])
+
+
 def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
     """One request to the named free-tier Gemini model; no paid-model fallback."""
     evidence = {x["asset"]: x for x in historical["assets"]}
@@ -399,7 +420,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
             "maxOutputTokens": 5600,
         },
     }
-    response = requests.post(
+    response = _gemini_post_with_503_backoff(
         GEMINI_URL,
         headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
         json=payload, timeout=50)
@@ -424,7 +445,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
             "summary", "experiments", "strategy_designs"
         ]
         simple["generationConfig"]["maxOutputTokens"] = 2000
-        response = requests.post(
+        response = _gemini_post_with_503_backoff(
             GEMINI_URL, headers={"x-goog-api-key":api_key,
                                  "Content-Type":"application/json"},
             json=simple, timeout=50)
@@ -446,7 +467,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
                 "(tableau de strategies declaratives, vide si aucune idee valide). "
                 "Pas de commentaire hors JSON."
             )
-            response = requests.post(
+            response = _gemini_post_with_503_backoff(
                 GEMINI_URL, headers={"x-goog-api-key":api_key,
                                     "Content-Type":"application/json"},
                 json=json_only, timeout=50)
@@ -495,7 +516,7 @@ def run_gemini(api_key: str, research: dict, historical: dict) -> dict:
         "Utilise uniquement les valeurs autorisées et au maximum deux stratégies."
     )
     try:
-        retry = requests.post(
+        retry = _gemini_post_with_503_backoff(
             GEMINI_URL,
             headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
             json=recovery, timeout=50,
