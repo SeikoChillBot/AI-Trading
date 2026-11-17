@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-16T21:27:24.092395+00:00",
-  "research_date_utc": "2026-11-16",
-  "review_slot": "2026-11-16T18:00Z",
+  "generated_at": "2026-11-17T00:12:22.332550+00:00",
+  "research_date_utc": "2026-11-17",
+  "review_slot": "2026-11-17T00:00Z",
   "model_last_called_at": null,
   "used_cache": false,
   "last_http_status": 503,
   "error_type": "HTTPError",
   "error_code": "UNAVAILABLE",
-  "attempts_in_slot": 2,
-  "last_attempt_at": "2026-11-16T21:27:24.092395+00:00",
+  "attempts_in_slot": 1,
+  "last_attempt_at": "2026-11-17T00:12:22.332550+00:00",
   "source": "deterministic_fallback",
   "state": "model_reflection_failed",
   "provider": "gemini",
@@ -23,12 +23,12 @@
         "folds": 8,
         "positive_oos_folds": 2,
         "beats_hold_folds": 4,
-        "positive_double_cost_folds": 1,
-        "closed_trades": 8,
-        "avg_net_return_pct": -3.4072,
-        "avg_excess_vs_hold_points": 4.2855,
-        "avg_net_return_double_cost_pct": -6.3208,
-        "worst_drawdown_pct": 16.0404,
+        "positive_double_cost_folds": 2,
+        "closed_trades": 6,
+        "avg_net_return_pct": -1.8894,
+        "avg_excess_vs_hold_points": 5.8636,
+        "avg_net_return_double_cost_pct": -4.2485,
+        "worst_drawdown_pct": 13.2533,
         "latest_research_parameters": {
           "window": 40,
           "buffer": 0.02
@@ -47,13 +47,13 @@
       {
         "asset": "ETHUSD",
         "folds": 8,
-        "positive_oos_folds": 4,
-        "beats_hold_folds": 5,
+        "positive_oos_folds": 3,
+        "beats_hold_folds": 4,
         "positive_double_cost_folds": 3,
-        "closed_trades": 6,
-        "avg_net_return_pct": 2.0458,
-        "avg_excess_vs_hold_points": 8.9418,
-        "avg_net_return_double_cost_pct": -0.391,
+        "closed_trades": 5,
+        "avg_net_return_pct": 1.2487,
+        "avg_excess_vs_hold_points": 9.0033,
+        "avg_net_return_double_cost_pct": -0.9607,
         "worst_drawdown_pct": 18.1671,
         "latest_research_parameters": {
           "window": 40,
@@ -63,7 +63,7 @@
           "six_or_more_oos_folds": true,
           "twenty_or_more_closed_trades": false,
           "positive_average_net_return": true,
-          "beats_hold_in_most_folds": true,
+          "beats_hold_in_most_folds": false,
           "positive_average_with_double_costs": false,
           "drawdown_below_20_pct": true
         },
@@ -73,14 +73,14 @@
       {
         "asset": "SOLUSD",
         "folds": 8,
-        "positive_oos_folds": 4,
-        "beats_hold_folds": 5,
+        "positive_oos_folds": 3,
+        "beats_hold_folds": 4,
         "positive_double_cost_folds": 1,
-        "closed_trades": 13,
-        "avg_net_return_pct": -5.5817,
-        "avg_excess_vs_hold_points": 4.0372,
-        "avg_net_return_double_cost_pct": -9.2479,
-        "worst_drawdown_pct": 33.0877,
+        "closed_trades": 18,
+        "avg_net_return_pct": -8.0758,
+        "avg_excess_vs_hold_points": 1.4839,
+        "avg_net_return_double_cost_pct": -12.2677,
+        "worst_drawdown_pct": 28.3148,
         "latest_research_parameters": {
           "window": 10,
           "buffer": 0.02
@@ -89,7 +89,7 @@
           "six_or_more_oos_folds": true,
           "twenty_or_more_closed_trades": false,
           "positive_average_net_return": false,
-          "beats_hold_in_most_folds": true,
+          "beats_hold_in_most_folds": false,
           "positive_average_with_double_costs": false,
           "drawdown_below_20_pct": false
         },
@@ -124,6 +124,7 @@
       "evidence_state": "non_validated",
       "blocking_checks": [
         "twenty_or_more_closed_trades",
+        "beats_hold_in_most_folds",
         "positive_average_with_double_costs"
       ]
     },
@@ -137,6 +138,7 @@
       "blocking_checks": [
         "twenty_or_more_closed_trades",
         "positive_average_net_return",
+        "beats_hold_in_most_folds",
         "positive_average_with_double_costs",
         "drawdown_below_20_pct"
       ]
