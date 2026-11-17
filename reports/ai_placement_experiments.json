@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-17T00:12:25.565274+00:00",
+  "generated_at": "2026-11-17T02:57:51.063736+00:00",
   "type": "independent_forward_only_paper_scenarios",
-  "active": 4,
+  "active": 8,
   "trials": [
     {
       "id": "43d60aa4af77f7e",
@@ -1063,45 +1063,119 @@
       "observation_reason": "fresh_observation_present_not_predictive",
       "paper_only": true,
       "execution_type": "modeled_fills_at_later_observed_daily_close"
+    },
+    {
+      "id": "042a4ee05579d04",
+      "asset": "SOLUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 1,
+      "created_at": "2026-11-17T02:57:51.063736+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1794787200,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Test automatique sur 1 jour(s) après évolution 7j -17.43 %, sans prévision de bénéfice.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
+    },
+    {
+      "id": "612e163d882e2c4",
+      "asset": "SOLUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 3,
+      "created_at": "2026-11-17T02:57:51.063736+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1794787200,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Test automatique sur 3 jour(s) après évolution 7j -17.43 %, sans prévision de bénéfice.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
+    },
+    {
+      "id": "b11088f6689ce09",
+      "asset": "ETHUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 1,
+      "created_at": "2026-11-17T02:57:51.063736+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1794787200,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Test automatique sur 1 jour(s) après évolution 7j -14.68 %, sans prévision de bénéfice.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
+    },
+    {
+      "id": "f1a9d9973b682a9",
+      "asset": "ETHUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 3,
+      "created_at": "2026-11-17T02:57:51.063736+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1794787200,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Test automatique sur 3 jour(s) après évolution 7j -14.68 %, sans prévision de bénéfice.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
     }
   ],
   "events": [
     {
-      "asset": "ETHUSD",
-      "id": "51dafa5a14e91d5",
-      "status": "completed_unvalidated_paper_trial",
-      "estimated_net_pct": -16.2015
-    },
-    {
-      "asset": "ETHUSD",
-      "id": "a7c6156bab89764",
-      "status": "completed_unvalidated_paper_trial",
-      "estimated_net_pct": -7.2724
+      "asset": "SOLUSD",
+      "id": "042a4ee05579d04",
+      "status": "paper_experiment_registered",
+      "actor": "quantitative_auto_fallback"
     },
     {
       "asset": "SOLUSD",
-      "id": "41f68a1d7e9e4e4",
-      "status": "completed_unvalidated_paper_trial",
-      "estimated_net_pct": -10.0598
-    },
-    {
-      "asset": "SOLUSD",
-      "id": "984108ab3506a5a",
-      "status": "completed_unvalidated_paper_trial",
-      "estimated_net_pct": -3.458
+      "id": "612e163d882e2c4",
+      "status": "paper_experiment_registered",
+      "actor": "quantitative_auto_fallback"
     },
     {
       "asset": "ETHUSD",
-      "id": "2e1c7a490d92209",
-      "status": "completed_unvalidated_paper_trial",
-      "estimated_net_pct": -2.5721
+      "id": "b11088f6689ce09",
+      "status": "paper_experiment_registered",
+      "actor": "quantitative_auto_fallback"
+    },
+    {
+      "asset": "ETHUSD",
+      "id": "f1a9d9973b682a9",
+      "status": "paper_experiment_registered",
+      "actor": "quantitative_auto_fallback"
     }
   ],
   "capacity": {
     "max_active": 12,
     "max_new_per_cycle": 4,
-    "created_this_cycle": 0,
-    "total_retained": 53
+    "created_this_cycle": 4,
+    "total_retained": 57
   },
   "no_user_approval_required": true,
   "model_decisions_executed_automatically": true,
