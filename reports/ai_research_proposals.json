@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-17T11:32:27.711001+00:00",
+  "generated_at": "2026-11-17T13:08:12.819699+00:00",
   "research_date_utc": "2026-11-17",
-  "review_slot": "2026-11-17T06:00Z",
-  "model_last_called_at": null,
+  "review_slot": "2026-11-17T12:00Z",
+  "model_last_called_at": "2026-11-17T13:08:12.819699+00:00",
   "used_cache": false,
-  "last_http_status": 503,
-  "error_type": "HTTPError",
-  "error_code": "UNAVAILABLE",
-  "attempts_in_slot": 2,
-  "last_attempt_at": "2026-11-17T11:32:27.711001+00:00",
-  "source": "deterministic_fallback",
-  "state": "model_reflection_failed",
+  "last_http_status": null,
+  "error_type": null,
+  "error_code": null,
+  "attempts_in_slot": 1,
+  "last_attempt_at": "2026-11-17T13:08:12.819699+00:00",
+  "source": "gemini_generate_content",
+  "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse Gemini indisponible (HTTPError, HTTP 503). Repli sur les tests statistiques.",
+  "summary": "L'analyse des robots cryptographiques et multi-marchés du laboratoire Seiko met en évidence des performances historiques globalement négatives après frais, renforçant l'idée qu'aucune stratégie actuelle n'est robuste. Les robots basés sur le momentum, les rebonds RSI ou les bandes de Bollinger affichent des pertes nettes importantes et des drawdowns élevés sur les actifs BTCUSD, ETHUSD et SOLUSD. Les témoins Hold font également face à des baisses en raison de régimes de marché baissiers et d'une volatilité annualisée élevée (allant d'environ 44% à 59%). Les tests répétés sur le même jeu de données historique ne garantissent en rien une rentabilité prospective. De nouvelles hypothèses doivent être explorées avec prudence, en privilégiant des structures falsifiables et des données prospectives indépendantes.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -100,54 +100,35 @@
     "eligible_for_automatic_promotion": false,
     "risk_note": "Repeated research on the same holdouts can overfit. Further untouched data and prospective validation are required."
   },
-  "experiments": [
+  "experiments": [],
+  "bot_adjustments": [],
+  "scenario_proposals": [],
+  "desk_notes": [],
+  "strategy_designs": [
     {
       "asset": "BTCUSD",
-      "title": "Contrôler la robustesse historique de BTCUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
-      "blocking_checks": [
-        "twenty_or_more_closed_trades",
-        "positive_average_net_return",
-        "beats_hold_in_most_folds",
-        "positive_average_with_double_costs"
+      "logic": "volatility_gate",
+      "lookback_days": 20,
+      "threshold_pct": 1.0,
+      "max_hold_days": 3,
+      "rationale": "Filtrer les entrées en période de volatilité excessive pour éviter les faux signaux de breakout, en ne négociant que lorsque la volatilité se calme tout en maintenant un momentum positif.",
+      "confirmations": [
+        "positive_momentum",
+        "quiet_volatility"
       ]
     },
     {
       "asset": "ETHUSD",
-      "title": "Contrôler la robustesse historique de ETHUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
-      "blocking_checks": [
-        "twenty_or_more_closed_trades",
-        "beats_hold_in_most_folds",
-        "positive_average_with_double_costs"
-      ]
-    },
-    {
-      "asset": "SOLUSD",
-      "title": "Contrôler la robustesse historique de SOLUSD",
-      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
-      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
-      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
-      "evidence_state": "non_validated",
-      "blocking_checks": [
-        "twenty_or_more_closed_trades",
-        "positive_average_net_return",
-        "beats_hold_in_most_folds",
-        "positive_average_with_double_costs",
-        "drawdown_below_20_pct"
+      "logic": "rsi_reversal",
+      "lookback_days": 10,
+      "threshold_pct": 0.5,
+      "max_hold_days": 1,
+      "rationale": "Tenter de capturer de courts rebonds de survente sur Ethereum avec un seuil strict et une détention limitée à un jour, tout en mesurant la résistance aux frais.",
+      "confirmations": [
+        "rsi_oversold"
       ]
     }
   ],
-  "bot_adjustments": [],
-  "scenario_proposals": [],
-  "desk_notes": [],
-  "strategy_designs": [],
   "research_tasks": [],
   "experiments_validated": false,
   "live_strategy_changes_enabled": false,
