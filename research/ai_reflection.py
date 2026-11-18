@@ -291,7 +291,8 @@ def validate_with_experiment_isolation(ideas: dict, evidence: dict) -> dict:
     try:
         return validate_model_ideas(ideas, evidence)
     except ValueError as error:
-        if str(error) != "Missing or oversized experiment field":
+        if str(error) not in ("Missing or oversized experiment field",
+                          "Unrecognized research asset"):
             raise
     experiments = ideas.get("experiments")
     if not isinstance(experiments, list):
