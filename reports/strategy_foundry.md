@@ -1,14 +1,12 @@
 # AIT — Atelier autonome de stratégies
 
-Bilan du 2026-11-18T17:19:14.994624+00:00. Simulation et recherche seulement.
+Bilan du 2026-11-18T20:11:05.846072+00:00. Simulation et recherche seulement.
 
-Hypothèses conservées : 57 ; proposées par Gemini : 17 ; rejouées sur l'histoire : 57.
+Hypothèses conservées : 58 ; proposées par Gemini : 18 ; rejouées sur l'histoire : 58.
 
 Les stratégies sont définies par un langage de règles borné ; aucun code IA n'est exécuté.
 Les replay historiques ne sont PAS une preuve hors échantillon vierge : Gemini a pu voir les mêmes cours.
 Les 36 robots et leurs témoins ne sont jamais modifiés par cet atelier.
-
-- 074acac658bb1dfb5a ETHUSD / rsi_reversal / 40 j / 1.0% : moyenne historique 0.0%, 3/6 fenêtres au-dessus de Hold
 
 - 15e7dd6e622025250a ETHUSD / rsi_reversal / 40 j / 1.0% : moyenne historique 0.0%, 3/6 fenêtres au-dessus de Hold
 
@@ -31,3 +29,5 @@ Les 36 robots et leurs témoins ne sont jamais modifiés par cet atelier.
 - c2636589d11e0bd051 SOLUSD / trend_following / 40 j / 2.0% : moyenne historique -6.9346%, 3/6 fenêtres au-dessus de Hold
 
 - c2181ff9192e69c719 ETHUSD / trend_following / 40 j / 1.0% : moyenne historique -5.3425%, 3/6 fenêtres au-dessus de Hold
+
+- a24cc20211caa35b68 ETHUSD / rsi_reversal / 40 j / 0.5% : moyenne historique -1.001%, 2/6 fenêtres au-dessus de Hold
