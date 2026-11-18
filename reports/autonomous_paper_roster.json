@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-17T22:27:18.500872+00:00",
+  "generated_at": "2026-11-18T01:13:44.438232+00:00",
   "mode": "autonomous_independent_paper_research_roster",
   "active_candidate_ids": [],
   "active_candidate_count": 0,
@@ -8,13 +8,14 @@
     "btc_breakout",
     "btc_momentum",
     "btc_rsi",
+    "btc_scalp_momentum",
     "eth_momentum",
     "eth_scalp_trailing",
     "sol_bollinger",
     "sol_momentum",
     "sol_scalp_microtrend"
   ],
-  "research_archived_legacy_count": 8,
+  "research_archived_legacy_count": 9,
   "historical_robots": [
     {
       "id": "aapl_hold",
@@ -48,21 +49,21 @@
       "id": "btc_breakout",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -50.635,
+      "historical_net_pct": -50.484,
       "research_archived": true
     },
     {
       "id": "btc_hold",
       "role": "immutable_hold_benchmark",
       "status": "immutable_hold",
-      "historical_net_pct": -21.8264,
+      "historical_net_pct": -21.5874,
       "research_archived": false
     },
     {
       "id": "btc_momentum",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -58.89,
+      "historical_net_pct": -58.7643,
       "research_archived": true
     },
     {
@@ -90,8 +91,8 @@
       "id": "btc_scalp_momentum",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -49.792,
-      "research_archived": false
+      "historical_net_pct": -49.6384,
+      "research_archived": true
     },
     {
       "id": "btc_volatility",
@@ -104,21 +105,21 @@
       "id": "eth_ema_cross",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -41.1018,
+      "historical_net_pct": -40.9864,
       "research_archived": false
     },
     {
       "id": "eth_hold",
       "role": "immutable_hold_benchmark",
       "status": "immutable_hold",
-      "historical_net_pct": -24.4766,
+      "historical_net_pct": -24.3286,
       "research_archived": false
     },
     {
       "id": "eth_momentum",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -51.2979,
+      "historical_net_pct": -51.2025,
       "research_archived": true
     },
     {
@@ -132,7 +133,7 @@
       "id": "eth_scalp_trailing",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -53.1352,
+      "historical_net_pct": -53.0434,
       "research_archived": true
     },
     {
@@ -216,14 +217,14 @@
       "id": "sol_hold",
       "role": "immutable_hold_benchmark",
       "status": "immutable_hold",
-      "historical_net_pct": -28.831,
+      "historical_net_pct": -28.5983,
       "research_archived": false
     },
     {
       "id": "sol_momentum",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -80.6228,
+      "historical_net_pct": -80.5594,
       "research_archived": true
     },
     {
@@ -342,6 +343,15 @@
       "net_pct": -81.8368,
       "drawdown_pct": 81.9255,
       "closed_roundtrips": 90
+    },
+    {
+      "at": "2026-11-18T01:13:44.438232+00:00",
+      "action": "legacy_research_archived",
+      "robot": "btc_scalp_momentum",
+      "reason": "seven_distinct_daily_reviews",
+      "net_pct": -49.6384,
+      "drawdown_pct": 49.8379,
+      "closed_roundtrips": 40
     }
   ],
   "legacy_robots_modified": false,
