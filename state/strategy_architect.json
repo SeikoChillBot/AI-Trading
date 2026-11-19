@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-18T23:00:56.148392+00:00",
+  "updated_at": "2026-11-19T00:27:19.837185+00:00",
   "candidates": [
     {
       "id": "09fcd0e2b0dab27ef7",
@@ -1117,20 +1117,392 @@
       "historical_candidate_only": true,
       "eligible_for_live_trading": false,
       "created_at": "2026-11-12T00:20:24.510303+00:00"
+    },
+    {
+      "id": "270920f72486970683",
+      "source": "autonomous_crossover",
+      "asset": "BTCUSD",
+      "parent_ids": [
+        "2f2b7e8c605e3a5d03",
+        "09fcd0e2b0dab27ef7"
+      ],
+      "hypothesis": "Le croisement et les confirmations peuvent filtrer des signaux; effet à mesurer.",
+      "rejection_rule": "Rejeter l'amélioration si les nouvelles performances fictives après frais ne surpassent pas le témoin.",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "selection_metrics": {
+        "score": -4.13726,
+        "avg_net_pct": 0.0,
+        "avg_double_cost_net_pct": 0.0,
+        "avg_excess_vs_hold_points": 7.45096,
+        "max_drawdown_pct": 0.0,
+        "closed_trades": 0,
+        "positive_folds": 0,
+        "beating_hold_folds": 2,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": -19.94501,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          },
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": 23.84924,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          }
+        ],
+        "net_average_pct": 0.0,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "registered_on_closed_day": 1794960000,
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "created_at": "2026-11-19T00:27:19.837185+00:00"
+    },
+    {
+      "id": "285b49c6525c853fc4",
+      "source": "autonomous_crossover",
+      "asset": "BTCUSD",
+      "parent_ids": [
+        "04d0f7c21e07fcfdb3",
+        "a3ce1363d50d7a645c"
+      ],
+      "hypothesis": "Le croisement et les confirmations peuvent filtrer des signaux; effet à mesurer.",
+      "rejection_rule": "Rejeter l'amélioration si les nouvelles performances fictives après frais ne surpassent pas le témoin.",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "active_volatility",
+          "rsi_strength"
+        ]
+      },
+      "selection_metrics": {
+        "score": -4.13726,
+        "avg_net_pct": 0.0,
+        "avg_double_cost_net_pct": 0.0,
+        "avg_excess_vs_hold_points": 7.45096,
+        "max_drawdown_pct": 0.0,
+        "closed_trades": 0,
+        "positive_folds": 0,
+        "beating_hold_folds": 2,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": -13.60249,
+            "double_cost_net_pct": -23.83249,
+            "excess_vs_hold_points": -33.5475,
+            "drawdown_pct": 13.6026,
+            "closed_trades": 7
+          },
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": 23.84924,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          }
+        ],
+        "net_average_pct": -6.80124,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "registered_on_closed_day": 1794960000,
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "created_at": "2026-11-19T00:27:19.837185+00:00"
+    },
+    {
+      "id": "20d4298f229535de9e",
+      "source": "autonomous_crossover",
+      "asset": "ETHUSD",
+      "parent_ids": [
+        "e921c860eb3b6e24a0",
+        "0a96651dc89ea61036"
+      ],
+      "hypothesis": "Le croisement et les confirmations peuvent filtrer des signaux; effet à mesurer.",
+      "rejection_rule": "Rejeter l'amélioration si les nouvelles performances fictives après frais ne surpassent pas le témoin.",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "breakout",
+        "lookback_days": 20,
+        "threshold_pct": 2.0,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "selection_metrics": {
+        "score": -3.56388,
+        "avg_net_pct": 0.0,
+        "avg_double_cost_net_pct": 0.0,
+        "avg_excess_vs_hold_points": 9.74446,
+        "max_drawdown_pct": 0.0,
+        "closed_trades": 0,
+        "positive_folds": 0,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": -33.99579,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          },
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": 33.7722,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          }
+        ],
+        "net_average_pct": 0.0,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "registered_on_closed_day": 1794960000,
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "created_at": "2026-11-19T00:27:19.837185+00:00"
+    },
+    {
+      "id": "2357ac39137aa2f4e8",
+      "source": "autonomous_crossover",
+      "asset": "ETHUSD",
+      "parent_ids": [
+        "417c3004c903eaa018",
+        "0a96651dc89ea61036"
+      ],
+      "hypothesis": "Le croisement et les confirmations peuvent filtrer des signaux; effet à mesurer.",
+      "rejection_rule": "Rejeter l'amélioration si les nouvelles performances fictives après frais ne surpassent pas le témoin.",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
+        "threshold_pct": 0.5,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "active_volatility",
+          "rsi_strength"
+        ]
+      },
+      "selection_metrics": {
+        "score": -3.56388,
+        "avg_net_pct": 0.0,
+        "avg_double_cost_net_pct": 0.0,
+        "avg_excess_vs_hold_points": 9.74446,
+        "max_drawdown_pct": 0.0,
+        "closed_trades": 0,
+        "positive_folds": 0,
+        "beating_hold_folds": 3,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": -33.99579,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          },
+          {
+            "net_pct": 0.0,
+            "double_cost_net_pct": 0.0,
+            "excess_vs_hold_points": 33.7722,
+            "drawdown_pct": 0.0,
+            "closed_trades": 0
+          }
+        ],
+        "net_average_pct": 0.0,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "registered_on_closed_day": 1794960000,
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "created_at": "2026-11-19T00:27:19.837185+00:00"
+    },
+    {
+      "id": "823c49a0c06778ca6c",
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "parent_ids": [
+        "253095b8a9544ff8df",
+        "26c653a8086cf4b6ea"
+      ],
+      "hypothesis": "Le croisement et les confirmations peuvent filtrer des signaux; effet à mesurer.",
+      "rejection_rule": "Rejeter l'amélioration si les nouvelles performances fictives après frais ne surpassent pas le témoin.",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "ema_uptrend",
+          "rsi_strength"
+        ]
+      },
+      "selection_metrics": {
+        "score": -1.71406,
+        "avg_net_pct": 0.98455,
+        "avg_double_cost_net_pct": 0.52093,
+        "avg_excess_vs_hold_points": 13.96936,
+        "max_drawdown_pct": 0.54557,
+        "closed_trades": 1,
+        "positive_folds": 1,
+        "beating_hold_folds": 4,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 13.16699,
+            "double_cost_net_pct": 7.21694,
+            "excess_vs_hold_points": -26.4482,
+            "drawdown_pct": 4.14581,
+            "closed_trades": 3
+          },
+          {
+            "net_pct": -7.61903,
+            "double_cost_net_pct": -10.8862,
+            "excess_vs_hold_points": 27.32522,
+            "drawdown_pct": 7.61903,
+            "closed_trades": 2
+          }
+        ],
+        "net_average_pct": 2.77398,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "registered_on_closed_day": 1794960000,
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "created_at": "2026-11-19T00:27:19.837185+00:00"
+    },
+    {
+      "id": "8f0cff5e1a807dc8b6",
+      "source": "autonomous_crossover",
+      "asset": "SOLUSD",
+      "parent_ids": [
+        "253095b8a9544ff8df",
+        "26c653a8086cf4b6ea"
+      ],
+      "hypothesis": "Le croisement et les confirmations peuvent filtrer des signaux; effet à mesurer.",
+      "rejection_rule": "Rejeter l'amélioration si les nouvelles performances fictives après frais ne surpassent pas le témoin.",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 3,
+        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
+        "confirmations": [
+          "active_volatility",
+          "rsi_strength"
+        ]
+      },
+      "selection_metrics": {
+        "score": -1.71406,
+        "avg_net_pct": 0.98455,
+        "avg_double_cost_net_pct": 0.52093,
+        "avg_excess_vs_hold_points": 13.96936,
+        "max_drawdown_pct": 0.54557,
+        "closed_trades": 1,
+        "positive_folds": 1,
+        "beating_hold_folds": 4,
+        "fold_count": 4,
+        "selection_window": "four_preceding_60_day_folds_only"
+      },
+      "historical_challenge": {
+        "period": "reused_historical_challenge_not_pristine_oos",
+        "folds": [
+          {
+            "net_pct": 1.93329,
+            "double_cost_net_pct": -3.42612,
+            "excess_vs_hold_points": -37.6819,
+            "drawdown_pct": 6.36876,
+            "closed_trades": 3
+          },
+          {
+            "net_pct": -7.61903,
+            "double_cost_net_pct": -10.8862,
+            "excess_vs_hold_points": 27.32522,
+            "drawdown_pct": 7.61903,
+            "closed_trades": 2
+          }
+        ],
+        "net_average_pct": -2.84287,
+        "both_positive_after_costs": false,
+        "positive_double_costs": false,
+        "beats_hold_both": false
+      },
+      "registered_on_closed_day": 1794960000,
+      "historical_candidate_only": true,
+      "eligible_for_live_trading": false,
+      "created_at": "2026-11-19T00:27:19.837185+00:00"
     }
   ],
   "selected_by_asset": {
     "BTCUSD": [
-      "1d66305edb50bd6b0f",
-      "23548e4bb348f6497e"
+      "270920f72486970683",
+      "285b49c6525c853fc4"
     ],
     "ETHUSD": [
-      "074acac658bb1dfb5a",
-      "15e7dd6e622025250a"
+      "20d4298f229535de9e",
+      "2357ac39137aa2f4e8"
     ],
     "SOLUSD": [
-      "1255643f6b319557ba",
-      "550d7c914f03a68af7"
+      "823c49a0c06778ca6c",
+      "8f0cff5e1a807dc8b6"
     ]
   },
   "attempted_ids": [
@@ -1145,12 +1517,18 @@
     "074acac658bb1dfb5a",
     "15e7dd6e622025250a",
     "1255643f6b319557ba",
-    "550d7c914f03a68af7"
+    "550d7c914f03a68af7",
+    "270920f72486970683",
+    "285b49c6525c853fc4",
+    "20d4298f229535de9e",
+    "2357ac39137aa2f4e8",
+    "823c49a0c06778ca6c",
+    "8f0cff5e1a807dc8b6"
   ],
   "last_search_closed_day": {
-    "BTCUSD": 1794355200,
-    "ETHUSD": 1794355200,
-    "SOLUSD": 1794355200
+    "BTCUSD": 1794960000,
+    "ETHUSD": 1794960000,
+    "SOLUSD": 1794960000
   },
   "real_orders": false,
   "robot_changes": false
