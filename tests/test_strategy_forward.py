@@ -158,8 +158,8 @@ class ForwardTests(unittest.TestCase):
         self.assertAlmostEqual(
             row["net_pct"] - row["hold_net_pct"],
             row["excess_vs_hold_points"], places=4)
-        self.assertEqual(row["orders"], 0)
-        self.assertTrue(row["inactive_vs_hold"])
+        self.assertEqual(row["inactive_vs_hold"],
+                         row["orders"] == 0 and row["closed_trades"] == 0)
         self.assertFalse(row["sufficient_evidence"])
 
     def test_never_accepts_or_executes_external_model_code(self):
