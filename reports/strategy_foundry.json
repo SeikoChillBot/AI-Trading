@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-19T10:26:55.502233+00:00",
-  "total_hypotheses": 68,
-  "gemini_hypotheses": 18,
+  "generated_at": "2026-11-19T13:16:35.928766+00:00",
+  "total_hypotheses": 69,
+  "gemini_hypotheses": 19,
   "gemini_narratives_compiled_locally": 0,
   "gemini_task_shadow_hypotheses": 0,
   "auto_optimized_hypotheses": 8,
@@ -10,48 +10,19 @@
   "crossed_hypotheses": 24,
   "director_hypotheses": 3,
   "local_adversarial_controls": 0,
-  "tested_historically": 68,
-  "events": [],
-  "recent_ideas": [
+  "tested_historically": 69,
+  "events": [
     {
-      "id": "c2181ff9192e69c719",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "trend_following",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 7,
-        "rationale": "Évaluer une approche de suivi de tendance de moyen terme avec un filtre de confirmation par moyenne mobile exponentielle pour éviter les faux signaux en régime baissier.",
-        "confirmations": [
-          "ema_uptrend"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "ETHUSD",
-        "average_net_pct": -4.1359,
-        "average_excess_vs_hold_points": 2.3232,
-        "average_double_cost_net_pct": -9.8375,
-        "max_drawdown_pct": 20.3228,
-        "closed_trades": 21,
-        "folds_beating_hold": 3,
-        "checks": {
-          "enough_closed_trades": true,
-          "positive_average_net": false,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": false
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
+      "id": "12c1c9c99f9f162130",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
     },
+    {
+      "id": "12c1c9c99f9f162130",
+      "status": "exploratory_replay_completed"
+    }
+  ],
+  "recent_ideas": [
     {
       "id": "a24cc20211caa35b68",
       "source": "gemini_structured_hypothesis",
@@ -474,6 +445,46 @@
           "positive_average_net": false,
           "positive_with_double_costs": false,
           "beats_hold_in_most_folds": true,
+          "drawdown_under_20_pct": true
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "12c1c9c99f9f162130",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 0.5,
+        "max_hold_days": 3,
+        "rationale": "Chercher un rebond de survente sur ETHUSD combiné à une volatilité active, en évitant les sur-optimisations sur les mêmes fenêtres historiques.",
+        "confirmations": [
+          "active_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "average_net_pct": -2.2091,
+        "average_excess_vs_hold_points": 4.2499,
+        "average_double_cost_net_pct": -5.7522,
+        "max_drawdown_pct": 19.29523,
+        "closed_trades": 13,
+        "folds_beating_hold": 3,
+        "checks": {
+          "enough_closed_trades": false,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
           "drawdown_under_20_pct": true
         },
         "all_historical_checks_pass": false,
