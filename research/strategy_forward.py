@@ -232,6 +232,11 @@ def build(now, knowledge, candles, previous, leaderboard=None):
              "observed_days": rec["observed_days"],
              "closed_trades": rec["closed_trades"], "net_pct": rec.get("net_pct"),
              "excess_vs_hold_points": rec.get("excess_vs_hold_points"),
+             "hold_net_pct": rec.get("hold_net_pct"),
+             "excess_vs_cash_points": rec.get("net_pct"),
+             "orders": rec.get("orders", 0),
+             "inactive_vs_hold": (rec.get("orders", 0) == 0
+                                  and rec.get("closed_trades", 0) == 0),
              "max_drawdown_pct": rec["max_drawdown_pct"], "status": rec["status"],
              "sufficient_evidence": False}
             for rec in tracks.values()
