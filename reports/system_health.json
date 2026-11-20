@@ -1,8 +1,10 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-20T16:27:02.150661+00:00",
-  "status": "observing",
-  "alerts": [],
+  "generated_at": "2026-11-20T21:32:17.090399+00:00",
+  "status": "needs_attention",
+  "alerts": [
+    "Dernière analyse Gemini non confirmée"
+  ],
   "roadmap": [
     {
       "id": "robots",
@@ -13,7 +15,7 @@
     {
       "id": "intelligence",
       "title": "Analyses Gemini et recherche autonome",
-      "status": "active",
+      "status": "degraded",
       "detail": "Jusqu'à 4 analyses IA par jour, tests statistiques entre deux appels."
     },
     {
@@ -71,14 +73,14 @@
       },
       "Seiko research — guarded automatic analysis": {
         "state": "running",
-        "run_id": 44773367468,
-        "last_created_at": "2026-11-20T16:26:11Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/44773367468",
+        "run_id": 44821093493,
+        "last_created_at": "2026-11-20T21:31:39Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/44821093493",
         "previous_completed_result": "success"
       }
     }
   },
-  "gemini_last_state": "model_reflection_completed",
+  "gemini_last_state": "model_reflection_failed",
   "paper_experiments_active": 9,
   "robot_count": 36,
   "real_orders": false,
