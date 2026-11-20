@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-20T03:24:58.011772+00:00",
+  "generated_at": "2026-11-20T07:45:43.446295+00:00",
   "research_date_utc": "2026-11-20",
-  "review_slot": "2026-11-20T00:00Z",
-  "model_last_called_at": "2026-11-20T03:24:58.011772+00:00",
+  "review_slot": "2026-11-20T06:00Z",
+  "model_last_called_at": null,
   "used_cache": false,
   "last_http_status": null,
-  "error_type": null,
-  "error_code": null,
+  "error_type": "GeminiResponseError",
+  "error_code": "invalid_research_schema_experiment_asset",
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-20T03:24:58.011772+00:00",
-  "source": "gemini_generate_content",
-  "state": "model_reflection_completed",
+  "last_attempt_at": "2026-11-20T07:45:43.446295+00:00",
+  "source": "deterministic_fallback",
+  "state": "model_reflection_failed",
   "provider": "gemini",
-  "summary": "Analyse du laboratoire Seiko : les robots observés montrent des performances historiques nettes négatives sur BTC, ETH et SOL (ex. btc_hold à -24.2 %, btc_momentum à -63.85 %, btc_reversion à -22.8 %), subissant des régimes baissiers prolongés et une forte sensibilité aux frais de transaction. Les métriques historiques OOS affichent des rendements moyens négatifs et des drawdowns significatifs, l'ensemble des stratégies automatisées échouant à valider tous les critères de robustesse requis (notamment un nombre suffisant de trades et la résistance aux doubles coûts). Les données de marché font état d'une volatilité annualisée élevée (entre 44 % et 60 %) et d'un indice de peur et de cupidité extrêmement bas (12). Aucune hypothèse ne garantit de gain futur et la recherche répétée sur les mêmes holdouts présente un risque de surajustement.",
+  "summary": "Analyse Gemini indisponible (GeminiResponseError). Repli sur les tests statistiques.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -100,35 +100,53 @@
     "eligible_for_automatic_promotion": false,
     "risk_note": "Repeated research on the same holdouts can overfit. Further untouched data and prospective validation are required."
   },
-  "experiments": [],
-  "bot_adjustments": [],
-  "scenario_proposals": [],
-  "desk_notes": [],
-  "strategy_designs": [
+  "experiments": [
     {
       "asset": "BTCUSD",
-      "logic": "volatility_gate",
-      "lookback_days": 20,
-      "threshold_pct": 1.0,
-      "max_hold_days": 3,
-      "rationale": "Filtrer les périodes de forte volatilité pour limiter les faux signaux en régime de tendance baissière.",
-      "confirmations": [
-        "quiet_volatility"
+      "title": "Contrôler la robustesse historique de BTCUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_net_return",
+        "beats_hold_in_most_folds",
+        "positive_average_with_double_costs"
       ]
     },
     {
       "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "lookback_days": 10,
-      "threshold_pct": 0.5,
-      "max_hold_days": 1,
-      "rationale": "Exploiter des rebonds de court terme lorsque le RSI indique des conditions de survente dans un marché instable.",
-      "confirmations": [
-        "positive_momentum",
-        "rsi_oversold"
+      "title": "Contrôler la robustesse historique de ETHUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_with_double_costs"
+      ]
+    },
+    {
+      "asset": "SOLUSD",
+      "title": "Contrôler la robustesse historique de SOLUSD",
+      "hypothesis": "Les paramètres actuels peuvent être sensibles aux frais et au régime de marché.",
+      "experiment": "Comparer le témoin Hold, les frais actuels et doublés, puis attendre des données prospectives jamais utilisées pour choisir les seuils.",
+      "rejection_rule": "Rejeter si la performance nette ou la résistance aux frais ne s'améliore pas hors échantillon.",
+      "evidence_state": "non_validated",
+      "blocking_checks": [
+        "twenty_or_more_closed_trades",
+        "positive_average_net_return",
+        "beats_hold_in_most_folds",
+        "positive_average_with_double_costs",
+        "drawdown_below_20_pct"
       ]
     }
   ],
+  "bot_adjustments": [],
+  "scenario_proposals": [],
+  "desk_notes": [],
+  "strategy_designs": [],
   "research_tasks": [],
   "experiments_validated": false,
   "live_strategy_changes_enabled": false,

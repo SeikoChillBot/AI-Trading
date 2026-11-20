@@ -2,26 +2,6 @@
   "schema": 1,
   "trials": [
     {
-      "id": "a45135b589873a2",
-      "asset": "SOLUSD",
-      "trigger": "market_selloff",
-      "horizon_days": 1,
-      "created_at": "2026-10-29T00:00:40.286172+00:00",
-      "actor": "quantitative_auto_fallback",
-      "last_t": 1793232000,
-      "status": "completed_unvalidated_paper_trial",
-      "entry_price": 102.33,
-      "entry_day": 1793145600,
-      "observations_after_entry": 1,
-      "units": 0.19370278070995364,
-      "equity_usd": 18.31293,
-      "estimated_net_pct": -8.4353,
-      "rationale": "Test automatique sur 1 jour(s) après évolution 7j -4.89 %, sans prévision de bénéfice.",
-      "observation_reason": "fresh_observation_present_not_predictive",
-      "paper_only": true,
-      "execution_type": "modeled_fills_at_later_observed_daily_close"
-    },
-    {
       "id": "884013333f526df",
       "asset": "SOLUSD",
       "trigger": "market_selloff",
@@ -1200,7 +1180,27 @@
       "observation_reason": "fresh_observation_present_not_predictive",
       "paper_only": true,
       "execution_type": "modeled_fills_at_later_observed_daily_close"
+    },
+    {
+      "id": "d1ea9aa8b7222f2",
+      "asset": "BTCUSD",
+      "trigger": "market_selloff",
+      "horizon_days": 1,
+      "created_at": "2026-11-20T07:46:19.761351+00:00",
+      "actor": "quantitative_auto_fallback",
+      "last_t": 1795046400,
+      "status": "waiting_next_closed_day",
+      "entry_price": null,
+      "entry_day": null,
+      "observations_after_entry": 0,
+      "units": 0.0,
+      "equity_usd": 20.0,
+      "estimated_net_pct": 0.0,
+      "rationale": "Test automatique sur 1 jour(s) après évolution 7j -13.25 %, sans prévision de bénéfice.",
+      "observation_reason": "fresh_observation_present_not_predictive",
+      "paper_only": true,
+      "execution_type": "modeled_fills_at_later_observed_daily_close"
     }
   ],
-  "last_enrollment_slot": "2026-11-20T02:00Z"
+  "last_enrollment_slot": "2026-11-20T06:00Z"
 }
