@@ -144,6 +144,24 @@ class ForwardTests(unittest.TestCase):
         self.assertNotIn(specs[35]["id"], state["tracks"])
         self.assertTrue(all(x["id"] in state["tracks"] for x in specs[:35]))
 
+    def test_forward_report_distinguishes_cash_from_hold_outperformance(self):
+        values = candles()
+        _, first = shadow.build(NOW, {"ideas": [proposal()]},
+                                {"BTCUSD": values}, {})
+        future = values + [{"t": values[-1]["t"] + 86400,
+                            "open": 101, "close": 95}]
+        report, _ = shadow.build(NOW + timedelta(days=1),
+                                 {"ideas": [proposal()]},
+                                 {"BTCUSD": future}, first)
+        row = report["trials"][0]
+        self.assertEqual(row["excess_vs_cash_points"], row["net_pct"])
+        self.assertAlmostEqual(
+            row["net_pct"] - row["hold_net_pct"],
+            row["excess_vs_hold_points"], places=4)
+        self.assertEqual(row["inactive_vs_hold"],
+                         row["orders"] == 0 and row["closed_trades"] == 0)
+        self.assertFalse(row["sufficient_evidence"])
+
     def test_never_accepts_or_executes_external_model_code(self):
         compromised = proposal()
         compromised["spec"]["logic"] = "exec"
