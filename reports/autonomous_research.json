@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-20T07:45:43.082528+00:00",
+  "generated_at": "2026-11-20T13:00:27.678130+00:00",
   "research_date_utc": "2026-11-20",
   "kind": "deterministic_statistical_research",
   "llm_connected": false,
@@ -554,7 +554,7 @@
     }
   },
   "market_intelligence": {
-    "generated_at": "2026-11-20T07:45:43.082528+00:00",
+    "generated_at": "2026-11-20T13:00:27.678130+00:00",
     "signals_generated": 0,
     "trade_actions": 0,
     "sentiment": {
@@ -566,17 +566,17 @@
     },
     "chain_tvl": {
       "tvl_usd_by_chain": {
-        "Arbitrum": 1268663852.87,
-        "Base": 4866692540.32,
-        "Ethereum": 36114749810.31,
-        "BSC": 4411169285.46,
-        "Solana": 4714451541.09
+        "Ethereum": 36228545869.46,
+        "Base": 4839096911.74,
+        "BSC": 4400885545.66,
+        "Arbitrum": 1250636910.95,
+        "Solana": 4703248485.35
       },
       "source": "https://api.llama.fi/v2/chains",
       "kind": "defi_tvl_not_capital_inflow"
     },
     "stablecoins": {
-      "circulating_usd_estimate": 284421248113.62,
+      "circulating_usd_estimate": 284193714049.72,
       "stablecoins_included": 354,
       "source": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
       "kind": "stablecoin_supply_not_immediate_buying_pressure"
@@ -595,7 +595,7 @@
   },
   "market_pulse": {
     "schema": 1,
-    "generated_at": "2026-11-20T07:45:42.274991+00:00",
+    "generated_at": "2026-11-20T13:00:26.591247+00:00",
     "kind": "market_context_observations_not_trading_signals",
     "real_orders": false,
     "signal_count": 0,
@@ -633,9 +633,9 @@
     },
     "macro": {
       "fear_greed_index": 12,
-      "tvl_ethereum_usd": 36114749810.31,
-      "tvl_solana_usd": 4714451541.09,
-      "stablecoin_supply_usd_estimate": 284421248113.62,
+      "tvl_ethereum_usd": 36228545869.46,
+      "tvl_solana_usd": 4703248485.35,
+      "stablecoin_supply_usd_estimate": 284193714049.72,
       "source_errors": {}
     },
     "large_transfers": {
@@ -646,12 +646,12 @@
         "USDT": 150
       },
       "validated_records": {
-        "USDC": 147,
-        "USDT": 146
+        "USDC": 127,
+        "USDT": 142
       },
-      "large_transfers_observed": 1,
-      "new_in_sample": 1,
-      "largest_nominal_usd": 8600000.0,
+      "large_transfers_observed": 0,
+      "new_in_sample": 0,
+      "largest_nominal_usd": 0,
       "source": "https://eth.blockscout.com/api/v2",
       "is_verified_buy_sell": false
     },
@@ -664,44 +664,53 @@
   },
   "news_observations": {
     "schema": 1,
-    "generated_at": "2026-11-20T07:45:40.879847+00:00",
+    "generated_at": "2026-11-20T13:00:24.297983+00:00",
     "source_type": "publisher_rss",
     "status": "available",
     "articles": [
       {
-        "id": "36dd2e9992f78a79",
+        "id": "2b9198770b03ef1f",
         "source": "CoinDesk",
         "category": "crypto",
-        "title": "Here's what's crashing gold and likely weighing on bitcoin too",
-        "url": "https://www.coindesk.com/markets/2026/11/20/here-s-what-s-crashing-gold-and-likely-weighing-on-bitcoin-too",
-        "published_at": "2026-11-20T06:12:15+00:00",
+        "title": "Bitcoin, stocks and gold traders getting nervous, and volatility gauges are surging",
+        "url": "https://www.coindesk.com/daybook-us/2026/11/20/bitcoin-stocks-and-gold-traders-getting-nervous-and-volatility-gauges-are-surging",
+        "published_at": "2026-11-20T12:15:08+00:00",
         "assessment": "unreviewed_source_headline_not_investment_advice"
       },
       {
-        "id": "9b2cb58358996e52",
+        "id": "d92d83e2bd88ce4a",
         "source": "CoinDesk",
         "category": "crypto",
-        "title": "Anthropic shares may fall 5% at Friday’s open, crypto futures suggest",
-        "url": "https://www.coindesk.com/markets/2026/11/20/crypto-traders-have-anthropic-trading-below-its-first-nasdaq-close-on-hyperliquid",
-        "published_at": "2026-11-20T06:08:28+00:00",
+        "title": "Bitcoin drops for third straight day as Asian tech shares slide",
+        "url": "https://www.coindesk.com/markets/2026/11/20/bitcoin-drops-for-third-straight-day-as-asian-tech-shares-slide",
+        "published_at": "2026-11-20T11:42:02+00:00",
         "assessment": "unreviewed_source_headline_not_investment_advice"
       },
       {
-        "id": "f5f5d5bbac40e255",
+        "id": "d5644264a258170a",
         "source": "CoinDesk",
         "category": "crypto",
-        "title": "This Bitcoin miner sold 267 BTC to clear $22 million debt. It still may not survive",
-        "url": "https://www.coindesk.com/markets/2026/11/20/this-bitcoin-miner-sold-267-btc-to-clear-usd22-million-debt-it-still-may-not-survive",
-        "published_at": "2026-11-20T05:32:25+00:00",
+        "title": "Coinbase targets first-half 2027 for its own prediction market contracts",
+        "url": "https://www.coindesk.com/business/2026/11/20/coinbase-targets-first-half-2027-for-its-own-prediction-market-contracts",
+        "published_at": "2026-11-20T10:48:04+00:00",
         "assessment": "unreviewed_source_headline_not_investment_advice"
       },
       {
-        "id": "3f3d4bf250eaec69",
+        "id": "2b9758dcdf6c5e60",
         "source": "CoinDesk",
         "category": "crypto",
-        "title": "Big money bought a net $4 billion of bitcoin funds in Q3, ending 9 months of selling",
-        "url": "https://www.coindesk.com/markets/2026/11/20/big-money-bought-a-net-usd4-billion-of-bitcoin-funds-in-q3-ending-9-months-of-selling",
-        "published_at": "2026-11-20T05:20:51+00:00",
+        "title": "No special rules for Hyperliquid or other onchain trading platforms, CFTC says",
+        "url": "https://www.coindesk.com/markets/2026/11/20/cftc-tells-hyperliquid-and-crypto-rivals-no-special-rules-for-onchain-trading",
+        "published_at": "2026-11-20T10:02:03+00:00",
+        "assessment": "unreviewed_source_headline_not_investment_advice"
+      },
+      {
+        "id": "c7b5b909b02a31f2",
+        "source": "BCE",
+        "category": "macro",
+        "title": "Christine Lagarde: Acting in time",
+        "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261120~e52bcc4db2.en.html",
+        "published_at": "2026-11-20T08:30:00+00:00",
         "assessment": "unreviewed_source_headline_not_investment_advice"
       },
       {
@@ -739,15 +748,6 @@
         "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261117~7f5d3b1a0e.en.pdf",
         "published_at": "2026-11-17T18:30:00+00:00",
         "assessment": "unreviewed_source_headline_not_investment_advice"
-      },
-      {
-        "id": "eff6c8496fb66eeb",
-        "source": "BCE",
-        "category": "macro",
-        "title": "Frank Elderson: Smart supervision for small banks",
-        "url": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in261116_1~11dd7f62af.en.html",
-        "published_at": "2026-11-16T13:00:00+00:00",
-        "assessment": "unreviewed_source_headline_not_investment_advice"
       }
     ],
     "source_errors": {},
@@ -756,158 +756,158 @@
   },
   "hourly_research": {
     "schema": 1,
-    "generated_at": "2026-11-20T07:45:42.696895+00:00",
+    "generated_at": "2026-11-20T13:00:27.009783+00:00",
     "type": "kraken_1h_intraday_research",
     "source": "Kraken public 60m OHLC, only closed candles",
     "status": "available",
     "assets": {
       "BTCUSD": {
-        "last_closed_hour_utc": "2026-11-20T06:00:00+00:00",
+        "last_closed_hour_utc": "2026-11-20T11:00:00+00:00",
         "historical_study": {
           "folds": [
             {
-              "test_started": 1794294000,
-              "test_ended": 1794722400,
+              "test_started": 1794312000,
+              "test_ended": 1794740400,
               "parameter": {
                 "kind": "trend",
                 "period": 8,
                 "threshold": 0.008
               },
-              "net_return_pct": -2.43696,
-              "excess_vs_hold_points": 12.67244,
-              "double_cost_return_pct": -4.17771,
-              "max_drawdown_pct": 2.43696,
+              "net_return_pct": -1.09777,
+              "excess_vs_hold_points": 12.56859,
+              "double_cost_return_pct": -2.86242,
+              "max_drawdown_pct": 3.13009,
               "closed_trades": 0
             },
             {
-              "test_started": 1794726000,
-              "test_ended": 1795154400,
+              "test_started": 1794744000,
+              "test_ended": 1795172400,
               "parameter": {
                 "kind": "trend",
-                "period": 16,
-                "threshold": 0.004
+                "period": 8,
+                "threshold": 0.008
               },
-              "net_return_pct": -13.08995,
-              "excess_vs_hold_points": -7.58912,
-              "double_cost_return_pct": -20.57155,
-              "max_drawdown_pct": 13.08995,
-              "closed_trades": 5
+              "net_return_pct": -9.03373,
+              "excess_vs_hold_points": -1.86994,
+              "double_cost_return_pct": -13.81652,
+              "max_drawdown_pct": 9.03373,
+              "closed_trades": 3
             }
           ],
-          "avg_net_return_pct": -7.76346,
-          "avg_excess_vs_hold": 2.54166,
-          "max_drawdown_pct": 13.08995,
+          "avg_net_return_pct": -5.06575,
+          "avg_excess_vs_hold": 5.34933,
+          "max_drawdown_pct": 9.03373,
           "proven_profitable": false
         },
         "paper_forward": {
-          "version": 4,
+          "version": 5,
           "status": "waiting_for_future_hour",
           "observations": 0,
           "capital_usd": 20.0,
           "net_return_pct": 0.0,
           "max_drawdown_pct": 0.0,
           "closed_trades": 0,
-          "created_at": "2026-11-20T07:45:42.696895+00:00"
+          "created_at": "2026-11-20T13:00:27.009783+00:00"
         },
         "paper_only": true
       },
       "ETHUSD": {
-        "last_closed_hour_utc": "2026-11-20T06:00:00+00:00",
+        "last_closed_hour_utc": "2026-11-20T11:00:00+00:00",
         "historical_study": {
           "folds": [
             {
-              "test_started": 1794294000,
-              "test_ended": 1794722400,
+              "test_started": 1794312000,
+              "test_ended": 1794740400,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
                 "threshold": 0.004
               },
-              "net_return_pct": -2.70163,
-              "excess_vs_hold_points": 14.07603,
-              "double_cost_return_pct": -4.43766,
-              "max_drawdown_pct": 2.71253,
+              "net_return_pct": -4.83941,
+              "excess_vs_hold_points": 9.58284,
+              "double_cost_return_pct": -8.20488,
+              "max_drawdown_pct": 4.83941,
               "closed_trades": 1
             },
             {
-              "test_started": 1794726000,
-              "test_ended": 1795154400,
+              "test_started": 1794744000,
+              "test_ended": 1795172400,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
                 "threshold": 0.008
               },
-              "net_return_pct": -11.10915,
-              "excess_vs_hold_points": -6.95787,
-              "double_cost_return_pct": -15.78282,
-              "max_drawdown_pct": 11.10915,
+              "net_return_pct": -11.32523,
+              "excess_vs_hold_points": -5.4393,
+              "double_cost_return_pct": -15.98753,
+              "max_drawdown_pct": 11.32523,
               "closed_trades": 3
             }
           ],
-          "avg_net_return_pct": -6.90539,
-          "avg_excess_vs_hold": 3.55908,
-          "max_drawdown_pct": 11.10915,
+          "avg_net_return_pct": -8.08232,
+          "avg_excess_vs_hold": 2.07177,
+          "max_drawdown_pct": 11.32523,
           "proven_profitable": false
         },
         "paper_forward": {
-          "version": 4,
+          "version": 5,
           "status": "waiting_for_future_hour",
           "observations": 0,
           "capital_usd": 20.0,
           "net_return_pct": 0.0,
           "max_drawdown_pct": 0.0,
           "closed_trades": 0,
-          "created_at": "2026-11-20T07:45:42.696895+00:00"
+          "created_at": "2026-11-20T13:00:27.009783+00:00"
         },
         "paper_only": true
       },
       "SOLUSD": {
-        "last_closed_hour_utc": "2026-11-20T06:00:00+00:00",
+        "last_closed_hour_utc": "2026-11-20T11:00:00+00:00",
         "historical_study": {
           "folds": [
             {
-              "test_started": 1794294000,
-              "test_ended": 1794722400,
+              "test_started": 1794312000,
+              "test_ended": 1794740400,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
                 "threshold": 0.008
               },
               "net_return_pct": -6.67299,
-              "excess_vs_hold_points": 12.93624,
+              "excess_vs_hold_points": 9.42373,
               "double_cost_return_pct": -9.97361,
               "max_drawdown_pct": 6.67299,
               "closed_trades": 2
             },
             {
-              "test_started": 1794726000,
-              "test_ended": 1795154400,
+              "test_started": 1794744000,
+              "test_ended": 1795172400,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
-                "threshold": 0.004
+                "threshold": 0.008
               },
-              "net_return_pct": -8.55622,
-              "excess_vs_hold_points": -10.11912,
-              "double_cost_return_pct": -14.90989,
-              "max_drawdown_pct": 8.55622,
-              "closed_trades": 4
+              "net_return_pct": -8.13953,
+              "excess_vs_hold_points": -5.58127,
+              "double_cost_return_pct": -12.96933,
+              "max_drawdown_pct": 8.13953,
+              "closed_trades": 3
             }
           ],
-          "avg_net_return_pct": -7.61461,
-          "avg_excess_vs_hold": 1.40856,
-          "max_drawdown_pct": 8.55622,
+          "avg_net_return_pct": -7.40626,
+          "avg_excess_vs_hold": 1.92123,
+          "max_drawdown_pct": 8.13953,
           "proven_profitable": false
         },
         "paper_forward": {
-          "version": 4,
+          "version": 5,
           "status": "waiting_for_future_hour",
           "observations": 0,
           "capital_usd": 20.0,
           "net_return_pct": 0.0,
           "max_drawdown_pct": 0.0,
           "closed_trades": 0,
-          "created_at": "2026-11-20T07:45:42.696895+00:00"
+          "created_at": "2026-11-20T13:00:27.009783+00:00"
         },
         "paper_only": true
       }
