@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-20T21:51:36.828924+00:00",
+  "generated_at": "2026-11-21T02:51:06.378467+00:00",
   "mode": "autonomous_independent_paper_research_roster",
   "active_candidate_ids": [],
   "active_candidate_count": 0,
@@ -9,13 +9,14 @@
     "btc_momentum",
     "btc_rsi",
     "btc_scalp_momentum",
+    "eth_ema_cross",
     "eth_momentum",
     "eth_scalp_trailing",
     "sol_bollinger",
     "sol_momentum",
     "sol_scalp_microtrend"
   ],
-  "research_archived_legacy_count": 9,
+  "research_archived_legacy_count": 10,
   "historical_robots": [
     {
       "id": "aapl_hold",
@@ -106,7 +107,7 @@
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
       "historical_net_pct": -43.025,
-      "research_archived": false
+      "research_archived": true
     },
     {
       "id": "eth_hold",
@@ -352,6 +353,15 @@
       "net_pct": -49.6384,
       "drawdown_pct": 49.8379,
       "closed_roundtrips": 40
+    },
+    {
+      "at": "2026-11-21T02:51:06.378467+00:00",
+      "action": "legacy_research_archived",
+      "robot": "eth_ema_cross",
+      "reason": "seven_distinct_daily_reviews",
+      "net_pct": -43.025,
+      "drawdown_pct": 43.6823,
+      "closed_roundtrips": 28
     }
   ],
   "legacy_robots_modified": false,
