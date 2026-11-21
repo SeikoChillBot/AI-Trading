@@ -116,6 +116,29 @@ class EvidenceTests(unittest.TestCase):
         self.assertNotIn("tools", captured[0][1]["json"])
         self.assertEqual(captured[0][1]["headers"]["x-goog-api-key"], "mock_only")
 
+    def test_unknown_narrative_asset_keeps_valid_hypotheses(self):
+        historical = support.summarize_challengers(sample_report(), NOW)
+        evidence = {item["asset"]: item for item in historical["assets"]}
+        asset = next(iter(evidence))
+        good = {"asset": asset, "title": "Bounded market hypothesis",
+                "hypothesis": "Future observations may reject this hypothesis",
+                "experiment": "Compare future paper results against Hold after costs",
+                "rejection_rule": "Reject if paired net returns do not beat Hold"}
+        bad = dict(good, asset="UNKNOWNUSD")
+        ideas = {"summary": "No verified edge", "experiments": [bad, good],
+                 "strategy_designs": [], "research_tasks": []}
+        result = ai.validate_with_experiment_isolation(ideas, evidence)
+        self.assertEqual(len(result["experiments"]), 1)
+        self.assertEqual(result["experiments"][0]["asset"], asset)
+
+    def test_unknown_structured_design_is_never_silently_removed(self):
+        historical = support.summarize_challengers(sample_report(), NOW)
+        evidence = {item["asset"]: item for item in historical["assets"]}
+        ideas = {"summary": "No verified edge", "experiments": [],
+                 "strategy_designs": [{"asset": "UNKNOWNUSD"}]}
+        with self.assertRaises(ValueError):
+            ai.validate_with_experiment_isolation(ideas, evidence)
+
     def test_gemini_refuses_partial_or_unverified_answer(self):
         historical = support.summarize_challengers(sample_report(), NOW)
         class FakeResponse:
