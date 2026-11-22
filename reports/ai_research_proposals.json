@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-22T16:08:28.434099+00:00",
+  "generated_at": "2026-11-22T18:54:05.971936+00:00",
   "research_date_utc": "2026-11-22",
-  "review_slot": "2026-11-22T12:00Z",
-  "model_last_called_at": "2026-11-22T16:08:28.434099+00:00",
+  "review_slot": "2026-11-22T18:00Z",
+  "model_last_called_at": "2026-11-22T18:54:05.971936+00:00",
   "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
-  "attempts_in_slot": 2,
-  "last_attempt_at": "2026-11-22T16:08:28.434099+00:00",
+  "attempts_in_slot": 1,
+  "last_attempt_at": "2026-11-22T18:54:05.971936+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse critique des données et robots de Seiko révèle un marché en net régime baissier (Fear & Greed à 11), accompagné d'une volatilité annualisée élevée sur ETH et SOL (respectivement 65.31% et 63.54%). Historiquement, les robots de type hold affichent des pertes nettes significatives (-25.95% sur BTC, -28.04% sur ETH, -31.88% sur SOL), tandis que les stratégies de trading actif subissent des pertes généralisées et des drawdowns prononcés (souvent supérieurs à 50-80%), lourdement impactés par les frais et les coûts de transaction. Le forward paper montre des variations mitigées à court terme (-1.66% pour BTC, +1.48% pour ETH, -4.07% pour SOL sur 29 observations). Les tests historiques échouent majoritairement aux critères stricts de double coût et de nombre suffisant de trades, confirmant qu'aucune stratégie actuelle ne garantit une robustesse prospective. Les hypothèses itératives et recherches passées ne prouvent aucune rentabilité future.",
+  "summary": "Analyse du laboratoire Seiko : les observations des 36 robots et des historiques crypto montrent des rendements nets majoritairement négatifs sur la période (ex: BTCUSD hold à -26.24 %, ETHUSD hold à -28.18 %), reflétant un régime général de tendance baissière et de volatilité soutenue (volatilité annualisée 30j entre 46 % et 65 %). Les stratégies basées sur le momentum ou le breakout (comme btc_momentum à -68.56 %) subissent de lourds drawdowns aggravés par les frais de transaction. La moyenne historique OOS reste négative pour BTCUSD (-5.20 %) et SOLUSD (-8.79 %), tandis qu'ETHUSD affiche un léger gain en forward paper (+1.25 % sur 31 observations). L'examen de la sensibilité aux coûts et des tests répétés confirme qu'aucun score passé ne garantit une rentabilité future. Les robots hold servent de témoins immuables, et toute modification future nécessitera des preuves prospectives rigoureuses.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -111,7 +111,7 @@
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Filtrer les entrées sur BTC lorsque la volatilité se contracte modérément en période de survente, afin de limiter les drawdowns excessifs observés lors des tendances baissières brutales.",
+      "rationale": "Filtrer les périodes de forte volatilité pour limiter l'exposition lors des phases de selloff, en ne déclenchant l'ordre qu'en présence d'un RSI survendu.",
       "confirmations": [
         "quiet_volatility",
         "rsi_oversold"
@@ -120,13 +120,10 @@
     {
       "asset": "ETHUSD",
       "logic": "rsi_reversal",
-      "lookback_days": 10,
+      "lookback_days": 40,
       "threshold_pct": 0.5,
-      "max_hold_days": 1,
-      "rationale": "Exploiter les rebonds de courte durée sur ETH en condition de forte volatilité et de survente mesurée, avec une sortie rapide pour réduire l'exposition aux frais et au slippage.",
-      "confirmations": [
-        "active_volatility"
-      ]
+      "max_hold_days": 3,
+      "rationale": "Capturer un rebond potentiel de moyen terme sur Ethereum après une séquence baissière de 30 jours, sans surcharger les filtres de confirmation."
     }
   ],
   "research_tasks": [],
