@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-21T23:22:10.209761+00:00",
+  "generated_at": "2026-11-22T02:12:10.686313+00:00",
   "mode": "autonomous_independent_paper_research_roster",
   "active_candidate_ids": [],
   "active_candidate_count": 0,
@@ -14,9 +14,10 @@
     "eth_scalp_trailing",
     "sol_bollinger",
     "sol_momentum",
+    "sol_reversion",
     "sol_scalp_microtrend"
   ],
-  "research_archived_legacy_count": 10,
+  "research_archived_legacy_count": 11,
   "historical_robots": [
     {
       "id": "aapl_hold",
@@ -50,21 +51,21 @@
       "id": "btc_breakout",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -56.0245,
+      "historical_net_pct": -56.1095,
       "research_archived": true
     },
     {
       "id": "btc_hold",
       "role": "immutable_hold_benchmark",
       "status": "immutable_hold",
-      "historical_net_pct": -26.6798,
+      "historical_net_pct": -26.7744,
       "research_archived": false
     },
     {
       "id": "btc_momentum",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -67.8156,
+      "historical_net_pct": -67.8983,
       "research_archived": true
     },
     {
@@ -99,21 +100,21 @@
       "id": "btc_volatility",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -18.9132,
+      "historical_net_pct": -19.0178,
       "research_archived": false
     },
     {
       "id": "eth_ema_cross",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -42.8832,
+      "historical_net_pct": -43.1416,
       "research_archived": true
     },
     {
       "id": "eth_hold",
       "role": "immutable_hold_benchmark",
       "status": "immutable_hold",
-      "historical_net_pct": -29.3959,
+      "historical_net_pct": -29.5112,
       "research_archived": false
     },
     {
@@ -211,14 +212,14 @@
       "id": "sol_bollinger",
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
-      "historical_net_pct": -82.1776,
+      "historical_net_pct": -82.438,
       "research_archived": true
     },
     {
       "id": "sol_hold",
       "role": "immutable_hold_benchmark",
       "status": "immutable_hold",
-      "historical_net_pct": -31.6715,
+      "historical_net_pct": -31.9041,
       "research_archived": false
     },
     {
@@ -233,7 +234,7 @@
       "role": "tunable_paper_robot",
       "status": "legacy_reference_retained",
       "historical_net_pct": -36.2585,
-      "research_archived": false
+      "research_archived": true
     },
     {
       "id": "sol_scalp_microtrend",
@@ -362,6 +363,15 @@
       "net_pct": -43.025,
       "drawdown_pct": 43.6823,
       "closed_roundtrips": 28
+    },
+    {
+      "at": "2026-11-22T02:12:10.686313+00:00",
+      "action": "legacy_research_archived",
+      "robot": "sol_reversion",
+      "reason": "seven_distinct_daily_reviews",
+      "net_pct": -36.2585,
+      "drawdown_pct": 37.121,
+      "closed_roundtrips": 25
     }
   ],
   "legacy_robots_modified": false,
