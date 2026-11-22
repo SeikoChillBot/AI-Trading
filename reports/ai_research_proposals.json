@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-22T05:07:02.607530+00:00",
+  "generated_at": "2026-11-22T07:52:35.648716+00:00",
   "research_date_utc": "2026-11-22",
-  "review_slot": "2026-11-22T00:00Z",
-  "model_last_called_at": "2026-11-22T05:07:02.607530+00:00",
+  "review_slot": "2026-11-22T06:00Z",
+  "model_last_called_at": "2026-11-22T07:52:35.648716+00:00",
   "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
-  "attempts_in_slot": 2,
-  "last_attempt_at": "2026-11-22T05:07:02.607530+00:00",
+  "attempts_in_slot": 1,
+  "last_attempt_at": "2026-11-22T07:52:35.648716+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse du laboratoire Seiko : les observations des 36 robots confirment des rendements nets historiques largement négatifs et des drawdowns prononcés sur les actifs crypto (BTC, ETH, SOL) ainsi que sur plusieurs classes d'actifs traditionnels, illustrant la difficulté de concevoir des règles systématiques robustes face aux coûts et aux régimes de baisses. Les robots hold témoins (btc_hold, eth_hold, sol_hold) affichent des performances de -28.15 %, -30.50 % et -32.94 % respectivement. Les tests historiques sur les folds indiquent une forte sensibilité aux frais doublés, la majorité des structures échouant aux critères de robustesse. Aucune rentabilité future n'est garantie et les performances passées sur les ensembles de contrôle ne constituent pas une preuve prospective.",
+  "summary": "L'analyse des données quantitatives et des performances historiques des robots du laboratoire Seiko montre des rendements nets majoritairement négatifs sur les actifs cryptographiques (BTCUSD, ETHUSD, SOLUSD), avec des drawdowns importants et une sensibilité élevée aux frais de transaction. Les robots de type 'hold' témoignent d'une tendance de fond baissière sur la période observée. Les stratégies dynamiques (momentum, breakout, RSI reversal) affichent un grand nombre de roundtrips mais ne parviennent pas à surpasser de manière robuste et systématique les performances de référence après application complète des coûts. Aucune preuve de rentabilité future ne peut être déduite de ces rétroanalyses, et la recherche itérative sur les mêmes holdouts présente un risque élevé de surajustement (overfitting). Des stratégies alternatives ont été formulées sous forme de concepts déclaratifs pour exploration prospective future, sans qu'aucun gain ou avantage ne soit garanti.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -107,25 +107,25 @@
   "strategy_designs": [
     {
       "asset": "BTCUSD",
-      "logic": "ema_trend",
+      "logic": "rsi_reversal",
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Filtrer les faux signaux de tendance par une condition de volatilité calme et une moyenne mobile exponentielle pour limiter les transactions excessives en régime baissier.",
+      "rationale": "Recherche d'un point d'inflexion en période de survente avec volatilité modérée sur BTCUSD, afin de limiter l'impact des faux breakouts observés lors des régimes de forte turbulence.",
       "confirmations": [
-        "ema_uptrend",
-        "quiet_volatility"
+        "quiet_volatility",
+        "rsi_oversold"
       ]
     },
     {
-      "asset": "SOLUSD",
-      "logic": "breakout",
+      "asset": "ETHUSD",
+      "logic": "ema_trend",
       "lookback_days": 40,
-      "threshold_pct": 2.0,
-      "max_hold_days": 3,
-      "rationale": "Chercher des cassures de résistance sur Solana avec une confirmation de force relative du RSI pour évaluer si la sélectivité accrue réduit le taux d'échec historique.",
+      "threshold_pct": 0.5,
+      "max_hold_days": 7,
+      "rationale": "Exploitation d'une tendance de moyen terme confirmée par les moyennes mobiles exponentielles sur ETHUSD, en cherchant à filtrer le bruit des fluctuations journalières.",
       "confirmations": [
-        "rsi_strength"
+        "ema_uptrend"
       ]
     }
   ],
