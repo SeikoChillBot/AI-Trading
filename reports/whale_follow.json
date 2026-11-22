@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-22T18:53:59.187774+00:00",
+  "generated_at": "2026-11-22T20:45:21.723515+00:00",
   "state": "observing",
   "source": "https://eth.blockscout.com/api/v2",
   "discovery_state": "observing",
@@ -12,10 +12,10 @@
       "address": "0x55fe002aeff02f77364de339a1292923a15844b8",
       "verified_identity": false,
       "sample_count": 50,
-      "new_count": 0,
+      "new_count": 3,
       "baseline_at": "2026-11-19T10:26:40.974345+00:00",
       "last_detected_at": "2026-11-22T16:08:21.324382+00:00",
-      "last_polled_at": "2026-11-22T18:53:59.187774+00:00",
+      "last_polled_at": "2026-11-22T20:45:21.723515+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -27,7 +27,7 @@
       "new_count": 0,
       "baseline_at": "2026-11-19T10:26:40.974345+00:00",
       "last_detected_at": "2026-11-19T10:26:40.974345+00:00",
-      "last_polled_at": "2026-11-22T18:53:59.187774+00:00",
+      "last_polled_at": "2026-11-22T20:45:21.723515+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -35,11 +35,11 @@
     {
       "address": "0x02912516d49de997db75b9d7858faae59209650b",
       "verified_identity": false,
-      "sample_count": 42,
+      "sample_count": 44,
       "new_count": 0,
       "baseline_at": "2026-11-19T16:01:34.718794+00:00",
       "last_detected_at": "2026-11-19T16:01:34.718794+00:00",
-      "last_polled_at": "2026-11-22T18:53:59.187774+00:00",
+      "last_polled_at": "2026-11-22T20:45:21.723515+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -47,17 +47,57 @@
     {
       "address": "0xbeefb9f61cc44895d8aec381373555a64191a9c4",
       "verified_identity": false,
-      "sample_count": 12,
+      "sample_count": 10,
       "new_count": 0,
       "baseline_at": "2026-11-19T16:01:34.718794+00:00",
       "last_detected_at": "2026-11-19T16:01:34.718794+00:00",
-      "last_polled_at": "2026-11-22T18:53:59.187774+00:00",
+      "last_polled_at": "2026-11-22T20:45:21.723515+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
     }
   ],
-  "new_transfers": [],
+  "new_transfers": [
+    {
+      "id": "683a8f702d25cb1b9e647d002768a8ea595ffc39560c02cf58840561aa6b0371",
+      "token": "USDC",
+      "quantity": "5299512.75",
+      "nominal_usd_approx": 5299512.75,
+      "timestamp": "2026-11-22T20:27:11+00:00",
+      "tx_hash": "0x30365c8f2e0a5304eecd66b1d09d946377570b1b68f5992bc3e8ab05687d84b8",
+      "from_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "to_address": "0x0000000000000000000000000000000000000000",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "76991a904608517d85b840fa38b9b0c68f17ced24795ec12ee86a4a39e879ed1",
+      "token": "USDC",
+      "quantity": "5000000",
+      "nominal_usd_approx": 5000000.0,
+      "timestamp": "2026-11-22T20:05:23+00:00",
+      "tx_hash": "0xe85c5931489490ce1fc1b68e47bfa06066dcd5f5581ea5d0a79994173cdfbead",
+      "from_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "to_address": "0x0000000000000000000000000000000000000000",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    },
+    {
+      "id": "d401c93cf063c406cd6af22d4f42949156d58712a532267ea4189fefa86c80b0",
+      "token": "USDC",
+      "quantity": "5000000",
+      "nominal_usd_approx": 5000000.0,
+      "timestamp": "2026-11-22T20:03:59+00:00",
+      "tx_hash": "0x1908dff46f815772e1e51f789e11bedcfae2acfeb4bea835a0f8251732aa2325",
+      "from_address": "0x409f7e602044b368d3f1063cf8683b7f01e886ef",
+      "to_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
   "errors": {},
   "max_addresses": 4,
   "retention_days": 7,
