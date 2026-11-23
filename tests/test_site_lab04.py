@@ -7,6 +7,16 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 class MobileDashboardTests(unittest.TestCase):
+ def test_premium_fintech_foundation_is_present(self):
+  html=(ROOT/"site/index.html").read_text(encoding="utf8")
+  css=(ROOT/"site/lab04-premium.css").read_text(encoding="utf8")
+  self.assertIn('lab04-premium.css?v=1',html)
+  self.assertIn('<title>Seiko Lab — Simulations et recherche</title>',html)
+  self.assertIn('aria-label="Seiko Lab"',html)
+  self.assertIn('prefers-reduced-motion:reduce',css)
+  self.assertIn(':focus-visible',css)
+  self.assertIn('data-view="candidates"',html)
+
  def test_four_module_files_linked(self):
   html=(ROOT/"site/index.html").read_text(encoding="utf8")
   for name in ("lab04-core","lab04-home","lab04-directory","lab04-analysis"):
@@ -126,7 +136,7 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("function detailSheet(r)",directory)
   self.assertIn("data-view=\"robots\"",html)
 
- def test_user_bottom_navigation_remains_unchanged_and_daily_brief_visible(self):
+ def test_user_navigation_and_daily_brief_visible(self):
   template=(ROOT/"site/index.html").read_text(encoding="utf8")
   app=(ROOT/"site/app.js").read_text(encoding="utf8")
   source=(ROOT/"site/lab04-desk.js").read_text(encoding="utf8")
