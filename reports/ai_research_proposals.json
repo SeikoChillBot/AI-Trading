@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-23T05:45:27.079708+00:00",
+  "generated_at": "2026-11-23T08:35:30.250514+00:00",
   "research_date_utc": "2026-11-23",
-  "review_slot": "2026-11-23T00:00Z",
-  "model_last_called_at": "2026-11-23T02:25:02.018077+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-23T06:00Z",
+  "model_last_called_at": "2026-11-23T08:35:30.250514+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-23T02:25:02.018077+00:00",
+  "last_attempt_at": "2026-11-23T08:35:30.250514+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse quantitative du laboratoire Seiko au 2026-11-23. Les robots testés affichent majoritairement des rendements nets négatifs et des drawdowns prononcés sur l'historique disponible. Aucun robot n'est qualifié comme prouvé profitable. L'examen des performances OOS et forward paper (39 observations) montre des divergences notables selon les actifs (ex: ETHUSD en forward paper net positif de 0.98% contre des pertes en historique). Les contraintes de frais et la sensibilité aux coûts à double sens restent des facteurs limitants majeurs, invalidant de nombreuses structures de signaux simples. Les règles de type Hold restent des témoins immuables mais subissent également la tendance baissière globale des marchés observés.",
+  "summary": "L'analyse des robots et des tests historiques sur les actifs BTC, ETH et SOL met en évidence la fragilité des stratégies face aux frais et à la sensibilité des coûts, la grande majorité des configurations historiques échouant aux critères de robustesse sous double frais. Les performances de papier récentes montrent une divergence entre les rendements historiques et prospectifs, confirmant qu'aucune stratégie actuelle ne garantit une rentabilité future. Les hypothèses reposent sur des observations exploratoires et nécessitent des validations prospectives strictes.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -111,9 +111,10 @@
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Filtrer les périodes de forte agitation pour limiter l'impact des frais répétés sur BTCUSD dans un régime de volatilité mesurée.",
+      "rationale": "Tester un filtre de volatilité calme combiné à un signal RSI survendu pour limiter les faux signaux en période de repli.",
       "confirmations": [
-        "quiet_volatility"
+        "quiet_volatility",
+        "rsi_oversold"
       ]
     },
     {
@@ -122,10 +123,7 @@
       "lookback_days": 40,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Tenter d'exploiter les rebonds de survente sur ETHUSD avec une fenêtre de recul plus large pour éviter les faux signaux intraday.",
-      "confirmations": [
-        "rsi_oversold"
-      ]
+      "rationale": "Évaluer un retournement RSI avec une fenêtre plus longue pour observer la résistance aux coûts de transaction sur Ethereum."
     }
   ],
   "research_tasks": [],
