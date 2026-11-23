@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-23T08:35:29.910276+00:00",
+  "generated_at": "2026-11-23T11:25:36.389558+00:00",
   "research_date_utc": "2026-11-23",
   "kind": "deterministic_statistical_research",
   "llm_connected": false,
@@ -17,23 +17,23 @@
       "state": "data_available",
       "count": 18,
       "started_at": "2026-10-28T18:29:24.322213+00:00",
-      "updated_at": "2026-11-23T08:34:22.841008+00:00",
-      "elapsed_days": 25.5868,
+      "updated_at": "2026-11-23T11:24:33.486955+00:00",
+      "elapsed_days": 25.705,
       "minimum_days_for_review": 14,
       "minimum_closed_trades_for_review": 20,
       "initial_usd": 360.0,
-      "estimated_current_usd": 176.8039,
-      "fees_paid_usd": 142.37547,
+      "estimated_current_usd": 176.45554,
+      "fees_paid_usd": 142.53921,
       "eligible": 12,
       "strategies": [
         {
           "strategy": "btc_hold",
           "asset": "BTCUSD",
-          "capital_usd": 14.92998,
-          "net_return_pct": -25.3501,
+          "capital_usd": 14.90339,
+          "net_return_pct": -25.483,
           "drawdown_pct": 30.8493,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.15873,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": false,
@@ -43,11 +43,11 @@
         {
           "strategy": "eth_hold",
           "asset": "ETHUSD",
-          "capital_usd": 14.44572,
-          "net_return_pct": -27.7714,
+          "capital_usd": 14.43172,
+          "net_return_pct": -27.8414,
           "drawdown_pct": 36.2084,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.15873,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": false,
@@ -57,11 +57,11 @@
         {
           "strategy": "sol_hold",
           "asset": "SOLUSD",
-          "capital_usd": 14.02247,
-          "net_return_pct": -29.8877,
+          "capital_usd": 14.02635,
+          "net_return_pct": -29.8682,
           "drawdown_pct": 36.2389,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.15873,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": false,
@@ -71,16 +71,16 @@
         {
           "strategy": "btc_momentum",
           "asset": "BTCUSD",
-          "capital_usd": 6.03429,
-          "net_return_pct": -69.8286,
-          "drawdown_pct": 69.9136,
+          "capital_usd": 5.8959,
+          "net_return_pct": -70.5205,
+          "drawdown_pct": 70.5393,
           "completed_roundtrips": 62,
-          "observations": 3550,
-          "fees_paid_usd": 11.84825,
+          "observations": 3567,
+          "fees_paid_usd": 11.89614,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -44.479
+          "excess_vs_hold_pct_points": -45.038
         },
         {
           "strategy": "eth_momentum",
@@ -89,12 +89,12 @@
           "net_return_pct": -57.9101,
           "drawdown_pct": 57.9461,
           "completed_roundtrips": 47,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 10.1267,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -30.139
+          "excess_vs_hold_pct_points": -30.069
         },
         {
           "strategy": "sol_momentum",
@@ -103,12 +103,12 @@
           "net_return_pct": -83.0451,
           "drawdown_pct": 83.0451,
           "completed_roundtrips": 90,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 13.7687,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -53.157
+          "excess_vs_hold_pct_points": -53.177
         },
         {
           "strategy": "btc_reversion",
@@ -117,12 +117,12 @@
           "net_return_pct": -24.4924,
           "drawdown_pct": 27.1339,
           "completed_roundtrips": 17,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 4.65923,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": false,
           "confidence": "insufficient_sample",
-          "excess_vs_hold_pct_points": 0.858
+          "excess_vs_hold_pct_points": 0.991
         },
         {
           "strategy": "eth_reversion",
@@ -131,12 +131,12 @@
           "net_return_pct": -39.9128,
           "drawdown_pct": 41.0035,
           "completed_roundtrips": 21,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 5.18286,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -12.142
+          "excess_vs_hold_pct_points": -12.072
         },
         {
           "strategy": "sol_reversion",
@@ -145,12 +145,12 @@
           "net_return_pct": -36.2585,
           "drawdown_pct": 37.121,
           "completed_roundtrips": 25,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 6.12809,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -6.37
+          "excess_vs_hold_pct_points": -6.39
         },
         {
           "strategy": "btc_breakout",
@@ -159,12 +159,12 @@
           "net_return_pct": -59.1231,
           "drawdown_pct": 59.3134,
           "completed_roundtrips": 50,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 10.7449,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -33.773
+          "excess_vs_hold_pct_points": -33.64
         },
         {
           "strategy": "btc_rsi",
@@ -173,12 +173,12 @@
           "net_return_pct": -82.4324,
           "drawdown_pct": 82.5339,
           "completed_roundtrips": 96,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 13.98586,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -57.082
+          "excess_vs_hold_pct_points": -56.949
         },
         {
           "strategy": "eth_ema_cross",
@@ -187,12 +187,12 @@
           "net_return_pct": -44.4994,
           "drawdown_pct": 44.5233,
           "completed_roundtrips": 31,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 7.56173,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -16.728
+          "excess_vs_hold_pct_points": -16.658
         },
         {
           "strategy": "sol_bollinger",
@@ -201,40 +201,40 @@
           "net_return_pct": -82.7886,
           "drawdown_pct": 82.8431,
           "completed_roundtrips": 88,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 12.80519,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -52.901
+          "excess_vs_hold_pct_points": -52.921
         },
         {
           "strategy": "btc_volatility",
           "asset": "BTCUSD",
-          "capital_usd": 15.35557,
-          "net_return_pct": -23.2221,
+          "capital_usd": 15.32822,
+          "net_return_pct": -23.3589,
           "drawdown_pct": 23.4579,
           "completed_roundtrips": 10,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 2.94547,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": false,
           "confidence": "insufficient_sample",
-          "excess_vs_hold_pct_points": 2.128
+          "excess_vs_hold_pct_points": 2.124
         },
         {
           "strategy": "btc_scalp_momentum",
           "asset": "BTCUSD",
-          "capital_usd": 7.31394,
-          "net_return_pct": -63.4303,
-          "drawdown_pct": 63.4586,
-          "completed_roundtrips": 60,
-          "observations": 3550,
-          "fees_paid_usd": 12.20058,
+          "capital_usd": 7.16803,
+          "net_return_pct": -64.1598,
+          "drawdown_pct": 64.1598,
+          "completed_roundtrips": 61,
+          "observations": 3567,
+          "fees_paid_usd": 12.31643,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -38.08
+          "excess_vs_hold_pct_points": -38.677
         },
         {
           "strategy": "eth_scalp_trailing",
@@ -243,12 +243,12 @@
           "net_return_pct": -60.4873,
           "drawdown_pct": 60.5386,
           "completed_roundtrips": 56,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 11.72757,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -32.716
+          "excess_vs_hold_pct_points": -32.646
         },
         {
           "strategy": "sol_scalp_microtrend",
@@ -257,12 +257,12 @@
           "net_return_pct": -83.1189,
           "drawdown_pct": 83.1189,
           "completed_roundtrips": 93,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 14.24913,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": true,
           "confidence": "requires_out_of_sample_validation",
-          "excess_vs_hold_pct_points": -53.231
+          "excess_vs_hold_pct_points": -53.251
         },
         {
           "strategy": "btc_scalp_conservative",
@@ -271,12 +271,12 @@
           "net_return_pct": -22.4217,
           "drawdown_pct": 22.4217,
           "completed_roundtrips": 14,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 3.96502,
           "pricing_quality": "simulated_kraken",
           "ready_for_review": false,
           "confidence": "insufficient_sample",
-          "excess_vs_hold_pct_points": 2.928
+          "excess_vs_hold_pct_points": 3.061
         }
       ],
       "issues": []
@@ -286,8 +286,8 @@
       "state": "data_available",
       "count": 18,
       "started_at": "2026-10-28T20:47:23.988438+00:00",
-      "updated_at": "2026-11-23T08:34:24.188393+00:00",
-      "elapsed_days": 25.491,
+      "updated_at": "2026-11-23T11:24:34.693460+00:00",
+      "elapsed_days": 25.6092,
       "minimum_days_for_review": 30,
       "minimum_closed_trades_for_review": 20,
       "initial_usd": 360.0,
@@ -302,7 +302,7 @@
           "net_return_pct": -2.4968,
           "drawdown_pct": 6.345,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -316,7 +316,7 @@
           "net_return_pct": -7.3159,
           "drawdown_pct": 7.9842,
           "completed_roundtrips": 1,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.0579,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -330,7 +330,7 @@
           "net_return_pct": -8.2973,
           "drawdown_pct": 13.1121,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -344,7 +344,7 @@
           "net_return_pct": -4.0837,
           "drawdown_pct": 5.1063,
           "completed_roundtrips": 1,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.03918,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -358,7 +358,7 @@
           "net_return_pct": -10.8053,
           "drawdown_pct": 10.8053,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -372,7 +372,7 @@
           "net_return_pct": 0.0,
           "drawdown_pct": 0.0,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.0,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -386,7 +386,7 @@
           "net_return_pct": -15.4636,
           "drawdown_pct": 15.4636,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -400,7 +400,7 @@
           "net_return_pct": 0.0,
           "drawdown_pct": 0.0,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.0,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -414,7 +414,7 @@
           "net_return_pct": -0.5406,
           "drawdown_pct": 1.6282,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -428,7 +428,7 @@
           "net_return_pct": -1.4957,
           "drawdown_pct": 1.6282,
           "completed_roundtrips": 1,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.0397,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -442,7 +442,7 @@
           "net_return_pct": -12.9258,
           "drawdown_pct": 14.9288,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -456,7 +456,7 @@
           "net_return_pct": -1.1712,
           "drawdown_pct": 2.9984,
           "completed_roundtrips": 1,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.03976,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -470,7 +470,7 @@
           "net_return_pct": -22.1962,
           "drawdown_pct": 23.235,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -484,7 +484,7 @@
           "net_return_pct": 0.0,
           "drawdown_pct": 0.0,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.0,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -498,7 +498,7 @@
           "net_return_pct": -1.1502,
           "drawdown_pct": 5.5799,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.01998,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -512,7 +512,7 @@
           "net_return_pct": 0.3343,
           "drawdown_pct": 4.6516,
           "completed_roundtrips": 1,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.04007,
           "pricing_quality": "DELAYED_OR_CLOSED",
           "ready_for_review": false,
@@ -526,7 +526,7 @@
           "net_return_pct": -1.9729,
           "drawdown_pct": 2.6534,
           "completed_roundtrips": 0,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.02995,
           "pricing_quality": "REFERENCE_ONLY",
           "ready_for_review": false,
@@ -540,7 +540,7 @@
           "net_return_pct": -1.962,
           "drawdown_pct": 1.962,
           "completed_roundtrips": 1,
-          "observations": 3550,
+          "observations": 3567,
           "fees_paid_usd": 0.05939,
           "pricing_quality": "REFERENCE_ONLY",
           "ready_for_review": false,
@@ -549,12 +549,12 @@
         }
       ],
       "issues": [
-        "Historique trop court : 25.491 jour(s), minimum de revue 30."
+        "Historique trop court : 25.609 jour(s), minimum de revue 30."
       ]
     }
   },
   "market_intelligence": {
-    "generated_at": "2026-11-23T08:35:29.910276+00:00",
+    "generated_at": "2026-11-23T11:25:36.389558+00:00",
     "signals_generated": 0,
     "trade_actions": 0,
     "sentiment": {
@@ -566,17 +566,17 @@
     },
     "chain_tvl": {
       "tvl_usd_by_chain": {
-        "Arbitrum": 1254626201.51,
-        "Base": 5148141768.77,
-        "Ethereum": 36595581877.72,
-        "BSC": 4321752838.87,
-        "Solana": 4689932181.19
+        "Arbitrum": 1257931844.48,
+        "Ethereum": 36412188947.09,
+        "BSC": 4317803371.42,
+        "Base": 5151982458.9,
+        "Solana": 4714052331.94
       },
       "source": "https://api.llama.fi/v2/chains",
       "kind": "defi_tvl_not_capital_inflow"
     },
     "stablecoins": {
-      "circulating_usd_estimate": 284515638399.9,
+      "circulating_usd_estimate": 284523591093.04,
       "stablecoins_included": 355,
       "source": "https://stablecoins.llama.fi/stablecoins?includePrices=true",
       "kind": "stablecoin_supply_not_immediate_buying_pressure"
@@ -595,7 +595,7 @@
   },
   "market_pulse": {
     "schema": 1,
-    "generated_at": "2026-11-23T08:35:29.112718+00:00",
+    "generated_at": "2026-11-23T11:25:35.380355+00:00",
     "kind": "market_context_observations_not_trading_signals",
     "real_orders": false,
     "signal_count": 0,
@@ -633,9 +633,9 @@
     },
     "macro": {
       "fear_greed_index": 11,
-      "tvl_ethereum_usd": 36595581877.72,
-      "tvl_solana_usd": 4689932181.19,
-      "stablecoin_supply_usd_estimate": 284515638399.9,
+      "tvl_ethereum_usd": 36412188947.09,
+      "tvl_solana_usd": 4714052331.94,
+      "stablecoin_supply_usd_estimate": 284523591093.04,
       "source_errors": {}
     },
     "large_transfers": {
@@ -643,15 +643,15 @@
       "coverage": "NOT_EXHAUSTIVE_up_to_3_pages_per_contract",
       "sampled_records": {
         "USDC": 150,
-        "USDT": 50
+        "USDT": 100
       },
       "validated_records": {
-        "USDC": 148,
-        "USDT": 50
+        "USDC": 150,
+        "USDT": 85
       },
-      "large_transfers_observed": 3,
-      "new_in_sample": 3,
-      "largest_nominal_usd": 2000049.151175,
+      "large_transfers_observed": 1,
+      "new_in_sample": 1,
+      "largest_nominal_usd": 9999995.0,
       "source": "https://eth.blockscout.com/api/v2",
       "is_verified_buy_sell": false
     },
@@ -664,10 +664,46 @@
   },
   "news_observations": {
     "schema": 1,
-    "generated_at": "2026-11-23T08:35:27.222674+00:00",
+    "generated_at": "2026-11-23T11:25:33.865314+00:00",
     "source_type": "publisher_rss",
     "status": "available",
     "articles": [
+      {
+        "id": "8fe2c4946ce51f6c",
+        "source": "CoinDesk",
+        "category": "crypto",
+        "title": "South Korea to expand cryptocurrency account freezes and curb illicit transfers abroad",
+        "url": "https://www.coindesk.com/policy/2026/11/23/south-korea-to-expand-cryptocurrency-account-freezes-and-curb-illicit-transfers-abroad",
+        "published_at": "2026-11-23T10:53:19+00:00",
+        "assessment": "unreviewed_source_headline_not_investment_advice"
+      },
+      {
+        "id": "8f546b80342178e7",
+        "source": "CoinDesk",
+        "category": "crypto",
+        "title": "Bitcoin breaks a record streak of 'lower highs.' Here's what it means",
+        "url": "https://www.coindesk.com/markets/2026/11/23/bitcoin-breaks-a-record-streak-of-lower-highs-here-s-what-it-means",
+        "published_at": "2026-11-23T10:31:02+00:00",
+        "assessment": "unreviewed_source_headline_not_investment_advice"
+      },
+      {
+        "id": "241d8b4de6eeace3",
+        "source": "BCE",
+        "category": "macro",
+        "title": "ECB expands acceptance of DLT-based assets as eligible Eurosystem collateral",
+        "url": "https://www.ecb.europa.eu//press/pr/date/2026/html/ecb.pr261123~76b6f57b74.en.html",
+        "published_at": "2026-11-23T10:00:00+00:00",
+        "assessment": "unreviewed_source_headline_not_investment_advice"
+      },
+      {
+        "id": "de1955edfbbcb663",
+        "source": "CoinDesk",
+        "category": "crypto",
+        "title": "U.S. inflation, Thanksgiving trading: Crypto Week Ahead",
+        "url": "https://www.coindesk.com/markets/2026/11/23/u-s-inflation-thanksgiving-trading-crypto-week-ahead",
+        "published_at": "2026-11-23T09:40:25+00:00",
+        "assessment": "unreviewed_source_headline_not_investment_advice"
+      },
       {
         "id": "388bd2b8e547f4e8",
         "source": "CoinDesk",
@@ -675,33 +711,6 @@
         "title": "Crypto thieves are using online ads to infect iPhones with a single tap, research finds",
         "url": "https://www.coindesk.com/tech/2026/11/23/moldyroost-malvertizing-campaign-uses-one-tap-iphone-hacks-to-hunt-crypto-wallet-keys-research-shows",
         "published_at": "2026-11-23T07:45:30+00:00",
-        "assessment": "unreviewed_source_headline_not_investment_advice"
-      },
-      {
-        "id": "6717f29172eaeb95",
-        "source": "CoinDesk",
-        "category": "crypto",
-        "title": "This Swedish bitcoin treasury firm lost 30 BTC trading part of its own stack",
-        "url": "https://www.coindesk.com/markets/2026/11/23/this-swedish-bitcoin-treasury-firm-lost-30-btc-trading-part-of-its-own-stack",
-        "published_at": "2026-11-23T07:18:45+00:00",
-        "assessment": "unreviewed_source_headline_not_investment_advice"
-      },
-      {
-        "id": "af92dde347e99dbd",
-        "source": "CoinDesk",
-        "category": "crypto",
-        "title": "Cardano holders are turning down a $4 million request for running its flagship event",
-        "url": "https://www.coindesk.com/markets/2026/11/23/cardano-holders-are-turning-down-a-usd4-million-request-for-running-its-flagship-event",
-        "published_at": "2026-11-23T06:15:45+00:00",
-        "assessment": "unreviewed_source_headline_not_investment_advice"
-      },
-      {
-        "id": "ecae71754fb3017d",
-        "source": "CoinDesk",
-        "category": "crypto",
-        "title": "Bitcoin sold for $17,000 on Kraken's Canadian dollar market, and the trades stand",
-        "url": "https://www.coindesk.com/markets/2026/11/23/bitcoin-sold-for-usd17-000-on-kraken-s-canadian-dollar-market-and-the-trades-stand",
-        "published_at": "2026-11-23T05:42:22+00:00",
         "assessment": "unreviewed_source_headline_not_investment_advice"
       },
       {
@@ -720,55 +729,55 @@
   },
   "hourly_research": {
     "schema": 1,
-    "generated_at": "2026-11-23T08:35:29.545595+00:00",
+    "generated_at": "2026-11-23T11:25:35.635278+00:00",
     "type": "kraken_1h_intraday_research",
     "source": "Kraken public 60m OHLC, only closed candles",
     "status": "available",
     "assets": {
       "BTCUSD": {
-        "last_closed_hour_utc": "2026-11-23T07:00:00+00:00",
+        "last_closed_hour_utc": "2026-11-23T10:00:00+00:00",
         "historical_study": {
           "folds": [
             {
-              "test_started": 1794556800,
-              "test_ended": 1794985200,
+              "test_started": 1794567600,
+              "test_ended": 1794996000,
               "parameter": {
                 "kind": "trend",
                 "period": 8,
                 "threshold": 0.008
               },
-              "net_return_pct": -4.56198,
-              "excess_vs_hold_points": 2.54888,
-              "double_cost_return_pct": -7.93726,
+              "net_return_pct": -5.3129,
+              "excess_vs_hold_points": 3.52057,
+              "double_cost_return_pct": -8.66163,
               "max_drawdown_pct": 5.4017,
               "closed_trades": 1
             },
             {
-              "test_started": 1794988800,
-              "test_ended": 1795417200,
+              "test_started": 1794999600,
+              "test_ended": 1795428000,
               "parameter": {
                 "kind": "trend",
                 "period": 8,
                 "threshold": 0.008
               },
-              "net_return_pct": -3.10557,
-              "excess_vs_hold_points": 3.88309,
-              "double_cost_return_pct": -8.20004,
+              "net_return_pct": -3.13525,
+              "excess_vs_hold_points": 3.14449,
+              "double_cost_return_pct": -8.22816,
               "max_drawdown_pct": 4.45294,
               "closed_trades": 2
             }
           ],
-          "avg_net_return_pct": -3.83378,
-          "avg_excess_vs_hold": 3.21598,
+          "avg_net_return_pct": -4.22408,
+          "avg_excess_vs_hold": 3.33253,
           "max_drawdown_pct": 5.4017,
           "proven_profitable": false
         },
         "paper_forward": {
           "version": 8,
           "status": "forward_hourly_observations",
-          "observations": 45,
-          "capital_usd": 19.85203,
-          "net_return_pct": -0.73985,
+          "observations": 48,
+          "capital_usd": 19.84595,
+          "net_return_pct": -0.77025,
           "max_drawdown_pct": 4.2106,
           "closed_trades": 1,
           "created_at": "2026-11-21T11:46:32.990714+00:00"
@@ -776,49 +785,49 @@
         "paper_only": true
       },
       "ETHUSD": {
-        "last_closed_hour_utc": "2026-11-23T07:00:00+00:00",
+        "last_closed_hour_utc": "2026-11-23T10:00:00+00:00",
         "historical_study": {
           "folds": [
             {
-              "test_started": 1794556800,
-              "test_ended": 1794985200,
+              "test_started": 1794567600,
+              "test_ended": 1794996000,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
                 "threshold": 0.008
               },
               "net_return_pct": -7.86659,
-              "excess_vs_hold_points": -0.1355,
+              "excess_vs_hold_points": 1.20863,
               "double_cost_return_pct": -11.12501,
               "max_drawdown_pct": 7.88721,
               "closed_trades": 2
             },
             {
-              "test_started": 1794988800,
-              "test_ended": 1795417200,
+              "test_started": 1794999600,
+              "test_ended": 1795428000,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
                 "threshold": 0.008
               },
-              "net_return_pct": -1.22283,
-              "excess_vs_hold_points": 5.70503,
-              "double_cost_return_pct": -4.71621,
+              "net_return_pct": -1.04652,
+              "excess_vs_hold_points": 5.17945,
+              "double_cost_return_pct": -4.54614,
               "max_drawdown_pct": 5.03096,
               "closed_trades": 1
             }
           ],
-          "avg_net_return_pct": -4.54471,
-          "avg_excess_vs_hold": 2.78476,
+          "avg_net_return_pct": -4.45655,
+          "avg_excess_vs_hold": 3.19404,
           "max_drawdown_pct": 7.88721,
           "proven_profitable": false
         },
         "paper_forward": {
           "version": 8,
           "status": "forward_hourly_observations",
-          "observations": 45,
-          "capital_usd": 20.34243,
-          "net_return_pct": 1.71215,
+          "observations": 48,
+          "capital_usd": 20.37874,
+          "net_return_pct": 1.8937,
           "max_drawdown_pct": 2.6789,
           "closed_trades": 0,
           "created_at": "2026-11-21T11:46:32.990714+00:00"
@@ -826,49 +835,49 @@
         "paper_only": true
       },
       "SOLUSD": {
-        "last_closed_hour_utc": "2026-11-23T07:00:00+00:00",
+        "last_closed_hour_utc": "2026-11-23T10:00:00+00:00",
         "historical_study": {
           "folds": [
             {
-              "test_started": 1794556800,
-              "test_ended": 1794985200,
+              "test_started": 1794567600,
+              "test_ended": 1794996000,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
                 "threshold": 0.004
               },
-              "net_return_pct": -6.79283,
-              "excess_vs_hold_points": 0.61332,
-              "double_cost_return_pct": -13.26903,
+              "net_return_pct": -7.36374,
+              "excess_vs_hold_points": 1.46792,
+              "double_cost_return_pct": -13.80027,
               "max_drawdown_pct": 9.37434,
               "closed_trades": 3
             },
             {
-              "test_started": 1794988800,
-              "test_ended": 1795417200,
+              "test_started": 1794999600,
+              "test_ended": 1795428000,
               "parameter": {
                 "kind": "trend",
                 "period": 24,
                 "threshold": 0.008
               },
-              "net_return_pct": -9.41163,
-              "excess_vs_hold_points": -3.49503,
-              "double_cost_return_pct": -15.70587,
-              "max_drawdown_pct": 11.89229,
+              "net_return_pct": -8.48591,
+              "excess_vs_hold_points": -3.53073,
+              "double_cost_return_pct": -14.84448,
+              "max_drawdown_pct": 11.34929,
               "closed_trades": 3
             }
           ],
-          "avg_net_return_pct": -8.10223,
-          "avg_excess_vs_hold": -1.44085,
-          "max_drawdown_pct": 11.89229,
+          "avg_net_return_pct": -7.92483,
+          "avg_excess_vs_hold": -1.03141,
+          "max_drawdown_pct": 11.34929,
           "proven_profitable": false
         },
         "paper_forward": {
           "version": 8,
           "status": "forward_hourly_observations",
-          "observations": 45,
-          "capital_usd": 19.65565,
-          "net_return_pct": -1.72175,
+          "observations": 48,
+          "capital_usd": 19.73488,
+          "net_return_pct": -1.3256,
           "max_drawdown_pct": 4.7842,
           "closed_trades": 1,
           "created_at": "2026-11-21T11:46:32.990714+00:00"
