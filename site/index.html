@@ -13,6 +13,7 @@
   <p class="display-fx-note" id="fx-note">Chargement du taux de référence…</p>
 </div>
 <main>
+<div class="premium-shortcuts" aria-label="Accès aux analyses détaillées"><button type="button" data-view="analysis">Analyses et comparaisons</button><button type="button" data-view="desk">Journal IA et diagnostics</button></div>
 <section id="view-home" class="view is-visible" aria-label="Tableau de bord des expériences">
 <section class="lab-freshness" aria-label="Fraîcheur des relevés"><div><strong>Dernières données publiées</strong><p id="lab-freshness-detail">Vérification de la dernière publication…</p></div><div class="lab-freshness-actions"><span id="lab-freshness-badge">Vérification</span><button id="lab-refresh" type="button" title="Recharger les derniers relevés publiés">Actualiser</button></div></section>
 <section class="ait-beginner-note"><strong>Tu regardes quoi ici ?</strong>
@@ -361,12 +362,11 @@
  </section>
 </section>
 <nav class="bottom-nav" aria-label="Navigation principale"><div class="bottom-nav-inner">
-<button class="nav-button is-active" data-view="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 12 12 4l9 8v9H3v-9Z"/><path d="M9 21v-8h6v8"/></svg><span>Accueil</span></button>
-<button class="nav-button" data-view="robots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="7" width="16" height="13" rx="3"/><path d="M12 3v4M9 3h6M8 12h.01M16 12h.01M9 16h6"/></svg><span>Robots</span></button>
-<button class="nav-button" data-view="candidates"><span aria-hidden="true">📈</span><span>Nouveaux</span></button>
-<button class="nav-button" data-view="analysis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 19V5M4 19h17M8 15l4-5 3 2 5-7"/></svg><span>Analyse</span></button>
-<button class="nav-button" data-view="desk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg><span>Journal IA</span></button>
-<button class="nav-button" data-view="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m9 15 2-6 6-2-2 6-6 2Z"/></svg><span>Marchés</span></button>
+<button class="nav-button is-active" data-view="home" aria-current="page"><span aria-hidden="true">⌂</span><span>Accueil</span></button>
+<button class="nav-button" data-view="robots"><span aria-hidden="true">▦</span><span>Robots</span></button>
+<button class="nav-button" data-view="candidates"><span aria-hidden="true">◇</span><span>Recherche</span></button>
+<button class="nav-button" data-view="explore"><span aria-hidden="true">◉</span><span>Marchés</span></button>
+<button class="nav-button" data-view="desk"><span aria-hidden="true">☷</span><span>Plus</span></button>
 </div></nav>
 <div class="sheet-layer" id="robot-sheet" hidden><div class="sheet-backdrop" id="sheet-backdrop"></div><section class="robot-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" tabindex="-1"><div class="sheet-handle"></div><button class="close-sheet" id="close-sheet" aria-label="Fermer la fiche">×</button><div class="sheet-heading"><span id="sheet-coin" class="coin-icon"></span><div><span class="eyebrow">FICHE DU ROBOT</span><h2 id="sheet-name">—</h2><p id="sheet-category">—</p></div></div><div class="sheet-kpis"><div><span>Capital</span><strong id="sheet-capital">—</strong></div><div><span>Variation depuis le départ</span><strong id="sheet-return">—</strong></div></div><div class="lab-robot-holdings" aria-label="Composition du portefeuille fictif">
   <div><small>MISE DE DÉPART</small><strong id="sheet-initial">20 $</strong></div>
