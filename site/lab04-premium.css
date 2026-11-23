@@ -13,3 +13,12 @@ body{background:var(--premium-bg);color:var(--premium-text)}
 .nav-button:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--premium-accent);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.nav-button{transition:none}}
 @media(max-width:520px){.page-heading h1{font-size:clamp(26px,7vw,36px)}.lab-overview,.ait-focus-panel{border-radius:var(--premium-radius)}}
+
+/* Five clear mobile destinations; detailed analysis remains accessible via shortcuts. */
+.bottom-nav-inner{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+.bottom-nav .nav-button{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.bottom-nav .nav-button>span:first-child{font-size:19px;line-height:1.1}
+.premium-shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.premium-shortcuts button{border:1px solid var(--premium-border);border-radius:12px;background:var(--premium-surface);color:var(--premium-text);padding:10px 13px;font-weight:650}
+.premium-shortcuts button:hover{border-color:var(--premium-accent)}
+@media(max-width:420px){.premium-shortcuts button{flex:1 1 100%}.bottom-nav .nav-button{font-size:11px}}
