@@ -1,26 +1,26 @@
 {
   "schema": 1,
-  "observed_at": "2026-11-23T01:14:24.385843+00:00",
+  "observed_at": "2026-11-23T01:24:22.662618+00:00",
   "assets": {
     "btc_momentum": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:00:40.255652+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3450,
+      "observations": 3451,
       "missed_observations": 15,
       "control": {
-        "net_return_pct": -65.29986,
-        "closed_trades": 57,
+        "net_return_pct": -65.27631,
+        "closed_trades": 58,
         "max_drawdown_pct": 65.39383,
-        "fees": 12.80353
+        "fees": 12.8666
       },
       "candidate": {
-        "net_return_pct": -73.24816,
-        "closed_trades": 67,
+        "net_return_pct": -73.23,
+        "closed_trades": 68,
         "max_drawdown_pct": 73.32061,
-        "fees": 13.87386,
-        "stress_net_return_pct": -92.1354
+        "fees": 13.92248,
+        "stress_net_return_pct": -92.13006
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -29,22 +29,22 @@
     "eth_momentum": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:03:42.448318+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 2254,
+      "observations": 2255,
       "missed_observations": 6,
       "control": {
-        "net_return_pct": -56.22254,
+        "net_return_pct": -56.32186,
         "closed_trades": 43,
         "max_drawdown_pct": 57.37798,
         "fees": 10.65558
       },
       "candidate": {
-        "net_return_pct": -60.00871,
+        "net_return_pct": -60.09944,
         "closed_trades": 47,
         "max_drawdown_pct": 61.06422,
         "fees": 11.19143,
-        "stress_net_return_pct": -83.14751
+        "stress_net_return_pct": -83.18574
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -53,9 +53,9 @@
     "btc_reversion": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:02:40.697068+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3450,
+      "observations": 3451,
       "missed_observations": 15,
       "control": {
         "net_return_pct": -24.2054,
@@ -77,9 +77,9 @@
     "eth_reversion": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:03:42.448318+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 2254,
+      "observations": 2255,
       "missed_observations": 6,
       "control": {
         "net_return_pct": -39.56483,
@@ -101,22 +101,22 @@
     "btc_breakout": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:00:40.255652+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 2254,
+      "observations": 2255,
       "missed_observations": 6,
       "control": {
-        "net_return_pct": -58.82734,
+        "net_return_pct": -58.99707,
         "closed_trades": 47,
         "max_drawdown_pct": 59.06678,
         "fees": 11.45697
       },
       "candidate": {
-        "net_return_pct": -60.16072,
+        "net_return_pct": -60.32495,
         "closed_trades": 49,
         "max_drawdown_pct": 60.3924,
         "fees": 11.79925,
-        "stress_net_return_pct": -83.80531
+        "stress_net_return_pct": -83.87207
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -125,22 +125,22 @@
     "btc_rsi": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:02:40.697068+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3450,
+      "observations": 3451,
       "missed_observations": 15,
       "control": {
-        "net_return_pct": -87.8525,
+        "net_return_pct": -87.84425,
         "closed_trades": 106,
         "max_drawdown_pct": 87.8525,
         "fees": 15.53143
       },
       "candidate": {
-        "net_return_pct": -89.18137,
+        "net_return_pct": -89.17403,
         "closed_trades": 112,
         "max_drawdown_pct": 89.18137,
         "fees": 15.86248,
-        "stress_net_return_pct": -98.58535
+        "stress_net_return_pct": -98.58439
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -149,22 +149,22 @@
     "eth_ema_cross": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:03:42.448318+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 2254,
+      "observations": 2255,
       "missed_observations": 6,
       "control": {
-        "net_return_pct": -43.29126,
+        "net_return_pct": -43.41992,
         "closed_trades": 28,
         "max_drawdown_pct": 44.54586,
         "fees": 7.96266
       },
       "candidate": {
-        "net_return_pct": -45.12427,
+        "net_return_pct": -45.24877,
         "closed_trades": 30,
         "max_drawdown_pct": 46.4145,
         "fees": 8.46699,
-        "stress_net_return_pct": -68.59504
+        "stress_net_return_pct": -68.66629
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -173,7 +173,7 @@
     "btc_volatility": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:03:42.448318+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 567,
       "missed_observations": 5,
@@ -197,9 +197,9 @@
     "btc_scalp_momentum": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:02:40.697068+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3450,
+      "observations": 3451,
       "missed_observations": 15,
       "control": {
         "net_return_pct": -79.05392,
@@ -208,11 +208,11 @@
         "fees": 16.19927
       },
       "candidate": {
-        "net_return_pct": -90.40955,
-        "closed_trades": 132,
+        "net_return_pct": -90.40304,
+        "closed_trades": 133,
         "max_drawdown_pct": 90.40955,
-        "fees": 18.38832,
-        "stress_net_return_pct": -99.12513
+        "fees": 18.40575,
+        "stress_net_return_pct": -99.12454
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -221,9 +221,9 @@
     "btc_scalp_conservative": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:02:40.697068+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3450,
+      "observations": 3451,
       "missed_observations": 15,
       "control": {
         "net_return_pct": -25.21168,
@@ -245,9 +245,9 @@
     "eth_scalp_trailing": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:05:26.337776+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3449,
+      "observations": 3450,
       "missed_observations": 15,
       "control": {
         "net_return_pct": -76.98228,
@@ -269,22 +269,22 @@
     "sol_momentum": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T04:44:59.758183+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3421,
+      "observations": 3422,
       "missed_observations": 15,
       "control": {
-        "net_return_pct": -85.68782,
+        "net_return_pct": -85.65937,
         "closed_trades": 98,
         "max_drawdown_pct": 85.69595,
         "fees": 15.67646
       },
       "candidate": {
-        "net_return_pct": -86.91869,
+        "net_return_pct": -86.89268,
         "closed_trades": 106,
         "max_drawdown_pct": 86.92612,
         "fees": 16.4722,
-        "stress_net_return_pct": -98.09436
+        "stress_net_return_pct": -98.09057
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -293,9 +293,9 @@
     "sol_bollinger": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T08:54:54.803782+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3396,
+      "observations": 3397,
       "missed_observations": 15,
       "control": {
         "net_return_pct": -86.85062,
@@ -317,9 +317,9 @@
     "sol_reversion": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T11:45:01.244046+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
-      "observations": 3379,
+      "observations": 3380,
       "missed_observations": 15,
       "control": {
         "net_return_pct": -36.34835,
@@ -328,11 +328,11 @@
         "fees": 6.66762
       },
       "candidate": {
-        "net_return_pct": -46.75169,
+        "net_return_pct": -46.64583,
         "closed_trades": 31,
         "max_drawdown_pct": 47.16758,
         "fees": 7.96194,
-        "stress_net_return_pct": -70.07013
+        "stress_net_return_pct": -70.01062
       },
       "ready_for_real_orders": false,
       "model": "delayed_observed_close_with_modeled_fees_not_orderbook",
@@ -341,9 +341,9 @@
     "sol_scalp_microtrend": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T13:10:28.939455+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 1.2,
-      "observations": 3370,
+      "observations": 3371,
       "missed_observations": 15,
       "control": {
         "net_return_pct": -98.08581,
@@ -365,7 +365,7 @@
     "aapl_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:00:40.255652+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -389,7 +389,7 @@
     "bnd_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:00:40.255652+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -413,7 +413,7 @@
     "gld_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:05:26.337776+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -437,7 +437,7 @@
     "msft_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:05:26.337776+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -461,7 +461,7 @@
     "qqq_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T04:44:59.758183+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -485,7 +485,7 @@
     "slv_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T05:54:48.485214+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -509,7 +509,7 @@
     "spy_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T13:10:28.939455+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -533,7 +533,7 @@
     "vnq_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T13:10:28.939455+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
@@ -557,7 +557,7 @@
     "eurusd_trend20": {
       "source": "independent_forward_shadow_v1",
       "created_at": "2026-10-29T00:05:26.337776+00:00",
-      "observed_at": "2026-11-23T01:14:24.385843+00:00",
+      "observed_at": "2026-11-23T01:24:22.662618+00:00",
       "entry_scale": 0.8,
       "observations": 16,
       "missed_observations": 0,
