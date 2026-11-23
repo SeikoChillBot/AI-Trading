@@ -136,7 +136,7 @@ class MobileDashboardTests(unittest.TestCase):
   self.assertIn("function detailSheet(r)",directory)
   self.assertIn("data-view=\"robots\"",html)
 
- def test_user_bottom_navigation_remains_unchanged_and_daily_brief_visible(self):
+ def test_user_navigation_and_daily_brief_visible(self):
   template=(ROOT/"site/index.html").read_text(encoding="utf8")
   app=(ROOT/"site/app.js").read_text(encoding="utf8")
   source=(ROOT/"site/lab04-desk.js").read_text(encoding="utf8")
