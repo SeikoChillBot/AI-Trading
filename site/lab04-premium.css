@@ -1,0 +1,15 @@
+/* Seiko Lab — premium fintech foundation. Presentation only; no simulation data or decisions. */
+:root{--premium-bg:#0b1019;--premium-surface:#151e2a;--premium-raised:#1b2735;--premium-border:#314252;--premium-text:#f1f6fa;--premium-muted:#a5b5c2;--premium-accent:#b9f477;--premium-radius:16px;--premium-space:16px}
+body{background:var(--premium-bg);color:var(--premium-text)}
+.topbar{border-bottom:1px solid var(--premium-border)}
+.brand-word{letter-spacing:.035em}
+.brand-word small{letter-spacing:.13em}
+.page-heading h1{letter-spacing:-.035em;line-height:1.13}
+.page-heading p{color:var(--premium-muted)}
+.lab-overview,.ait-focus-panel{border-color:var(--premium-border);box-shadow:0 12px 32px rgba(0,0,0,.13)}
+.lab-freshness,.ait-beginner-note,.ait-journey,.ait-page-explain{border-color:var(--premium-border)}
+.bottom-nav{border-top-color:var(--premium-border)}
+.nav-button{transition:color .16s ease,background-color .16s ease}
+.nav-button:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--premium-accent);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.nav-button{transition:none}}
+@media(max-width:520px){.page-heading h1{font-size:clamp(26px,7vw,36px)}.lab-overview,.ait-focus-panel{border-radius:var(--premium-radius)}}
