@@ -1,6 +1,6 @@
 # Tableau de bord — AI Trading
 
-Actualisé : **24/11/2026 à 05:40 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
+Actualisé : **24/11/2026 à 05:44 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
 
 > Simulation uniquement, aucun argent réel. Les frais de marché sont simplifiés et les résultats ne sont pas des prévisions.
 
