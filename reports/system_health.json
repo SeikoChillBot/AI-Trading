@@ -1,8 +1,10 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-24T17:47:32.567708+00:00",
-  "status": "observing",
-  "alerts": [],
+  "generated_at": "2026-11-24T20:32:57.601320+00:00",
+  "status": "needs_attention",
+  "alerts": [
+    "Dernière analyse Gemini non confirmée"
+  ],
   "roadmap": [
     {
       "id": "robots",
@@ -13,7 +15,7 @@
     {
       "id": "intelligence",
       "title": "Analyses Gemini et recherche autonome",
-      "status": "active",
+      "status": "degraded",
       "detail": "Jusqu'à 4 analyses IA par jour, tests statistiques entre deux appels."
     },
     {
@@ -32,7 +34,7 @@
       "id": "whales",
       "title": "Surveillance des gros mouvements",
       "status": "active",
-      "detail": "300 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (partial). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
+      "detail": "300 transferts publics échantillonnés USDC/USDT ; 4 adresses publiques suivies indépendamment (observing). Couverture non exhaustive ; aucune identité ou transaction d'achat vérifiée."
     },
     {
       "id": "changes",
@@ -64,21 +66,21 @@
     "workflows": {
       "Paper trading": {
         "state": "healthy",
-        "run_id": 45452204957,
-        "last_created_at": "2026-11-24T17:46:10Z",
-        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/45452204957",
+        "run_id": 45481688170,
+        "last_created_at": "2026-11-24T20:31:28Z",
+        "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/45481688170",
         "last_result": "success"
       },
       "Seiko research — guarded automatic analysis": {
-        "state": "running",
+        "state": "healthy",
         "run_id": 45452276539,
         "last_created_at": "2026-11-24T17:46:34Z",
         "url": "https://github.com/SeikoChillBot/AI-Trading/actions/runs/45452276539",
-        "previous_completed_result": "success"
+        "last_result": "success"
       }
     }
   },
-  "gemini_last_state": "model_reflection_completed",
+  "gemini_last_state": "model_reflection_failed",
   "paper_experiments_active": 9,
   "robot_count": 36,
   "real_orders": false,
