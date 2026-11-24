@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-24T11:21:52.707828+00:00",
+  "generated_at": "2026-11-24T14:12:26.213703+00:00",
   "state": "research_memory_recorded",
-  "recorded_hypotheses": 78,
-  "total_experiment_fingerprints": 78,
-  "new_revisions": 0,
+  "recorded_hypotheses": 79,
+  "total_experiment_fingerprints": 79,
+  "new_revisions": 1,
   "failure_patterns": {
-    "positive_with_double_costs": 74,
-    "positive_average_net": 66,
-    "enough_closed_trades": 58,
+    "positive_with_double_costs": 75,
+    "positive_average_net": 67,
+    "enough_closed_trades": 59,
     "beats_hold_in_most_folds": 24,
     "drawdown_under_20_pct": 22
   },
   "research_agenda": [
     {
       "category": "cost_sensitivity",
-      "failed_historical_checks": 74,
-      "historical_population": 78,
+      "failed_historical_checks": 75,
+      "historical_population": 79,
       "hypothesis_to_falsify": "Tester moins d'ordres et des confirmations de volatilité, mais surveiller une perte de signaux utiles.",
       "experiment": "Comparer les règles simples et composées avec frais normaux/doublés sur des bougies futures.",
       "independent_future_data_required": true,
@@ -24,8 +24,8 @@
     },
     {
       "category": "net_return",
-      "failed_historical_checks": 66,
-      "historical_population": 78,
+      "failed_historical_checks": 67,
+      "historical_population": 79,
       "hypothesis_to_falsify": "Comparer familles de tendance, retour vers moyenne et abstention sans sélectionner sur le contrôle historique.",
       "experiment": "Conserver seulement les améliorations positives après frais sur de nouvelles journées distinctes.",
       "independent_future_data_required": true,
@@ -33,8 +33,8 @@
     },
     {
       "category": "trade_density",
-      "failed_historical_checks": 58,
-      "historical_population": 78,
+      "failed_historical_checks": 59,
+      "historical_population": 79,
       "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
       "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
       "independent_future_data_required": true,
@@ -43,7 +43,7 @@
     {
       "category": "hold_comparison",
       "failed_historical_checks": 24,
-      "historical_population": 78,
+      "historical_population": 79,
       "hypothesis_to_falsify": "Tester si un signal ajoute de la valeur au simple achat-conservation sur les mêmes dates.",
       "experiment": "Rejeter la supériorité si le différentiel futur au témoin Hold n'est pas positif.",
       "independent_future_data_required": true,
@@ -55,25 +55,11 @@
     "mean_reversion": 10,
     "breakout": 22,
     "ema_trend": 13,
-    "rsi_reversal": 23,
+    "rsi_reversal": 24,
     "volatility_gate": 4
   },
   "prospective_observed": 42,
   "recent_lessons": [
-    {
-      "id": "823c49a0c06778ca6c",
-      "asset": "SOLUSD",
-      "logic": "breakout",
-      "confirmations": [
-        "ema_uptrend",
-        "rsi_strength"
-      ],
-      "historical_failure_reasons": [
-        "enough_closed_trades"
-      ],
-      "historical_revisions": 6,
-      "forward_observed_days": 0
-    },
     {
       "id": "8f0cff5e1a807dc8b6",
       "asset": "SOLUSD",
@@ -243,6 +229,21 @@
       ],
       "historical_failure_reasons": [
         "drawdown_under_20_pct",
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "efca36b846f200e419",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "confirmations": [
+        "positive_momentum"
+      ],
+      "historical_failure_reasons": [
         "enough_closed_trades",
         "positive_average_net",
         "positive_with_double_costs"

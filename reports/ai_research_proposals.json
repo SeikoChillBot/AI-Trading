@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-24T11:21:51.295439+00:00",
+  "generated_at": "2026-11-24T14:12:15.323450+00:00",
   "research_date_utc": "2026-11-24",
-  "review_slot": "2026-11-24T06:00Z",
-  "model_last_called_at": "2026-11-24T08:26:56.018314+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-24T12:00Z",
+  "model_last_called_at": "2026-11-24T14:12:15.323450+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-24T08:26:56.018314+00:00",
+  "last_attempt_at": "2026-11-24T14:12:15.323450+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des robots et des historiques du laboratoire Seiko au 24 novembre 2026. Les données de marché montrent un régime persistant de tendance baissière sur les actifs cryptographiques majeurs (BTCUSD, ETHUSD, SOLUSD) sur l'horizon de 30 jours, accompagné d'un indice de peur et de cupidité extrêmement bas (11). Les robots de type 'hold' enregistrent des performances nettes négatives (BTC à -26.70 %, ETH à -28.93 %, SOL à -30.75 %), tandis que la majorité des stratégies actives (momentum, RSI, breakout, moyenne mobile) subissent des drawdowns importants dépassant fréquemment 60 %, voire 80 %, sous l'effet conjugué des frais et de la structure de tendance défavorable. Les tests prospectifs sur 69 observations forward paper affichent des résultats mitigés selon les actifs (ETH positif à +1.04 %, BTC et SOL négatifs). Les leçons scientifiques confirmez l'extrême sensibilité aux coûts et l'absence de robustesse des règles testées de manière répétée sur les mêmes holdouts. Aucune s",
+  "summary": "Analyse critique Seiko du 24 novembre 2026. Les robots de trading affichent des performances historiques dégradées en régime de tendance baissière et de volatilité élevée (ex. Fear & Greed à 11). Les tests sur les historiques montrent des sensibilités aiguës aux coûts de transaction et des drawdowns prononcés dépassant régulièrement 20-30% sur les actifs crypto (BTC, ETH, SOL). Aucun robot n'est prouvé rentable pour l'avenir malgré quelques surperformances relatives épisodiques face au Hold simple. Les propositions de stratégies et d'expériences narratives respectent strictement le cadre fictif, sans promesse de rendement ni exécution réelle.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -111,7 +111,7 @@
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Évaluer l'abstention conditionnelle en période de volatilité calme et de survente, afin de limiter la fréquence des transactions et d'observer la résistance aux frais par rapport aux stratégies de momentum pur.",
+      "rationale": "Filtrer les entrées lorsque la volatilité dépasse les seuils critiques observés, en cherchant à limiter l'exposition lors des phases de forte incertitude macro.",
       "confirmations": [
         "quiet_volatility",
         "rsi_oversold"
@@ -121,9 +121,9 @@
       "asset": "ETHUSD",
       "logic": "rsi_reversal",
       "lookback_days": 40,
-      "threshold_pct": 1.0,
+      "threshold_pct": 0.5,
       "max_hold_days": 3,
-      "rationale": "Rechercher des points de retournement potentiels sur des fenêtres plus larges avec confirmation de momentum positif, en mesurant la robustesse face au drawdown historique.",
+      "rationale": "Identifier des rebonds potentiels sur des horizons de confirmation plus larges tout en maintenant une stricte discipline sur les coûts.",
       "confirmations": [
         "positive_momentum"
       ]
