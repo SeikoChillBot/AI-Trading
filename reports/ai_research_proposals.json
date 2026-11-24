@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-24T05:41:39.265895+00:00",
+  "generated_at": "2026-11-24T08:26:56.018314+00:00",
   "research_date_utc": "2026-11-24",
-  "review_slot": "2026-11-24T00:00Z",
-  "model_last_called_at": "2026-11-24T01:56:23.257687+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-24T06:00Z",
+  "model_last_called_at": "2026-11-24T08:26:56.018314+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-24T01:56:23.257687+00:00",
+  "last_attempt_at": "2026-11-24T08:26:56.018314+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse quantitative du laboratoire Seiko au 24 novembre 2026. L'examen des 36 robots et des historiques OOS montre une persistance de pertes nettes après frais sur la plupart des stratégies testées (momentum, breakout, RSI reversal), le témoin Hold restant souvent moins destructeur en dépit de drawdowns prononcés. Les performances forward (62 observations) montrent une instabilité, l'ETHUSD affichant un léger gain forward (+1.04 %) tandis que BTC et SOL restent négatifs. Les tests de robustesse face aux coûts et la sensibilité aux frais doubles confirment la fragilité des approches à haute fréquence. Aucune stratégie n'est prouvée robuste pour un gain futur garanti.",
+  "summary": "Analyse critique des robots et des historiques du laboratoire Seiko au 24 novembre 2026. Les données de marché montrent un régime persistant de tendance baissière sur les actifs cryptographiques majeurs (BTCUSD, ETHUSD, SOLUSD) sur l'horizon de 30 jours, accompagné d'un indice de peur et de cupidité extrêmement bas (11). Les robots de type 'hold' enregistrent des performances nettes négatives (BTC à -26.70 %, ETH à -28.93 %, SOL à -30.75 %), tandis que la majorité des stratégies actives (momentum, RSI, breakout, moyenne mobile) subissent des drawdowns importants dépassant fréquemment 60 %, voire 80 %, sous l'effet conjugué des frais et de la structure de tendance défavorable. Les tests prospectifs sur 69 observations forward paper affichent des résultats mitigés selon les actifs (ETH positif à +1.04 %, BTC et SOL négatifs). Les leçons scientifiques confirmez l'extrême sensibilité aux coûts et l'absence de robustesse des règles testées de manière répétée sur les mêmes holdouts. Aucune s",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -104,7 +104,31 @@
   "bot_adjustments": [],
   "scenario_proposals": [],
   "desk_notes": [],
-  "strategy_designs": [],
+  "strategy_designs": [
+    {
+      "asset": "BTCUSD",
+      "logic": "volatility_gate",
+      "lookback_days": 20,
+      "threshold_pct": 1.0,
+      "max_hold_days": 3,
+      "rationale": "Évaluer l'abstention conditionnelle en période de volatilité calme et de survente, afin de limiter la fréquence des transactions et d'observer la résistance aux frais par rapport aux stratégies de momentum pur.",
+      "confirmations": [
+        "quiet_volatility",
+        "rsi_oversold"
+      ]
+    },
+    {
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "lookback_days": 40,
+      "threshold_pct": 1.0,
+      "max_hold_days": 3,
+      "rationale": "Rechercher des points de retournement potentiels sur des fenêtres plus larges avec confirmation de momentum positif, en mesurant la robustesse face au drawdown historique.",
+      "confirmations": [
+        "positive_momentum"
+      ]
+    }
+  ],
   "research_tasks": [],
   "experiments_validated": false,
   "live_strategy_changes_enabled": false,
