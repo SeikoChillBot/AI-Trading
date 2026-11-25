@@ -1,6 +1,6 @@
 # Tableau de bord — AI Trading
 
-Actualisé : **25/11/2026 à 19:35 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
+Actualisé : **25/11/2026 à 19:40 (heure de Paris)** · **18 robots** · **20 USD fictifs chacun**
 
 > Simulation uniquement, aucun argent réel. Les frais de marché sont simplifiés et les résultats ne sont pas des prévisions.
 
@@ -8,7 +8,7 @@ Actualisé : **25/11/2026 à 19:35 (heure de Paris)** · **18 robots** · **20 U
 |---|---:|---:|---|---:|
 | btc_reversion | 19.09 $ | -4.54 % | ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▆██████████████████████ | 38 |
 | btc_scalp_conservative | 18.34 $ | -8.32 % | ██████████████████████████▇▂▂▂▂▂▂▂▂▂▂▂▂▁▃▁▄▅▄▆▅▄ | 37 |
-| eth_scalp_trailing | 17.93 $ | -10.36 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▄▅▅▆▇▆ | 125 |
+| eth_scalp_trailing | 17.89 $ | -10.57 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▄▅▅▆▇▆▅ | 125 |
 | btc_volatility | 17.84 $ | -10.81 % | ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ | 22 |
 | sol_reversion | 17.83 $ | -10.83 % | ▇▇▆▆▇▆▆▇█▇▇▇▇▇▇▅▄▄▃▅▅▄▃▁▃▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ | 62 |
 | eth_ema_cross | 17.17 $ | -14.15 % | ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▇▇▇█ | 67 |
