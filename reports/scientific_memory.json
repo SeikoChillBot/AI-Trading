@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-24T23:23:02.806982+00:00",
+  "generated_at": "2026-11-25T00:50:00.086286+00:00",
   "state": "research_memory_recorded",
-  "recorded_hypotheses": 81,
-  "total_experiment_fingerprints": 81,
-  "new_revisions": 2,
+  "recorded_hypotheses": 82,
+  "total_experiment_fingerprints": 82,
+  "new_revisions": 80,
   "failure_patterns": {
-    "positive_with_double_costs": 77,
-    "positive_average_net": 69,
-    "enough_closed_trades": 60,
-    "beats_hold_in_most_folds": 25,
-    "drawdown_under_20_pct": 23
+    "positive_with_double_costs": 78,
+    "positive_average_net": 70,
+    "enough_closed_trades": 61,
+    "beats_hold_in_most_folds": 27,
+    "drawdown_under_20_pct": 25
   },
   "research_agenda": [
     {
       "category": "cost_sensitivity",
-      "failed_historical_checks": 77,
-      "historical_population": 81,
+      "failed_historical_checks": 78,
+      "historical_population": 82,
       "hypothesis_to_falsify": "Tester moins d'ordres et des confirmations de volatilité, mais surveiller une perte de signaux utiles.",
       "experiment": "Comparer les règles simples et composées avec frais normaux/doublés sur des bougies futures.",
       "independent_future_data_required": true,
@@ -24,8 +24,8 @@
     },
     {
       "category": "net_return",
-      "failed_historical_checks": 69,
-      "historical_population": 81,
+      "failed_historical_checks": 70,
+      "historical_population": 82,
       "hypothesis_to_falsify": "Comparer familles de tendance, retour vers moyenne et abstention sans sélectionner sur le contrôle historique.",
       "experiment": "Conserver seulement les améliorations positives après frais sur de nouvelles journées distinctes.",
       "independent_future_data_required": true,
@@ -33,8 +33,8 @@
     },
     {
       "category": "trade_density",
-      "failed_historical_checks": 60,
-      "historical_population": 81,
+      "failed_historical_checks": 61,
+      "historical_population": 82,
       "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
       "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
       "independent_future_data_required": true,
@@ -42,8 +42,8 @@
     },
     {
       "category": "hold_comparison",
-      "failed_historical_checks": 25,
-      "historical_population": 81,
+      "failed_historical_checks": 27,
+      "historical_population": 82,
       "hypothesis_to_falsify": "Tester si un signal ajoute de la valeur au simple achat-conservation sur les mêmes dates.",
       "experiment": "Rejeter la supériorité si le différentiel futur au témoin Hold n'est pas positif.",
       "independent_future_data_required": true,
@@ -53,30 +53,13 @@
   "tested_logic_families": {
     "trend_following": 6,
     "mean_reversion": 11,
-    "breakout": 23,
+    "breakout": 24,
     "ema_trend": 13,
     "rsi_reversal": 24,
     "volatility_gate": 4
   },
   "prospective_observed": 42,
   "recent_lessons": [
-    {
-      "id": "a38410b37f30168a44",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "confirmations": [
-        "positive_momentum",
-        "rsi_oversold"
-      ],
-      "historical_failure_reasons": [
-        "beats_hold_in_most_folds",
-        "enough_closed_trades",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 5,
-      "forward_observed_days": 0
-    },
     {
       "id": "c9bcad859899af6676",
       "asset": "BTCUSD",
@@ -90,7 +73,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 5,
+      "historical_revisions": 6,
       "forward_observed_days": 0
     },
     {
@@ -106,7 +89,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 5,
+      "historical_revisions": 6,
       "forward_observed_days": 0
     },
     {
@@ -124,7 +107,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 4,
+      "historical_revisions": 5,
       "forward_observed_days": 0
     },
     {
@@ -140,7 +123,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 4,
+      "historical_revisions": 5,
       "forward_observed_days": 0
     },
     {
@@ -157,7 +140,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 3,
+      "historical_revisions": 4,
       "forward_observed_days": 0
     },
     {
@@ -170,7 +153,7 @@
       "historical_failure_reasons": [
         "enough_closed_trades"
       ],
-      "historical_revisions": 3,
+      "historical_revisions": 4,
       "forward_observed_days": 0
     },
     {
@@ -186,7 +169,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 3,
+      "historical_revisions": 4,
       "forward_observed_days": 0
     },
     {
@@ -202,7 +185,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -217,7 +200,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -233,7 +216,7 @@
         "positive_average_net",
         "positive_with_double_costs"
       ],
-      "historical_revisions": 1,
+      "historical_revisions": 2,
       "forward_observed_days": 0
     },
     {
@@ -244,6 +227,23 @@
         "rsi_strength"
       ],
       "historical_failure_reasons": [
+        "enough_closed_trades",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 2,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "15c645dbbf18a7653a",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "confirmations": [
+        "positive_momentum",
+        "quiet_volatility"
+      ],
+      "historical_failure_reasons": [
+        "beats_hold_in_most_folds",
         "enough_closed_trades",
         "positive_average_net",
         "positive_with_double_costs"
