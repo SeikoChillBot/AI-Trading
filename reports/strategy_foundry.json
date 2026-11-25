@@ -1,58 +1,28 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-25T16:56:08.550046+00:00",
+  "generated_at": "2026-11-25T19:46:48.888325+00:00",
   "total_hypotheses": 80,
-  "gemini_hypotheses": 33,
+  "gemini_hypotheses": 34,
   "gemini_narratives_compiled_locally": 0,
   "gemini_task_shadow_hypotheses": 0,
   "auto_optimized_hypotheses": 5,
-  "evolved_hypotheses": 12,
+  "evolved_hypotheses": 11,
   "crossed_hypotheses": 24,
   "director_hypotheses": 3,
   "local_adversarial_controls": 0,
   "tested_historically": 80,
-  "events": [],
-  "recent_ideas": [
+  "events": [
     {
-      "id": "f03ad649c318345107",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "ema_trend",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Filtrer les faux signaux de tendance par une condition de volatilité calme et une moyenne mobile exponentielle pour limiter les transactions excessives en régime baissier.",
-        "confirmations": [
-          "ema_uptrend",
-          "quiet_volatility"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "BTCUSD",
-        "average_net_pct": -2.9586,
-        "average_excess_vs_hold_points": 3.1959,
-        "average_double_cost_net_pct": -7.0432,
-        "max_drawdown_pct": 10.38196,
-        "closed_trades": 15,
-        "folds_beating_hold": 3,
-        "checks": {
-          "enough_closed_trades": false,
-          "positive_average_net": false,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": true
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
+      "id": "c3d372db8943b566f7",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
     },
+    {
+      "id": "c3d372db8943b566f7",
+      "status": "exploratory_replay_completed"
+    }
+  ],
+  "recent_ideas": [
     {
       "id": "84e319f4054351a41c",
       "source": "gemini_structured_hypothesis",
@@ -467,6 +437,45 @@
           "positive_with_double_costs": false,
           "beats_hold_in_most_folds": false,
           "drawdown_under_20_pct": true
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "c3d372db8943b566f7",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Explorer un retournement RSI strict sur ETH avec un horizon de détention court pour limiter l'exposition au drawdown en tendance baissière.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "average_net_pct": -17.3229,
+        "average_excess_vs_hold_points": -10.0745,
+        "average_double_cost_net_pct": -26.9074,
+        "max_drawdown_pct": 40.63353,
+        "closed_trades": 50,
+        "folds_beating_hold": 2,
+        "checks": {
+          "enough_closed_trades": true,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
+          "drawdown_under_20_pct": false
         },
         "all_historical_checks_pass": false,
         "qualified_for_live_trading": false,

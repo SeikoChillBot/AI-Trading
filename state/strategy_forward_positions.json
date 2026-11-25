@@ -1,35 +1,7 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-25T16:56:09.486454+00:00",
+  "updated_at": "2026-11-25T19:46:49.767635+00:00",
   "tracks": {
-    "43a92df4809f8f30fe": {
-      "id": "43a92df4809f8f30fe",
-      "source": "bounded_evolution",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "breakout",
-        "lookback_days": 40,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Mutation contrôlée de threshold_pct pour confronter une hypothèse historique au résultat de sa variante."
-      },
-      "started_at": "2026-10-29T20:55:20.972726+00:00",
-      "last_t": 1795478400,
-      "observed_days": 27,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.00024384687791850803,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -27.81702,
-      "excess_vs_hold_points": 27.81702
-    },
     "56bf169e5e3e751450": {
       "id": "56bf169e5e3e751450",
       "source": "bounded_evolution",
@@ -1115,6 +1087,33 @@
       "net_pct": 0.0,
       "hold_net_pct": -17.83054,
       "excess_vs_hold_points": 17.83054
+    },
+    "c3d372db8943b566f7": {
+      "id": "c3d372db8943b566f7",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Explorer un retournement RSI strict sur ETH avec un horizon de détention court pour limiter l'exposition au drawdown en tendance baissière.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-25T19:46:49.767635+00:00",
+      "last_t": 1795478400,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
     }
   },
   "archived": [
@@ -1171,6 +1170,15 @@
       "net_pct": 0.0,
       "status": "archived_capacity_rotation",
       "archived_at": "2026-11-05T02:36:52.438007+00:00"
+    },
+    {
+      "id": "43a92df4809f8f30fe",
+      "source": "bounded_evolution",
+      "last_t": 1795478400,
+      "observed_days": 27,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-25T19:46:49.767635+00:00"
     }
   ],
   "real_orders": false

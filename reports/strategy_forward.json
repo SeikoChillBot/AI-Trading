@@ -1,31 +1,14 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-25T16:56:09.486454+00:00",
+  "generated_at": "2026-11-25T19:46:49.767635+00:00",
   "tracked": 36,
-  "archived_trials": 6,
+  "archived_trials": 7,
   "capacity_limit": 36,
   "deferred_hypotheses": 41,
-  "protected_immature_tracks": 36,
+  "protected_immature_tracks": 35,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
-    {
-      "id": "43a92df4809f8f30fe",
-      "source": "bounded_evolution",
-      "asset": "BTCUSD",
-      "logic": "breakout",
-      "observed_days": 27,
-      "closed_trades": 0,
-      "net_pct": 0.0,
-      "excess_vs_hold_points": 27.81702,
-      "hold_net_pct": -27.81702,
-      "excess_vs_cash_points": 0.0,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
     {
       "id": "56bf169e5e3e751450",
       "source": "bounded_evolution",
@@ -620,8 +603,34 @@
       "max_drawdown_pct": 0.0,
       "status": "observing_paper_only",
       "sufficient_evidence": false
+    },
+    {
+      "id": "c3d372db8943b566f7",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "id": "c3d372db8943b566f7",
+      "status": "forward_paper_registered"
+    },
+    {
+      "id": "43a92df4809f8f30fe",
+      "status": "archived_capacity_rotation"
+    }
+  ],
   "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven."
 }

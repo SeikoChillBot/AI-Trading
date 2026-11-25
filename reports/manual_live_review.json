@@ -1,27 +1,9 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-25T16:56:09.872523+00:00",
+  "generated_at": "2026-11-25T19:46:50.132288+00:00",
   "tracked_research_candidates": 24,
   "eligible_for_human_review": 0,
   "trials": [
-    {
-      "id": "43a92df4809f8f30fe",
-      "asset": "BTCUSD",
-      "status": "research_in_progress",
-      "blockers": [
-        "not_enough_new_observed_days",
-        "not_enough_closed_trades",
-        "positive_net_after_fees_not_demonstrated",
-        "historical_stress_checks_not_passed"
-      ],
-      "observed_days": 27,
-      "closed_trades": 0,
-      "net_after_fees_pct": 0.0,
-      "excess_vs_hold_points": 27.81702,
-      "drawdown_pct": 0.0,
-      "live_approved": false,
-      "can_place_real_orders": false
-    },
     {
       "id": "56bf169e5e3e751450",
       "asset": "ETHUSD",
@@ -438,6 +420,26 @@
       "net_after_fees_pct": 0.0,
       "excess_vs_hold_points": 28.44582,
       "drawdown_pct": 0.0,
+      "live_approved": false,
+      "can_place_real_orders": false
+    },
+    {
+      "id": "a7dfc6a4871472fbc0",
+      "asset": "BTCUSD",
+      "status": "research_in_progress",
+      "blockers": [
+        "not_enough_new_observed_days",
+        "not_enough_closed_trades",
+        "positive_net_after_fees_not_demonstrated",
+        "no_prospective_advantage_over_hold",
+        "drawdown_too_high_or_unknown",
+        "historical_stress_checks_not_passed"
+      ],
+      "observed_days": 17,
+      "closed_trades": 3,
+      "net_after_fees_pct": -25.47069,
+      "excess_vs_hold_points": -2.92982,
+      "drawdown_pct": 25.47069,
       "live_approved": false,
       "can_place_real_orders": false
     }
