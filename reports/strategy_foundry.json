@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-25T03:42:52.517749+00:00",
+  "generated_at": "2026-11-25T06:33:23.423952+00:00",
   "total_hypotheses": 80,
-  "gemini_hypotheses": 32,
+  "gemini_hypotheses": 33,
   "gemini_narratives_compiled_locally": 0,
   "gemini_task_shadow_hypotheses": 0,
-  "auto_optimized_hypotheses": 6,
+  "auto_optimized_hypotheses": 5,
   "evolved_hypotheses": 12,
   "crossed_hypotheses": 24,
   "director_hypotheses": 3,
@@ -13,64 +13,16 @@
   "tested_historically": 80,
   "events": [
     {
-      "id": "0a96651dc89ea61036",
+      "id": "025318756e1eb551d1",
       "status": "hypothesis_archived",
-      "source": "deterministic_reference"
+      "source": "gemini_structured_hypothesis"
     },
     {
-      "id": "0cafd059c30c6a3924",
-      "status": "hypothesis_archived",
-      "source": "deterministic_reference"
-    },
-    {
-      "id": "0a96651dc89ea61036",
-      "status": "exploratory_replay_completed"
-    },
-    {
-      "id": "0cafd059c30c6a3924",
+      "id": "025318756e1eb551d1",
       "status": "exploratory_replay_completed"
     }
   ],
   "recent_ideas": [
-    {
-      "id": "16d56661a03f908c95",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "mean_reversion",
-        "lookback_days": 10,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Exploiter les rebonds de courte durée sur Solana lorsque la volatilité active signale un mouvement potentiellement exagéré.",
-        "confirmations": [
-          "active_volatility"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "SOLUSD",
-        "average_net_pct": -16.0239,
-        "average_excess_vs_hold_points": -9.3193,
-        "average_double_cost_net_pct": -26.1748,
-        "max_drawdown_pct": 41.96574,
-        "closed_trades": 48,
-        "folds_beating_hold": 1,
-        "checks": {
-          "enough_closed_trades": true,
-          "positive_average_net": false,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": false
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
-    },
     {
       "id": "f03ad649c318345107",
       "source": "gemini_structured_hypothesis",
@@ -485,6 +437,45 @@
           "positive_average_net": false,
           "positive_with_double_costs": false,
           "beats_hold_in_most_folds": true,
+          "drawdown_under_20_pct": true
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "025318756e1eb551d1",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 10,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Tester un rebond court sur des seuils stricts avec confirmation de momentum positif.",
+        "confirmations": [
+          "positive_momentum"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "average_net_pct": -4.5321,
+        "average_excess_vs_hold_points": 2.7163,
+        "average_double_cost_net_pct": -8.6338,
+        "max_drawdown_pct": 7.99239,
+        "closed_trades": 15,
+        "folds_beating_hold": 3,
+        "checks": {
+          "enough_closed_trades": false,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": false,
           "drawdown_under_20_pct": true
         },
         "all_historical_checks_pass": false,

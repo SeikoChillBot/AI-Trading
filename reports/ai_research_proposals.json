@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-25T03:42:52.400367+00:00",
+  "generated_at": "2026-11-25T06:33:20.061930+00:00",
   "research_date_utc": "2026-11-25",
-  "review_slot": "2026-11-25T00:00Z",
-  "model_last_called_at": "2026-11-25T00:49:50.338432+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-25T06:00Z",
+  "model_last_called_at": "2026-11-25T06:33:20.061930+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-25T00:49:50.338432+00:00",
+  "last_attempt_at": "2026-11-25T06:33:20.061930+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse des robots cryptographiques et des performances historiques de Seiko montre des rendements nets majoritairement négatifs sur les actifs BTCUSD, ETHUSD et SOLUSD, reflétant un régime de marché baissier persistant combiné à une volatilité annualisée élevée (entre 47.7% et 66.4%). Les tests de paper trading prospectif sur 85 observations indiquent des performances mitigées, avec une légère surperformance sur ETHUSD (+1.04%) mais des retraits notables. Aucun historique de répétition sur holdouts ne constitue une preuve de rentabilité future. Les robots de type 'hold' restent des témoins neutres, tandis que les stratégies directionnelles ou de momentum subissent des frais cumulés et des drawdowns prononcés.",
+  "summary": "Analyse du laboratoire Seiko : les données montrent des rendements négatifs récurrents pour la plupart des stratégies de robots crypto et multi-actifs testées historiquement. L'examen des performances sur BTCUSD, ETHUSD et SOLUSD révèle que les règles de momentum, de breakout et de RSI affichent des pertes nettes importantes et des drawdowns élevés après frais, souvent sous-performant un simple achat-conservation (Hold). Les tests exploratoires et les optimisations répétées sur les mêmes jeux de données historiques ne garantissent en aucun cas une rentabilité future. Aucun robot n'est promu automatiquement.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -107,25 +107,24 @@
   "strategy_designs": [
     {
       "asset": "BTCUSD",
-      "logic": "breakout",
+      "logic": "volatility_gate",
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Tester un breakout conditionné par une volatilité calme et un momentum positif pour éviter les faux signaux en régime de forte baisse.",
+      "rationale": "Filtrer les entrées lorsque la volatilité est trop élevée pour éviter les mouvements erratiques en tendance baissière.",
       "confirmations": [
-        "positive_momentum",
         "quiet_volatility"
       ]
     },
     {
       "asset": "ETHUSD",
-      "logic": "rsi_reversal",
+      "logic": "mean_reversion",
       "lookback_days": 10,
-      "threshold_pct": 0.5,
+      "threshold_pct": 2.0,
       "max_hold_days": 1,
-      "rationale": "Explorer une réversion de courte période après un signal de survente sur RSI pour capturer d'éventuels rebonds techniques.",
+      "rationale": "Tester un rebond court sur des seuils stricts avec confirmation de momentum positif.",
       "confirmations": [
-        "rsi_oversold"
+        "positive_momentum"
       ]
     }
   ],
