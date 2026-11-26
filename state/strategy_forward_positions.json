@@ -1,69 +1,7 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-26T09:52:06.193121+00:00",
+  "updated_at": "2026-11-26T12:42:07.333552+00:00",
   "tracks": {
-    "3230ee642ee98dc381": {
-      "id": "3230ee642ee98dc381",
-      "source": "bounded_evolution",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "ema_trend",
-        "lookback_days": 20,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Composition vérifiable avec un indicateur additionnel à l'entrée pour réduire les faux signaux sans présumer du résultat.",
-        "confirmations": [
-          "rsi_oversold"
-        ]
-      },
-      "started_at": "2026-11-05T02:36:52.438007+00:00",
-      "last_t": 1795564800,
-      "observed_days": 21,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.0002464123373965644,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -26.29156,
-      "excess_vs_hold_points": 26.29156
-    },
-    "773bbb595aa60986f7": {
-      "id": "773bbb595aa60986f7",
-      "source": "bounded_evolution",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Composition vérifiable avec un indicateur additionnel à l'entrée pour réduire les faux signaux sans présumer du résultat.",
-        "confirmations": [
-          "rsi_oversold"
-        ]
-      },
-      "started_at": "2026-11-05T02:36:52.438007+00:00",
-      "last_t": 1795564800,
-      "observed_days": 21,
-      "closed_trades": 5,
-      "orders": 10,
-      "holding_days": 0,
-      "cash_usd": 13.73917375,
-      "units": 0.0,
-      "hold_units": 0.008182867549033185,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 31.30495,
-      "status": "observing_paper_only",
-      "value_usd": 13.739174,
-      "net_pct": -31.30413,
-      "hold_net_pct": -31.45356,
-      "excess_vs_hold_points": 0.14943
-    },
     "55ba36b25e044c0690": {
       "id": "55ba36b25e044c0690",
       "source": "bounded_evolution",
@@ -665,6 +603,34 @@
       "hold_net_pct": -16.88593,
       "excess_vs_hold_points": 16.88593
     },
+    "c9bcad859899af6676": {
+      "id": "c9bcad859899af6676",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "volatility_gate",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Filtrer les entrées sur BTCUSD lors des périodes de volatilité contenue avec un RSI survendu pour tenter de réduire la fréquence des faux signaux constatée dans les configurations de momentum pur.",
+        "confirmations": [
+          "quiet_volatility",
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-26T09:52:06.193121+00:00",
+      "last_t": 1795564800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
     "86d2388e166219836a": {
       "id": "86d2388e166219836a",
       "source": "gemini_structured_hypothesis",
@@ -1050,22 +1016,49 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "c9bcad859899af6676": {
-      "id": "c9bcad859899af6676",
+    "36ad577697e1957d16": {
+      "id": "36ad577697e1957d16",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "BTCUSD",
-        "logic": "volatility_gate",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
         "max_hold_days": 3,
-        "rationale": "Filtrer les entrées sur BTCUSD lors des périodes de volatilité contenue avec un RSI survendu pour tenter de réduire la fréquence des faux signaux constatée dans les configurations de momentum pur.",
+        "rationale": "Stratégie de retournement RSI sur ETHUSD avec une fenêtre longue (40 jours) filtrée par une volatilité active, testant la sélectivité des entrées en période de forte agitation de marché.",
         "confirmations": [
-          "quiet_volatility",
+          "active_volatility"
+        ]
+      },
+      "started_at": "2026-11-26T12:42:07.333552+00:00",
+      "last_t": 1795564800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "a38410b37f30168a44": {
+      "id": "a38410b37f30168a44",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 10,
+        "threshold_pct": 0.5,
+        "max_hold_days": 1,
+        "rationale": "Exploiter des rebonds de court terme lorsque le RSI indique des conditions de survente dans un marché instable.",
+        "confirmations": [
+          "positive_momentum",
           "rsi_oversold"
         ]
       },
-      "started_at": "2026-11-26T09:52:06.193121+00:00",
+      "started_at": "2026-11-26T12:42:07.333552+00:00",
       "last_t": 1795564800,
       "observed_days": 0,
       "closed_trades": 0,
@@ -1268,6 +1261,24 @@
       "net_pct": -21.84252,
       "status": "archived_capacity_rotation",
       "archived_at": "2026-11-26T09:52:06.193121+00:00"
+    },
+    {
+      "id": "3230ee642ee98dc381",
+      "source": "bounded_evolution",
+      "last_t": 1795564800,
+      "observed_days": 21,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-26T12:42:07.333552+00:00"
+    },
+    {
+      "id": "773bbb595aa60986f7",
+      "source": "bounded_evolution",
+      "last_t": 1795564800,
+      "observed_days": 21,
+      "net_pct": -31.30413,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-26T12:42:07.333552+00:00"
     }
   ],
   "real_orders": false
