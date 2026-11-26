@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-26T04:11:17.530439+00:00",
+  "generated_at": "2026-11-26T07:01:43.150177+00:00",
   "research_date_utc": "2026-11-26",
-  "review_slot": "2026-11-26T00:00Z",
-  "model_last_called_at": "2026-11-26T00:31:59.050009+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-26T06:00Z",
+  "model_last_called_at": "2026-11-26T07:01:43.150177+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-26T00:31:59.050009+00:00",
+  "last_attempt_at": "2026-11-26T07:01:43.150177+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "L'analyse des robots du laboratoire Seiko montre des performances historiques globalement négatives à travers les classes d'actifs crypto, avec des rendements nets et des drawdowns importants qui rappellent l'absence de garantie de profit. Les tests de paper trading prospectifs (109 observations) indiquent un rendement net de -1.44 % sur BTCUSD, -0.06 % sur ETHUSD et -2.51 % sur SOLUSD. Les historiques de recherche et les mémoires montrent que la sensibilité aux frais et la récurrence de l'ajustement sur les mêmes holdouts limitent la robustesse. Aucune stratégie ne peut être qualifiée de robuste ou rentable de manière certaine sans validation prospective rigoureuse et indépendante.",
+  "summary": "L'analyse des robots cryptographiques et multi-actifs du laboratoire Seiko montre des performances historiques globalement négatives, avec une forte sensibilité aux frais et des drawdowns prononcés. Aucun robot n'affiche de rentabilité avérée sur l'échantillon complet. Sur les cryptomonnaies majeures (BTCUSD, ETHUSD, SOLUSD), les stratégies de type momentum et RSI affichent des pertes nettes substantielles, tandis que les approches de détention (hold) servent de témoins immuables mais subissent également des replis de marché en période de tendance baissière et de volatilité accrue. Les données macroéconomiques et les indicateurs de sentiment (Fear & Greed à 11) traduisent un régime de marché défavorable. Les tests prospectifs sur le papier (paper trading) confirment la difficulté de surperformer le simple achat-conservation après déduction des coûts de transaction. Aucune stratégie ne peut être qualifiée de robuste sans validation prospective additionnelle sur des données entièrement i",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -107,22 +107,22 @@
   "strategy_designs": [
     {
       "asset": "BTCUSD",
-      "logic": "mean_reversion",
+      "logic": "volatility_gate",
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Tester un filtre de volatilité calme associé à un retour à la moyenne pour observer l'impact sur le contrôle du drawdown, sachant que les tests antérieurs sur cette configuration n'ont pas validé de rentabilité nette positive.",
+      "rationale": "Tester un filtre de volatilité calme pour limiter l'exposition lors des phases de forte baisse et de panique de marché.",
       "confirmations": [
         "quiet_volatility"
       ]
     },
     {
       "asset": "ETHUSD",
-      "logic": "rsi_reversal",
+      "logic": "mean_reversion",
       "lookback_days": 40,
-      "threshold_pct": 1.0,
+      "threshold_pct": 2.0,
       "max_hold_days": 3,
-      "rationale": "explorer une configuration de retournement RSI sur une fenêtre plus longue pour vérifier si l'on parvient à réduire la sensibilité aux faux signaux en période de tendance baissière.",
+      "rationale": "Examiner si une approche de retour à la moyenne combinée à un RSI survendu permet d'absorber les mouvements correctifs sur ETH.",
       "confirmations": [
         "rsi_oversold"
       ]
