@@ -1,38 +1,7 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-26T00:32:05.734027+00:00",
+  "updated_at": "2026-11-26T03:21:44.990495+00:00",
   "tracks": {
-    "00e3f7125aee1b131d": {
-      "id": "00e3f7125aee1b131d",
-      "source": "bounded_local_research_director",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Comparer un signal conditionnel à une règle simple après frais.",
-        "confirmations": [
-          "rsi_oversold"
-        ]
-      },
-      "started_at": "2026-10-29T22:57:17.525615+00:00",
-      "last_t": 1795564800,
-      "observed_days": 28,
-      "closed_trades": 6,
-      "orders": 13,
-      "holding_days": 1,
-      "cash_usd": 0.0,
-      "units": 0.009528941525,
-      "hold_units": 0.008408748101630517,
-      "peak_usd": 20.99906832,
-      "max_drawdown_pct": 25.86098,
-      "status": "observing_paper_only",
-      "value_usd": 15.964453,
-      "net_pct": -20.17773,
-      "hold_net_pct": -29.5614,
-      "excess_vs_hold_points": 9.38366
-    },
     "a5e69aa7e003a9b40a": {
       "id": "a5e69aa7e003a9b40a",
       "source": "bounded_local_research_director",
@@ -808,47 +777,98 @@
       "hold_net_pct": -16.88593,
       "excess_vs_hold_points": 16.88593
     },
-    "c3d372db8943b566f7": {
-      "id": "c3d372db8943b566f7",
+    "f03ad649c318345107": {
+      "id": "f03ad649c318345107",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Filtrer les faux signaux de tendance par une condition de volatilité calme et une moyenne mobile exponentielle pour limiter les transactions excessives en régime baissier.",
+        "confirmations": [
+          "ema_uptrend",
+          "quiet_volatility"
+        ]
+      },
+      "started_at": "2026-11-26T00:32:05.734027+00:00",
+      "last_t": 1795564800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "84e319f4054351a41c": {
+      "id": "84e319f4054351a41c",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "breakout",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 3,
+        "rationale": "Chercher des cassures de résistance sur Solana avec une confirmation de force relative du RSI pour évaluer si la sélectivité accrue réduit le taux d'échec historique.",
+        "confirmations": [
+          "rsi_strength"
+        ]
+      },
+      "started_at": "2026-11-26T00:32:05.734027+00:00",
+      "last_t": 1795564800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "2d8cff696c50b6ec6e": {
+      "id": "2d8cff696c50b6ec6e",
       "source": "gemini_structured_hypothesis",
       "spec": {
         "asset": "ETHUSD",
         "logic": "rsi_reversal",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
+        "lookback_days": 10,
+        "threshold_pct": 0.5,
         "max_hold_days": 1,
-        "rationale": "Explorer un retournement RSI strict sur ETH avec un horizon de détention court pour limiter l'exposition au drawdown en tendance baissière.",
+        "rationale": "Exploiter les rebonds de courte durée sur ETH en condition de forte volatilité et de survente mesurée, avec une sortie rapide pour réduire l'exposition aux frais et au slippage.",
         "confirmations": [
-          "rsi_oversold"
+          "active_volatility"
         ]
       },
-      "started_at": "2026-11-25T19:46:49.767635+00:00",
+      "started_at": "2026-11-26T00:32:05.734027+00:00",
       "last_t": 1795564800,
-      "observed_days": 1,
+      "observed_days": 0,
       "closed_trades": 0,
-      "orders": 1,
-      "holding_days": 1,
-      "cash_usd": 0.0,
-      "units": 0.011814679265,
-      "hold_units": 0.011814679265218396,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
       "peak_usd": 20.0,
-      "max_drawdown_pct": 1.03051,
-      "status": "observing_paper_only",
-      "value_usd": 19.793898,
-      "net_pct": -1.03051,
-      "hold_net_pct": -1.03051,
-      "excess_vs_hold_points": 0.0
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
     },
-    "025318756e1eb551d1": {
-      "id": "025318756e1eb551d1",
+    "cb949299bb64871260": {
+      "id": "cb949299bb64871260",
       "source": "gemini_structured_hypothesis",
       "spec": {
         "asset": "ETHUSD",
-        "logic": "mean_reversion",
-        "lookback_days": 10,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Tester un rebond court sur des seuils stricts avec confirmation de momentum positif.",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Rechercher des points de retournement potentiels sur des fenêtres plus larges avec confirmation de momentum positif, en mesurant la robustesse face au drawdown historique.",
         "confirmations": [
           "positive_momentum"
         ]
@@ -866,18 +886,44 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "15c645dbbf18a7653a": {
-      "id": "15c645dbbf18a7653a",
+    "efca36b846f200e419": {
+      "id": "efca36b846f200e419",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 0.5,
+        "max_hold_days": 3,
+        "rationale": "Identifier des rebonds potentiels sur des horizons de confirmation plus larges tout en maintenant une stricte discipline sur les coûts.",
+        "confirmations": [
+          "positive_momentum"
+        ]
+      },
+      "started_at": "2026-11-26T00:32:05.734027+00:00",
+      "last_t": 1795564800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "0b6754e82d8d2cde90": {
+      "id": "0b6754e82d8d2cde90",
       "source": "gemini_structured_hypothesis",
       "spec": {
         "asset": "BTCUSD",
-        "logic": "breakout",
+        "logic": "mean_reversion",
         "lookback_days": 20,
         "threshold_pct": 1.0,
         "max_hold_days": 3,
-        "rationale": "Tester un breakout conditionné par une volatilité calme et un momentum positif pour éviter les faux signaux en régime de forte baisse.",
+        "rationale": "Tester un retour à la moyenne encadré par une volatilité calme pour observer la résistance aux drawdowns sur BTCUSD.",
         "confirmations": [
-          "positive_momentum",
           "quiet_volatility"
         ]
       },
@@ -921,17 +967,18 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "0b6754e82d8d2cde90": {
-      "id": "0b6754e82d8d2cde90",
+    "15c645dbbf18a7653a": {
+      "id": "15c645dbbf18a7653a",
       "source": "gemini_structured_hypothesis",
       "spec": {
         "asset": "BTCUSD",
-        "logic": "mean_reversion",
+        "logic": "breakout",
         "lookback_days": 20,
         "threshold_pct": 1.0,
         "max_hold_days": 3,
-        "rationale": "Tester un retour à la moyenne encadré par une volatilité calme pour observer la résistance aux drawdowns sur BTCUSD.",
+        "rationale": "Tester un breakout conditionné par une volatilité calme et un momentum positif pour éviter les faux signaux en régime de forte baisse.",
         "confirmations": [
+          "positive_momentum",
           "quiet_volatility"
         ]
       },
@@ -948,130 +995,79 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "efca36b846f200e419": {
-      "id": "efca36b846f200e419",
+    "025318756e1eb551d1": {
+      "id": "025318756e1eb551d1",
       "source": "gemini_structured_hypothesis",
       "spec": {
         "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 40,
-        "threshold_pct": 0.5,
-        "max_hold_days": 3,
-        "rationale": "Identifier des rebonds potentiels sur des horizons de confirmation plus larges tout en maintenant une stricte discipline sur les coûts.",
-        "confirmations": [
-          "positive_momentum"
-        ]
-      },
-      "started_at": "2026-11-26T00:32:05.734027+00:00",
-      "last_t": 1795564800,
-      "observed_days": 0,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": null,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle"
-    },
-    "cb949299bb64871260": {
-      "id": "cb949299bb64871260",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Rechercher des points de retournement potentiels sur des fenêtres plus larges avec confirmation de momentum positif, en mesurant la robustesse face au drawdown historique.",
-        "confirmations": [
-          "positive_momentum"
-        ]
-      },
-      "started_at": "2026-11-26T00:32:05.734027+00:00",
-      "last_t": 1795564800,
-      "observed_days": 0,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": null,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle"
-    },
-    "2d8cff696c50b6ec6e": {
-      "id": "2d8cff696c50b6ec6e",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
+        "logic": "mean_reversion",
         "lookback_days": 10,
-        "threshold_pct": 0.5,
+        "threshold_pct": 2.0,
         "max_hold_days": 1,
-        "rationale": "Exploiter les rebonds de courte durée sur ETH en condition de forte volatilité et de survente mesurée, avec une sortie rapide pour réduire l'exposition aux frais et au slippage.",
+        "rationale": "Tester un rebond court sur des seuils stricts avec confirmation de momentum positif.",
+        "confirmations": [
+          "positive_momentum"
+        ]
+      },
+      "started_at": "2026-11-26T00:32:05.734027+00:00",
+      "last_t": 1795564800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "c3d372db8943b566f7": {
+      "id": "c3d372db8943b566f7",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 1,
+        "rationale": "Explorer un retournement RSI strict sur ETH avec un horizon de détention court pour limiter l'exposition au drawdown en tendance baissière.",
+        "confirmations": [
+          "rsi_oversold"
+        ]
+      },
+      "started_at": "2026-11-25T19:46:49.767635+00:00",
+      "last_t": 1795564800,
+      "observed_days": 1,
+      "closed_trades": 0,
+      "orders": 1,
+      "holding_days": 1,
+      "cash_usd": 0.0,
+      "units": 0.011814679265,
+      "hold_units": 0.011814679265218396,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 1.03051,
+      "status": "observing_paper_only",
+      "value_usd": 19.793898,
+      "net_pct": -1.03051,
+      "hold_net_pct": -1.03051,
+      "excess_vs_hold_points": 0.0
+    },
+    "16d56661a03f908c95": {
+      "id": "16d56661a03f908c95",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "SOLUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 10,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Exploiter les rebonds de courte durée sur Solana lorsque la volatilité active signale un mouvement potentiellement exagéré.",
         "confirmations": [
           "active_volatility"
         ]
       },
-      "started_at": "2026-11-26T00:32:05.734027+00:00",
-      "last_t": 1795564800,
-      "observed_days": 0,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": null,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle"
-    },
-    "84e319f4054351a41c": {
-      "id": "84e319f4054351a41c",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "breakout",
-        "lookback_days": 40,
-        "threshold_pct": 2.0,
-        "max_hold_days": 3,
-        "rationale": "Chercher des cassures de résistance sur Solana avec une confirmation de force relative du RSI pour évaluer si la sélectivité accrue réduit le taux d'échec historique.",
-        "confirmations": [
-          "rsi_strength"
-        ]
-      },
-      "started_at": "2026-11-26T00:32:05.734027+00:00",
-      "last_t": 1795564800,
-      "observed_days": 0,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": null,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle"
-    },
-    "f03ad649c318345107": {
-      "id": "f03ad649c318345107",
-      "source": "gemini_structured_hypothesis",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "ema_trend",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Filtrer les faux signaux de tendance par une condition de volatilité calme et une moyenne mobile exponentielle pour limiter les transactions excessives en régime baissier.",
-        "confirmations": [
-          "ema_uptrend",
-          "quiet_volatility"
-        ]
-      },
-      "started_at": "2026-11-26T00:32:05.734027+00:00",
+      "started_at": "2026-11-26T03:21:44.990495+00:00",
       "last_t": 1795564800,
       "observed_days": 0,
       "closed_trades": 0,
@@ -1229,6 +1225,15 @@
       "net_pct": 0.0,
       "status": "archived_capacity_rotation",
       "archived_at": "2026-11-26T00:32:05.734027+00:00"
+    },
+    {
+      "id": "00e3f7125aee1b131d",
+      "source": "bounded_local_research_director",
+      "last_t": 1795564800,
+      "observed_days": 28,
+      "net_pct": -20.17773,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-26T03:21:44.990495+00:00"
     }
   ],
   "real_orders": false

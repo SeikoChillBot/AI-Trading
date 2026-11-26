@@ -1,31 +1,14 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-26T00:32:05.734027+00:00",
+  "generated_at": "2026-11-26T03:21:44.990495+00:00",
   "tracked": 36,
-  "archived_trials": 16,
+  "archived_trials": 17,
   "capacity_limit": 36,
-  "deferred_hypotheses": 41,
-  "protected_immature_tracks": 27,
+  "deferred_hypotheses": 40,
+  "protected_immature_tracks": 35,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
-    {
-      "id": "00e3f7125aee1b131d",
-      "source": "bounded_local_research_director",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "observed_days": 28,
-      "closed_trades": 6,
-      "net_pct": -20.17773,
-      "excess_vs_hold_points": 9.38366,
-      "hold_net_pct": -29.5614,
-      "excess_vs_cash_points": -20.17773,
-      "orders": 13,
-      "inactive_vs_hold": false,
-      "max_drawdown_pct": 25.86098,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
     {
       "id": "a5e69aa7e003a9b40a",
       "source": "bounded_local_research_director",
@@ -452,129 +435,10 @@
       "sufficient_evidence": false
     },
     {
-      "id": "c3d372db8943b566f7",
-      "source": "gemini_structured_hypothesis",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "observed_days": 1,
-      "closed_trades": 0,
-      "net_pct": -1.03051,
-      "excess_vs_hold_points": 0.0,
-      "hold_net_pct": -1.03051,
-      "excess_vs_cash_points": -1.03051,
-      "orders": 1,
-      "inactive_vs_hold": false,
-      "max_drawdown_pct": 1.03051,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "025318756e1eb551d1",
-      "source": "gemini_structured_hypothesis",
-      "asset": "ETHUSD",
-      "logic": "mean_reversion",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "hold_net_pct": null,
-      "excess_vs_cash_points": null,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "15c645dbbf18a7653a",
+      "id": "f03ad649c318345107",
       "source": "gemini_structured_hypothesis",
       "asset": "BTCUSD",
-      "logic": "breakout",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "hold_net_pct": null,
-      "excess_vs_cash_points": null,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "c6ada7ed37e0226daa",
-      "source": "gemini_structured_hypothesis",
-      "asset": "ETHUSD",
-      "logic": "breakout",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "hold_net_pct": null,
-      "excess_vs_cash_points": null,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "0b6754e82d8d2cde90",
-      "source": "gemini_structured_hypothesis",
-      "asset": "BTCUSD",
-      "logic": "mean_reversion",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "hold_net_pct": null,
-      "excess_vs_cash_points": null,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "efca36b846f200e419",
-      "source": "gemini_structured_hypothesis",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "hold_net_pct": null,
-      "excess_vs_cash_points": null,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "cb949299bb64871260",
-      "source": "gemini_structured_hypothesis",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "hold_net_pct": null,
-      "excess_vs_cash_points": null,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
-      "id": "2d8cff696c50b6ec6e",
-      "source": "gemini_structured_hypothesis",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
+      "logic": "ema_trend",
       "observed_days": 0,
       "closed_trades": 0,
       "net_pct": null,
@@ -605,10 +469,146 @@
       "sufficient_evidence": false
     },
     {
-      "id": "f03ad649c318345107",
+      "id": "2d8cff696c50b6ec6e",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "cb949299bb64871260",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "efca36b846f200e419",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "0b6754e82d8d2cde90",
       "source": "gemini_structured_hypothesis",
       "asset": "BTCUSD",
-      "logic": "ema_trend",
+      "logic": "mean_reversion",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "c6ada7ed37e0226daa",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "15c645dbbf18a7653a",
+      "source": "gemini_structured_hypothesis",
+      "asset": "BTCUSD",
+      "logic": "breakout",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "025318756e1eb551d1",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "c3d372db8943b566f7",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 1,
+      "closed_trades": 0,
+      "net_pct": -1.03051,
+      "excess_vs_hold_points": 0.0,
+      "hold_net_pct": -1.03051,
+      "excess_vs_cash_points": -1.03051,
+      "orders": 1,
+      "inactive_vs_hold": false,
+      "max_drawdown_pct": 1.03051,
+      "status": "observing_paper_only",
+      "sufficient_evidence": false
+    },
+    {
+      "id": "16d56661a03f908c95",
+      "source": "gemini_structured_hypothesis",
+      "asset": "SOLUSD",
+      "logic": "mean_reversion",
       "observed_days": 0,
       "closed_trades": 0,
       "net_pct": null,
@@ -624,75 +624,11 @@
   ],
   "events": [
     {
-      "id": "025318756e1eb551d1",
+      "id": "16d56661a03f908c95",
       "status": "forward_paper_registered"
     },
     {
-      "id": "15c645dbbf18a7653a",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "c6ada7ed37e0226daa",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "0b6754e82d8d2cde90",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "efca36b846f200e419",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "cb949299bb64871260",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "2d8cff696c50b6ec6e",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "84e319f4054351a41c",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "f03ad649c318345107",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "56bf169e5e3e751450",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "97bc58780a96065b2a",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "09fcd0e2b0dab27ef7",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "1617d0b2ed93f1d786",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "143da0502545044195",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "1cfcfb93666ed07769",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "2a687faaa0b654a26f",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "53633ea1a537b8579e",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "64e754fd7d289d4131",
+      "id": "00e3f7125aee1b131d",
       "status": "archived_capacity_rotation"
     }
   ],
