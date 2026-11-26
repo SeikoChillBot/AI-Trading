@@ -1,31 +1,14 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-26T07:01:47.583954+00:00",
+  "generated_at": "2026-11-26T09:52:06.193121+00:00",
   "tracked": 36,
-  "archived_trials": 20,
+  "archived_trials": 21,
   "capacity_limit": 36,
-  "deferred_hypotheses": 38,
-  "protected_immature_tracks": 34,
+  "deferred_hypotheses": 37,
+  "protected_immature_tracks": 35,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
-    {
-      "id": "26c653a8086cf4b6ea",
-      "source": "autonomous_grid_search",
-      "asset": "SOLUSD",
-      "logic": "rsi_reversal",
-      "observed_days": 21,
-      "closed_trades": 5,
-      "net_pct": -21.84252,
-      "excess_vs_hold_points": 5.78072,
-      "hold_net_pct": -27.62324,
-      "excess_vs_cash_points": -21.84252,
-      "orders": 11,
-      "inactive_vs_hold": false,
-      "max_drawdown_pct": 26.34698,
-      "status": "observing_paper_only",
-      "sufficient_evidence": false
-    },
     {
       "id": "3230ee642ee98dc381",
       "source": "bounded_evolution",
@@ -384,6 +367,23 @@
       "sufficient_evidence": false
     },
     {
+      "id": "86d2388e166219836a",
+      "source": "gemini_structured_hypothesis",
+      "asset": "ETHUSD",
+      "logic": "mean_reversion",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
+    },
+    {
       "id": "c0036e2bbacbcd6657",
       "source": "gemini_structured_hypothesis",
       "asset": "BTCUSD",
@@ -605,10 +605,10 @@
       "sufficient_evidence": false
     },
     {
-      "id": "86d2388e166219836a",
+      "id": "c9bcad859899af6676",
       "source": "gemini_structured_hypothesis",
-      "asset": "ETHUSD",
-      "logic": "mean_reversion",
+      "asset": "BTCUSD",
+      "logic": "volatility_gate",
       "observed_days": 0,
       "closed_trades": 0,
       "net_pct": null,
@@ -624,19 +624,11 @@
   ],
   "events": [
     {
-      "id": "9177a497fd9d1264e4",
+      "id": "c9bcad859899af6676",
       "status": "forward_paper_registered"
     },
     {
-      "id": "86d2388e166219836a",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "a3ce1363d50d7a645c",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "b311e984e978290b8e",
+      "id": "26c653a8086cf4b6ea",
       "status": "archived_capacity_rotation"
     }
   ],

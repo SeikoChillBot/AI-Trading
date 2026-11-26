@@ -1,35 +1,7 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-26T07:01:47.583954+00:00",
+  "updated_at": "2026-11-26T09:52:06.193121+00:00",
   "tracks": {
-    "26c653a8086cf4b6ea": {
-      "id": "26c653a8086cf4b6ea",
-      "source": "autonomous_grid_search",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Recherche déterministe hors argent réel : tester une logique de marché figée après sélection chronologique et comparer les résultats au témoin."
-      },
-      "started_at": "2026-11-05T02:36:52.438007+00:00",
-      "last_t": 1795564800,
-      "observed_days": 21,
-      "closed_trades": 5,
-      "orders": 11,
-      "holding_days": 1,
-      "cash_usd": 0.0,
-      "units": 0.224086630242,
-      "hold_units": 0.20751262091760425,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 26.34698,
-      "status": "observing_paper_only",
-      "value_usd": 15.631497,
-      "net_pct": -21.84252,
-      "hold_net_pct": -27.62324,
-      "excess_vs_hold_points": 5.78072
-    },
     "3230ee642ee98dc381": {
       "id": "3230ee642ee98dc381",
       "source": "bounded_evolution",
@@ -693,6 +665,33 @@
       "hold_net_pct": -16.88593,
       "excess_vs_hold_points": 16.88593
     },
+    "86d2388e166219836a": {
+      "id": "86d2388e166219836a",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 10,
+        "threshold_pct": 2.0,
+        "max_hold_days": 1,
+        "rationale": "Tester une logique de retour à la moyenne sur ETHUSD avec une fenêtre courte sous volatilité active, visant à capturer de potentiels rebonds techniques de court terme tout en limitant l'exposition maximale.",
+        "confirmations": [
+          "active_volatility"
+        ]
+      },
+      "started_at": "2026-11-26T07:01:47.583954+00:00",
+      "last_t": 1795564800,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
     "c0036e2bbacbcd6657": {
       "id": "c0036e2bbacbcd6657",
       "source": "gemini_structured_hypothesis",
@@ -1051,21 +1050,22 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "86d2388e166219836a": {
-      "id": "86d2388e166219836a",
+    "c9bcad859899af6676": {
+      "id": "c9bcad859899af6676",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "ETHUSD",
-        "logic": "mean_reversion",
-        "lookback_days": 10,
-        "threshold_pct": 2.0,
-        "max_hold_days": 1,
-        "rationale": "Tester une logique de retour à la moyenne sur ETHUSD avec une fenêtre courte sous volatilité active, visant à capturer de potentiels rebonds techniques de court terme tout en limitant l'exposition maximale.",
+        "asset": "BTCUSD",
+        "logic": "volatility_gate",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Filtrer les entrées sur BTCUSD lors des périodes de volatilité contenue avec un RSI survendu pour tenter de réduire la fréquence des faux signaux constatée dans les configurations de momentum pur.",
         "confirmations": [
-          "active_volatility"
+          "quiet_volatility",
+          "rsi_oversold"
         ]
       },
-      "started_at": "2026-11-26T07:01:47.583954+00:00",
+      "started_at": "2026-11-26T09:52:06.193121+00:00",
       "last_t": 1795564800,
       "observed_days": 0,
       "closed_trades": 0,
@@ -1259,6 +1259,15 @@
       "net_pct": -31.30413,
       "status": "archived_capacity_rotation",
       "archived_at": "2026-11-26T07:01:47.583954+00:00"
+    },
+    {
+      "id": "26c653a8086cf4b6ea",
+      "source": "autonomous_grid_search",
+      "last_t": 1795564800,
+      "observed_days": 21,
+      "net_pct": -21.84252,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-26T09:52:06.193121+00:00"
     }
   ],
   "real_orders": false

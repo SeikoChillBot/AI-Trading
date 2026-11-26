@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-26T07:01:47.770980+00:00",
+  "generated_at": "2026-11-26T09:52:06.403170+00:00",
   "state": "observing_prospective_paper",
   "ranked": [
     {
@@ -308,22 +308,6 @@
       "real_orders": false
     },
     {
-      "id": "26c653a8086cf4b6ea",
-      "asset": "SOLUSD",
-      "logic": "rsi_reversal",
-      "source": "autonomous_grid_search",
-      "observed_days": 21,
-      "closed_trades": 5,
-      "net_pct": -21.84252,
-      "excess_vs_hold_points": 5.78072,
-      "drawdown_pct": 26.34698,
-      "score": -33.2818,
-      "stage": "paper_observing",
-      "consecutive_qualified_days": 0,
-      "history_checks_pass": false,
-      "real_orders": false
-    },
-    {
       "id": "a7dfc6a4871472fbc0",
       "asset": "BTCUSD",
       "logic": "rsi_reversal",
@@ -519,6 +503,22 @@
       "id": "c6ada7ed37e0226daa",
       "asset": "ETHUSD",
       "logic": "breakout",
+      "source": "gemini_structured_hypothesis",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "drawdown_pct": 0.0,
+      "score": null,
+      "stage": "awaiting_prospective_evidence",
+      "consecutive_qualified_days": 0,
+      "history_checks_pass": false,
+      "real_orders": false
+    },
+    {
+      "id": "c9bcad859899af6676",
+      "asset": "BTCUSD",
+      "logic": "volatility_gate",
       "source": "gemini_structured_hypothesis",
       "observed_days": 0,
       "closed_trades": 0,
