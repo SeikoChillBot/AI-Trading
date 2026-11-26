@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-26T22:19:48.100601+00:00",
+  "generated_at": "2026-11-26T23:02:20.001960+00:00",
   "state": "observing",
   "source": "https://eth.blockscout.com/api/v2",
   "discovery_state": "observing",
@@ -12,10 +12,10 @@
       "address": "0x55fe002aeff02f77364de339a1292923a15844b8",
       "verified_identity": false,
       "sample_count": 50,
-      "new_count": 0,
+      "new_count": 1,
       "baseline_at": "2026-11-19T10:26:40.974345+00:00",
       "last_detected_at": "2026-11-26T04:11:08.844794+00:00",
-      "last_polled_at": "2026-11-26T22:19:48.100601+00:00",
+      "last_polled_at": "2026-11-26T23:02:20.001960+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
@@ -23,17 +23,31 @@
     {
       "address": "0x3b4d794a66304f130a4db8f2551b0070dfcf5ca7",
       "verified_identity": false,
-      "sample_count": 47,
+      "sample_count": 46,
       "new_count": 0,
       "baseline_at": "2026-11-26T12:41:52.230251+00:00",
       "last_detected_at": "2026-11-26T12:41:52.230251+00:00",
-      "last_polled_at": "2026-11-26T22:19:48.100601+00:00",
+      "last_polled_at": "2026-11-26T23:02:20.001960+00:00",
       "collection_state": "ok",
       "monitoring": "active",
       "discovered_this_scan": false
     }
   ],
-  "new_transfers": [],
+  "new_transfers": [
+    {
+      "id": "79807860f10fda9d1ed77c74d4fda9e383085659ba58826352988db229dcbe56",
+      "token": "USDC",
+      "quantity": "1999999",
+      "nominal_usd_approx": 1999999.0,
+      "timestamp": "2026-11-26T22:31:23+00:00",
+      "tx_hash": "0x184c7a86c300457ddefc3bba9ffdead890a9426b582fbec9ac36a6605f32633f",
+      "from_address": "0x59276418c47483dd222b1d1cf266e2ba84d5465b",
+      "to_address": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "classification": "PUBLIC_STABLECOIN_TRANSFER_NOT_VERIFIED_TRADE",
+      "owner_identity": "unknown",
+      "trade_inference": "unknown"
+    }
+  ],
   "errors": {},
   "max_addresses": 4,
   "retention_days": 7,
