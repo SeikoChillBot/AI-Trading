@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-25T21:46:11.207883+00:00",
-  "research_date_utc": "2026-11-25",
-  "review_slot": "2026-11-25T18:00Z",
-  "model_last_called_at": "2026-11-25T19:46:05.219408+00:00",
-  "used_cache": true,
+  "generated_at": "2026-11-26T00:31:59.050009+00:00",
+  "research_date_utc": "2026-11-26",
+  "review_slot": "2026-11-26T00:00Z",
+  "model_last_called_at": "2026-11-26T00:31:59.050009+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-25T19:46:05.219408+00:00",
+  "last_attempt_at": "2026-11-26T00:31:59.050009+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des données du laboratoire Seiko : les observations des 36 robots et des indicateurs de marché montrent des rendements globalement négatifs dans les régimes de tendance baissière (Fear & Greed à 13). Aucun robot ni stratégie testée ne prouve une rentabilité future garantie. Les tests historiques souffrent de sensibilités aux coûts et d'un nombre insuffisant de transactions clôturées pour valider une robustesse statistique. Les performances passées ne constituent pas une preuve de gains futurs.",
+  "summary": "L'analyse des robots du laboratoire Seiko montre des performances historiques globalement négatives à travers les classes d'actifs crypto, avec des rendements nets et des drawdowns importants qui rappellent l'absence de garantie de profit. Les tests de paper trading prospectifs (109 observations) indiquent un rendement net de -1.44 % sur BTCUSD, -0.06 % sur ETHUSD et -2.51 % sur SOLUSD. Les historiques de recherche et les mémoires montrent que la sensibilité aux frais et la récurrence de l'ajustement sur les mêmes holdouts limitent la robustesse. Aucune stratégie ne peut être qualifiée de robuste ou rentable de manière certaine sans validation prospective rigoureuse et indépendante.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -25,9 +25,9 @@
         "beats_hold_folds": 5,
         "positive_double_cost_folds": 2,
         "closed_trades": 9,
-        "avg_net_return_pct": -1.4345,
-        "avg_excess_vs_hold_points": 6.0454,
-        "avg_net_return_double_cost_pct": -3.7469,
+        "avg_net_return_pct": -1.8591,
+        "avg_excess_vs_hold_points": 5.4734,
+        "avg_net_return_double_cost_pct": -4.1639,
         "worst_drawdown_pct": 16.6905,
         "latest_research_parameters": {
           "window": 40,
@@ -48,12 +48,12 @@
         "asset": "ETHUSD",
         "folds": 8,
         "positive_oos_folds": 4,
-        "beats_hold_folds": 6,
+        "beats_hold_folds": 5,
         "positive_double_cost_folds": 4,
         "closed_trades": 7,
-        "avg_net_return_pct": 2.8356,
-        "avg_excess_vs_hold_points": 9.8151,
-        "avg_net_return_double_cost_pct": 0.8162,
+        "avg_net_return_pct": 3.1848,
+        "avg_excess_vs_hold_points": 9.765,
+        "avg_net_return_double_cost_pct": 1.1591,
         "worst_drawdown_pct": 18.1671,
         "latest_research_parameters": {
           "window": 40,
@@ -74,12 +74,12 @@
         "asset": "SOLUSD",
         "folds": 8,
         "positive_oos_folds": 1,
-        "beats_hold_folds": 4,
+        "beats_hold_folds": 5,
         "positive_double_cost_folds": 1,
-        "closed_trades": 13,
-        "avg_net_return_pct": -5.3244,
-        "avg_excess_vs_hold_points": 0.9517,
-        "avg_net_return_double_cost_pct": -8.4764,
+        "closed_trades": 14,
+        "avg_net_return_pct": -5.3621,
+        "avg_excess_vs_hold_points": 0.0439,
+        "avg_net_return_double_cost_pct": -8.5116,
         "worst_drawdown_pct": 22.1522,
         "latest_research_parameters": {
           "window": 10,
@@ -89,7 +89,7 @@
           "six_or_more_oos_folds": true,
           "twenty_or_more_closed_trades": false,
           "positive_average_net_return": false,
-          "beats_hold_in_most_folds": false,
+          "beats_hold_in_most_folds": true,
           "positive_average_with_double_costs": false,
           "drawdown_below_20_pct": false
         },
@@ -107,11 +107,11 @@
   "strategy_designs": [
     {
       "asset": "BTCUSD",
-      "logic": "breakout",
+      "logic": "mean_reversion",
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Tester un filtre de volatilité calme combiné à un breakout sur BTC pour observer la résistance aux faux signaux en régime baissier.",
+      "rationale": "Tester un filtre de volatilité calme associé à un retour à la moyenne pour observer l'impact sur le contrôle du drawdown, sachant que les tests antérieurs sur cette configuration n'ont pas validé de rentabilité nette positive.",
       "confirmations": [
         "quiet_volatility"
       ]
@@ -119,10 +119,10 @@
     {
       "asset": "ETHUSD",
       "logic": "rsi_reversal",
-      "lookback_days": 20,
+      "lookback_days": 40,
       "threshold_pct": 1.0,
-      "max_hold_days": 1,
-      "rationale": "Explorer un retournement RSI strict sur ETH avec un horizon de détention court pour limiter l'exposition au drawdown en tendance baissière.",
+      "max_hold_days": 3,
+      "rationale": "explorer une configuration de retournement RSI sur une fenêtre plus longue pour vérifier si l'on parvient à réduire la sensibilité aux faux signaux en période de tendance baissière.",
       "confirmations": [
         "rsi_oversold"
       ]
