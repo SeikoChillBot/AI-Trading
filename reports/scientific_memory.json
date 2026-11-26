@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-26T16:43:21.930429+00:00",
+  "generated_at": "2026-11-26T19:34:00.970514+00:00",
   "state": "research_memory_recorded",
-  "recorded_hypotheses": 95,
-  "total_experiment_fingerprints": 95,
-  "new_revisions": 0,
+  "recorded_hypotheses": 96,
+  "total_experiment_fingerprints": 96,
+  "new_revisions": 1,
   "failure_patterns": {
-    "positive_with_double_costs": 89,
-    "positive_average_net": 82,
+    "positive_with_double_costs": 90,
+    "positive_average_net": 83,
     "enough_closed_trades": 71,
-    "beats_hold_in_most_folds": 28,
-    "drawdown_under_20_pct": 28
+    "beats_hold_in_most_folds": 29,
+    "drawdown_under_20_pct": 29
   },
   "research_agenda": [
     {
       "category": "cost_sensitivity",
-      "failed_historical_checks": 89,
-      "historical_population": 95,
+      "failed_historical_checks": 90,
+      "historical_population": 96,
       "hypothesis_to_falsify": "Tester moins d'ordres et des confirmations de volatilité, mais surveiller une perte de signaux utiles.",
       "experiment": "Comparer les règles simples et composées avec frais normaux/doublés sur des bougies futures.",
       "independent_future_data_required": true,
@@ -24,8 +24,8 @@
     },
     {
       "category": "net_return",
-      "failed_historical_checks": 82,
-      "historical_population": 95,
+      "failed_historical_checks": 83,
+      "historical_population": 96,
       "hypothesis_to_falsify": "Comparer familles de tendance, retour vers moyenne et abstention sans sélectionner sur le contrôle historique.",
       "experiment": "Conserver seulement les améliorations positives après frais sur de nouvelles journées distinctes.",
       "independent_future_data_required": true,
@@ -34,7 +34,7 @@
     {
       "category": "trade_density",
       "failed_historical_checks": 71,
-      "historical_population": 95,
+      "historical_population": 96,
       "hypothesis_to_falsify": "Tester des fenêtres plus courtes et des filtres moins restrictifs sans supposer un meilleur profit.",
       "experiment": "Rejeter les hypothèses dont l'échantillon futur reste insuffisant ou net négatif après frais.",
       "independent_future_data_required": true,
@@ -42,8 +42,8 @@
     },
     {
       "category": "drawdown",
-      "failed_historical_checks": 28,
-      "historical_population": 95,
+      "failed_historical_checks": 29,
+      "historical_population": 96,
       "hypothesis_to_falsify": "Tester des confirmations prudentes et leur coût d'opportunité sans attribuer une cause aux pertes.",
       "experiment": "Rejeter si le drawdown fictif prospectif excède le seuil ou si le gain net se détériore.",
       "independent_future_data_required": true,
@@ -55,27 +55,11 @@
     "mean_reversion": 15,
     "breakout": 24,
     "ema_trend": 13,
-    "rsi_reversal": 31,
+    "rsi_reversal": 32,
     "volatility_gate": 5
   },
   "prospective_observed": 43,
   "recent_lessons": [
-    {
-      "id": "c3d372db8943b566f7",
-      "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "confirmations": [
-        "rsi_oversold"
-      ],
-      "historical_failure_reasons": [
-        "beats_hold_in_most_folds",
-        "drawdown_under_20_pct",
-        "positive_average_net",
-        "positive_with_double_costs"
-      ],
-      "historical_revisions": 2,
-      "forward_observed_days": 1
-    },
     {
       "id": "19594cd2c33ad8175d",
       "asset": "BTCUSD",
@@ -241,6 +225,22 @@
       "logic": "rsi_reversal",
       "confirmations": [
         "active_volatility"
+      ],
+      "historical_failure_reasons": [
+        "beats_hold_in_most_folds",
+        "drawdown_under_20_pct",
+        "positive_average_net",
+        "positive_with_double_costs"
+      ],
+      "historical_revisions": 1,
+      "forward_observed_days": 0
+    },
+    {
+      "id": "600dbf985c90dedf49",
+      "asset": "ETHUSD",
+      "logic": "rsi_reversal",
+      "confirmations": [
+        "rsi_oversold"
       ],
       "historical_failure_reasons": [
         "beats_hold_in_most_folds",

@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-26T16:43:20.497327+00:00",
+  "generated_at": "2026-11-26T19:33:56.671654+00:00",
   "research_date_utc": "2026-11-26",
-  "review_slot": "2026-11-26T12:00Z",
-  "model_last_called_at": "2026-11-26T12:41:59.638212+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-26T18:00Z",
+  "model_last_called_at": "2026-11-26T19:33:56.671654+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-26T12:41:59.638212+00:00",
+  "last_attempt_at": "2026-11-26T19:33:56.671654+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse du laboratoire Seiko au 26 novembre 2026 : Le marché crypto évolue dans un régime de tendance baissière marquée sur 30 jours (BTCUSD -24.54 %, ETHUSD -27.14 %, SOLUSD -30.14 %) et une volatilité annualisée élevée (48 % à 66 %). L'indice de peur et de cupidité (Fear & Greed) stagne à 11 (peur extrême). Les robots actifs affichent des performances nettes négatives généralisées après frais, les stratégies de momentum et de breakout subissant des drawdowns sévères (dépassant 60 % à 80 %). Les données historiques montrent que la majorité des configurations échouent aux tests de robustesse face aux coûts et aux drawdowns. Aucune promesse de rendement ni garantie de succès futur ne peut être déduite de ces observations.",
+  "summary": "L'analyse des robots de la laboratoire Seiko révèle une prédominance de rendements nets négatifs et de drawdowns élevés sur les horizons historiques et hors échantillon (OOS). Par exemple, sur BTCUSD, les stratégies actives montrent des pertes nettes substantielles (ex: btc_momentum à -76,24 % et btc_rsi à -82,67 %), tandis que les robots de type hold affichent également des baisses importantes (-26,34 % pour BTC, -28,63 % pour ETH, -30,78 % pour SOL), illustrant un régime global de tendance baissière et de volatilité marquée. Les données de forward paper (128 observations) montrent des performances mitigées sans preuve de profitabilité garantie. Aucune stratégie ne surpasse systématiquement le marché de manière robuste après coûts et doubles frais, et les recherches répétées sur les mêmes jeux de données risquent de surajuster les modèles. Par conséquent, aucune stratégie n'est déclarée robuste ni prête pour une adoption en production.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -107,24 +107,24 @@
   "strategy_designs": [
     {
       "asset": "BTCUSD",
-      "logic": "mean_reversion",
+      "logic": "volatility_gate",
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Hypothèse de retour à la moyenne sur BTCUSD combinant une fenêtre de 20 jours et un filtre de survente RSI, visant à capter les rebonds de court terme dans un régime de volatilité modérée.",
+      "rationale": "Filtrer les périodes de forte instabilité sur BTCUSD pour limiter l'exposition lors des phases de forte baisse et de liquidité dégradée.",
       "confirmations": [
-        "rsi_oversold"
+        "quiet_volatility"
       ]
     },
     {
       "asset": "ETHUSD",
       "logic": "rsi_reversal",
-      "lookback_days": 40,
+      "lookback_days": 10,
       "threshold_pct": 2.0,
-      "max_hold_days": 3,
-      "rationale": "Stratégie de retournement RSI sur ETHUSD avec une fenêtre longue (40 jours) filtrée par une volatilité active, testant la sélectivité des entrées en période de forte agitation de marché.",
+      "max_hold_days": 1,
+      "rationale": "Identifier des rebonds potentiels de court terme sur ETHUSD après des corrections marquées, soumis à un contrôle strict des coûts de transaction.",
       "confirmations": [
-        "active_volatility"
+        "rsi_oversold"
       ]
     }
   ],
