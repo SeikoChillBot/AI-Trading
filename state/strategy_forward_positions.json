@@ -1,71 +1,7 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-27T04:45:03.037059+00:00",
+  "updated_at": "2026-11-27T07:35:12.532794+00:00",
   "tracks": {
-    "5ced24f9ff7a0ac221": {
-      "id": "5ced24f9ff7a0ac221",
-      "source": "autonomous_crossover",
-      "spec": {
-        "asset": "BTCUSD",
-        "logic": "trend_following",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 1,
-        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
-        "confirmations": [
-          "active_volatility",
-          "rsi_strength"
-        ]
-      },
-      "started_at": "2026-11-05T02:36:52.438007+00:00",
-      "last_t": 1795651200,
-      "observed_days": 22,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.0002464123373965644,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -26.1321,
-      "excess_vs_hold_points": 26.1321
-    },
-    "1b307e53045ecb74ee": {
-      "id": "1b307e53045ecb74ee",
-      "source": "autonomous_crossover",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
-        "confirmations": [
-          "ema_uptrend",
-          "positive_momentum"
-        ]
-      },
-      "started_at": "2026-11-05T02:36:52.438007+00:00",
-      "last_t": 1795651200,
-      "observed_days": 22,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.008182867549033185,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -31.5679,
-      "excess_vs_hold_points": 31.5679
-    },
     "200ef27f626ba5bf8a": {
       "id": "200ef27f626ba5bf8a",
       "source": "autonomous_crossover",
@@ -1129,6 +1065,57 @@
       "peak_usd": 20.0,
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
+    },
+    "706819724610e5f68d": {
+      "id": "706819724610e5f68d",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "BTCUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 10,
+        "threshold_pct": 0.5,
+        "max_hold_days": 1,
+        "rationale": "Explorer une approche de retournement RSI à court terme sur BTCUSD sans confirmation superflue pour évaluer la réactivité face aux mouvements journaliers de vente."
+      },
+      "started_at": "2026-11-27T07:35:12.532794+00:00",
+      "last_t": 1795651200,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
+    },
+    "baff541f2f05f70208": {
+      "id": "baff541f2f05f70208",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Tester une règle de retour à la moyenne sur ETHUSD avec un lookback de 20 jours et un filtre de volatilité active, cherchant à limiter les faux départs en régime baissier tout en maîtrisant les frais.",
+        "confirmations": [
+          "active_volatility"
+        ]
+      },
+      "started_at": "2026-11-27T07:35:12.532794+00:00",
+      "last_t": 1795651200,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
     }
   },
   "archived": [
@@ -1356,6 +1343,24 @@
       "net_pct": 0.0,
       "status": "archived_capacity_rotation",
       "archived_at": "2026-11-27T01:55:08.145968+00:00"
+    },
+    {
+      "id": "5ced24f9ff7a0ac221",
+      "source": "autonomous_crossover",
+      "last_t": 1795651200,
+      "observed_days": 22,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-27T07:35:12.532794+00:00"
+    },
+    {
+      "id": "1b307e53045ecb74ee",
+      "source": "autonomous_crossover",
+      "last_t": 1795651200,
+      "observed_days": 22,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-27T07:35:12.532794+00:00"
     }
   ],
   "real_orders": false

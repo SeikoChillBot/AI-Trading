@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-27T04:45:01.854367+00:00",
+  "generated_at": "2026-11-27T07:35:08.152034+00:00",
   "research_date_utc": "2026-11-27",
-  "review_slot": "2026-11-27T00:00Z",
-  "model_last_called_at": "2026-11-27T01:55:01.847909+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-27T06:00Z",
+  "model_last_called_at": "2026-11-27T07:35:08.152034+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-27T01:55:01.847909+00:00",
+  "last_attempt_at": "2026-11-27T07:35:08.152034+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des données de laboratoire Seiko du 27 novembre 2026. Les performances historiques et hors échantillon (OOS) sur les actifs crypto (BTCUSD, ETHUSD, SOLUSD) confirment la difficulté des règles automatisées à surpasser durablement une détention simple (Hold) après déduction des coûts de transaction. Les robots de momentum et de retour à la moyenne subissent des pertes nettes importantes et des drawdowns élevés dans les régimes de tendance baissière observés. Les tests sur données historiques multiples échouent fréquemment sur les critères de robustesse face aux doubles frais et au nombre de transactions. Aucune stratégie n'est déclarée rentable ou robuste de manière définitive. Les propositions de nouvelles structures de stratégies restent des hypothèses purement prospectives et nécessitent une validation indépendante sur de nouvelles données futures.",
+  "summary": "Analyse critique des laboratoires Seiko au 27 novembre 2026. L'indice de peur et de cupidité est extrêmement bas à 12, s'inscrivant dans un régime de tendance baissière marquée sur les principaux actifs crypto (BTCUSD, ETHUSD, SOLUSD) avec des variations sur 30 jours comprises entre -25% et -30%. Les observations sur les robots de test montrent des performances historiques globalement négatives après frais et des drawdowns substantiels, confirmant qu'aucune stratégie active testée ne surpasse de manière robuste le simple maintien (hold) sans risque d'ajustement par sur-optimisation. Les données de forward paper trading sur 140 observations montrent des gains nets positifs de courte durée (ex: ETHUSD à +2.39%), mais ces résultats prospectifs partiels ne constituent pas une preuve de rentabilité future. Les tests historiques sur Kraken soulignent la sensibilité aux frais et l'insuffisance du nombre de trades bouclés. Deux nouvelles stratégies sont proposées sous forme d'hypothèses falsif",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -106,26 +106,23 @@
   "desk_notes": [],
   "strategy_designs": [
     {
-      "asset": "BTCUSD",
-      "logic": "trend_following",
-      "lookback_days": 40,
-      "threshold_pct": 2.0,
-      "max_hold_days": 7,
-      "rationale": "Exploiter une logique de suivi de tendance sur une fenêtre plus longue pour limiter le bruit à court terme sur Bitcoin.",
-      "confirmations": [
-        "ema_uptrend"
-      ]
-    },
-    {
       "asset": "ETHUSD",
-      "logic": "rsi_reversal",
+      "logic": "mean_reversion",
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Tester un rebond de survente sur Ethereum avec un filtre RSI strict pour observer la résistance aux coûts.",
+      "rationale": "Tester une règle de retour à la moyenne sur ETHUSD avec un lookback de 20 jours et un filtre de volatilité active, cherchant à limiter les faux départs en régime baissier tout en maîtrisant les frais.",
       "confirmations": [
-        "rsi_oversold"
+        "active_volatility"
       ]
+    },
+    {
+      "asset": "BTCUSD",
+      "logic": "rsi_reversal",
+      "lookback_days": 10,
+      "threshold_pct": 0.5,
+      "max_hold_days": 1,
+      "rationale": "Explorer une approche de retournement RSI à court terme sur BTCUSD sans confirmation superflue pour évaluer la réactivité face aux mouvements journaliers de vente."
     }
   ],
   "research_tasks": [],
