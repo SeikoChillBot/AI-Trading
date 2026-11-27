@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-27T07:35:12.532794+00:00",
+  "updated_at": "2026-11-27T08:42:49.291758+00:00",
   "tracks": {
     "200ef27f626ba5bf8a": {
       "id": "200ef27f626ba5bf8a",
@@ -1066,16 +1066,19 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "706819724610e5f68d": {
-      "id": "706819724610e5f68d",
+    "baff541f2f05f70208": {
+      "id": "baff541f2f05f70208",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "BTCUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 10,
-        "threshold_pct": 0.5,
-        "max_hold_days": 1,
-        "rationale": "Explorer une approche de retournement RSI à court terme sur BTCUSD sans confirmation superflue pour évaluer la réactivité face aux mouvements journaliers de vente."
+        "asset": "ETHUSD",
+        "logic": "mean_reversion",
+        "lookback_days": 20,
+        "threshold_pct": 1.0,
+        "max_hold_days": 3,
+        "rationale": "Tester une règle de retour à la moyenne sur ETHUSD avec un lookback de 20 jours et un filtre de volatilité active, cherchant à limiter les faux départs en régime baissier tout en maîtrisant les frais.",
+        "confirmations": [
+          "active_volatility"
+        ]
       },
       "started_at": "2026-11-27T07:35:12.532794+00:00",
       "last_t": 1795651200,
@@ -1090,19 +1093,16 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "baff541f2f05f70208": {
-      "id": "baff541f2f05f70208",
+    "706819724610e5f68d": {
+      "id": "706819724610e5f68d",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "ETHUSD",
-        "logic": "mean_reversion",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Tester une règle de retour à la moyenne sur ETHUSD avec un lookback de 20 jours et un filtre de volatilité active, cherchant à limiter les faux départs en régime baissier tout en maîtrisant les frais.",
-        "confirmations": [
-          "active_volatility"
-        ]
+        "asset": "BTCUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 10,
+        "threshold_pct": 0.5,
+        "max_hold_days": 1,
+        "rationale": "Explorer une approche de retournement RSI à court terme sur BTCUSD sans confirmation superflue pour évaluer la réactivité face aux mouvements journaliers de vente."
       },
       "started_at": "2026-11-27T07:35:12.532794+00:00",
       "last_t": 1795651200,

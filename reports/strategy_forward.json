@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-27T07:35:12.532794+00:00",
+  "generated_at": "2026-11-27T08:42:49.291758+00:00",
   "tracked": 36,
   "archived_trials": 27,
   "capacity_limit": 36,
   "deferred_hypotheses": 36,
-  "protected_immature_tracks": 34,
+  "protected_immature_tracks": 36,
   "robots_modified": false,
   "real_orders": false,
   "trials": [
@@ -588,23 +588,6 @@
       "sufficient_evidence": false
     },
     {
-      "id": "706819724610e5f68d",
-      "source": "gemini_structured_hypothesis",
-      "asset": "BTCUSD",
-      "logic": "rsi_reversal",
-      "observed_days": 0,
-      "closed_trades": 0,
-      "net_pct": null,
-      "excess_vs_hold_points": null,
-      "hold_net_pct": null,
-      "excess_vs_cash_points": null,
-      "orders": 0,
-      "inactive_vs_hold": true,
-      "max_drawdown_pct": 0.0,
-      "status": "awaiting_new_daily_candle",
-      "sufficient_evidence": false
-    },
-    {
       "id": "baff541f2f05f70208",
       "source": "gemini_structured_hypothesis",
       "asset": "ETHUSD",
@@ -620,25 +603,25 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle",
       "sufficient_evidence": false
-    }
-  ],
-  "events": [
+    },
     {
       "id": "706819724610e5f68d",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "baff541f2f05f70208",
-      "status": "forward_paper_registered"
-    },
-    {
-      "id": "5ced24f9ff7a0ac221",
-      "status": "archived_capacity_rotation"
-    },
-    {
-      "id": "1b307e53045ecb74ee",
-      "status": "archived_capacity_rotation"
+      "source": "gemini_structured_hypothesis",
+      "asset": "BTCUSD",
+      "logic": "rsi_reversal",
+      "observed_days": 0,
+      "closed_trades": 0,
+      "net_pct": null,
+      "excess_vs_hold_points": null,
+      "hold_net_pct": null,
+      "excess_vs_cash_points": null,
+      "orders": 0,
+      "inactive_vs_hold": true,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle",
+      "sufficient_evidence": false
     }
   ],
+  "events": [],
   "warning": "Forward paper fills are modeled after daily candle closure, not real executable orders; no profitability proven."
 }
