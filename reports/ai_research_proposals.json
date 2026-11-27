@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-27T11:30:36.572898+00:00",
+  "generated_at": "2026-11-27T14:16:25.977180+00:00",
   "research_date_utc": "2026-11-27",
-  "review_slot": "2026-11-27T06:00Z",
-  "model_last_called_at": "2026-11-27T07:35:08.152034+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-27T12:00Z",
+  "model_last_called_at": "2026-11-27T14:16:25.977180+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-27T07:35:08.152034+00:00",
+  "last_attempt_at": "2026-11-27T14:16:25.977180+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse critique des laboratoires Seiko au 27 novembre 2026. L'indice de peur et de cupidité est extrêmement bas à 12, s'inscrivant dans un régime de tendance baissière marquée sur les principaux actifs crypto (BTCUSD, ETHUSD, SOLUSD) avec des variations sur 30 jours comprises entre -25% et -30%. Les observations sur les robots de test montrent des performances historiques globalement négatives après frais et des drawdowns substantiels, confirmant qu'aucune stratégie active testée ne surpasse de manière robuste le simple maintien (hold) sans risque d'ajustement par sur-optimisation. Les données de forward paper trading sur 140 observations montrent des gains nets positifs de courte durée (ex: ETHUSD à +2.39%), mais ces résultats prospectifs partiels ne constituent pas une preuve de rentabilité future. Les tests historiques sur Kraken soulignent la sensibilité aux frais et l'insuffisance du nombre de trades bouclés. Deux nouvelles stratégies sont proposées sous forme d'hypothèses falsif",
+  "summary": "L'analyse des robots du laboratoire Seiko montre des rendements historiques négatifs prononcés (par exemple btc_momentum à -77.59% et sol_scalp_microtrend à -83.12%), soulignant l'échec récurrent des règles de court terme face aux frais et à la volatilité (30d annualisée entre 47.8% et 66.3% sur les actifs crypto). Le sentiment de marché reste très bas (Fear & Greed à 12). Les données sur 147 observations forward paper indiquent des variations positives récentes (BTCUSD +0.24%, ETHUSD +1.83%, SOLUSD +1.55%), mais cela ne constitue en aucun cas une preuve de rentabilité future ni ne remplace un test prospectif rigoureux. Aucune stratégie n'a démontré de robustesse universelle face au doublement des frais de transaction.",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -104,27 +104,7 @@
   "bot_adjustments": [],
   "scenario_proposals": [],
   "desk_notes": [],
-  "strategy_designs": [
-    {
-      "asset": "ETHUSD",
-      "logic": "mean_reversion",
-      "lookback_days": 20,
-      "threshold_pct": 1.0,
-      "max_hold_days": 3,
-      "rationale": "Tester une règle de retour à la moyenne sur ETHUSD avec un lookback de 20 jours et un filtre de volatilité active, cherchant à limiter les faux départs en régime baissier tout en maîtrisant les frais.",
-      "confirmations": [
-        "active_volatility"
-      ]
-    },
-    {
-      "asset": "BTCUSD",
-      "logic": "rsi_reversal",
-      "lookback_days": 10,
-      "threshold_pct": 0.5,
-      "max_hold_days": 1,
-      "rationale": "Explorer une approche de retournement RSI à court terme sur BTCUSD sans confirmation superflue pour évaluer la réactivité face aux mouvements journaliers de vente."
-    }
-  ],
+  "strategy_designs": [],
   "research_tasks": [],
   "experiments_validated": false,
   "live_strategy_changes_enabled": false,
