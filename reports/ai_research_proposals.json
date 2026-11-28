@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-28T11:19:24.131307+00:00",
+  "generated_at": "2026-11-28T13:07:41.162134+00:00",
   "research_date_utc": "2026-11-28",
-  "review_slot": "2026-11-28T06:00Z",
-  "model_last_called_at": "2026-11-28T08:28:58.377913+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-28T12:00Z",
+  "model_last_called_at": "2026-11-28T13:07:41.162134+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-28T08:28:58.377913+00:00",
+  "last_attempt_at": "2026-11-28T13:07:41.162134+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse quantitative du laboratoire Seiko au 28 novembre 2026. L'examen des 36 robots de test montre des rendements nets historiques largement négatifs après frais (par exemple, btc_momentum à -78.90 % et sol_bollinger à -83.19 %), tandis que les robots de type 'hold' enregistrent des baisses homogènes mais limitées (btc_hold à -27.48 %, eth_hold à -30.66 %, sol_hold à -31.00 %). Le marché crypto évolue globalement dans un régime de tendance baissière marquée sur 30 jours (btc -26.35 %, eth -29.53 %, sol -30.02 %) avec une volatilité annualisée élevée (entre 47 % et 66 %) et un sentiment de peur extrême (Fear & Greed Index à 10). Les transferts de stablecoins échantillonnés montrent un volume maximum isolé de 4.64 millions de USD, ce qui ne constitue en aucun cas la preuve d'un ordre d'achat ou d'une activité de baleine. Sur les horizons 1j/7j/30j, les actifs tentent un rebond hebdomadaire mesuré après des semaines de baisse, mais les backtests historiques et les replays OOS échouent s",
+  "summary": "L'analyse des données observationnelles du laboratoire Seiko au 28 novembre 2026 montre un régime de marché globalement baissier en crypto, marqué par un indice de peur et d'avarice extrêmement bas (Fear & Greed à 10) et une volatilité annualisée élevée sur ETH (66.04 %) et SOL (65.71 %). Les robots historiques de type hold affichent des rendements nets négatifs sur 30 jours (BTCUSD à -27.95 %, ETHUSD à -30.90 %, SOLUSD à -31.25 %), tandis que la quasi-totalité des robots actifs (momentum, RSI, breakout, scalping) enregistrent des pertes importantes et des drawdowns profonds dépassant fréquemment 70 % à 80 %. Les tests historiques sur les folds confirment la sensibilité aux frais et la difficulté structurelle des stratégies automatisées testées à battre durablement l'actif sous-jacent de manière robuste sous double coût. Aucune stratégie n'a prouvé sa rentabilité future, et les recherches répétées sur les mêmes holdouts soulignent le risque de surajustement (overfitting).",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -111,21 +111,21 @@
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Exploration d'une structure de suivi de tendance de moyenne période avec double confirmation de momentum et d'EMA sur BTCUSD, conçue pour limiter les faux signaux en régime de forte volatilité baissière.",
+      "rationale": "Tester un filtre de tendance exponentielle combiné à une volatilité calme sur BTC pour limiter les entrées aberrantes en période de forte panique.",
       "confirmations": [
         "ema_uptrend",
-        "positive_momentum"
+        "quiet_volatility"
       ]
     },
     {
       "asset": "ETHUSD",
-      "logic": "rsi_reversal",
-      "lookback_days": 40,
+      "logic": "mean_reversion",
+      "lookback_days": 10,
       "threshold_pct": 2.0,
-      "max_hold_days": 3,
-      "rationale": "Test d'une logique de retournement RSI conditionnée par une volatilité calme sur ETHUSD afin d'éviter les entrées prématurées pendant les phases de panique du marché.",
+      "max_hold_days": 1,
+      "rationale": "Explorer une approche de retour à la moyenne à court terme sur ETH soutenue par un signal de survente RSI strict dans un contexte de forte volatilité.",
       "confirmations": [
-        "quiet_volatility"
+        "rsi_oversold"
       ]
     }
   ],
