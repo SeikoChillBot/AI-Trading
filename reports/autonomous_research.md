@@ -1,13 +1,13 @@
 # Seiko Trading Lab — Recherche automatique
 
-Date UTC : 2026-11-28T01:18:48.254168+00:00
+Date UTC : 2026-11-28T02:45:03.174266+00:00
 
 **État : analyse statistique automatique. La disponibilité de l’IA générative est indiquée séparément.**
 **Aucune stratégie modifiée ni aucun ordre réel.**
 
 ## Données observées
-- **crypto** : 18 robots, 30.284 jour(s) de données, 360.00 $ fictifs de référence, 155.2313 $ de frais déjà enregistrés, **14 éligibles à une revue**.
-- **multi** : 18 robots, 30.188 jour(s) de données, 360.00 $ fictifs de référence, 0.5232 $ de frais déjà enregistrés, **0 éligibles à une revue**.
+- **crypto** : 18 robots, 30.339 jour(s) de données, 360.00 $ fictifs de référence, 155.3179 $ de frais déjà enregistrés, **14 éligibles à une revue**.
+- **multi** : 18 robots, 30.243 jour(s) de données, 360.00 $ fictifs de référence, 0.5232 $ de frais déjà enregistrés, **0 éligibles à une revue**.
 
 **Conclusion : 14 stratégie(s) suffisamment documentée(s) pour une revue ; aucune rentabilité démontrée.**
 

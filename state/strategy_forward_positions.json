@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-28T01:18:53.361409+00:00",
+  "updated_at": "2026-11-28T02:45:04.660407+00:00",
   "tracks": {
     "cced23855f81bf4885": {
       "id": "cced23855f81bf4885",
@@ -1065,19 +1065,19 @@
       "hold_net_pct": -2.8137,
       "excess_vs_hold_points": 0.0
     },
-    "a02b916ab00a94ea53": {
-      "id": "a02b916ab00a94ea53",
+    "390113302cee905a25": {
+      "id": "390113302cee905a25",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 40,
+        "asset": "BTCUSD",
+        "logic": "ema_trend",
+        "lookback_days": 20,
         "threshold_pct": 1.0,
         "max_hold_days": 3,
-        "rationale": "Examiner si un retournement RSI combiné à une volatilité calme améliore la sélectivité des points d'entrée sur Ethereum sans accroître le drawdown.",
+        "rationale": "Tester une règle de suivi de tendance de moyenne mobile exponentielle filtrée par le momentum positif pour évaluer la résistance aux frais en régime de marché baissier.",
         "confirmations": [
-          "quiet_volatility",
-          "rsi_oversold"
+          "ema_uptrend",
+          "positive_momentum"
         ]
       },
       "started_at": "2026-11-28T01:18:53.361409+00:00",
@@ -1093,19 +1093,19 @@
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
     },
-    "390113302cee905a25": {
-      "id": "390113302cee905a25",
+    "a02b916ab00a94ea53": {
+      "id": "a02b916ab00a94ea53",
       "source": "gemini_structured_hypothesis",
       "spec": {
-        "asset": "BTCUSD",
-        "logic": "ema_trend",
-        "lookback_days": 20,
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
         "threshold_pct": 1.0,
         "max_hold_days": 3,
-        "rationale": "Tester une règle de suivi de tendance de moyenne mobile exponentielle filtrée par le momentum positif pour évaluer la résistance aux frais en régime de marché baissier.",
+        "rationale": "Examiner si un retournement RSI combiné à une volatilité calme améliore la sélectivité des points d'entrée sur Ethereum sans accroître le drawdown.",
         "confirmations": [
-          "ema_uptrend",
-          "positive_momentum"
+          "quiet_volatility",
+          "rsi_oversold"
         ]
       },
       "started_at": "2026-11-28T01:18:53.361409+00:00",
