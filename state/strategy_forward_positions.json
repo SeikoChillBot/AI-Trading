@@ -1,39 +1,7 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-28T05:38:48.840421+00:00",
+  "updated_at": "2026-11-28T08:29:02.858643+00:00",
   "tracks": {
-    "cced23855f81bf4885": {
-      "id": "cced23855f81bf4885",
-      "source": "autonomous_crossover",
-      "spec": {
-        "asset": "SOLUSD",
-        "logic": "breakout",
-        "lookback_days": 40,
-        "threshold_pct": 1.0,
-        "max_hold_days": 1,
-        "rationale": "Croisement expérimental de deux hypothèses antérieures avec deux confirmations distinctes; les profits restent inconnus.",
-        "confirmations": [
-          "quiet_volatility",
-          "rsi_strength"
-        ]
-      },
-      "started_at": "2026-11-05T02:36:52.438007+00:00",
-      "last_t": 1795737600,
-      "observed_days": 23,
-      "closed_trades": 0,
-      "orders": 0,
-      "holding_days": 0,
-      "cash_usd": 20.0,
-      "units": 0.0,
-      "hold_units": 0.20751262091760425,
-      "peak_usd": 20.0,
-      "max_drawdown_pct": 0.0,
-      "status": "observing_paper_only",
-      "value_usd": 20.0,
-      "net_pct": 0.0,
-      "hold_net_pct": -26.36881,
-      "excess_vs_hold_points": 26.36881
-    },
     "a7dfc6a4871472fbc0": {
       "id": "a7dfc6a4871472fbc0",
       "source": "gemini_structured_hypothesis",
@@ -1120,6 +1088,33 @@
       "peak_usd": 20.0,
       "max_drawdown_pct": 0.0,
       "status": "awaiting_new_daily_candle"
+    },
+    "b6a2ba1654a75bee91": {
+      "id": "b6a2ba1654a75bee91",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 3,
+        "rationale": "Test d'une logique de retournement RSI conditionnée par une volatilité calme sur ETHUSD afin d'éviter les entrées prématurées pendant les phases de panique du marché.",
+        "confirmations": [
+          "quiet_volatility"
+        ]
+      },
+      "started_at": "2026-11-28T08:29:02.858643+00:00",
+      "last_t": 1795737600,
+      "observed_days": 0,
+      "closed_trades": 0,
+      "orders": 0,
+      "holding_days": 0,
+      "cash_usd": 20.0,
+      "units": 0.0,
+      "hold_units": null,
+      "peak_usd": 20.0,
+      "max_drawdown_pct": 0.0,
+      "status": "awaiting_new_daily_candle"
     }
   },
   "archived": [
@@ -1383,6 +1378,15 @@
       "net_pct": 0.0,
       "status": "archived_capacity_rotation",
       "archived_at": "2026-11-28T01:18:53.361409+00:00"
+    },
+    {
+      "id": "cced23855f81bf4885",
+      "source": "autonomous_crossover",
+      "last_t": 1795737600,
+      "observed_days": 23,
+      "net_pct": 0.0,
+      "status": "archived_capacity_rotation",
+      "archived_at": "2026-11-28T08:29:02.858643+00:00"
     }
   ],
   "real_orders": false

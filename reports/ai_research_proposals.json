@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-28T05:38:47.943726+00:00",
+  "generated_at": "2026-11-28T08:28:58.377913+00:00",
   "research_date_utc": "2026-11-28",
-  "review_slot": "2026-11-28T00:00Z",
-  "model_last_called_at": "2026-11-28T01:18:48.634419+00:00",
-  "used_cache": true,
+  "review_slot": "2026-11-28T06:00Z",
+  "model_last_called_at": "2026-11-28T08:28:58.377913+00:00",
+  "used_cache": false,
   "last_http_status": null,
   "error_type": null,
   "error_code": null,
   "attempts_in_slot": 1,
-  "last_attempt_at": "2026-11-28T01:18:48.634419+00:00",
+  "last_attempt_at": "2026-11-28T08:28:58.377913+00:00",
   "source": "gemini_generate_content",
   "state": "model_reflection_completed",
   "provider": "gemini",
-  "summary": "Analyse du laboratoire Seiko au 28 novembre 2026. Les robots cryptographiques testés sur BTCUSD, ETHUSD et SOLUSD affichent des rendements nets historiques négatifs marqués (ex: btc_momentum à -78.38%, sol_bollinger à -83.19%) ainsi que des drawdowns élevés dépassant souvent 70% à 83%. Les analyses hors échantillon (OOS) confirment la difficulté des stratégies actives à surperformer durablement le Hold de référence, en particulier sous l'effet cumulé des frais de transaction et du coût du double frottement. Les tests menés sur les multi-actifs (AAPL, MSFT, SPY, etc.) montrent des comportements plus stables mais sans preuve de rentabilité prospective avérée. Les observations de marché indiquent des régimes de tendance baissière et une volatilité annualisée élevée sur les cryptomonnaies (autour de 47% à 66%), couplées à un indice de peur et d'avidité extrêmement bas (10). Aucune promesse de rendement ni exécution réelle n'est envisagée.",
+  "summary": "Analyse quantitative du laboratoire Seiko au 28 novembre 2026. L'examen des 36 robots de test montre des rendements nets historiques largement négatifs après frais (par exemple, btc_momentum à -78.90 % et sol_bollinger à -83.19 %), tandis que les robots de type 'hold' enregistrent des baisses homogènes mais limitées (btc_hold à -27.48 %, eth_hold à -30.66 %, sol_hold à -31.00 %). Le marché crypto évolue globalement dans un régime de tendance baissière marquée sur 30 jours (btc -26.35 %, eth -29.53 %, sol -30.02 %) avec une volatilité annualisée élevée (entre 47 % et 66 %) et un sentiment de peur extrême (Fear & Greed Index à 10). Les transferts de stablecoins échantillonnés montrent un volume maximum isolé de 4.64 millions de USD, ce qui ne constitue en aucun cas la preuve d'un ordre d'achat ou d'une activité de baleine. Sur les horizons 1j/7j/30j, les actifs tentent un rebond hebdomadaire mesuré après des semaines de baisse, mais les backtests historiques et les replays OOS échouent s",
   "historical": {
     "status": "historical_evidence_available",
     "source": "Kraken daily OHLC, modeled execution costs; past selection bias possible",
@@ -111,7 +111,7 @@
       "lookback_days": 20,
       "threshold_pct": 1.0,
       "max_hold_days": 3,
-      "rationale": "Tester une règle de suivi de tendance de moyenne mobile exponentielle filtrée par le momentum positif pour évaluer la résistance aux frais en régime de marché baissier.",
+      "rationale": "Exploration d'une structure de suivi de tendance de moyenne période avec double confirmation de momentum et d'EMA sur BTCUSD, conçue pour limiter les faux signaux en régime de forte volatilité baissière.",
       "confirmations": [
         "ema_uptrend",
         "positive_momentum"
@@ -121,12 +121,11 @@
       "asset": "ETHUSD",
       "logic": "rsi_reversal",
       "lookback_days": 40,
-      "threshold_pct": 1.0,
+      "threshold_pct": 2.0,
       "max_hold_days": 3,
-      "rationale": "Examiner si un retournement RSI combiné à une volatilité calme améliore la sélectivité des points d'entrée sur Ethereum sans accroître le drawdown.",
+      "rationale": "Test d'une logique de retournement RSI conditionnée par une volatilité calme sur ETHUSD afin d'éviter les entrées prématurées pendant les phases de panique du marché.",
       "confirmations": [
-        "quiet_volatility",
-        "rsi_oversold"
+        "quiet_volatility"
       ]
     }
   ],

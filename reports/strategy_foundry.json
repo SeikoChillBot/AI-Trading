@@ -1,57 +1,28 @@
 {
   "schema": 1,
-  "generated_at": "2026-11-28T05:38:48.040584+00:00",
+  "generated_at": "2026-11-28T08:29:01.899476+00:00",
   "total_hypotheses": 80,
-  "gemini_hypotheses": 42,
+  "gemini_hypotheses": 43,
   "gemini_narratives_compiled_locally": 0,
   "gemini_task_shadow_hypotheses": 0,
   "auto_optimized_hypotheses": 4,
   "evolved_hypotheses": 9,
-  "crossed_hypotheses": 19,
+  "crossed_hypotheses": 18,
   "director_hypotheses": 3,
   "local_adversarial_controls": 0,
   "tested_historically": 80,
-  "events": [],
-  "recent_ideas": [
+  "events": [
     {
-      "id": "00e3f7125aee1b131d",
-      "source": "bounded_local_research_director",
-      "spec": {
-        "asset": "ETHUSD",
-        "logic": "rsi_reversal",
-        "lookback_days": 20,
-        "threshold_pct": 1.0,
-        "max_hold_days": 3,
-        "rationale": "Comparer un signal conditionnel à une règle simple après frais.",
-        "confirmations": [
-          "rsi_oversold"
-        ]
-      },
-      "status": "historical_exploration_only",
-      "result": {
-        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
-        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
-        "model_has_seen_related_history": true,
-        "asset": "ETHUSD",
-        "average_net_pct": -14.9325,
-        "average_excess_vs_hold_points": -6.6601,
-        "average_double_cost_net_pct": -20.8639,
-        "max_drawdown_pct": 36.80872,
-        "closed_trades": 28,
-        "folds_beating_hold": 2,
-        "checks": {
-          "enough_closed_trades": true,
-          "positive_average_net": false,
-          "positive_with_double_costs": false,
-          "beats_hold_in_most_folds": false,
-          "drawdown_under_20_pct": false
-        },
-        "all_historical_checks_pass": false,
-        "qualified_for_live_trading": false,
-        "qualified_for_robot_promotion": false,
-        "next_step": "Prospective unseen paper data and execution-quality audit required"
-      }
+      "id": "b6a2ba1654a75bee91",
+      "status": "hypothesis_archived",
+      "source": "gemini_structured_hypothesis"
     },
+    {
+      "id": "b6a2ba1654a75bee91",
+      "status": "exploratory_replay_completed"
+    }
+  ],
+  "recent_ideas": [
     {
       "id": "9177a497fd9d1264e4",
       "source": "gemini_structured_hypothesis",
@@ -464,6 +435,45 @@
           "positive_with_double_costs": false,
           "beats_hold_in_most_folds": true,
           "drawdown_under_20_pct": true
+        },
+        "all_historical_checks_pass": false,
+        "qualified_for_live_trading": false,
+        "qualified_for_robot_promotion": false,
+        "next_step": "Prospective unseen paper data and execution-quality audit required"
+      }
+    },
+    {
+      "id": "b6a2ba1654a75bee91",
+      "source": "gemini_structured_hypothesis",
+      "spec": {
+        "asset": "ETHUSD",
+        "logic": "rsi_reversal",
+        "lookback_days": 40,
+        "threshold_pct": 2.0,
+        "max_hold_days": 3,
+        "rationale": "Test d'une logique de retournement RSI conditionnée par une volatilité calme sur ETHUSD afin d'éviter les entrées prématurées pendant les phases de panique du marché.",
+        "confirmations": [
+          "quiet_volatility"
+        ]
+      },
+      "status": "historical_exploration_only",
+      "result": {
+        "evidence_kind": "exploratory_historical_replay_not_blind_oos",
+        "source": "Kraken closed daily OHLC snapshot; modeled fills at next open",
+        "model_has_seen_related_history": true,
+        "asset": "ETHUSD",
+        "average_net_pct": -6.4153,
+        "average_excess_vs_hold_points": 1.8571,
+        "average_double_cost_net_pct": -8.4414,
+        "max_drawdown_pct": 22.6886,
+        "closed_trades": 8,
+        "folds_beating_hold": 4,
+        "checks": {
+          "enough_closed_trades": false,
+          "positive_average_net": false,
+          "positive_with_double_costs": false,
+          "beats_hold_in_most_folds": true,
+          "drawdown_under_20_pct": false
         },
         "all_historical_checks_pass": false,
         "qualified_for_live_trading": false,
